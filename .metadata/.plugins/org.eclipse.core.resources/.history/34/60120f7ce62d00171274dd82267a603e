@@ -1,0 +1,13 @@
+package negocio;
+
+import java.util.Collection;
+
+public class Prenda {
+	private int codigo;
+	private String descripcion;
+	private Collection<Color> colores;
+	private Collection<Talle> talles;
+	private Collection<ItemMaterialPrenda> itemMaterialPrenda;
+	
+	
+}

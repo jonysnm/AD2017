@@ -1,0 +1,9 @@
+package app;
+
+import java.rmi.server.UnicastRemoteObject;
+
+import interfazRemota.ControladorPuntoDeVenta;
+
+public class PuntoDeVenta extends UnicastRemoteObject implements ControladorPuntoDeVenta {
+     
+}

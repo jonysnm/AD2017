@@ -1,0 +1,8 @@
+package negocio;
+
+public class Pedido {
+	private int id;
+	private Cliente cliente;
+	
+
+}

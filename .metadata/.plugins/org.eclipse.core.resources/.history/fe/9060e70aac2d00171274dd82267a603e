@@ -1,0 +1,11 @@
+package negocio;
+
+public class Pedido {
+	private int id;
+	private Cliente cliente;
+	private Date fechaCreacion;
+	private Date fechaprobableDespacho;
+	private Date fecharealDespacho;
+	
+
+}

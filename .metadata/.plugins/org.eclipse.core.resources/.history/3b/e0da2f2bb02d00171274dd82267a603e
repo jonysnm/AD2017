@@ -1,0 +1,18 @@
+package negocio;
+
+import java.util.*;
+
+public class Pedido {
+	private int id;
+	private Cliente cliente;
+	private Date fechaCreacion;
+	private Date fechaprobableDespacho;
+	private Date fecharealDespacho;
+	private Vector<ItemPedido> items;
+	private float total;
+	public Pedido() {
+	}
+	
+	
+
+}
