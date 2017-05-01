@@ -1,0 +1,57 @@
+package dto;
+
+import java.io.Serializable;
+import java.util.Date;
+
+public class EmpleadoDTO implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer ID;
+	private String nombre;
+	private String apellido;
+	private Date fechaIngreso;
+	private Date fechaEgreso;
+	private Integer idSucursal;
+	public EmpleadoDTO(){}
+	public Integer getID() {
+		return ID;
+	}
+	public void setID(Integer iD) {
+		ID = iD;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getApellido() {
+		return apellido;
+	}
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+	public Date getFechaIngreso() {
+		return fechaIngreso;
+	}
+	public void setFechaIngreso(Date fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
+	}
+	public Date getFechaEgreso() {
+		return fechaEgreso;
+	}
+	public void setFechaEgreso(Date fechaEgreso) {
+		this.fechaEgreso = fechaEgreso;
+	}
+	public Integer getIdSucursal() {
+		return idSucursal;
+	}
+	public void setIdSucursal(Integer idSucursal) {
+		this.idSucursal = idSucursal;
+	}
+	
+
+}

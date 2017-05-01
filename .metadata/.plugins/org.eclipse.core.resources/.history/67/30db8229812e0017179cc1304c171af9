@@ -1,0 +1,8 @@
+package interfazRemota;
+
+import java.rmi.Remote;
+import java.util.*;
+
+public interface AdmSucursalesControlador extends Remote{
+
+}

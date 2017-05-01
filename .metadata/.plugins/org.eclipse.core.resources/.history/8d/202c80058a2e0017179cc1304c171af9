@@ -1,0 +1,52 @@
+package entities;
+
+import java.util.Date;
+
+
+public class EmpleadoEntity {
+	private Integer id;
+	private String nombre;
+	private String apellido;
+	private Date fechaIngreso;
+	private Date fechaEgreso;
+	private SucursalEntity sucursal;
+	public EmpleadoEntity(){}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getApellido() {
+		return apellido;
+	}
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+	public Date getFechaIngreso() {
+		return fechaIngreso;
+	}
+	public void setFechaIngreso(Date fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
+	}
+	public Date getFechaEgreso() {
+		return fechaEgreso;
+	}
+	public void setFechaEgreso(Date fechaEgreso) {
+		this.fechaEgreso = fechaEgreso;
+	}
+	public SucursalEntity getSucursal() {
+		return sucursal;
+	}
+	public void setSucursal(SucursalEntity sucursal) {
+		this.sucursal = sucursal;
+	}
+
+
+}

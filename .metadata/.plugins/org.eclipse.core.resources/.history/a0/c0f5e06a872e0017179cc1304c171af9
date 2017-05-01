@@ -1,0 +1,13 @@
+package negocio;
+
+import java.util.Date;
+
+public class Empleado {
+	private Integer id;
+	private String nombre;
+	private String apellido;
+	private Date fechaIngreso;
+	private Date fechaEgreso;
+	private Sucursal sucursal;
+
+}

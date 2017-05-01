@@ -1,0 +1,18 @@
+package entities;
+
+import java.util.List;
+
+
+public class SucursalEntity {
+	private Integer id;
+	private String nombre;
+	private String direccion;
+	private String provincia;
+	private String localidad;
+	private String codigoPostal;
+	private String telefono;
+	private EmpleadoEntity gerente; 
+	private EmpleadoEntity recepcionPedidos;
+	private List<EmpleadoEntity> empleados;
+
+}

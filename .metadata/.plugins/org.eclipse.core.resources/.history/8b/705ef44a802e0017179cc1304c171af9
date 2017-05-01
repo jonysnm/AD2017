@@ -1,0 +1,5 @@
+package interfazRemota;
+
+public interface AdmSucursalesControlador {
+
+}
