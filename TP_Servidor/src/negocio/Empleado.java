@@ -2,6 +2,8 @@ package negocio;
 
 import java.util.Date;
 
+import entities.EmpleadoEntity;
+
 public class Empleado {
 	private Integer id;
 	private String nombre;
@@ -45,5 +47,8 @@ public class Empleado {
 	}
 	public void setSucursal(Sucursal sucursal) {
 		this.sucursal = sucursal;
+	}
+	public Empleado(EmpleadoEntity empleado) {
+		// TODO Auto-generated constructor stub
 	}
 }

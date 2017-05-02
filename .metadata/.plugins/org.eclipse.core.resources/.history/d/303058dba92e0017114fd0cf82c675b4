@@ -1,0 +1,14 @@
+package dao;
+
+import org.hibernate.SessionFactory;
+
+import hbt.HibernateUtil;
+
+public class AdministracionDAO {
+	private static AdministracionDAO instancia;
+	private static SessionFactory sf=null;
+	private AdministracionDAO(){
+		sf=HibernateUtil.getSessionFactory();
+	}
+
+}

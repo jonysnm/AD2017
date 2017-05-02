@@ -1,0 +1,10 @@
+package dao;
+
+import org.hibernate.SessionFactory;
+
+public class AdministracionDAO {
+	private static AdministracionDAO instancia;
+	private static SessionFactory sf=null;
+	
+
+}
