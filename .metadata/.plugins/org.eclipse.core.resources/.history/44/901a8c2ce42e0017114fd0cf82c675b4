@@ -1,0 +1,50 @@
+package dao;
+
+
+
+import org.hibernate.SessionFactory;
+import org.hibernate.classic.Session;
+
+import entities.SucursalEntity;
+import hbt.HibernateUtil;
+
+public class AdministracionDAO {
+	private static AdministracionDAO instancia;
+	private static SessionFactory sf=null;
+	private AdministracionDAO(){
+		sf=HibernateUtil.getSessionFactory();
+	}
+	public static AdministracionDAO getInstancia(){
+		if(instancia==null){
+			instancia=new AdministracionDAO();
+		}
+		return instancia;
+	}
+	/**Sucursales**/
+	public void altaSucursal(SucursalEntity sucursal){
+		try{
+			Session session=sf.getCurrentSession();
+			session.beginTransaction();
+			session.save(sucursal);
+			session.getTransaction().commit();
+			session.close();
+		}catch(Exception e){
+			e.printStackTrace();
+			System.out.println("ERROR en el AdministraciónDAO ALTA SUCURSAL");
+		}
+	}
+	public void modificarSucusal(SucursalEntity sucursal){
+		try{
+			Session session=sf.getCurrentSession();
+			session.beginTransaction();
+			session.update(sucursal);
+			session.getTransaction().commit();
+			session.close();
+		}catch(Exception e){
+			e.printStackTrace();
+			System.out.println("ERROR en el AdministraciónDAO MODIFICAR SUCURSAL");
+		}
+	}
+	
+	/**Empleados**/
+}
