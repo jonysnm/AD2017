@@ -30,18 +30,22 @@ public class ControladorSucursal {
 	public void crearSucursal(SucursalDTO s){
 		AdministracionDAO.getInstancia().altaSucursal(SucursalDTO2Entity(s));
 	}
-	//public void editarSucursal(int idSucursal);	
+	public void editarSucursal(SucursalDTO s){
+		AdministracionDAO.getInstancia().modificarSucusal(SucursalDTO2Entity(s));
+	}
+	public SucursalDTO obtenerSucursal(int idSuc){
+		return SucursalEntity2DTO(AdministracionDAO.getInstancia().getSucursal(idSuc));
+	}
+
+		//}	
 	/**Empleados**/
-	//public List<EmpleadoDTO> listarEmpleados(int idSucursar); 
-
-	//public void crearEmpleado(int idSuc,EmpleadoDTO e); 
-
-	//public void editarEmpelado(int idSuc,int idEmp);
-
-	//public SucursalDTO obtenerSucursal(int idSuc){
-
-	//}	
-	private EmpleadoEntity EmpleadoDTO2Entity(EmpleadoDTO e){
+    public void crearEmpleado(EmpleadoDTO e){
+    	AdministracionDAO.getInstancia().altaEmpleado(EmpleadoDTO2Entity(e));
+    }
+    public void editarEmpelado(EmpleadoDTO e){
+    	AdministracionDAO.getInstancia().modificarEmpleado(EmpleadoDTO2Entity(e));
+    }
+	public EmpleadoEntity EmpleadoDTO2Entity(EmpleadoDTO e){
 		SucursalEntity suc=AdministracionDAO.getInstancia().getSucursal(EmpleadoDTO2Entity(e).getId());
 		EmpleadoEntity em=new EmpleadoEntity();
 		em.setId(e.getId());
@@ -52,7 +56,7 @@ public class ControladorSucursal {
 		em.setSucursal(suc);
 		return em;
 	}
-	private SucursalEntity SucursalDTO2Entity(SucursalDTO s){
+	public SucursalEntity SucursalDTO2Entity(SucursalDTO s){
 		EmpleadoEntity gerente=AdministracionDAO.getInstancia().getEmpleado(SucursalDTO2Entity(s).getId());
 		EmpleadoEntity recepcionPedidos=AdministracionDAO.getInstancia().getEmpleado(SucursalDTO2Entity(s).getId());
 		SucursalEntity suc=new SucursalEntity();
@@ -67,7 +71,7 @@ public class ControladorSucursal {
 		suc.setTelefono(s.getTelefono());
 		return suc;
 	}
-	private SucursalDTO SucursalEntity2DTO(SucursalEntity sucursal){
+	public SucursalDTO SucursalEntity2DTO(SucursalEntity sucursal){
 		SucursalDTO s=new SucursalDTO();
 		s.setCodigoPostal(sucursal.getCodigoPostal());
 		s.setDireccion(sucursal.getDireccion());

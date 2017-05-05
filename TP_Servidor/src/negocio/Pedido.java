@@ -8,11 +8,10 @@ public class Pedido {
 	private Date fechaCreacion;
 	private Date fechaprobableDespacho;
 	private Date fecharealDespacho;
-	private Set<ItemPedido> items;
+	private HashSet<ItemPedido> items=new HashSet<ItemPedido>();
 	private float total;
-	public Pedido(){
-		items=new HashSet<ItemPedido>();
-	}
+	private Sucursal sucursal;
+	public Pedido(){}
 	public int getId() {
 		return id;
 	}
@@ -43,10 +42,10 @@ public class Pedido {
 	public void setFecharealDespacho(Date fecharealDespacho) {
 		this.fecharealDespacho = fecharealDespacho;
 	}
-	public Set<ItemPedido> getItems() {
+	public HashSet<ItemPedido> getItems() {
 		return items;
 	}
-	public void setItems(Set<ItemPedido> items) {
+	public void setItems(HashSet<ItemPedido> items) {
 		this.items = items;
 	}
 	public float getTotal() {
@@ -55,4 +54,11 @@ public class Pedido {
 	public void setTotal(float total) {
 		this.total = total;
 	}
+	public Sucursal getSucursal() {
+		return sucursal;
+	}
+	public void setSucursal(Sucursal sucursal) {
+		this.sucursal = sucursal;
+	}
+
 }

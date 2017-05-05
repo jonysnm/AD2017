@@ -1,8 +1,8 @@
 package negocio;
 
-import java.util.ArrayList;
+
 import java.util.HashSet;
-import java.util.List;
+
 
 import dto.SucursalDTO;
 import entities.SucursalEntity;

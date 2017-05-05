@@ -24,6 +24,4 @@ public class ItemPedido {
 	public void setImporte(int importe) {
 		this.importe = importe;
 	}
-	
-
 }
