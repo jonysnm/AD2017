@@ -1018,7 +1018,7 @@
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="Left" type="integer">116</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">340</XPD:ATTR>
-<XPD:ATTR name="Width" type="integer">188</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">190</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">147</XPD:ATTR>
 <XPD:REF name="Model">tShXHnTpjU60c3vbic1X2wAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="LjeXRkmi4UycmGhU3PHGMwAA">
@@ -1048,7 +1048,7 @@
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">303,412;512,412</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">305,412;512,412</XPD:ATTR>
 <XPD:REF name="Model">YdwA+GipEkC9C1/5Qv3mMQAA</XPD:REF>
 <XPD:REF name="Head">3N9WXn57/kqmfZS+cVAKMAAA</XPD:REF>
 <XPD:REF name="Tail">Kt+x578eKUKgWuaVIF/7YAAA</XPD:REF>
@@ -5524,9 +5524,9 @@ y lo deja pendiente para que compras
 <XPD:ATTR name="Name" type="string">2_CalcularCreditoDisponible</XPD:ATTR>
 <XPD:REF name="Owner">tShXHnTpjU60c3vbic1X2wAA</XPD:REF>
 <XPD:ATTR name="#Parameters" type="integer">1</XPD:ATTR>
-<XPD:OBJ name="Parameters[0]" type="UMLParameter" guid="O6kCMwaN9kmILz6fgik1ZwAA">
+<XPD:OBJ name="Parameters[0]" type="UMLParameter" guid="2vxDcN5aB0qZp4IZXgHjxwAA">
 <XPD:ATTR name="DirectionKind" type="UMLParameterDirectionKind">pdkReturn</XPD:ATTR>
-<XPD:ATTR name="TypeExpression" type="string">float</XPD:ATTR>
+<XPD:ATTR name="TypeExpression" type="string">Float</XPD:ATTR>
 <XPD:REF name="BehavioralFeature">DuuHNKIEpUaBWWAByhnyxgAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
@@ -8533,8 +8533,8 @@ y lo deja pendiente para que compras
 <XPD:REF name="Participant">gngP/IUHgkianDxYm4hUkgAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">g+svT0oGaEGjLs8eHJo+iwAA</XPD:REF>
-<XPD:REF name="Views[1]">lI8uKyquRkC9eL6+vSWAHwAA</XPD:REF>
-<XPD:REF name="Views[2]">Axxtv1hlokWzU+Hb13FquwAA</XPD:REF>
+<XPD:REF name="Views[1]">Axxtv1hlokWzU+Hb13FquwAA</XPD:REF>
+<XPD:REF name="Views[2]">lI8uKyquRkC9eL6+vSWAHwAA</XPD:REF>
 <XPD:REF name="Views[3]">haRe21S83kSXrY/kOm94kwAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="Connections[1]" type="UMLAssociationEnd" guid="GxTlLXP2xEu8Gon9PmV+vwAA">
@@ -8544,8 +8544,8 @@ y lo deja pendiente para que compras
 <XPD:REF name="Participant">JNbZqT2mBkamD4GHV81qAwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">c/Osnpkr5EixdUsNS/RcjAAA</XPD:REF>
-<XPD:REF name="Views[1]">HYq13ZoockymL7bm2NgwxgAA</XPD:REF>
-<XPD:REF name="Views[2]">bQNxUP4lZ02Sxsbu3w2WOAAA</XPD:REF>
+<XPD:REF name="Views[1]">bQNxUP4lZ02Sxsbu3w2WOAAA</XPD:REF>
+<XPD:REF name="Views[2]">HYq13ZoockymL7bm2NgwxgAA</XPD:REF>
 <XPD:REF name="Views[3]">NmTZ5z57/0mbxC2+JgnytgAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
