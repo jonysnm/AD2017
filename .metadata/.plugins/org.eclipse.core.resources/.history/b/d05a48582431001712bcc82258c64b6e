@@ -1,0 +1,29 @@
+package entities;
+
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashSet;
+
+import javax.persistence.*;
+
+import negocio.Color;
+import negocio.ItemMaterialPrenda;
+import negocio.Talle;
+@Entity
+@Table(name="prenda")
+public class PrendaEntity implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2773817217273075770L;
+	@Embedded
+	private PrendaId idPrenda;
+	private String descripcion;
+	private HashSet<ColorEntity> colores=n;
+	private Collection<Talle> talles;
+	private Collection<ItemMaterialPrenda> itemMaterialPrenda;
+	private boolean vigente;
+	private float costoProduccion;
+	private float costoProduccionActual;
+	private float porcentajeGanancia;
+}

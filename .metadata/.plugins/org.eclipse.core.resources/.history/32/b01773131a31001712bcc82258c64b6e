@@ -1,0 +1,14 @@
+package entities;
+
+import java.io.Serializable;
+
+import javax.persistence.*;
+
+@Embeddable
+public class PrendaId implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -678802132713637429L;
+
+}

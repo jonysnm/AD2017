@@ -1,0 +1,20 @@
+package dto;
+
+import java.util.Collection;
+
+import negocio.Color;
+import negocio.ItemMaterialPrenda;
+import negocio.Talle;
+
+public class PrendaDTO {
+	private int codigo;
+	private String descripcion;
+	private Collection<ColorDTO> colores;
+	private Collection<TalleDTO> talles;
+	private Collection<ItemMaterialPrendaDTO> itemMaterialPrenda;
+	private boolean vigente;
+	private float costoProduccion;
+	private float costoProduccionActual;
+	private float porcentajeGanancia;
+	public PrendaDTO(){}
+	

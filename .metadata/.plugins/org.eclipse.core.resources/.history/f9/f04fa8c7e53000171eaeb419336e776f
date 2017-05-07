@@ -1,0 +1,26 @@
+package controladores;
+
+import dto.PedidoDTO;
+
+public class ControladorPedido {
+	private static ControladorPedido instancia;
+	private ControladorPedido(){}
+	public static ControladorPedido getInstancia(){
+		if(instancia==null){
+			instancia=new ControladorPedido();
+		}
+		return instancia;
+	}
+	public Integer nuevoPedido(Integer idSucursal){
+		return null;
+	}
+	public void agregarPedido(Integer id){}
+	public void confirmarPedido(PedidoDTO pedido){
+		return;
+	}
+	public String informarEstadoPedido(){
+		return null;
+	}
+	public void cancelarPedido(Integer id){}
+
+}

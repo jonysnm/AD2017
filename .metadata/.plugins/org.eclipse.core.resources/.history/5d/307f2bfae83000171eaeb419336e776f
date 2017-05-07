@@ -1,0 +1,41 @@
+package controladores;
+
+import org.hibernate.type.AnyType.ObjectTypeCacheEntry;
+
+import dao.AdministracionDAO;
+import dto.PedidoDTO;
+import dto.SucursalDTO;
+import entities.PedidoEntity;
+import negocio.Sucursal;
+
+public class ControladorPedido {
+	private static ControladorPedido instancia;
+	private ControladorPedido(){}
+	public static ControladorPedido getInstancia(){
+		if(instancia==null){
+			instancia=new ControladorPedido();
+		}
+		return instancia;
+	}
+	public Integer nuevoPedido(Integer idSucursal){
+		SucursalDTO s=ControladorSucursal.getInstancia().obtenerSucursal(idSucursal);
+		Pedido p=new Pedido();
+		
+	}
+	public PedidoEntity PedidoDTO2Entity(PedidoDTO p){
+		PedidoEntity p=new PedidoEntity();
+		
+		
+	}
+	public void agregarPedido(Integer id){
+		return;
+	}
+	public void confirmarPedido(PedidoDTO pedido){
+		return;
+	}
+	public String informarEstadoPedido(){
+		return null;
+	}
+	public void cancelarPedido(Integer id){}
+
+}

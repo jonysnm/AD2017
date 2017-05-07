@@ -1,0 +1,17 @@
+package entities;
+
+import javax.persistence.*;
+
+public class ItemMaterialPrendaEntity {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int item_materialprenda;
+	@ManyToOne
+	@JoinColumn(name="idPrenda")
+	private PrendaEntity prenda;
+	private int cantidadutilizada;
+	private float despedicio;
+	
+	
+
+}

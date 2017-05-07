@@ -1,0 +1,20 @@
+package interfazRemota;
+
+import java.rmi.Remote;
+import java.util.List;
+
+import dto.*;
+
+public interface PuntoDeVentaControlador extends Remote{
+	public ClienteDTO buscarCliente(long id);
+	public boolean altaCliente(String nombre,String cuit,String tipoFacturacion,String limiteCredito);
+	public List<ClienteDTO> obtenerClientes();
+	public void modificarCliente(ClienteDTO c);
+	public void bajaCliente(ClienteDTO c);
+	public ClienteDTO editarCliente(ClienteDTO c);
+	public List<SucursalDTO> listarSucursales();
+    public List<SucursalDTO> obtenerSucursales(PedidoDTO p);
+	public List<FacturaDTO> getFacturas();
+	public void generarFactura(PedidoDTO p);
+
+}

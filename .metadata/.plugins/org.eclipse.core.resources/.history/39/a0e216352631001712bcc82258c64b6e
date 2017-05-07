@@ -1,0 +1,9 @@
+package entities;
+
+import javax.persistence.*;
+
+public class MateriaPrimaEntity {
+	@Id
+	private int id_codigomaterial;
+
+}

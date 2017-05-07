@@ -1,0 +1,26 @@
+package entities;
+
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashSet;
+
+import javax.persistence.*;
+@Entity
+@Table(name="prenda")
+public class PrendaEntity implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2773817217273075770L;
+	@EmbeddedId
+	private PrendaId idcodigo;
+	private String descripcion;
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="item_materialprenda")	
+	private HashSet<ItemMaterialPrendaEntity> itemMaterialPrenda=new HashSet<ItemMaterialPrendaEntity>();
+	private boolean vigente;
+	private float costoProduccion;
+	private float costoProduccionActual;
+	private float porcentajeGanancia;
+	public PrendaEntity(){}
+}

@@ -1,0 +1,15 @@
+package entities;
+
+import javax.persistence.*;
+
+public class MateriaPrimaEntity {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int id_codigomaterial;
+	private float precio;
+	private int cantidadStock;
+	private String nombre;
+	private String estado;
+	
+
+}
