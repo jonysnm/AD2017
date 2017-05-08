@@ -1,32 +1,37 @@
 package entities;
 
-import javax.persistence.*;
+import java.io.Serializable;
 
-public class MateriaPrimaEntity {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="materiasprimas")
+public class MateriaPrimaEntity implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6617885206957270077L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id_codigomaterial;
-	private float precio;
-	private int cantidadStock;
+	private int codigo;
+	private float cantidadAComprar;
 	private String nombre;
 	private String estado;
-	public int getId_codigomaterial() {
-		return id_codigomaterial;
+	public int getCodigo() {
+		return codigo;
 	}
-	public void setId_codigomaterial(int id_codigomaterial) {
-		this.id_codigomaterial = id_codigomaterial;
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
-	public float getPrecio() {
-		return precio;
+	public float getCantidadAComprar() {
+		return cantidadAComprar;
 	}
-	public void setPrecio(float precio) {
-		this.precio = precio;
-	}
-	public int getCantidadStock() {
-		return cantidadStock;
-	}
-	public void setCantidadStock(int cantidadStock) {
-		this.cantidadStock = cantidadStock;
+	public void setCantidadAComprar(float cantidadAComprar) {
+		this.cantidadAComprar = cantidadAComprar;
 	}
 	public String getNombre() {
 		return nombre;
@@ -42,5 +47,5 @@ public class MateriaPrimaEntity {
 	}
 	
 	
-
+	
 }

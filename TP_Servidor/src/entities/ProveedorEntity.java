@@ -9,51 +9,32 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="clientes")
-public class ClienteEntity  implements Serializable{
-
+@Table(name="proveedores")
+public class ProveedorEntity implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1784666921270890769L;
+	private static final long serialVersionUID = -488372658008746269L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	public int id;
-	public String nombre;
-	public int cuit;
-	public String tipofacturacion;
-	public float limiteCredito;
+	private int id;
+	private int cuit;
 	private String direccion;
 	private String telefono;
+	private String razonSocial;
+	
+	
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
 	public int getCuit() {
 		return cuit;
 	}
 	public void setCuit(int cuit) {
 		this.cuit = cuit;
-	}
-	public String getTipofacturacion() {
-		return tipofacturacion;
-	}
-	public void setTipofacturacion(String tipofacturacion) {
-		this.tipofacturacion = tipofacturacion;
-	}
-	public float getLimiteCredito() {
-		return limiteCredito;
-	}
-	public void setLimiteCredito(float limiteCredito) {
-		this.limiteCredito = limiteCredito;
 	}
 	public String getDireccion() {
 		return direccion;
@@ -66,6 +47,12 @@ public class ClienteEntity  implements Serializable{
 	}
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+	public String getRazonSocial() {
+		return razonSocial;
+	}
+	public void setRazonSocial(String razonSocial) {
+		this.razonSocial = razonSocial;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
