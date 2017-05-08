@@ -1,0 +1,71 @@
+package controladores;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.hibernate.type.AnyType.ObjectTypeCacheEntry;
+
+import dao.AdministracionDAO;
+import dao.ClienteDAO;
+import dao.PedidoDAO;
+import dto.ClienteDTO;
+import dto.PedidoDTO;
+import dto.SucursalDTO;
+import entities.ClienteEntity;
+import entities.EmpleadoEntity;
+import entities.ItemPedidoEntity;
+import entities.PedidoEntity;
+import entities.SucursalEntity;
+import negocio.Cliente;
+import negocio.Pedido;
+import negocio.Sucursal;
+
+public class ControladorPedido {
+	private static ControladorPedido instancia;
+	private ControladorPedido(){}
+	public static ControladorPedido getInstancia(){
+		if(instancia==null){
+			instancia=new ControladorPedido();
+		}
+		return instancia;
+	}
+	public Integer nuevoPedido(Integer idSucursal){
+		SucursalEntity s=AdministracionDAO.getInstancia().getSucursal(idSucursal);
+		PedidoEntity pedido=new PedidoEntity();
+		pedido.setSucursal(s);
+		pedido.setFechaCreacion(new Date());
+		pedido.setEstado("En Verificación");
+		Integer id=PedidoDAO.getInstancia().nuevoPedido(pedido);
+		return id;
+	}
+	public ClienteEntity ClienteDTO2Entity(ClienteDTO c){
+		return ClienteDAO.getInstancia().getCliente(c.getId());
+	}
+	public void agregarPedido(Integer id){
+		return;
+	}
+	public void confirmarPedido(PedidoDTO pedido){
+		PedidoEntity p=PedidoDAO.getInstancia().getPedido(pedido.getId());
+		Pedido pe=new Pedido (p);
+	    if(p.getEstado().equals("En Verificación")){
+	    	if(Obtenerlimitecrédito(pedido.getCliente())<){
+				
+			};
+		}
+
+	}
+	
+	public float Obtenerlimitecrédito(ClienteDTO c){
+		ClienteEntity cli=ClienteDAO.getInstancia().getCliente(c.getId());
+		return cli.getLimiteCredito();		
+	}
+	public boolean verificarVigencia(int idprenda){
+		
+	}
+	public String informarEstadoPedido(){
+		return null;
+	}
+	public void cancelarPedido(Integer id){}
+
+}

@@ -2,6 +2,9 @@ package negocio;
 
 import java.util.Collection;
 
+import dao.PedidoDAO;
+import entities.PrendaEntity;
+
 public class Prenda {
 	private int codigo;
 	private String descripcion;
@@ -67,10 +70,25 @@ public class Prenda {
 	public void setPorcentajeGanancia(float porcentajeGanancia) {
 		this.porcentajeGanancia = porcentajeGanancia;
 	}
-	
-	
-	
-	
-	
-	
+	public boolean estoyVigente(int codigo){
+		PrendaEntity p=PedidoDAO.getInstancia().getPrenda(codigo);
+		Prenda pren=new Prenda(p);
+		return pren.isVigente();
+	}
+	public Prenda(PrendaEntity pr){
+		this.codigo=pr.getIdPrenda().getIdPrenda();
+		this.costoProduccion=pr.getCostoProduccion();
+		this.costoProduccionActual=pr.getCostoProduccionActual();
+		this.descripcion=pr.getDescripcion();
+		this.vigente=pr.isVigente();
+		//COMPLETAR EL RESTO!!!
+	}
+	public boolean SoslaPrenda(int codigo){
+		return(this.getCodigo()==codigo);		
+	}
+
+
+
+
+
 }

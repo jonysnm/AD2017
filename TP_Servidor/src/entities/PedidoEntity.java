@@ -33,6 +33,7 @@ public class PedidoEntity implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="factura_id")
 	private float total;
+	private String estado;
 	public PedidoEntity(){}
 	public int getId() {
 		return id;
@@ -82,5 +83,12 @@ public class PedidoEntity implements Serializable{
 	public void setTotal(float total) {
 		this.total = total;
 	}
-	
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+
 }

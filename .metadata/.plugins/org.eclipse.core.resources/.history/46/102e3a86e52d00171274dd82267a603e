@@ -1,9 +1,0 @@
-package negocio;
-
-
-public class ItemPedido {
-	private int cantidad;
-	private Prenda prenda;
-	private int importe;
-
-}

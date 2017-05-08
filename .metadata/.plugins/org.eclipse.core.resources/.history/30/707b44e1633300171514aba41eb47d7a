@@ -1,0 +1,11 @@
+package entities;
+
+public class ClienteEntity {
+	private Integer id;
+	private String nombre;
+	private String cuit;
+	private String tipoFacturacion;
+	private float limiteCredito;
+	
+
+}

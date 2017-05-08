@@ -1,0 +1,14 @@
+package dao;
+
+import org.hibernate.SessionFactory;
+
+import hbt.HibernateUtil;
+
+public class PedidoDAO {
+	private static PedidoDAO instancia;
+	private static SessionFactory sf=null;
+	private PedidoDAO(){
+		sf=HibernateUtil.getSessionFactory();
+	}
+
+}

@@ -1,16 +1,16 @@
 package controladores;
 
-import org.hibernate.type.AnyType.ObjectTypeCacheEntry;
-
+import java.util.Date;
 import dao.AdministracionDAO;
+import dao.ClienteDAO;
+import dao.PedidoDAO;
+import dto.ClienteDTO;
 import dto.PedidoDTO;
-import dto.SucursalDTO;
 import entities.ClienteEntity;
-import entities.EmpleadoEntity;
 import entities.PedidoEntity;
 import entities.SucursalEntity;
-import negocio.Cliente;
-import negocio.Sucursal;
+import negocio.Pedido;
+
 
 public class ControladorPedido {
 	private static ControladorPedido instancia;
@@ -22,29 +22,44 @@ public class ControladorPedido {
 		return instancia;
 	}
 	public Integer nuevoPedido(Integer idSucursal){
-		Sucursal s=new Sucursal(AdministracionDAO.getInstancia().getSucursal(idSucursal));
-		
-		
-	}
-	public PedidoEntity PedidoDTO2Entity(PedidoDTO p){
+		SucursalEntity s=AdministracionDAO.getInstancia().getSucursal(idSucursal);
 		PedidoEntity pedido=new PedidoEntity();
-		pedido.setCliente(p.getCliente());
-		
-		
-		
+		pedido.setSucursal(s);
+		pedido.setFechaCreacion(new Date());
+		pedido.setEstado("En Verificación");
+		Integer id=PedidoDAO.getInstancia().nuevoPedido(pedido);
+		return id;
 	}
 	public ClienteEntity ClienteDTO2Entity(ClienteDTO c){
-		C
+		return ClienteDAO.getInstancia().getCliente(c.getId());
 	}
 	public void agregarPedido(Integer id){
 		return;
 	}
 	public void confirmarPedido(PedidoDTO pedido){
-		return;
+		PedidoEntity p=PedidoDAO.getInstancia().getPedido(pedido.getId());
+		Pedido pe=new Pedido (p);//CONSULTAR ACA HAGO UN ENTITY2NEGOCIO??
+		if(pe.getEstado().equals("En Verificación")){
+			if(Obtenerlimitecrédito(pedido.getCliente())<pe.TotalPedido(pedido.getId())){
+				if(pe.ObtenerdisponibilidadporPrenda(pedido)){
+					pe.setEstado("Procesar Pedido");
+				}
+			}else{
+				cancelarPedido(pe.getId());
+			}
+		}
+	}
+	public float Obtenerlimitecrédito(ClienteDTO c){
+		ClienteEntity cli=ClienteDAO.getInstancia().getCliente(c.getId());
+		return cli.getLimiteCredito();		
 	}
 	public String informarEstadoPedido(){
 		return null;
 	}
-	public void cancelarPedido(Integer id){}
+	public void cancelarPedido(Integer id){
+		PedidoEntity pe=PedidoDAO.getInstancia().getPedido(id);
+		pe.setEstado("Cancelado");
+		PedidoDAO.getInstancia().modificarPedido(pe);
+	}
 
 }
