@@ -81,7 +81,7 @@ public class Pedido {
 		HashSet<ItemPedido> it=pe.getItems();
 		float total = 0;
 		for (ItemPedido ip : it) {
-			total=ip.getImporte()+total;//CODIFICAR EN EL ITEM PEDIDO PARA OBTENER EL IMPORTE
+			total=(ip.getImporte()*ip.getCantidad())+total;//CODIFICAR EN EL ITEM PEDIDO PARA OBTENER EL IMPORTE
 		}
 		return total;
 	}

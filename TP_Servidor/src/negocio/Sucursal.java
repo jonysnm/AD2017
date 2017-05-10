@@ -3,7 +3,7 @@ package negocio;
 
 import java.util.HashSet;
 
-
+import dao.AdministracionDAO;
 import dto.SucursalDTO;
 import entities.SucursalEntity;
 
@@ -107,5 +107,10 @@ public class Sucursal {
 		this.provincia=sucursal.getProvincia();
 		this.recepcionPedidos=new Empleado(sucursal.getRecepcionPedidos());
 	}
-
+	public void save(){
+		AdministracionDAO.getInstancia().altaSucursal(this);
+	}
+	public void editar() {
+		AdministracionDAO.getInstancia().modificarSucusal(this);
+	}
 }

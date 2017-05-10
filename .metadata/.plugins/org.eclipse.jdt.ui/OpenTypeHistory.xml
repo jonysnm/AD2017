@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<typeInfoHistroy/>
+<typeInfoHistroy>
+<typeInfo handle="=TP_Servidor/src&lt;negocio{Pedido.java[Pedido" modifiers="1" timestamp="1494283624131"/>
+<typeInfo handle="=TP_Servidor/src&lt;negocio{Sucursal.java[Sucursal" modifiers="1" timestamp="1494291437380"/>
+<typeInfo handle="=TP_Servidor/src&lt;dao{AdministracionDAO.java[AdministracionDAO" modifiers="1" timestamp="1494428640131"/>
+</typeInfoHistroy>

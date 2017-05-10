@@ -12,13 +12,13 @@ public interface AdmSucursalesControlador extends Remote{
 
 	public void crearSucursal(SucursalDTO s);
 
-	public void editarSucursal(int idSucursal);	
+	public void editarSucursal(SucursalDTO s);	
 
-	public List<EmpleadoDTO> listarEmpleados(int idSucursar); 
+	public List<EmpleadoDTO> listarEmpleados(int idSucursal); 
 
-	public void crearEmpleado(int idSuc,EmpleadoDTO e); 
+	public void crearEmpleado(EmpleadoDTO e); 
 
-	public void editarEmpelado(int idSuc,int idEmp);
+	public void editarEmpleado(EmpleadoDTO e);
 
 	public SucursalDTO obtenerSucursal(int idSuc);
 

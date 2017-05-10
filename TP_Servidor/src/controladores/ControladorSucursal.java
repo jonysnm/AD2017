@@ -1,13 +1,11 @@
 package controladores;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import dao.AdministracionDAO;
 import dto.EmpleadoDTO;
 import dto.SucursalDTO;
-import entities.EmpleadoEntity;
-import entities.SucursalEntity;
+import negocio.Empleado;
+import negocio.Sucursal;
 
 public class ControladorSucursal {
 	private static ControladorSucursal instancia;
@@ -18,7 +16,8 @@ public class ControladorSucursal {
 		}
 		return instancia;
 	}
-	/**Sucursales**/
+	/*REVISAR
+
 	public List<SucursalDTO> listarSucursales(){
 		List<SucursalEntity> sucursales=AdministracionDAO.getInstancia().listarSucursales();
 		List<SucursalDTO> sucursalesDTO=new ArrayList<SucursalDTO>();
@@ -27,39 +26,52 @@ public class ControladorSucursal {
 		}
 		return sucursalesDTO;
 	}
+	 */
 	public void crearSucursal(SucursalDTO s){
-		AdministracionDAO.getInstancia().altaSucursal(SucursalDTO2Entity(s));
+		Sucursal sucursal=SucursalDTO2Negocio(s);
+		sucursal.save();		
 	}
 	public void editarSucursal(SucursalDTO s){
-		AdministracionDAO.getInstancia().modificarSucusal(SucursalDTO2Entity(s));
+		Sucursal sucursal=SucursalDTO2Negocio(s);
+		sucursal.editar();
 	}
 	public SucursalDTO obtenerSucursal(int idSuc){
-		return SucursalEntity2DTO(AdministracionDAO.getInstancia().getSucursal(idSuc));
+		return AdministracionDAO.getInstancia().getSucursal(idSuc).toDTO();
 	}
-
-		//}	
 	/**Empleados**/
-    public void crearEmpleado(EmpleadoDTO e){
-    	AdministracionDAO.getInstancia().altaEmpleado(EmpleadoDTO2Entity(e));
-    }
-    public void editarEmpelado(EmpleadoDTO e){
-    	AdministracionDAO.getInstancia().modificarEmpleado(EmpleadoDTO2Entity(e));
-    }
-	public EmpleadoEntity EmpleadoDTO2Entity(EmpleadoDTO e){
-		SucursalEntity suc=AdministracionDAO.getInstancia().getSucursal(EmpleadoDTO2Entity(e).getId());
-		EmpleadoEntity em=new EmpleadoEntity();
-		em.setId(e.getId());
-		em.setNombre(e.getNombre());
-		em.setApellido(e.getApellido());
-		em.setFechaIngreso(e.getFechaIngreso());
-		em.setFechaEgreso(e.getFechaEgreso());
-		em.setSucursal(suc);
-		return em;
+	public void crearEmpleado(EmpleadoDTO e){
+		Empleado em=EmpleadoDTO2Negocio(e);
+		em.save();
 	}
-	public SucursalEntity SucursalDTO2Entity(SucursalDTO s){
-		EmpleadoEntity gerente=AdministracionDAO.getInstancia().getEmpleado(SucursalDTO2Entity(s).getId());
-		EmpleadoEntity recepcionPedidos=AdministracionDAO.getInstancia().getEmpleado(SucursalDTO2Entity(s).getId());
-		SucursalEntity suc=new SucursalEntity();
+	public void editarEmpelado(EmpleadoDTO e){
+		Empleado em=EmpleadoDTO2Negocio(e);
+		em.editar();
+	}
+	/*REVISAR
+	public List<EmpleadoDTO> listarEmpleados(int idsuc){
+		List<EmpleadoEntity> empleados=AdministracionDAO.getInstancia().listarEmpleados(idsuc);
+		List<EmpleadoDTO> empleadosDTO=new ArrayList<EmpleadoDTO>();
+		for (EmpleadoEntity emp : empleados) {
+			empleadosDTO.add(EmpleadoEntity2DTO(emp));
+		}
+		return empleadosDTO;
+	}
+	 */
+	public Empleado EmpleadoDTO2Negocio(EmpleadoDTO empleado){
+		Sucursal suc=AdministracionDAO.getInstancia().getSucursal(empleado.getIdSucursal());
+		Empleado e=new Empleado();
+		e.setApellido(empleado.getApellido());
+		e.setFechaEgreso(empleado.getFechaEgreso());
+		e.setFechaIngreso(empleado.getFechaIngreso());
+		e.setId(empleado.getId());
+		e.setSucursal(suc);
+		e.setNombre(empleado.getNombre());
+		return e;
+	}
+	public Sucursal SucursalDTO2Negocio(SucursalDTO s){
+		Empleado gerente=AdministracionDAO.getInstancia().getEmpleado(s.getIdGerente());
+		Empleado recepcionPedidos=AdministracionDAO.getInstancia().getEmpleado(s.getIdRecepcionPedidos());
+		Sucursal suc=new Sucursal();
 		suc.setCodigoPostal(s.getCodigoPostal());
 		suc.setDireccion(s.getDireccion());
 		suc.setGerente(gerente);
@@ -71,20 +83,6 @@ public class ControladorSucursal {
 		suc.setTelefono(s.getTelefono());
 		return suc;
 	}
-	public SucursalDTO SucursalEntity2DTO(SucursalEntity sucursal){
-		SucursalDTO s=new SucursalDTO();
-		s.setCodigoPostal(sucursal.getCodigoPostal());
-		s.setDireccion(sucursal.getDireccion());
-		s.setId(sucursal.getId());
-		s.setIdGerente(sucursal.getGerente().getId());
-		s.setIdRecepcionPedidos(sucursal.getRecepcionPedidos().getId());
-		s.setLocalidad(sucursal.getLocalidad());
-		s.setNombre(sucursal.getNombre());
-		s.setProvincia(sucursal.getProvincia());
-		s.setTelefono(sucursal.getTelefono());
-		return s;
-	}
-
 }
 
 

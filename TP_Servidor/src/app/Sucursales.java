@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
+import controladores.ControladorSucursal;
 import dto.*;
 import interfazRemota.AdmSucursalesControlador;
 
@@ -18,40 +19,33 @@ public class Sucursales extends UnicastRemoteObject implements AdmSucursalesCont
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	/*REVISAR
 	public List<SucursalDTO> listarSucursales() {
-		// TODO Auto-generated method stub
-		return null;
+		return ControladorSucursal.getInstancia().listarSucursales();
 	}
-
+	 */
 	public void crearSucursal(SucursalDTO s) {
-		// TODO Auto-generated method stub
+		ControladorSucursal.getInstancia().crearSucursal(s);
+	}
+	public void editarSucursal(SucursalDTO s) {
+		ControladorSucursal.getInstancia().editarSucursal(s);
+	}
+	/*REVISAR
+	public List<EmpleadoDTO> listarEmpleados(int idSucursal) {
+		return ControladorSucursal.getInstancia().listarEmpleados(idSucursal);
+	}
+	 */
+	public void crearEmpleado(EmpleadoDTO e) {
+		ControladorSucursal.getInstancia().crearEmpleado(e);
 
 	}
 
-	public void editarSucursal(int idSucursal) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public List<EmpleadoDTO> listarEmpleados(int idSucursar) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void crearEmpleado(int idSuc, EmpleadoDTO e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void editarEmpelado(int idSuc, int idEmp) {
-		// TODO Auto-generated method stub
-
+	public void editarEmpleado(EmpleadoDTO e) {
+		ControladorSucursal.getInstancia().editarEmpelado(e);
 	}
 
 	public SucursalDTO obtenerSucursal(int idSuc) {
-		// TODO Auto-generated method stub
-		return null;
+		return ControladorSucursal.getInstancia().obtenerSucursal(idSuc);
 	}
 
 }

@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.Date;
 
+import dao.AdministracionDAO;
 import entities.EmpleadoEntity;
 
 public class Empleado {
@@ -49,6 +50,17 @@ public class Empleado {
 		this.sucursal = sucursal;
 	}
 	public Empleado(EmpleadoEntity empleado) {
-		// TODO Auto-generated constructor stub
+		this.apellido=empleado.getApellido();
+		this.fechaEgreso=empleado.getFechaEgreso();
+		this.fechaIngreso=empleado.getFechaIngreso();
+		this.id=empleado.getId();
+		this.nombre=empleado.getNombre();
+		this.sucursal=new Sucursal(empleado.getSucursal());
+	}
+	public void save(){
+		AdministracionDAO.getInstancia().altaEmpleado(this);
+	}
+	public void editar(){
+		AdministracionDAO.getInstancia().modificarEmpleado(this);
 	}
 }

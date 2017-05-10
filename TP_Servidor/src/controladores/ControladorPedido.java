@@ -37,15 +37,14 @@ public class ControladorPedido {
 		return;
 	}
 	public void confirmarPedido(PedidoDTO pedido){
-		PedidoEntity p=PedidoDAO.getInstancia().getPedido(pedido.getId());
-		Pedido pe=new Pedido (p);//CONSULTAR ACA HAGO UN ENTITY2NEGOCIO??
-		if(pe.getEstado().equals("En Verificación")){
-			if(Obtenerlimitecrédito(pedido.getCliente())<pe.TotalPedido(pedido.getId())){
-				if(pe.ObtenerdisponibilidadporPrenda(pedido)){
-					pe.setEstado("Procesar Pedido");
+		Pedido p=PedidoDAO.getInstancia().getPedido(pedido.getId());
+		if(p.getEstado().equals("En Verificación")){
+			if(Obtenerlimitecrédito(pedido.getCliente())<p.TotalPedido(pedido.getId())){
+				if(p.ObtenerdisponibilidadporPrenda(pedido)){
+					p.setEstado("Procesar Pedido");
 				}
 			}else{
-				cancelarPedido(pe.getId());
+				cancelarPedido(p.getId());
 			}
 		}
 	}
@@ -57,7 +56,7 @@ public class ControladorPedido {
 		return null;
 	}
 	public void cancelarPedido(Integer id){
-		PedidoEntity pe=PedidoDAO.getInstancia().getPedido(id);
+        Pedido pe=PedidoDAO.getInstancia().getPedido(id);
 		pe.setEstado("Cancelado");
 		PedidoDAO.getInstancia().modificarPedido(pe);
 	}

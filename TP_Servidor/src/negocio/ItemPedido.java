@@ -1,6 +1,7 @@
 package negocio;
 
 import dao.PedidoDAO;
+import entities.ItemPedidoEntity;
 import entities.PrendaEntity;
 
 public class ItemPedido {
@@ -26,11 +27,16 @@ public class ItemPedido {
 	public void setImporte(int importe) {
 		this.importe = importe;
 	}
+	public ItemPedido(ItemPedidoEntity ipe){
+		this.cantidad=ipe.getCantidad();
+		this.importe=ipe.getImporte();
+		this.prenda=new Prenda(ipe.getPrenda());
+	}
 	public boolean obtenervigencia(Prenda p){
 		PrendaEntity pr=PedidoDAO.getInstancia().getPrenda(p.getCodigo());
 		Prenda pren=new Prenda(pr);
 		if(pren.SoslaPrenda(pren.getCodigo())){
-		       return pren.estoyVigente(pren.getCodigo());
+			return pren.estoyVigente(pren.getCodigo());
 		}else{
 			return false;
 		}

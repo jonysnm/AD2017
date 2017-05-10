@@ -6,6 +6,7 @@ import org.hibernate.classic.Session;
 import entities.PedidoEntity;
 import entities.PrendaEntity;
 import hbt.HibernateUtil;
+import negocio.Pedido;
 
 public class PedidoDAO {
 	private static PedidoDAO instancia;
@@ -34,14 +35,14 @@ public class PedidoDAO {
 		}
 		return null;
 	}
-	public PedidoEntity getPedido(Integer idpedido){
+	public Pedido getPedido(Integer idpedido){
 		try{
 			Session session=sf.openSession();
 			session.beginTransaction();
 			PedidoEntity pedido=(PedidoEntity) session.get(PedidoEntity.class, idpedido);
 			session.getTransaction().commit();
 			session.close();
-			return pedido;
+			return new Pedido(pedido);
 		}catch(Exception e){
 			e.printStackTrace();
 			System.out.println("Error PedidoDAO. Get IDPedido");

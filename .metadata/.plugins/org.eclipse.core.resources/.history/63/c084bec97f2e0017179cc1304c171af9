@@ -1,7 +1,0 @@
-package app;
-
-import java.rmi.server.UnicastRemoteObject;
-
-public class Sucursales extends UnicastRemoteObject implements AdmSucursalesControlador {
-
-}
