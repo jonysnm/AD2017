@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import negocio.Cliente;
+
 @Entity
 @Table(name="clientes")
 public class ClienteEntity  implements Serializable{
@@ -23,8 +25,14 @@ public class ClienteEntity  implements Serializable{
 	public int cuit;
 	public String tipofacturacion;
 	public float limiteCredito;
-	private String direccion;
-	private String telefono;
+	public ClienteEntity(Cliente c) {
+		super();
+		this.id = c.getId();
+		this.nombre = c.getNombre();
+		this.cuit = c.getCuit();
+		this.tipofacturacion = c.getTipoFacturacion();
+		this.limiteCredito = c.getLimiteCredito();
+	}
 	public int getId() {
 		return id;
 	}
@@ -55,22 +63,10 @@ public class ClienteEntity  implements Serializable{
 	public void setLimiteCredito(float limiteCredito) {
 		this.limiteCredito = limiteCredito;
 	}
-	public String getDireccion() {
-		return direccion;
-	}
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-	public String getTelefono() {
-		return telefono;
-	}
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	
-	
+
+
+
 }

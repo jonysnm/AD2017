@@ -20,12 +20,13 @@ public class PedidoDAO {
 		}
 		return instancia;
 	}
-	public Integer nuevoPedido(PedidoEntity pedido){
+	public Integer nuevoPedido(Pedido pedido){
 		try{
 			Integer id;
 			Session session=sf.openSession();
 			session.beginTransaction();
-			id=(Integer) session.save(pedido);
+			PedidoEntity pe=new PedidoEntity();
+			id=(Integer) session.save(pe);
 			session.getTransaction();
 			session.close();
 			return id;

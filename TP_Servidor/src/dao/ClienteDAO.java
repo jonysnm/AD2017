@@ -5,6 +5,7 @@ import org.hibernate.classic.Session;
 
 import entities.ClienteEntity;
 import hbt.HibernateUtil;
+import negocio.Cliente;
 
 public class ClienteDAO {
 	private static ClienteDAO instancia;
@@ -19,11 +20,12 @@ public class ClienteDAO {
 		return instancia;
 	}
 	/**CLIENTE**/
-	public void altaCliente(ClienteEntity cliente){
+	public void altaCliente(Cliente cliente){
 		try{
 			Session session=sf.openSession();
 			session.beginTransaction();
-			session.save(cliente);
+			ClienteEntity c=new ClienteEntity(cliente);
+			session.save(c);
 			session.getTransaction().commit();
 			session.close();
 		}catch(Exception e){
@@ -31,11 +33,12 @@ public class ClienteDAO {
 			System.out.println("Error ClienteAO. Alta cliente");
 		}
 	}
-	public void bajaCliente(ClienteEntity cliente){
+	public void bajaCliente(Cliente cliente){
 		try{
 			Session session=sf.getCurrentSession();
 			session.beginTransaction();
-			session.delete(cliente);
+			ClienteEntity c=new ClienteEntity(cliente);
+			session.delete(c);
 			session.flush();
 			session.getTransaction().commit();
 			session.close();
@@ -45,11 +48,12 @@ public class ClienteDAO {
 			System.out.println("Error ClienteAO. Baja cliente");
 		}
 	}
-	public void modificarCliente(ClienteEntity cliente){
+	public void modificarCliente(Cliente cliente){
 		try{
 			Session session=sf.openSession();
 			session.beginTransaction();
-			session.update(cliente);
+			ClienteEntity c=new ClienteEntity(cliente);
+			session.update(c);
 			session.getTransaction().commit();
 			session.close();
 		}catch(Exception e){
@@ -57,14 +61,14 @@ public class ClienteDAO {
 			System.out.println("Error ClienteAO. Modificar cliente");
 		}
 	}
-	public ClienteEntity getCliente(Integer id){
+	public Cliente getCliente(Integer id){
 		try{
 			Session session=sf.openSession();
 			session.beginTransaction();
 			ClienteEntity cliente=(ClienteEntity) session.get(ClienteEntity.class, id);
 			session.getTransaction().commit();
 			session.close();
-			return cliente;
+			return new Cliente(cliente);
 		}catch(Exception e){
 			e.printStackTrace();
 			System.out.println("Error ClienteAO. Obtener cliente");

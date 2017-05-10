@@ -6,10 +6,9 @@ import dao.ClienteDAO;
 import dao.PedidoDAO;
 import dto.ClienteDTO;
 import dto.PedidoDTO;
-import entities.ClienteEntity;
-import entities.PedidoEntity;
-import entities.SucursalEntity;
+import negocio.Cliente;
 import negocio.Pedido;
+import negocio.Sucursal;
 
 
 public class ControladorPedido {
@@ -22,16 +21,13 @@ public class ControladorPedido {
 		return instancia;
 	}
 	public Integer nuevoPedido(Integer idSucursal){
-		SucursalEntity s=AdministracionDAO.getInstancia().getSucursal(idSucursal);
-		PedidoEntity pedido=new PedidoEntity();
-		pedido.setSucursal(s);
-		pedido.setFechaCreacion(new Date());
-		pedido.setEstado("En Verificación");
-		Integer id=PedidoDAO.getInstancia().nuevoPedido(pedido);
+		Sucursal s=AdministracionDAO.getInstancia().getSucursal(idSucursal);
+		Pedido p=new Pedido();
+		p.setSucursal(s);
+		p.setFechaCreacion(new Date());
+		p.setEstado("En Verificación");
+		Integer id=PedidoDAO.getInstancia().nuevoPedido(p);
 		return id;
-	}
-	public ClienteEntity ClienteDTO2Entity(ClienteDTO c){
-		return ClienteDAO.getInstancia().getCliente(c.getId());
 	}
 	public void agregarPedido(Integer id){
 		return;
@@ -49,14 +45,14 @@ public class ControladorPedido {
 		}
 	}
 	public float Obtenerlimitecrédito(ClienteDTO c){
-		ClienteEntity cli=ClienteDAO.getInstancia().getCliente(c.getId());
+		Cliente cli=ClienteDAO.getInstancia().getCliente(c.getId());
 		return cli.getLimiteCredito();		
 	}
 	public String informarEstadoPedido(){
 		return null;
 	}
 	public void cancelarPedido(Integer id){
-        Pedido pe=PedidoDAO.getInstancia().getPedido(id);
+		Pedido pe=PedidoDAO.getInstancia().getPedido(id);
 		pe.setEstado("Cancelado");
 		PedidoDAO.getInstancia().modificarPedido(pe);
 	}
