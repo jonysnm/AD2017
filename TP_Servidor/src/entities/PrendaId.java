@@ -11,26 +11,24 @@ public class PrendaId implements Serializable{
 	 */
 	private static final long serialVersionUID = -678802132713637429L;
 	private int IdPrenda;
-	private String talle;
-	private String color;
+	private int Idtalle;
+	private int Idcolor;
 	public int getIdPrenda() {
 		return IdPrenda;
 	}
 	public void setIdPrenda(int idPrenda) {
 		IdPrenda = idPrenda;
 	}
-	public String getTalle() {
-		return talle;
+	public int getIdtalle() {
+		return Idtalle;
 	}
-	public void setTalle(String talle) {
-		this.talle = talle;
+	public void setIdtalle(int idtalle) {
+		Idtalle = idtalle;
 	}
-	public String getColor() {
-		return color;
+	public int getIdcolor() {
+		return Idcolor;
 	}
-	public void setColor(String color) {
-		this.color = color;
+	public void setIdcolor(int idcolor) {
+		Idcolor = idcolor;
 	}
-	
-
 }

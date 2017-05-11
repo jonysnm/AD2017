@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+
+
 public class ItemMaterialPrendaEntity implements Serializable {
 	/**
 	 * 
@@ -12,8 +14,7 @@ public class ItemMaterialPrendaEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int item_materialprenda;
-	@ManyToOne
-	@JoinColumn(name="idPrenda")
+	@Column(name="idPrenda")
 	private PrendaEntity prenda;
 	private int cantidadutilizada;
 	private float despedicio;
@@ -53,6 +54,14 @@ public class ItemMaterialPrendaEntity implements Serializable {
 	public void setMateriaprima(MateriaPrimaEntity materiaprima) {
 		this.materiaprima = materiaprima;
 	}
+	/*EN PROCESO
+	public ItemMaterialPrendaEntity(ItemMaterialPrenda imp) {
+		this.cantidadutilizada=imp.getCantidadutilizada();
+		this.despedicio=imp.getDespedicio();
+		this.materiaprima=new MateriaPrimaEntity(imp.getMateriaprima());
+		this.prenda=new PrendaEntity(imp.getPrenda());
+	}
+	 */
 
 
 

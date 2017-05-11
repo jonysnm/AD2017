@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +21,7 @@ public class ClienteEntity  implements Serializable{
 	private static final long serialVersionUID = 1784666921270890769L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="cliente_id")
 	public int id;
 	public String nombre;
 	public int cuit;

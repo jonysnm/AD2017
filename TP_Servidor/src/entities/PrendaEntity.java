@@ -3,6 +3,7 @@ package entities;
 import java.io.Serializable;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -18,10 +19,10 @@ public class PrendaEntity implements Serializable{
 	private String descripcion;
 	@ManyToMany
 	@JoinColumn(name="idcolor")
-	private HashSet<ColorEntity> colores=new HashSet<ColorEntity>();
+	private Set<ColorEntity> colores=new HashSet<ColorEntity>();
 	@ManyToMany
 	@JoinColumn(name="idtalle")
-	private HashSet<TalleEntity> talles=new HashSet<TalleEntity>();
+	private Set<TalleEntity> talles=new HashSet<TalleEntity>();
 	@OneToMany
 	@JoinColumn(name="idPrenda")
 	private HashSet<ItemMaterialPrendaEntity> itemMaterialPrenda=new HashSet<ItemMaterialPrendaEntity>();
@@ -41,13 +42,13 @@ public class PrendaEntity implements Serializable{
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public HashSet<ColorEntity> getColores() {
+	public Set<ColorEntity> getColores() {
 		return colores;
 	}
 	public void setColores(HashSet<ColorEntity> colores) {
 		this.colores = colores;
 	}
-	public HashSet<TalleEntity> getTalles() {
+	public Set<TalleEntity> getTalles() {
 		return talles;
 	}
 	public void setTalles(HashSet<TalleEntity> talles) {

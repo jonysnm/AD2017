@@ -2,12 +2,7 @@ package entities;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
+import javax.persistence.*;
 @Entity
 @Table(name="materiasprimas")
 public class MateriaPrimaEntity implements Serializable {
@@ -17,6 +12,7 @@ public class MateriaPrimaEntity implements Serializable {
 	private static final long serialVersionUID = 6617885206957270077L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id_codigomaterial")
 	private int codigo;
 	private float cantidadAComprar;
 	private String nombre;
@@ -45,7 +41,7 @@ public class MateriaPrimaEntity implements Serializable {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	
-	
-	
+
+
+
 }
