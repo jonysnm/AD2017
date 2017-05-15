@@ -7,6 +7,7 @@ import entities.PedidoEntity;
 import entities.PrendaEntity;
 import hbt.HibernateUtil;
 import negocio.Pedido;
+import negocio.Prenda;
 
 public class PedidoDAO {
 	private static PedidoDAO instancia;
@@ -50,14 +51,15 @@ public class PedidoDAO {
 		}
 		return null;
 	}
-	public PrendaEntity getPrenda(int codigo){
+	public Prenda getPrenda(int codigo){
 		try{
 			Session session=sf.openSession();
 			session.beginTransaction();
 			PrendaEntity prenda=(PrendaEntity) session.get(PrendaEntity.class,codigo);
 			session.getTransaction().commit();
 			session.close();
-			return prenda;
+			Prenda p = new Prenda(prenda);
+			return p;
 		}catch(Exception e){
 			e.printStackTrace();
 			System.out.println("Error PedidoDAO. Get Prenda");
