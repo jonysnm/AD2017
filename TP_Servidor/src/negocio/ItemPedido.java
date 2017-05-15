@@ -28,7 +28,7 @@ public class ItemPedido {
 		this.importe = importe;
 	}
 	public ItemPedido(ItemPedidoEntity ipe){
-		this.cantidad=ipe.getCantidad();
+		this.cantidad=ipe.getPedido().getItems().size();
 		this.importe=ipe.getImporte();
 		this.prenda=new Prenda(ipe.getPrenda());
 	}

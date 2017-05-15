@@ -64,7 +64,7 @@ public class PedidoDAO {
 		}
 		return null;
 	}
-	public void modificarPedido(PedidoEntity pe) {
+	public void modificarPedido(Pedido pe) {
 		try{
 			Session session=sf.openSession();
 			session.beginTransaction();

@@ -1,12 +1,11 @@
 package negocio;
 
-import entities.ItemMaterialPrendaEntity;
-
 public class ItemMaterialPrenda {
 	private Prenda prenda;
 	private int cantidadutilizada;
 	private float despedicio;
 	private MateriaPrima materiaprima;
+	
 	public Prenda getPrenda() {
 		return prenda;
 	}
@@ -27,15 +26,6 @@ public class ItemMaterialPrenda {
 	}
 	public MateriaPrima getMateriaprima() {
 		return materiaprima;
-	}
-	public void setMateriaprima(MateriaPrima materiaprima) {
-		this.materiaprima = materiaprima;
-	}
-	public ItemMaterialPrenda(ItemMaterialPrendaEntity impe){
-		this.cantidadutilizada=impe.getCantidadutilizada();
-		this.despedicio=impe.getDespedicio();
-		this.materiaprima=new MateriaPrima(impe.getMateriaprima());
-		this.prenda=new Prenda(impe.getPrenda());
 	}
 	
 

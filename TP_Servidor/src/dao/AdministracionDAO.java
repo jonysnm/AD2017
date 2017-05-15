@@ -1,7 +1,12 @@
 package dao;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
+
 import entities.EmpleadoEntity;
 import entities.SucursalEntity;
 import hbt.HibernateUtil;
@@ -130,23 +135,23 @@ public class AdministracionDAO {
 		}
 		return null;
 	}
-	/*REVISAR
 	@SuppressWarnings("unchecked")
 	public List<Sucursal> listarSucursales(){
+		List<Sucursal> sucursales = new ArrayList<>();
 		try{
 			Session session=sf.openSession();
 			HashSet<SucursalEntity> lista=(HashSet<SucursalEntity>) session.createQuery("from Sucursal").list();
 			session.close();
-			HashSet<Sucursal> s=new HashSet<Sucursal>();
 			for (SucursalEntity sucursalEntity : lista) {
-
+				sucursales.add(new Sucursal(sucursalEntity));
 			}
+			
 		}catch(Exception e){
 			e.printStackTrace();
 			System.out.println("ERROR en el AdministraciónDAO Traer ListaSucursales");
 
 		}
-		return null;
+		return sucursales;
 	}
 	// Empleados
 	@SuppressWarnings("unchecked")
@@ -177,5 +182,4 @@ public class AdministracionDAO {
 		}
 		return null;
 	}
-	 */
 }

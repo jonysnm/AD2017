@@ -26,7 +26,10 @@ public class ItemPedidoEntity implements Serializable{
 	@OneToOne 
 	private int idcolor;
 	private int importe;
-	public ItemPedidoEntity(){}
+	
+	public ItemPedidoEntity(){
+		
+	}
 	public int getItem_pedido() {
 		return item_pedido;
 	}
