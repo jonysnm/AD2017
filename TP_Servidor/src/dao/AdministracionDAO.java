@@ -8,9 +8,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 
 import entities.EmpleadoEntity;
+import entities.PedidoEntity;
 import entities.SucursalEntity;
 import hbt.HibernateUtil;
 import negocio.Empleado;
+import negocio.Pedido;
 import negocio.Sucursal;
 
 public class AdministracionDAO {
@@ -176,6 +178,22 @@ public class AdministracionDAO {
 					.setParameter("id", idSucursal).list();
 			session.close();
 			return lista;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("ErrorDAO: AdministracionDAO: Listar empleados por Sucursal");
+		}
+		return null;
+	}
+	public List<Pedido> obtenerPedidosPendientesDeValidacion() {
+		try {
+			Session session = sf.openSession();
+			List<PedidoEntity> lista = session.createQuery("from Pedido where estado ="+"En Verificacion").list();
+			session.close();
+			List<Pedido> pedidos = new ArrayList<>();
+			for (PedidoEntity pedidoEntity : lista) {
+				pedidos.add(new Pedido(pedidoEntity));
+			}
+			return pedidos;
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("ErrorDAO: AdministracionDAO: Listar empleados por Sucursal");
