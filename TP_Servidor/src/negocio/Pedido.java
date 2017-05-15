@@ -76,9 +76,8 @@ public class Pedido {
 		this.estado = estado;
 	}
 	public float TotalPedido(int idpedido){
-		PedidoEntity p=PedidoDAO.getInstancia().getPedido(idpedido);
-		Pedido pe=new Pedido(p);
-		HashSet<ItemPedido> it=pe.getItems();
+		Pedido p=PedidoDAO.getInstancia().getPedido(idpedido);
+		HashSet<ItemPedido> it=p.getItems();
 		float total = 0;
 		for (ItemPedido ip : it) {
 			total=(ip.getImporte()*ip.getCantidad())+total;//CODIFICAR EN EL ITEM PEDIDO PARA OBTENER EL IMPORTE
@@ -86,9 +85,8 @@ public class Pedido {
 		return total;
 	}
 	public boolean ObtenerdisponibilidadporPrenda(PedidoDTO pedido) {
-		PedidoEntity p=PedidoDAO.getInstancia().getPedido(pedido.getId());
-		Pedido pe=new Pedido(p);
-		HashSet<ItemPedido> it=pe.getItems();
+		Pedido p=PedidoDAO.getInstancia().getPedido(pedido.getId());
+		HashSet<ItemPedido> it=p.getItems();
 		for(ItemPedido ip:it){
 			if(ip.obtenervigencia(ip.getPrenda())){
 				;
