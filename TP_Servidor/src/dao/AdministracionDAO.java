@@ -1,11 +1,18 @@
 package dao;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
+
 import entities.EmpleadoEntity;
+import entities.PedidoEntity;
 import entities.SucursalEntity;
 import hbt.HibernateUtil;
 import negocio.Empleado;
+import negocio.Pedido;
 import negocio.Sucursal;
 
 public class AdministracionDAO {
@@ -130,23 +137,23 @@ public class AdministracionDAO {
 		}
 		return null;
 	}
-	/*REVISAR
 	@SuppressWarnings("unchecked")
 	public List<Sucursal> listarSucursales(){
+		List<Sucursal> sucursales = new ArrayList<>();
 		try{
 			Session session=sf.openSession();
 			HashSet<SucursalEntity> lista=(HashSet<SucursalEntity>) session.createQuery("from Sucursal").list();
 			session.close();
-			HashSet<Sucursal> s=new HashSet<Sucursal>();
 			for (SucursalEntity sucursalEntity : lista) {
-
+				sucursales.add(new Sucursal(sucursalEntity));
 			}
+			
 		}catch(Exception e){
 			e.printStackTrace();
 			System.out.println("ERROR en el AdministraciónDAO Traer ListaSucursales");
 
 		}
-		return null;
+		return sucursales;
 	}
 	// Empleados
 	@SuppressWarnings("unchecked")
@@ -177,5 +184,20 @@ public class AdministracionDAO {
 		}
 		return null;
 	}
-	 */
+	public List<Pedido> obtenerPedidosPendientesDeValidacion() {
+		try {
+			Session session = sf.openSession();
+			List<PedidoEntity> lista = session.createQuery("from Pedido where estado ="+"En Verificacion").list();
+			session.close();
+			List<Pedido> pedidos = new ArrayList<>();
+			for (PedidoEntity pedidoEntity : lista) {
+				pedidos.add(new Pedido(pedidoEntity));
+			}
+			return pedidos;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("ErrorDAO: AdministracionDAO: Listar empleados por Sucursal");
+		}
+		return null;
+	}
 }

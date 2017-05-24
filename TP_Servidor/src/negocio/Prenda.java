@@ -71,9 +71,8 @@ public class Prenda {
 		this.porcentajeGanancia = porcentajeGanancia;
 	}
 	public boolean estoyVigente(int codigo){
-		PrendaEntity p=PedidoDAO.getInstancia().getPrenda(codigo);
-		Prenda pren=new Prenda(p);
-		return pren.isVigente();
+		Prenda p=PedidoDAO.getInstancia().getPrenda(codigo);
+		return p.isVigente();
 	}
 	public Prenda(PrendaEntity pr){
 		this.codigo=pr.getIdPrenda().getIdPrenda();

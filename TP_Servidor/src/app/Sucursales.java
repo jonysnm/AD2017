@@ -5,6 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 import controladores.ControladorSucursal;
+import dao.AdministracionDAO;
 import dto.*;
 import interfazRemota.AdmSucursalesControlador;
 
@@ -50,9 +51,9 @@ public class Sucursales extends UnicastRemoteObject implements AdmSucursalesCont
 	public SucursalDTO obtenerSucursal(int idSuc) {
 		return ControladorSucursal.getInstancia().obtenerSucursal(idSuc);
 	}
-	@Override
+@Override
 	public List<SucursalDTO> listarSucursales() {
-		// TODO Auto-generated method stub
+		AdministracionDAO.getInstancia().listarSucursales();
 		return null;
 	}
 	@Override
@@ -62,4 +63,3 @@ public class Sucursales extends UnicastRemoteObject implements AdmSucursalesCont
 	}
 
 }
-

@@ -1,6 +1,8 @@
 package controladores;
 
 import java.util.Date;
+import java.util.List;
+
 import dao.AdministracionDAO;
 import dao.ClienteDAO;
 import dao.PedidoDAO;
@@ -55,6 +57,10 @@ public class ControladorPedido {
 		Pedido pe=PedidoDAO.getInstancia().getPedido(id);
 		pe.setEstado("Cancelado");
 		PedidoDAO.getInstancia().modificarPedido(pe);
+	}
+	
+	public List<Pedido> obtenerPedidoPendientesDeValidacion(){
+		return AdministracionDAO.getInstancia().obtenerPedidosPendientesDeValidacion();
 	}
 
 }
