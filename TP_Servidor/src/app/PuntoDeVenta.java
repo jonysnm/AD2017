@@ -11,6 +11,9 @@ import dto.SucursalDTO;
 import interfazRemota.PuntoDeVentaControlador;
 
 public class PuntoDeVenta extends UnicastRemoteObject implements PuntoDeVentaControlador {
+	/**
+	 * 
+	 */
 	public PuntoDeVenta() throws RemoteException {
 		super();
 		// TODO Auto-generated constructor stub
@@ -18,7 +21,7 @@ public class PuntoDeVenta extends UnicastRemoteObject implements PuntoDeVentaCon
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -5215371751079945972L;
 	@Override
 	public ClienteDTO buscarCliente(long id) {
 		// TODO Auto-generated method stub
@@ -69,11 +72,13 @@ public class PuntoDeVenta extends UnicastRemoteObject implements PuntoDeVentaCon
 		// TODO Auto-generated method stub
 
 	}
+	/*
 	@Override
 	public String informarEstadoPedido() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	*/
 	@Override
 	public void cancelarPedido(Integer id) {
 		// TODO Auto-generated method stub

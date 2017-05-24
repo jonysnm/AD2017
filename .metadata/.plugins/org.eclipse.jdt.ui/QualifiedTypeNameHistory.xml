@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="javax.persistence.Entity"/>
-<fullyQualifiedTypeName name="java.lang.annotation.Annotation"/>
 <fullyQualifiedTypeName name="org.hibernate.cfg.AnnotationConfiguration"/>
 <fullyQualifiedTypeName name="java.lang.Throwable"/>
 <fullyQualifiedTypeName name="java.lang.ExceptionInInitializerError"/>
@@ -27,14 +25,11 @@
 <fullyQualifiedTypeName name="dto.SucursalDTO"/>
 <fullyQualifiedTypeName name="dto.EmpleadoDTO"/>
 <fullyQualifiedTypeName name="negocio.Empleado"/>
-<fullyQualifiedTypeName name="entities.SucursalEntity"/>
 <fullyQualifiedTypeName name="entities.EmpleadoEntity"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="controladores.ControladorSucursal"/>
 <fullyQualifiedTypeName name="dao.AdministracionDAO"/>
 <fullyQualifiedTypeName name="negocio.Sucursal"/>
-<fullyQualifiedTypeName name="negocio.Pedido"/>
-<fullyQualifiedTypeName name="entities.PedidoEntity"/>
 <fullyQualifiedTypeName name="entities.ClienteEntity"/>
 <fullyQualifiedTypeName name="negocio.Cliente"/>
 <fullyQualifiedTypeName name="entities.ColorEntity"/>
@@ -44,9 +39,7 @@
 <fullyQualifiedTypeName name="negocio.Prenda"/>
 <fullyQualifiedTypeName name="negocio.ItemMaterialPrenda"/>
 <fullyQualifiedTypeName name="entities.MateriaPrimaEntity"/>
-<fullyQualifiedTypeName name="entities.ItemPedidoEntity"/>
 <fullyQualifiedTypeName name="negocio.ItemPedido"/>
-<fullyQualifiedTypeName name="java.util.HashSet"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="javax.persistence.GeneratedValue"/>
 <fullyQualifiedTypeName name="javax.persistence.OneToMany"/>
@@ -57,7 +50,14 @@
 <fullyQualifiedTypeName name="javax.persistence.OneToOne"/>
 <fullyQualifiedTypeName name="javax.persistence.JoinColumn"/>
 <fullyQualifiedTypeName name="entities.PrendaId"/>
-<fullyQualifiedTypeName name="java.util.Set"/>
 <fullyQualifiedTypeName name="javax.persistence.Id"/>
 <fullyQualifiedTypeName name="javax.persistence.Column"/>
+<fullyQualifiedTypeName name="entities.PedidoEntity"/>
+<fullyQualifiedTypeName name="java.util.Set"/>
+<fullyQualifiedTypeName name="java.util.HashSet"/>
+<fullyQualifiedTypeName name="entities.ItemPedidoEntity"/>
+<fullyQualifiedTypeName name="entities.SucursalEntity"/>
+<fullyQualifiedTypeName name="negocio.Pedido"/>
+<fullyQualifiedTypeName name="interfazRemota.AdmSucursalesControlador"/>
+<fullyQualifiedTypeName name="app.Sucursales"/>
 </qualifiedTypeNameHistroy>

@@ -19,7 +19,7 @@ public interface PuntoDeVentaControlador extends Remote{
 	/*PEDIDO*/
 	public int nuevoPedido(int idSucursal);
 	public void confirmarPedido(PedidoDTO pedido);
-	public String informarEstadoPedido();
+	//public String informarEstadoPedido();
 	public void cancelarPedido(Integer id);
 
 	/*MAU*/

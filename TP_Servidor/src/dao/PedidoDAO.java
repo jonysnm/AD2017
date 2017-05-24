@@ -25,14 +25,14 @@ public class PedidoDAO {
 			Integer id;
 			Session session=sf.openSession();
 			session.beginTransaction();
-			PedidoEntity pe=new PedidoEntity();
+			PedidoEntity pe=new PedidoEntity(pedido);
 			id=(Integer) session.save(pe);
 			session.getTransaction();
 			session.close();
 			return id;
 		}catch(Exception e){			
 			e.printStackTrace();
-			System.out.println("Error PedidoDAO. Nueva Pedido");
+			System.out.println("Error PedidoDAO. Nuevo Pedido");
 		}
 		return null;
 	}
@@ -64,10 +64,11 @@ public class PedidoDAO {
 		}
 		return null;
 	}
-	public void modificarPedido(PedidoEntity pe) {
+	public void modificarPedido(Pedido p) {
 		try{
 			Session session=sf.openSession();
 			session.beginTransaction();
+			PedidoEntity pe=new PedidoEntity();
 			session.update(pe);
 			session.getTransaction().commit();
 			session.close();

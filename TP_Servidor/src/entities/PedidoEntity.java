@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
 
+import negocio.Pedido;
+
 
 @Entity
 @Table(name="pedidos")
@@ -89,6 +91,14 @@ public class PedidoEntity implements Serializable{
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-
-
+	public PedidoEntity(Pedido p){
+		this.cliente=new ClienteEntity(p.getCliente());
+		this.estado=p.getEstado();
+		this.fechaCreacion=p.getFechaCreacion();
+		this.fechaprobableDespacho=p.getFechaprobableDespacho();
+		this.fecharealDespacho=p.getFecharealDespacho();
+		this.id=p.getId();
+		this.items=new HashSet<ItemPedidoEntity>();
+		this.sucursal=new SucursalEntity(p.getSucursal());
+	}
 }
