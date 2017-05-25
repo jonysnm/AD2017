@@ -4,20 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-import negocio.Cliente;
-import negocio.ItemFactura;
+
+
 import estados.EstadoFactura;
+
 @Entity
 @Table(name="facturas")
 public class FacturaEntity implements Serializable {
@@ -30,10 +22,12 @@ public class FacturaEntity implements Serializable {
 	private int nro;
 	private Date fechaEmision;
 	private Date fechaVencimiento;
-	private Cliente cliente;
+	@OneToOne
+	@JoinColumn(name="cliente_id")
+	private ClienteEntity cliente;
 	@OneToMany (cascade=CascadeType.ALL)
 	@JoinColumn(name="itemfactura")
-	private List<ItemFactura> itemsFactura;
+	private List<ItemFacturaEntity> itemsFactura;
 	private float total;
 	@Enumerated(EnumType.STRING)
 	private EstadoFactura estado;
@@ -55,16 +49,16 @@ public class FacturaEntity implements Serializable {
 	public void setFechaVencimiento(Date fechaVencimiento) {
 		this.fechaVencimiento = fechaVencimiento;
 	}
-	public Cliente getCliente() {
+	public ClienteEntity getCliente() {
 		return cliente;
 	}
-	public void setCliente(Cliente cliente) {
+	public void setCliente(ClienteEntity cliente) {
 		this.cliente = cliente;
 	}
-	public List<ItemFactura> getItemsFactura() {
+	public List<ItemFacturaEntity> getItemsFactura() {
 		return itemsFactura;
 	}
-	public void setItemsFactura(List<ItemFactura> itemsFactura) {
+	public void setItemsFactura(List<ItemFacturaEntity> itemsFactura) {
 		this.itemsFactura = itemsFactura;
 	}
 	public float getTotal() {
@@ -79,34 +73,4 @@ public class FacturaEntity implements Serializable {
 	public void setEstado(EstadoFactura estado) {
 		this.estado = estado;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	@Override
-	public String toString() {
-		return "FacturaEntity [nro=" + nro + ", fechaEmision=" + fechaEmision
-				+ ", fechaVencimiento=" + fechaVencimiento + ", cliente="
-				+ cliente + ", itemsFactura=" + itemsFactura + ", total="
-				+ total + ", estado=" + estado + "]";
-	}
-	public FacturaEntity(int nro, Date fechaEmision, Date fechaVencimiento,
-			Cliente cliente, List<ItemFactura> itemsFactura, float total,
-			EstadoFactura estado) {
-		super();
-		this.nro = nro;
-		this.fechaEmision = fechaEmision;
-		this.fechaVencimiento = fechaVencimiento;
-		this.cliente = cliente;
-		this.itemsFactura = itemsFactura;
-		this.total = total;
-		this.estado = estado;
-	}
-	public FacturaEntity() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-
-	
-	
 }

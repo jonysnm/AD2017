@@ -3,7 +3,7 @@ package entities;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
-import negocio.Empleado;
+
 
 @Entity
 @Table(name="Empleado")

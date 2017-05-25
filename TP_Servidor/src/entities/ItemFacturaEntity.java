@@ -1,16 +1,9 @@
 package entities;
 
 import java.io.Serializable;
+import javax.persistence.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
-import negocio.Prenda;
 @Entity
 @Table(name="itemsfacturas")
 public class ItemFacturaEntity implements Serializable {
@@ -23,14 +16,14 @@ public class ItemFacturaEntity implements Serializable {
 	private int itemfactura;
 	private int cantidad;
 	@ManyToOne
-	@JoinColumn(name="idPrenda")
-	private Prenda prenda;
+	@JoinColumn(name="IdPrenda")
+	private PrendaEntity prenda;
 	private float precioUnitario;
-	public int getId() {
-		return id;
+	public int getItemfactura() {
+		return itemfactura;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setItemfactura(int itemfactura) {
+		this.itemfactura = itemfactura;
 	}
 	public int getCantidad() {
 		return cantidad;
@@ -38,10 +31,10 @@ public class ItemFacturaEntity implements Serializable {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
-	public Prenda getPrenda() {
+	public PrendaEntity getPrenda() {
 		return prenda;
 	}
-	public void setPrenda(Prenda prenda) {
+	public void setPrenda(PrendaEntity prenda) {
 		this.prenda = prenda;
 	}
 	public float getPrecioUnitario() {
@@ -50,29 +43,6 @@ public class ItemFacturaEntity implements Serializable {
 	public void setPrecioUnitario(float precioUnitario) {
 		this.precioUnitario = precioUnitario;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	@Override
-	public String toString() {
-		return "ItemFacturaEntity [id=" + id + ", cantidad=" + cantidad
-				+ ", prenda=" + prenda + ", precioUnitario=" + precioUnitario
-				+ "]";
-	}
-	public ItemFacturaEntity(int id, int cantidad, Prenda prenda,
-			float precioUnitario) {
-		super();
-		this.id = id;
-		this.cantidad = cantidad;
-		this.prenda = prenda;
-		this.precioUnitario = precioUnitario;
-	}
-	public ItemFacturaEntity() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	
 	
 	
 }

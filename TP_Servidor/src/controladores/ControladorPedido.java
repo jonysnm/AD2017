@@ -1,14 +1,12 @@
 package controladores;
 
 import java.util.Date;
-import java.util.List;
+
 
 import dao.AdministracionDAO;
-import dao.ClienteDAO;
+
 import dao.PedidoDAO;
-import dto.ClienteDTO;
-import dto.PedidoDTO;
-import negocio.Cliente;
+
 import negocio.Pedido;
 import negocio.Sucursal;
 

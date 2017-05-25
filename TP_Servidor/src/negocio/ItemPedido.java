@@ -30,7 +30,7 @@ public class ItemPedido {
 	public ItemPedido(ItemPedidoEntity ipe){
 		this.cantidad=ipe.getCantidad();
 		this.importe=ipe.getImporte();
-		this.prenda=new PrendaEntity()
+		//COMPLETAR
 	}
 	
 	public boolean obtenervigencia(Prenda p){

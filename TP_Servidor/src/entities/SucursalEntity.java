@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
-import negocio.Sucursal;
+
 
 @Entity
 @Table(name="Sucursal")
