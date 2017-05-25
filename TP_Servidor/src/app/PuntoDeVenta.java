@@ -67,6 +67,10 @@ public class PuntoDeVenta extends UnicastRemoteObject implements PuntoDeVentaCon
 	public int nuevoPedido(int idSucursal) throws RemoteException{
 		return ControladorPedido.getInstancia().nuevoPedido(idSucursal);
 	}
+	
+
+	
+	
 	@Override
 	public void confirmarPedido(PedidoDTO pedido) {
 		// TODO Auto-generated method stub
@@ -93,6 +97,10 @@ public class PuntoDeVenta extends UnicastRemoteObject implements PuntoDeVentaCon
 	public void generarFactura(PedidoDTO p) {
 		// TODO Auto-generated method stub
 
+	}
+	@Override
+	public PedidoDTO obtenerPedido(int idPedido) throws RemoteException {
+			return ControladorPedido.getInstancia().obtenerPedido(idPedido);
 	}
 
 

@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 
+import dto.PedidoDTO;
 import entities.EmpleadoEntity;
 import entities.PedidoEntity;
 import entities.SucursalEntity;
@@ -184,6 +186,22 @@ public class AdministracionDAO {
 		}
 		return null;
 	}
+	public Pedido obtenerPedido(int idPedido) {
+		try {
+			Session session = sf.openSession();
+			Query query = session.createQuery("from Pedido where id =:idPedido");
+			query.setParameter(idPedido, idPedido);
+			Pedido ped = (Pedido) query.uniqueResult();
+			session.close();
+			return ped;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("ErrorDAO: AdministracionDAO: Listar empleados por Sucursal");
+		}
+		return null;
+	}
+	
+	
 	public List<Pedido> obtenerPedidosPendientesDeValidacion() {
 		try {
 			Session session = sf.openSession();

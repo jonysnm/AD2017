@@ -5,6 +5,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+import dto.PedidoDTO;
 import interfazRemota.PuntoDeVentaControlador;
 
 public class BusinessDelegate {
@@ -45,6 +46,9 @@ public class BusinessDelegate {
 	/*PEDIDO*/
 	public int nuevoPedido(int idSucursal) throws RemoteException{
 		return interfazRemota.nuevoPedido(idSucursal);
+	}
+	public PedidoDTO obtenerPedido(int idPedido) throws RemoteException{
+		return interfazRemota.obtenerPedido(idPedido);
 	}
 	/*
 	public void confirmarPedido(PedidoDTO pedido);

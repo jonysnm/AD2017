@@ -6,9 +6,10 @@ import java.util.Date;
 import dao.AdministracionDAO;
 
 import dao.PedidoDAO;
-
+import dto.PedidoDTO;
 import negocio.Pedido;
 import negocio.Sucursal;
+import utils.PedidoToDTO;
 
 
 public class ControladorPedido {
@@ -29,6 +30,7 @@ public class ControladorPedido {
 		Integer id=PedidoDAO.getInstancia().nuevoPedido(p);
 		return id;
 	}
+	
 	public void agregarPedido(Integer id){
 		return;
 	}
@@ -63,5 +65,10 @@ public class ControladorPedido {
 		return AdministracionDAO.getInstancia().obtenerPedidosPendientesDeValidacion();
 	}
 	*/
+	public PedidoDTO obtenerPedido(int idPedido) {
+		Pedido p = AdministracionDAO.getInstancia().obtenerPedido(idPedido);
+		PedidoDTO pedidoDTO = PedidoToDTO.toDTO(p);
+		return pedidoDTO;
+	}
 
 }
