@@ -1,6 +1,7 @@
 package interfazRemota;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.List;
 
 import dto.*;
@@ -17,7 +18,7 @@ public interface PuntoDeVentaControlador extends Remote{
 	public List<SucursalDTO> listarSucursales();
 	public List<SucursalDTO> obtenerSucursales(PedidoDTO p);
 	/*PEDIDO*/
-	public int nuevoPedido(int idSucursal);
+	public int nuevoPedido(int idSucursal) throws RemoteException;
 	public void confirmarPedido(PedidoDTO pedido);
 	//public String informarEstadoPedido();
 	public void cancelarPedido(Integer id);

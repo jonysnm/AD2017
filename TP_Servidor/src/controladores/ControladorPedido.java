@@ -34,6 +34,7 @@ public class ControladorPedido {
 	public void agregarPedido(Integer id){
 		return;
 	}
+	/*
 	public void confirmarPedido(PedidoDTO pedido){
 		Pedido p=PedidoDAO.getInstancia().getPedido(pedido.getId());
 		if(p.getEstado().equals("En Verificación")){
@@ -53,6 +54,7 @@ public class ControladorPedido {
 	public String informarEstadoPedido(){
 		return null;
 	}
+	/*
 	public void cancelarPedido(Integer id){
 		Pedido pe=PedidoDAO.getInstancia().getPedido(id);
 		pe.setEstado("Cancelado");
@@ -62,5 +64,6 @@ public class ControladorPedido {
 	public List<Pedido> obtenerPedidoPendientesDeValidacion(){
 		return AdministracionDAO.getInstancia().obtenerPedidosPendientesDeValidacion();
 	}
+	*/
 
 }

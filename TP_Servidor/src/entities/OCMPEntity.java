@@ -3,9 +3,12 @@ package entities;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,7 +17,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import estados.EstadoOCMP;
 import negocio.ItemOCMP;
+import negocio.Proveedor;
 
 @Entity
 @Table(name="ocmps")
@@ -27,43 +32,18 @@ public class OCMPEntity implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	
+	private Date fecha;
 	@OneToMany (cascade=CascadeType.ALL)
 	@JoinColumn(name="idOcmp")
-	private Collection<ItemOCMP> itemsOcmp;
+	private List<ItemOCMPEntity> itemsOcmp;
 	
 	@ManyToOne
 	@JoinColumn(name="idProveedor")
 	private ProveedorEntity proveedor;
 	private Date fechaEntrega;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public Collection<ItemOCMP> getItemsOcmp() {
-		return itemsOcmp;
-	}
-	public void setItemsOcmp(Collection<ItemOCMP> itemsOcmp) {
-		this.itemsOcmp = itemsOcmp;
-	}
-	public ProveedorEntity getProveedor() {
-		return proveedor;
-	}
-	public void setProveedor(ProveedorEntity proveedor) {
-		this.proveedor = proveedor;
-	}
-	public Date getFechaEntrega() {
-		return fechaEntrega;
-	}
-	public void setFechaEntrega(Date fechaEntrega) {
-		this.fechaEntrega = fechaEntrega;
-	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	
+	@Enumerated(EnumType.STRING)
+	private EstadoOCMP estado;
+
 	
 	
 }

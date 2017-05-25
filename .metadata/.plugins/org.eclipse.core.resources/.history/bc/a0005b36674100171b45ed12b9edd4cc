@@ -1,0 +1,9 @@
+package businessDelegate;
+
+import interfazRemota.PuntoDeVentaControlador;
+
+public class BusinessDelegate {
+	private PuntoDeVentaControlador interfazRemota;
+	
+
+}

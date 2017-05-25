@@ -7,6 +7,7 @@ import org.hibernate.classic.Session;
 
 import entities.PedidoEntity;
 import entities.PrendaEntity;
+import entities.SucursalEntity;
 import hbt.HibernateUtil;
 import negocio.Pedido;
 import negocio.Prenda;
@@ -29,7 +30,7 @@ public class PedidoDAO {
 			Session session=sf.openSession();
 			session.beginTransaction();
 			PedidoEntity pe=new PedidoEntity();
-			pe.setSucursal(pedido.getSucursal());
+			pe.setSucursal(AdministracionDAO.getInstancia().SucursalToEntity(pedido.getSucursal()));
 			pe.setFechaCreacion(pedido.getFechaCreacion());
 			pe.setEstado(pedido.getEstado());
 			id=(Integer) session.save(pe);
@@ -75,13 +76,7 @@ public class PedidoDAO {
 		try{
 			Session session=sf.openSession();
 			session.beginTransaction();
-			PedidoEntity pe=new PedidoEntity();
-			pe.setCliente(pedido.getCliente());
-			pe.setEstado(pedido.getEstado());
-			pe.setFechaCreacion(pedido.getFechaCreacion());
-			pe.setFechaprobableDespacho(pedido.getFechaprobableDespacho());
-			pe.setFecharealDespacho(pedido.getFecharealDespacho());
-			pe.setSucursal(pedido.getSucursal());
+			PedidoEntity pe=PedidoToEntity(pedido);
 			session.update(pe);
 			session.getTransaction().commit();
 			session.close();
@@ -89,6 +84,16 @@ public class PedidoDAO {
 			e.printStackTrace();
 			System.out.println("Error PedidoDAO. Modificar Pedido");
 		}
+	}
+	public PedidoEntity PedidoToEntity(Pedido p){
+		PedidoEntity pe=new PedidoEntity();
+		pe.setCliente(ClienteDAO.getInstancia().ClienteToEntity(p.getCliente()));
+		pe.setEstado(p.getEstado());
+		pe.setFechaCreacion(p.getFechaCreacion());
+		pe.setFechaprobableDespacho(p.getFechaprobableDespacho());
+		pe.setFecharealDespacho(p.getFecharealDespacho());
+		pe.setSucursal(AdministracionDAO.getInstancia().SucursalToEntity(p.getSucursal()));
+		return pe;
 	}
 
 }

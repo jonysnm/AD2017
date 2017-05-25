@@ -32,17 +32,6 @@ public class SucursalEntity implements Serializable{
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="id")
 	private Set<EmpleadoEntity> empleados=new HashSet<EmpleadoEntity>();
-	public SucursalEntity(Sucursal sucursal){
-		this.codigoPostal=sucursal.getCodigoPostal();
-		this.direccion=sucursal.getDireccion();
-		this.empleados=new HashSet<EmpleadoEntity>();
-		this.gerente=new EmpleadoEntity(sucursal.getGerente());
-		this.id=sucursal.getId();
-		this.localidad=sucursal.getLocalidad();
-		this.nombre=sucursal.getNombre();
-		this.provincia=sucursal.getProvincia();
-		this.recepcionPedidos=new EmpleadoEntity(sucursal.getRecepcionPedidos());
-	}
 	public Integer getId() {
 		return id;
 	}

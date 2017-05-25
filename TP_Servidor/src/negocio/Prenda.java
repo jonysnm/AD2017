@@ -75,12 +75,11 @@ public class Prenda {
 		return p.isVigente();
 	}
 	public Prenda(PrendaEntity pr){
-		this.codigo=pr.getIdPrenda().getIdPrenda();
+		this.codigo=pr.getIdPrenda();
 		this.costoProduccion=pr.getCostoProduccion();
 		this.costoProduccionActual=pr.getCostoProduccionActual();
 		this.descripcion=pr.getDescripcion();
 		this.vigente=pr.isVigente();
-		//COMPLETAR EL RESTO!!!
 	}
 	public boolean SoslaPrenda(int codigo){
 		return(this.getCodigo()==codigo);		

@@ -96,12 +96,12 @@ public class Pedido {
 		}
 		return true;
 	}
-	
+
 	public void save(){
-	PedidoDAO.getInstancia().nuevoPedido(this);	
+		PedidoDAO.getInstancia().nuevoPedido(this);	
 	}
-	
+
 	public void update(){
-	PedidoDAO.getInstancia().modificarPedido(this);	
-		}
+		PedidoDAO.getInstancia().ModificarPedido(this);	
+	}
 }

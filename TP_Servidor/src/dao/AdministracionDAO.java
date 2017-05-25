@@ -32,7 +32,7 @@ public class AdministracionDAO {
 		try{
 			Session session=sf.getCurrentSession();
 			session.beginTransaction();
-			SucursalEntity se=new SucursalEntity(s);
+			SucursalEntity se=SucursalToEntity(s);		
 			session.save(se);
 			session.getTransaction().commit();
 			session.close();
@@ -45,7 +45,7 @@ public class AdministracionDAO {
 		try{
 			Session session=sf.getCurrentSession();
 			session.beginTransaction();
-			SucursalEntity se=new SucursalEntity(s);
+			SucursalEntity se=SucursalToEntity(s);
 			session.update(se);
 			session.getTransaction().commit();
 			session.close();
@@ -58,7 +58,7 @@ public class AdministracionDAO {
 		try{
 			Session session=sf.getCurrentSession();
 			session.beginTransaction();
-			SucursalEntity se=new SucursalEntity(s);
+			SucursalEntity se=SucursalToEntity(s);
 			session.delete(se);
 			session.flush();
 			session.getTransaction().commit();
@@ -87,7 +87,7 @@ public class AdministracionDAO {
 		try{
 			Session session=sf.getCurrentSession();
 			session.beginTransaction();
-			EmpleadoEntity ee=new EmpleadoEntity(e);
+			EmpleadoEntity ee=EmpleadoToEntity(e);
 			session.save(ee);
 			session.getTransaction().commit();
 			session.close();
@@ -100,7 +100,7 @@ public class AdministracionDAO {
 		try{
 			Session session=sf.getCurrentSession();
 			session.beginTransaction();
-			EmpleadoEntity ee=new EmpleadoEntity(empleado);
+			EmpleadoEntity ee=EmpleadoToEntity(empleado);
 			session.update(ee);
 			session.getTransaction().commit();
 			session.close();
@@ -113,7 +113,7 @@ public class AdministracionDAO {
 		try{
 			Session session=sf.getCurrentSession();
 			session.beginTransaction();
-			EmpleadoEntity ee=new EmpleadoEntity(empleado);
+			EmpleadoEntity ee=EmpleadoToEntity(empleado);
 			session.delete(ee);
 			session.flush();
 			session.getTransaction().commit();
@@ -147,7 +147,7 @@ public class AdministracionDAO {
 			for (SucursalEntity sucursalEntity : lista) {
 				sucursales.add(new Sucursal(sucursalEntity));
 			}
-			
+
 		}catch(Exception e){
 			e.printStackTrace();
 			System.out.println("ERROR en el AdministraciónDAO Traer ListaSucursales");
@@ -187,6 +187,7 @@ public class AdministracionDAO {
 	public List<Pedido> obtenerPedidosPendientesDeValidacion() {
 		try {
 			Session session = sf.openSession();
+			@SuppressWarnings("unchecked")
 			List<PedidoEntity> lista = session.createQuery("from Pedido where estado ="+"En Verificacion").list();
 			session.close();
 			List<Pedido> pedidos = new ArrayList<>();
@@ -199,5 +200,25 @@ public class AdministracionDAO {
 			System.out.println("ErrorDAO: AdministracionDAO: Listar empleados por Sucursal");
 		}
 		return null;
+	}
+	public SucursalEntity SucursalToEntity(Sucursal s){
+		SucursalEntity se=new SucursalEntity();
+		se.setCodigoPostal(s.getCodigoPostal());
+		se.setDireccion(s.getDireccion());
+		se.setGerente(EmpleadoToEntity(s.getGerente()));
+		se.setLocalidad(s.getLocalidad());
+		se.setNombre(s.getNombre());
+		se.setProvincia(s.getProvincia());
+		se.setRecepcionPedidos(EmpleadoToEntity(s.getRecepcionPedidos()));
+		se.setTelefono(s.getTelefono());
+		return se;
+	}
+	public EmpleadoEntity EmpleadoToEntity(Empleado e){
+		EmpleadoEntity ee=new EmpleadoEntity();
+		ee.setApellido(e.getApellido());
+		ee.setFechaEgreso(e.getFechaEgreso());
+		ee.setNombre(e.getNombre());
+		ee.setSucursal(SucursalToEntity(e.getSucursal()));
+		return ee;
 	}
 }

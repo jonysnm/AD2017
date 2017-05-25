@@ -28,10 +28,11 @@ public class ItemPedido {
 		this.importe = importe;
 	}
 	public ItemPedido(ItemPedidoEntity ipe){
-		this.cantidad=ipe.getPedido().getItems().size();
+		this.cantidad=ipe.getCantidad();
 		this.importe=ipe.getImporte();
-		this.prenda=new Prenda(ipe.getPrenda());
+		this.prenda=new PrendaEntity()
 	}
+	
 	public boolean obtenervigencia(Prenda p){
 		Prenda pr=PedidoDAO.getInstancia().getPrenda(p.getCodigo());
 		if(prenda.SoslaPrenda(prenda.getCodigo())){

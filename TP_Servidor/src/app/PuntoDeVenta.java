@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
+import controladores.ControladorPedido;
 import dto.ClienteDTO;
 import dto.FacturaDTO;
 import dto.PedidoDTO;
@@ -63,9 +64,8 @@ public class PuntoDeVenta extends UnicastRemoteObject implements PuntoDeVentaCon
 		return null;
 	}
 	@Override
-	public int nuevoPedido(int idSucursal) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int nuevoPedido(int idSucursal) throws RemoteException{
+		return ControladorPedido.getInstancia().nuevoPedido(idSucursal);
 	}
 	@Override
 	public void confirmarPedido(PedidoDTO pedido) {

@@ -34,6 +34,12 @@ public class PrendaEntity implements Serializable{
 	private float costoProduccion;
 	private float costoProduccionActual;
 	private float porcentajeGanancia;
+	public Integer getIdPrenda() {
+		return IdPrenda;
+	}
+	public void setIdPrenda(Integer idPrenda) {
+		IdPrenda = idPrenda;
+	}
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -43,19 +49,19 @@ public class PrendaEntity implements Serializable{
 	public Set<ColorEntity> getColores() {
 		return colores;
 	}
-	public void setColores(HashSet<ColorEntity> colores) {
+	public void setColores(Set<ColorEntity> colores) {
 		this.colores = colores;
 	}
 	public Set<TalleEntity> getTalles() {
 		return talles;
 	}
-	public void setTalles(HashSet<TalleEntity> talles) {
+	public void setTalles(Set<TalleEntity> talles) {
 		this.talles = talles;
 	}
 	public Set<ItemMaterialPrendaEntity> getItemMaterialPrenda() {
 		return itemMaterialPrenda;
 	}
-	public void setItemMaterialPrenda(HashSet<ItemMaterialPrendaEntity> itemMaterialPrenda) {
+	public void setItemMaterialPrenda(Set<ItemMaterialPrendaEntity> itemMaterialPrenda) {
 		this.itemMaterialPrenda = itemMaterialPrenda;
 	}
 	public boolean isVigente() {
@@ -82,5 +88,4 @@ public class PrendaEntity implements Serializable{
 	public void setPorcentajeGanancia(float porcentajeGanancia) {
 		this.porcentajeGanancia = porcentajeGanancia;
 	}
-
 }
