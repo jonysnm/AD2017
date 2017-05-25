@@ -19,8 +19,8 @@ public class ItemFacturaEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = -9175778631423059423L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	@JoinColumn(name="nroFactura")
+	private int itemfactura;
 	private int cantidad;
 	@ManyToOne
 	@JoinColumn(name="idPrenda")

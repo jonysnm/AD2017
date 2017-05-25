@@ -32,7 +32,7 @@ public class FacturaEntity implements Serializable {
 	private Date fechaVencimiento;
 	private Cliente cliente;
 	@OneToMany (cascade=CascadeType.ALL)
-	@JoinColumn(name="idFc")
+	@JoinColumn(name="itemfactura")
 	private List<ItemFactura> itemsFactura;
 	private float total;
 	@Enumerated(EnumType.STRING)

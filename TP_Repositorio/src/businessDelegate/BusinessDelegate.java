@@ -43,7 +43,7 @@ public class BusinessDelegate {
 	public List<SucursalDTO> obtenerSucursales(PedidoDTO p);
 	/
 	/*PEDIDO*/
-	public int nuevoPedido(int idSucursal){
+	public int nuevoPedido(int idSucursal) throws RemoteException{
 		return interfazRemota.nuevoPedido(idSucursal);
 	}
 	/*
