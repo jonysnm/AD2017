@@ -1,55 +1,45 @@
 package negocio;
+
+import estados.EstadoMP;
+
 public class MateriaPrima {
 	private int codigo;
 	private float cantidadAComprar;
 	private String nombre;
-	private String estado;
-	
 
-	public void CambiarEstado(String estado) {
-	  this.setEstado(estado);
-	}
-
+	private EstadoMP estado;
 
 	public int getCodigo() {
 		return codigo;
 	}
 
-
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
-
 
 	public float getCantidadAComprar() {
 		return cantidadAComprar;
 	}
 
-
 	public void setCantidadAComprar(float cantidadAComprar) {
 		this.cantidadAComprar = cantidadAComprar;
 	}
-
 
 	public String getNombre() {
 		return nombre;
 	}
 
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-
-	public String getEstado() {
+	public EstadoMP getEstado() {
 		return estado;
 	}
 
-
-	public void setEstado(String estado) {
+	public void setEstado(EstadoMP estado) {
 		this.estado = estado;
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -61,7 +51,6 @@ public class MateriaPrima {
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -77,10 +66,7 @@ public class MateriaPrima {
 			return false;
 		if (codigo != other.codigo)
 			return false;
-		if (estado == null) {
-			if (other.estado != null)
-				return false;
-		} else if (!estado.equals(other.estado))
+		if (estado != other.estado)
 			return false;
 		if (nombre == null) {
 			if (other.nombre != null)
@@ -90,7 +76,6 @@ public class MateriaPrima {
 		return true;
 	}
 
-
 	@Override
 	public String toString() {
 		return "MateriaPrima [codigo=" + codigo + ", cantidadAComprar="
@@ -98,9 +83,8 @@ public class MateriaPrima {
 				+ estado + "]";
 	}
 
-
 	public MateriaPrima(int codigo, float cantidadAComprar, String nombre,
-			String estado) {
+			EstadoMP estado) {
 		super();
 		this.codigo = codigo;
 		this.cantidadAComprar = cantidadAComprar;
@@ -108,11 +92,14 @@ public class MateriaPrima {
 		this.estado = estado;
 	}
 
-
 	public MateriaPrima() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+
 	
 	
 	

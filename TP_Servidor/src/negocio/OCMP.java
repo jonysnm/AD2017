@@ -1,24 +1,34 @@
 package negocio;
 
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+
+import estados.EstadoOCMP;
 
 
 public class OCMP {
 	private int id;
-	private Collection<ItemOCMP> itemsOcmp;
+	private Date fecha;
+	private List<ItemOCMP> itemsOcmp;
 	private Proveedor proveedor;
 	private Date fechaEntrega;
+	private EstadoOCMP estado;
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Collection<ItemOCMP> getItemsOcmp() {
+	public Date getFecha() {
+		return fecha;
+	}
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+	public List<ItemOCMP> getItemsOcmp() {
 		return itemsOcmp;
 	}
-	public void setItemsOcmp(Collection<ItemOCMP> itemsOcmp) {
+	public void setItemsOcmp(List<ItemOCMP> itemsOcmp) {
 		this.itemsOcmp = itemsOcmp;
 	}
 	public Proveedor getProveedor() {
@@ -33,10 +43,18 @@ public class OCMP {
 	public void setFechaEntrega(Date fechaEntrega) {
 		this.fechaEntrega = fechaEntrega;
 	}
+	public EstadoOCMP getEstado() {
+		return estado;
+	}
+	public void setEstado(EstadoOCMP estado) {
+		this.estado = estado;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
+		result = prime * result + ((fecha == null) ? 0 : fecha.hashCode());
 		result = prime * result
 				+ ((fechaEntrega == null) ? 0 : fechaEntrega.hashCode());
 		result = prime * result + id;
@@ -55,6 +73,13 @@ public class OCMP {
 		if (getClass() != obj.getClass())
 			return false;
 		OCMP other = (OCMP) obj;
+		if (estado != other.estado)
+			return false;
+		if (fecha == null) {
+			if (other.fecha != null)
+				return false;
+		} else if (!fecha.equals(other.fecha))
+			return false;
 		if (fechaEntrega == null) {
 			if (other.fechaEntrega != null)
 				return false;
@@ -76,21 +101,27 @@ public class OCMP {
 	}
 	@Override
 	public String toString() {
-		return "OCMP [id=" + id + ", itemsOcmp=" + itemsOcmp + ", proveedor="
-				+ proveedor + ", fechaEntrega=" + fechaEntrega + "]";
+		return "OCMP [id=" + id + ", fecha=" + fecha + ", itemsOcmp="
+				+ itemsOcmp + ", proveedor=" + proveedor + ", fechaEntrega="
+				+ fechaEntrega + ", estado=" + estado + "]";
 	}
-	public OCMP(int id, Collection<ItemOCMP> itemsOcmp, Proveedor proveedor,
-			Date fechaEntrega) {
+	public OCMP(int id, Date fecha, List<ItemOCMP> itemsOcmp,
+			Proveedor proveedor, Date fechaEntrega, EstadoOCMP estado) {
 		super();
 		this.id = id;
+		this.fecha = fecha;
 		this.itemsOcmp = itemsOcmp;
 		this.proveedor = proveedor;
 		this.fechaEntrega = fechaEntrega;
+		this.estado = estado;
 	}
 	public OCMP() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	
 	
 	
 	
