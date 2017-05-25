@@ -13,40 +13,34 @@ public class ItemPedidoEntity implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 6161471348651036527L;
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int item_pedido;
-	@Column(name="numeropedido")
-	private PedidoEntity pedido;
+	@EmbeddedId
+	private ItemPedidoId IdItemPedido;
 	@OneToOne
-	@JoinColumn(name="idPrenda")
-	private PrendaEntity prenda;
+	@JoinColumn(name="idtalle")
+	private TalleEntity talle;
 	@OneToOne
-	private int idtalle;
-	@OneToOne 
-	private int idcolor;
+	@JoinColumn(name="idColor")
+	private ColorEntity color;
 	private int importe;
-	
-	public ItemPedidoEntity(){
-		
+	private int cantidad;	
+	public ItemPedidoEntity(){}
+	public ItemPedidoId getIdItemPedido() {
+		return IdItemPedido;
 	}
-	public int getItem_pedido() {
-		return item_pedido;
+	public void setIdItemPedido(ItemPedidoId idItemPedido) {
+		IdItemPedido = idItemPedido;
 	}
-	public void setItem_pedido(int item_pedido) {
-		this.item_pedido = item_pedido;
+	public TalleEntity getTalle() {
+		return talle;
 	}
-	public PedidoEntity getPedido() {
-		return pedido;
+	public void setTalle(TalleEntity talle) {
+		this.talle = talle;
 	}
-	public void setPedido(PedidoEntity pedido) {
-		this.pedido = pedido;
+	public ColorEntity getColor() {
+		return color;
 	}
-	public PrendaEntity getPrenda() {
-		return prenda;
-	}
-	public void setPrenda(PrendaEntity prenda) {
-		this.prenda = prenda;
+	public void setColor(ColorEntity color) {
+		this.color = color;
 	}
 	public int getImporte() {
 		return importe;
@@ -54,5 +48,10 @@ public class ItemPedidoEntity implements Serializable{
 	public void setImporte(int importe) {
 		this.importe = importe;
 	}
+	public int getCantidad() {
+		return cantidad;
+	}
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
 }
-

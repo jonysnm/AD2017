@@ -11,13 +11,18 @@ public class HibernateUtil {
 	{
 		try{
 			AnnotationConfiguration config=new AnnotationConfiguration();
+			config.addAnnotatedClass(PedidoEntity.class);
+			config.addAnnotatedClass(ItemPedidoEntity.class);
+			config.addAnnotatedClass(PrendaEntity.class);
+			config.addAnnotatedClass(ItemMaterialPrendaEntity.class);
+			config.addAnnotatedClass(MateriaPrimaEntity.class);
+			config.addAnnotatedClass(TalleEntity.class);
+			config.addAnnotatedClass(ColorEntity.class);
+			config.addAnnotatedClass(ClienteEntity.class);
 			config.addAnnotatedClass(EmpleadoEntity.class);
 			config.addAnnotatedClass(SucursalEntity.class);
-			config.addAnnotatedClass(ItemOCMPEntity.class);
-			config.addAnnotatedClass(MateriaPrimaEntity.class);
-			config.addAnnotatedClass(OCMPEntity.class);
-			config.addAnnotatedClass(ProveedorEntity.class);
-			config.addAnnotatedClass(ClienteEntity.class);
+			config.addAnnotatedClass(FacturaEntity.class);
+			config.addAnnotatedClass(ItemFacturaEntity.class);
 			sessionFactory=config.buildSessionFactory();
 		}catch(Throwable ex){
 			System.err.println("Initial SessionFactory creation failed." +ex);

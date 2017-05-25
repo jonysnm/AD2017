@@ -2,6 +2,8 @@ package entities;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 import negocio.Sucursal;
 
@@ -27,8 +29,9 @@ public class SucursalEntity implements Serializable{
 	@OneToOne
 	@JoinColumn(name="idRecepcionPed")
 	private EmpleadoEntity recepcionPedidos;
-	@OneToMany(mappedBy="sucursal")
-	private HashSet<EmpleadoEntity> empleados=new HashSet<EmpleadoEntity>();
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="id")
+	private Set<EmpleadoEntity> empleados=new HashSet<EmpleadoEntity>();
 	public SucursalEntity(Sucursal sucursal){
 		this.codigoPostal=sucursal.getCodigoPostal();
 		this.direccion=sucursal.getDireccion();
@@ -94,7 +97,7 @@ public class SucursalEntity implements Serializable{
 	public void setRecepcionPedidos(EmpleadoEntity recepcionPedidos) {
 		this.recepcionPedidos = recepcionPedidos;
 	}
-	public HashSet<EmpleadoEntity> getEmpleados() {
+	public Set<EmpleadoEntity> getEmpleados() {
 		return empleados;
 	}
 	public void setEmpleados(HashSet<EmpleadoEntity> empleados) {

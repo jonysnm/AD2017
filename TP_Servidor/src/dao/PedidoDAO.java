@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.Date;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 
@@ -26,7 +28,10 @@ public class PedidoDAO {
 			Integer id;
 			Session session=sf.openSession();
 			session.beginTransaction();
-			PedidoEntity pe=new PedidoEntity(pedido);
+			PedidoEntity pe=new PedidoEntity();
+			pe.setSucursal(pedido.getSucursal());
+			pe.setFechaCreacion(pedido.getFechaCreacion());
+			pe.setEstado(pedido.getEstado());
 			id=(Integer) session.save(pe);
 			session.getTransaction();
 			session.close();
@@ -66,10 +71,17 @@ public class PedidoDAO {
 		}
 		return null;
 	}
+	public void ModificarPedido(Pedido pedido){
 		try{
 			Session session=sf.openSession();
 			session.beginTransaction();
 			PedidoEntity pe=new PedidoEntity();
+			pe.setCliente(pedido.getCliente());
+			pe.setEstado(pedido.getEstado());
+			pe.setFechaCreacion(pedido.getFechaCreacion());
+			pe.setFechaprobableDespacho(pedido.getFechaprobableDespacho());
+			pe.setFecharealDespacho(pedido.getFecharealDespacho());
+			pe.setSucursal(pedido.getSucursal());
 			session.update(pe);
 			session.getTransaction().commit();
 			session.close();

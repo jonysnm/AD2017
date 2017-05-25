@@ -14,28 +14,26 @@ public class PrendaEntity implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -2773817217273075770L;
-	@Embedded
-	private PrendaId idPrenda;
+	@Id
+	private Integer IdPrenda;
 	private String descripcion;
-	@ManyToMany
-	@JoinColumn(name="idcolor")
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="prenda_color",
+	joinColumns={@JoinColumn(name="IdPrenda")},
+	inverseJoinColumns={@JoinColumn(name="idColor")})
 	private Set<ColorEntity> colores=new HashSet<ColorEntity>();
 	@ManyToMany
-	@JoinColumn(name="idtalle")
+	@JoinTable(name="prenda_talle",
+	joinColumns={@JoinColumn(name="IdPrenda")},
+	inverseJoinColumns={@JoinColumn(name="idtalle")})
 	private Set<TalleEntity> talles=new HashSet<TalleEntity>();
-	@OneToMany
-	@JoinColumn(name="idPrenda")
-	private HashSet<ItemMaterialPrendaEntity> itemMaterialPrenda=new HashSet<ItemMaterialPrendaEntity>();
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="item_materialprenda")
+	private Set<ItemMaterialPrendaEntity> itemMaterialPrenda=new HashSet<ItemMaterialPrendaEntity>();
 	private boolean vigente;
 	private float costoProduccion;
 	private float costoProduccionActual;
 	private float porcentajeGanancia;
-	public PrendaId getIdPrenda() {
-		return idPrenda;
-	}
-	public void setIdPrenda(PrendaId idPrenda) {
-		this.idPrenda = idPrenda;
-	}
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -54,7 +52,7 @@ public class PrendaEntity implements Serializable{
 	public void setTalles(HashSet<TalleEntity> talles) {
 		this.talles = talles;
 	}
-	public HashSet<ItemMaterialPrendaEntity> getItemMaterialPrenda() {
+	public Set<ItemMaterialPrendaEntity> getItemMaterialPrenda() {
 		return itemMaterialPrenda;
 	}
 	public void setItemMaterialPrenda(HashSet<ItemMaterialPrendaEntity> itemMaterialPrenda) {

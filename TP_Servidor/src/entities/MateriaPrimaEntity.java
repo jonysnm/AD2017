@@ -11,17 +11,16 @@ public class MateriaPrimaEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = 6617885206957270077L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_codigomaterial")
-	private int codigo;
+	@JoinColumn(name="IdPrenda")
+	private int codigomateriaprima;
 	private float cantidadAComprar;
 	private String nombre;
 	private String estado;
-	public int getCodigo() {
-		return codigo;
+	public int getCodigomateriaprima() {
+		return codigomateriaprima;
 	}
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+	public void setCodigomateriaprima(int codigomateriaprima) {
+		this.codigomateriaprima = codigomateriaprima;
 	}
 	public float getCantidadAComprar() {
 		return cantidadAComprar;
@@ -41,7 +40,4 @@ public class MateriaPrimaEntity implements Serializable {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-
-
-
 }
