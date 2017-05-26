@@ -35,15 +35,16 @@ public class ControladorSucursal {
 		Sucursal sucursal=SucursalDTO2Negocio(s);
 		sucursal.editar();
 	}
-	public SucursalDTO obtenerSucursal(int idSuc){
+	public SucursalDTO obtenerSucursal(int idSuc) throws Exception{
 		return AdministracionDAO.getInstancia().getSucursal(idSuc).toDTO();
 	}
-	/**Empleados**/
-	public void crearEmpleado(EmpleadoDTO e){
+	/**Empleados
+	 * @throws Exception **/
+	public void crearEmpleado(EmpleadoDTO e) throws Exception{
 		Empleado em=EmpleadoDTO2Negocio(e);
 		em.save();
 	}
-	public void editarEmpelado(EmpleadoDTO e){
+	public void editarEmpelado(EmpleadoDTO e) throws Exception{
 		Empleado em=EmpleadoDTO2Negocio(e);
 		em.editar();
 	}
@@ -57,7 +58,7 @@ public class ControladorSucursal {
 		return empleadosDTO;
 	}
 	 */
-	public Empleado EmpleadoDTO2Negocio(EmpleadoDTO empleado){
+	public Empleado EmpleadoDTO2Negocio(EmpleadoDTO empleado) throws Exception{
 		Sucursal suc=AdministracionDAO.getInstancia().getSucursal(empleado.getIdSucursal());
 		Empleado e=new Empleado();
 		e.setApellido(empleado.getApellido());

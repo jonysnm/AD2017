@@ -2,9 +2,7 @@ package controladores;
 
 import java.util.Date;
 
-
 import dao.AdministracionDAO;
-
 import dao.PedidoDAO;
 import dto.PedidoDTO;
 import negocio.Pedido;
@@ -21,7 +19,7 @@ public class ControladorPedido {
 		}
 		return instancia;
 	}
-	public Integer nuevoPedido(Integer idSucursal){
+	public Integer nuevoPedido(Integer idSucursal) throws Exception{
 		Sucursal s=AdministracionDAO.getInstancia().getSucursal(idSucursal);
 		Pedido p=new Pedido();
 		p.setSucursal(s);
@@ -65,7 +63,7 @@ public class ControladorPedido {
 		return AdministracionDAO.getInstancia().obtenerPedidosPendientesDeValidacion();
 	}
 	*/
-	public PedidoDTO obtenerPedido(int idPedido) {
+	public PedidoDTO obtenerPedido(int idPedido) throws Exception {
 		Pedido p = AdministracionDAO.getInstancia().obtenerPedido(idPedido);
 		PedidoDTO pedidoDTO = PedidoToDTO.toDTO(p);
 		return pedidoDTO;
