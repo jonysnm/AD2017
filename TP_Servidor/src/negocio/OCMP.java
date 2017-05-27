@@ -3,6 +3,7 @@ package negocio;
 import java.util.Date;
 import java.util.List;
 
+import entities.OCMPEntity;
 import estados.EstadoOCMP;
 
 
@@ -118,6 +119,14 @@ public class OCMP {
 	public OCMP() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public OCMPEntity toEntiy() {
+		OCMPEntity oe = new OCMPEntity();
+		oe.setEstado(this.getEstado());
+		oe.setFecha(this.getFecha());
+		oe.setFechaEntrega(this.getFechaEntrega());
+	//completar
+		return oe;
 	}
 	
 	

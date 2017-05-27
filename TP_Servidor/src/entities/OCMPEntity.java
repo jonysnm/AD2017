@@ -43,6 +43,65 @@ public class OCMPEntity implements Serializable{
 	private Date fechaEntrega;
 	@Enumerated(EnumType.STRING)
 	private EstadoOCMP estado;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public Date getFecha() {
+		return fecha;
+	}
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+	public List<ItemOCMPEntity> getItemsOcmp() {
+		return itemsOcmp;
+	}
+	public void setItemsOcmp(List<ItemOCMPEntity> itemsOcmp) {
+		this.itemsOcmp = itemsOcmp;
+	}
+	public ProveedorEntity getProveedor() {
+		return proveedor;
+	}
+	public void setProveedor(ProveedorEntity proveedor) {
+		this.proveedor = proveedor;
+	}
+	public Date getFechaEntrega() {
+		return fechaEntrega;
+	}
+	public void setFechaEntrega(Date fechaEntrega) {
+		this.fechaEntrega = fechaEntrega;
+	}
+	public EstadoOCMP getEstado() {
+		return estado;
+	}
+	public void setEstado(EstadoOCMP estado) {
+		this.estado = estado;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	public OCMPEntity(int id, Date fecha, List<ItemOCMPEntity> itemsOcmp,
+			ProveedorEntity proveedor, Date fechaEntrega, EstadoOCMP estado) {
+		super();
+		this.id = id;
+		this.fecha = fecha;
+		this.itemsOcmp = itemsOcmp;
+		this.proveedor = proveedor;
+		this.fechaEntrega = fechaEntrega;
+		this.estado = estado;
+	}
+	public OCMPEntity() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public String toString() {
+		return "OCMPEntity [id=" + id + ", fecha=" + fecha + ", itemsOcmp="
+				+ itemsOcmp + ", proveedor=" + proveedor + ", fechaEntrega="
+				+ fechaEntrega + ", estado=" + estado + "]";
+	}
 
 	
 	

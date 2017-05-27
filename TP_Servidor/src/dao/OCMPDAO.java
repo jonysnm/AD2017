@@ -5,6 +5,8 @@ import hbt.HibernateUtil;
 import java.util.Date;
 import java.util.List;
 
+import negocio.OCMP;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 
@@ -70,4 +72,60 @@ public class OCMPDAO {
 		
 	}
 
+
+	public void altaOCMP(OCMP ocmp) {
+		try {
+			Session session = sf.openSession();
+			session.beginTransaction();
+			session.save(ocmp.toEntiy());
+			session.getTransaction().commit();
+			session.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error OCMPDAO. Alta OCMP");
+		}
+	}
+
+	public void modificarCliente(OCMP ocmp) {
+		try {
+			Session session = sf.openSession();
+			session.beginTransaction();
+			session.update(ocmp);
+			session.getTransaction().commit();
+			session.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error OCMPDAO. Modificar OCMP");
+		}
+	}
+
+	public void bajaCliente(OCMP ocmp) {
+		try {
+			Session session = sf.getCurrentSession();
+			session.beginTransaction();
+			session.delete(ocmp);
+			session.flush();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error OCMPDAO. Baja OCMP");
+		}
+	}
+
+	public OCMP getCliente(int idOCMP) {
+		try {
+			Session session = sf.openSession();
+			session.beginTransaction();
+			OCMP ocmp = (OCMP) session.get(OCMP.class, idOCMP);
+			session.getTransaction().commit();
+			session.close();
+			return ocmp;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error OCMPDAO. Get OCMP");
+		}
+		return null;
+	}
+
+	
 }
