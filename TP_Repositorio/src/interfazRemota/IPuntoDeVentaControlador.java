@@ -6,7 +6,7 @@ import java.util.List;
 
 import dto.*;
 
-public interface PuntoDeVentaControlador extends Remote{
+public interface IPuntoDeVentaControlador extends Remote{
 	/*LAU*/
 	public ClienteDTO buscarCliente(long id)throws RemoteException;
 	public boolean altaCliente(String nombre,String cuit,String tipoFacturacion,String limiteCredito)throws RemoteException;

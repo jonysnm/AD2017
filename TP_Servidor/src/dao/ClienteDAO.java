@@ -20,18 +20,22 @@ public class ClienteDAO {
 		return instancia;
 	}
 	/**CLIENTE**/
-	public void altaCliente(Cliente cliente){
+	public Integer altaCliente(Cliente cliente){
+		Session session=sf.openSession();
 		try{
-			Session session=sf.openSession();
 			session.beginTransaction();
 			ClienteEntity c=ClienteToEntity(cliente);
-			session.save(c);
+			Integer numeroCliente = (Integer) session.save(c);
 			session.getTransaction().commit();
-			session.close();
+			return numeroCliente;
 		}catch(Exception e){
 			e.printStackTrace();
 			System.out.println("Error ClienteAO. Alta cliente");
 		}
+		finally {
+			session.close();
+		}
+		return null;
 	}
 	public void bajaCliente(Cliente cliente){
 		try{

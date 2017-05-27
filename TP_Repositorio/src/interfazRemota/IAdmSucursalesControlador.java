@@ -7,7 +7,7 @@ import java.util.*;
 import dto.EmpleadoDTO;
 import dto.SucursalDTO;
 
-public interface AdmSucursalesControlador extends Remote{
+public interface IAdmSucursalesControlador extends Remote{
 
 	public List<SucursalDTO> listarSucursales()throws RemoteException; 
 

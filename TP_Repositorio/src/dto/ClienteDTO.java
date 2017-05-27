@@ -1,6 +1,13 @@
 package dto;
 
-public class ClienteDTO {
+import java.io.Serializable;
+
+public class ClienteDTO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8298631398702523680L;
+	
 	private Integer id;
 	private String nombre;
 	private String cuit;

@@ -23,7 +23,7 @@ public class ClienteEntity  implements Serializable{
 	@Column(name="cliente_id")
 	public int id;
 	public String nombre;
-	public int cuit;
+	private String cuit;
 	public String tipofacturacion;
 	public float limiteCredito;
 	public int getId() {
@@ -37,12 +37,6 @@ public class ClienteEntity  implements Serializable{
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-	public int getCuit() {
-		return cuit;
-	}
-	public void setCuit(int cuit) {
-		this.cuit = cuit;
 	}
 	public String getTipofacturacion() {
 		return tipofacturacion;
@@ -58,6 +52,12 @@ public class ClienteEntity  implements Serializable{
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public String getCuit() {
+		return cuit;
+	}
+	public void setCuit(String cuit) {
+		this.cuit = cuit;
 	}
 
 

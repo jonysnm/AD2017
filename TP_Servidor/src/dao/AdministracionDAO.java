@@ -142,7 +142,6 @@ public class AdministracionDAO {
 			session.beginTransaction();
 			EmpleadoEntity empleado = (EmpleadoEntity) session.get(EmpleadoEntity.class, idEmpleado);
 			session.getTransaction().commit();
-			session.close();
 			return new Empleado(empleado);
 		} catch (Exception e) {
 			e.printStackTrace();

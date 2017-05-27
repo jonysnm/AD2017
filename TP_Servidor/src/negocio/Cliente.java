@@ -6,7 +6,7 @@ import entities.ClienteEntity;
 public class Cliente {
 	private Integer id;
 	private String nombre;
-	private int cuit;
+	private String cuit;
 	private String tipoFacturacion;
 	private float limiteCredito;
 	public Cliente() {
@@ -36,18 +36,18 @@ public class Cliente {
 	public void setLimiteCredito(float limiteCredito) {
 		this.limiteCredito = limiteCredito;
 	}
-	public int getCuit() {
-		return cuit;
-	}
-	public void setCuit(int cuit) {
-		this.cuit = cuit;
-	}
 	public Cliente(ClienteEntity c){
-		this.cuit=c.getCuit();
+		this.setCuit(c.getCuit());
 		this.id=c.getId();
 		this.limiteCredito=c.getLimiteCredito();
 		this.nombre=c.getNombre();
 		this.tipoFacturacion=c.getTipofacturacion();
+	}
+	public String getCuit() {
+		return cuit;
+	}
+	public void setCuit(String cuit) {
+		this.cuit = cuit;
 	}
 }
 

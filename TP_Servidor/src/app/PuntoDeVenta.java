@@ -9,9 +9,9 @@ import dto.ClienteDTO;
 import dto.FacturaDTO;
 import dto.PedidoDTO;
 import dto.SucursalDTO;
-import interfazRemota.PuntoDeVentaControlador;
+import interfazRemota.IPuntoDeVentaControlador;
 
-public class PuntoDeVenta extends UnicastRemoteObject implements PuntoDeVentaControlador {
+public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaControlador {
 	/**
 	 * 
 	 */

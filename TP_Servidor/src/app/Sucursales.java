@@ -8,9 +8,9 @@ import controladores.ControladorSucursal;
 import dao.AdministracionDAO;
 import dto.EmpleadoDTO;
 import dto.SucursalDTO;
-import interfazRemota.AdmSucursalesControlador;
+import interfazRemota.IAdmSucursalesControlador;
 
-public class Sucursales extends UnicastRemoteObject implements AdmSucursalesControlador {
+public class Sucursales extends UnicastRemoteObject implements IAdmSucursalesControlador {
 
 	/**
 	 * 
