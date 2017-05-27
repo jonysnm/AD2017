@@ -1,0 +1,24 @@
+package entities;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="itemfactura")
+public class ItemFacturaEntity {
+	private int cantidad;
+	@OneToOne
+	@JoinColumn(name="idPrenda")
+	private PrendaEntity prenda;
+	public int getCantidad() {
+		return cantidad;
+	}
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+	public PrendaEntity getPrenda() {
+		return prenda;
+	}
+	public void setPrenda(PrendaEntity prenda) {
+		this.prenda = prenda;
+	}
+}

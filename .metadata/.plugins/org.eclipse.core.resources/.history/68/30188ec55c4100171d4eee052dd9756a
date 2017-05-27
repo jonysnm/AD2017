@@ -1,0 +1,27 @@
+package entities;
+
+import java.io.Serializable;
+
+import javax.persistence.*;
+
+
+
+@Entity
+@Table(name="ItemPedido")
+public class ItemPedidoEntity implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6161471348651036527L;
+	@EmbeddedId
+	private ItemPedidoId IdItemPedido;
+	@OneToOne
+	@JoinColumn(name="idtalle")
+	private TalleEntity talle;
+	@OneToOne
+	@JoinColumn(name="idColor")
+	private ColorEntity color;
+	private int importe;
+	private int cantidad;	
+	public ItemPedidoEntity(){}
+	

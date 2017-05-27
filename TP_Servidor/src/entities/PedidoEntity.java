@@ -6,9 +6,6 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
 
-import negocio.Pedido;
-
-
 @Entity
 @Table(name="pedidos")
 public class PedidoEntity implements Serializable{
@@ -27,14 +24,14 @@ public class PedidoEntity implements Serializable{
 	private Date fechaprobableDespacho;
 	private Date fecharealDespacho;
 	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="numeropedido")
+	@JoinColumn(name="IdPedido")
 	private Set<ItemPedidoEntity> items=new HashSet<ItemPedidoEntity>();
 	@ManyToOne
 	@JoinColumn(name="sucursal_id")
 	private SucursalEntity sucursal;
 	@ManyToOne
 	@JoinColumn(name="factura_id")
-	private float total;
+	private FacturaEntity factura;
 	private String estado;
 	public PedidoEntity(){}
 	public int getId() {
@@ -79,26 +76,10 @@ public class PedidoEntity implements Serializable{
 	public void setSucursal(SucursalEntity sucursal) {
 		this.sucursal = sucursal;
 	}
-	public float getTotal() {
-		return total;
-	}
-	public void setTotal(float total) {
-		this.total = total;
-	}
 	public String getEstado() {
 		return estado;
 	}
 	public void setEstado(String estado) {
 		this.estado = estado;
-	}
-	public PedidoEntity(Pedido p){
-		this.cliente=new ClienteEntity(p.getCliente());
-		this.estado=p.getEstado();
-		this.fechaCreacion=p.getFechaCreacion();
-		this.fechaprobableDespacho=p.getFechaprobableDespacho();
-		this.fecharealDespacho=p.getFecharealDespacho();
-		this.id=p.getId();
-		this.items=new HashSet<ItemPedidoEntity>();
-		this.sucursal=new SucursalEntity(p.getSucursal());
 	}
 }

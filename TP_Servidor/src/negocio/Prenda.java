@@ -1,6 +1,6 @@
 package negocio;
 
-import java.util.Collection;
+import java.util.List;
 
 import dao.PedidoDAO;
 import entities.PrendaEntity;
@@ -8,9 +8,9 @@ import entities.PrendaEntity;
 public class Prenda {
 	private int codigo;
 	private String descripcion;
-	private Collection<Color> colores;
-	private Collection<Talle> talles;
-	private Collection<ItemMaterialPrenda> itemMaterialPrenda;
+	private List<Color> colores;
+	private List<Talle> talles;
+	private List<ItemMaterialPrenda> itemMaterialPrenda;
 	private boolean vigente;
 	private float costoProduccion;
 	private float costoProduccionActual;
@@ -28,22 +28,22 @@ public class Prenda {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public Collection<Color> getColores() {
+	public List<Color> getColores() {
 		return colores;
 	}
-	public void setColores(Collection<Color> colores) {
+	public void setColores(List<Color> colores) {
 		this.colores = colores;
 	}
-	public Collection<Talle> getTalles() {
+	public List<Talle> getTalles() {
 		return talles;
 	}
-	public void setTalles(Collection<Talle> talles) {
+	public void setTalles(List<Talle> talles) {
 		this.talles = talles;
 	}
-	public Collection<ItemMaterialPrenda> getItemMaterialPrenda() {
+	public List<ItemMaterialPrenda> getItemMaterialPrenda() {
 		return itemMaterialPrenda;
 	}
-	public void setItemMaterialPrenda(Collection<ItemMaterialPrenda> itemMaterialPrenda) {
+	public void setItemMaterialPrenda(List<ItemMaterialPrenda> itemMaterialPrenda) {
 		this.itemMaterialPrenda = itemMaterialPrenda;
 	}
 	public boolean isVigente() {
@@ -75,12 +75,11 @@ public class Prenda {
 		return p.isVigente();
 	}
 	public Prenda(PrendaEntity pr){
-		this.codigo=pr.getIdPrenda().getIdPrenda();
+		this.codigo=pr.getIdPrenda();
 		this.costoProduccion=pr.getCostoProduccion();
 		this.costoProduccionActual=pr.getCostoProduccionActual();
 		this.descripcion=pr.getDescripcion();
 		this.vigente=pr.isVigente();
-		//COMPLETAR EL RESTO!!!
 	}
 	public boolean SoslaPrenda(int codigo){
 		return(this.getCodigo()==codigo);		

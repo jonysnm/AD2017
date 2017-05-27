@@ -1,0 +1,39 @@
+package entities;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.*;
+
+
+@Entity
+@Table(name="facturas")
+public class FacturaEntity {
+	@Id
+	private int nroFactura;
+	private Date fecha;
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="nroFactura")
+	private Set<ItemFacturaEntity> items=new HashSet<ItemFacturaEntity>();
+	public FacturaEntity() {}
+	public int getNroFactura() {
+		return nroFactura;
+	}
+	public void setNroFactura(int nroFactura) {
+		this.nroFactura = nroFactura;
+	}
+	public Date getFecha() {
+		return fecha;
+	}
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+	public Set<ItemFacturaEntity> getItems() {
+		return items;
+	}
+	public void setItems(Set<ItemFacturaEntity> items) {
+		this.items = items;
+	}
+
+
+}

@@ -2,8 +2,10 @@ package entities;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
-import negocio.Sucursal;
+
 
 @Entity
 @Table(name="Sucursal")
@@ -27,19 +29,9 @@ public class SucursalEntity implements Serializable{
 	@OneToOne
 	@JoinColumn(name="idRecepcionPed")
 	private EmpleadoEntity recepcionPedidos;
-	@OneToMany(mappedBy="sucursal")
-	private HashSet<EmpleadoEntity> empleados=new HashSet<EmpleadoEntity>();
-	public SucursalEntity(Sucursal sucursal){
-		this.codigoPostal=sucursal.getCodigoPostal();
-		this.direccion=sucursal.getDireccion();
-		this.empleados=new HashSet<EmpleadoEntity>();
-		this.gerente=new EmpleadoEntity(sucursal.getGerente());
-		this.id=sucursal.getId();
-		this.localidad=sucursal.getLocalidad();
-		this.nombre=sucursal.getNombre();
-		this.provincia=sucursal.getProvincia();
-		this.recepcionPedidos=new EmpleadoEntity(sucursal.getRecepcionPedidos());
-	}
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="id")
+	private Set<EmpleadoEntity> empleados=new HashSet<EmpleadoEntity>();
 	public Integer getId() {
 		return id;
 	}
@@ -94,7 +86,7 @@ public class SucursalEntity implements Serializable{
 	public void setRecepcionPedidos(EmpleadoEntity recepcionPedidos) {
 		this.recepcionPedidos = recepcionPedidos;
 	}
-	public HashSet<EmpleadoEntity> getEmpleados() {
+	public Set<EmpleadoEntity> getEmpleados() {
 		return empleados;
 	}
 	public void setEmpleados(HashSet<EmpleadoEntity> empleados) {

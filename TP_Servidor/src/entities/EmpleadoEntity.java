@@ -3,7 +3,7 @@ package entities;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
-import negocio.Empleado;
+
 
 @Entity
 @Table(name="Empleado")
@@ -22,15 +22,6 @@ public class EmpleadoEntity implements Serializable{
 	@OneToOne
 	@JoinColumn(name="idSucursal")
 	private SucursalEntity sucursal;
-	public EmpleadoEntity(Empleado em){
-		this.apellido=em.getApellido();
-		this.fechaEgreso=em.getFechaEgreso();
-		this.fechaIngreso=em.getFechaIngreso();
-		this.id=em.getId();
-		this.nombre=em.getNombre();
-		this.sucursal=new SucursalEntity(em.getSucursal());
-	}
-
 	public Integer getId() {
 		return id;
 	}

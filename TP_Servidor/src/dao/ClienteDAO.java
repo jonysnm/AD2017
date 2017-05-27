@@ -24,7 +24,7 @@ public class ClienteDAO {
 		try{
 			Session session=sf.openSession();
 			session.beginTransaction();
-			ClienteEntity c=new ClienteEntity(cliente);
+			ClienteEntity c=ClienteToEntity(cliente);
 			session.save(c);
 			session.getTransaction().commit();
 			session.close();
@@ -37,7 +37,7 @@ public class ClienteDAO {
 		try{
 			Session session=sf.getCurrentSession();
 			session.beginTransaction();
-			ClienteEntity c=new ClienteEntity(cliente);
+			ClienteEntity c=ClienteToEntity(cliente);
 			session.delete(c);
 			session.flush();
 			session.getTransaction().commit();
@@ -52,7 +52,7 @@ public class ClienteDAO {
 		try{
 			Session session=sf.openSession();
 			session.beginTransaction();
-			ClienteEntity c=new ClienteEntity(cliente);
+			ClienteEntity c=ClienteToEntity(cliente);
 			session.update(c);
 			session.getTransaction().commit();
 			session.close();
@@ -75,4 +75,13 @@ public class ClienteDAO {
 		}
 		return null;
 	}
+	public ClienteEntity ClienteToEntity(Cliente c){
+		ClienteEntity ce=new ClienteEntity();
+		ce.setCuit(c.getCuit());
+		ce.setLimiteCredito(c.getLimiteCredito());
+		ce.setTipofacturacion(c.getTipoFacturacion());
+		ce.setNombre(c.getNombre());
+		return ce;		
+	}
+
 }

@@ -1,16 +1,13 @@
 package controladores;
 
 import java.util.Date;
-import java.util.List;
 
 import dao.AdministracionDAO;
-import dao.ClienteDAO;
 import dao.PedidoDAO;
-import dto.ClienteDTO;
 import dto.PedidoDTO;
-import negocio.Cliente;
 import negocio.Pedido;
 import negocio.Sucursal;
+import utils.PedidoToDTO;
 
 
 public class ControladorPedido {
@@ -22,7 +19,7 @@ public class ControladorPedido {
 		}
 		return instancia;
 	}
-	public Integer nuevoPedido(Integer idSucursal){
+	public Integer nuevoPedido(Integer idSucursal) throws Exception{
 		Sucursal s=AdministracionDAO.getInstancia().getSucursal(idSucursal);
 		Pedido p=new Pedido();
 		p.setSucursal(s);
@@ -31,9 +28,11 @@ public class ControladorPedido {
 		Integer id=PedidoDAO.getInstancia().nuevoPedido(p);
 		return id;
 	}
+	
 	public void agregarPedido(Integer id){
 		return;
 	}
+	/*
 	public void confirmarPedido(PedidoDTO pedido){
 		Pedido p=PedidoDAO.getInstancia().getPedido(pedido.getId());
 		if(p.getEstado().equals("En Verificación")){
@@ -53,6 +52,7 @@ public class ControladorPedido {
 	public String informarEstadoPedido(){
 		return null;
 	}
+	/*
 	public void cancelarPedido(Integer id){
 		Pedido pe=PedidoDAO.getInstancia().getPedido(id);
 		pe.setEstado("Cancelado");
@@ -61,6 +61,12 @@ public class ControladorPedido {
 	
 	public List<Pedido> obtenerPedidoPendientesDeValidacion(){
 		return AdministracionDAO.getInstancia().obtenerPedidosPendientesDeValidacion();
+	}
+	*/
+	public PedidoDTO obtenerPedido(int idPedido) throws Exception {
+		Pedido p = AdministracionDAO.getInstancia().obtenerPedido(idPedido);
+		PedidoDTO pedidoDTO = PedidoToDTO.toDTO(p);
+		return pedidoDTO;
 	}
 
 }
