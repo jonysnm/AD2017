@@ -6,11 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import controladores.ControladorClientes;
-import dao.ClienteDAO;
+
 import dto.ClienteDTO;
 import interfazRemota.IClienteControlador;
 import negocio.Cliente;
-import utils.ClienteToClienteDTO;
 
 public class ClientesRMI extends UnicastRemoteObject implements IClienteControlador {
 

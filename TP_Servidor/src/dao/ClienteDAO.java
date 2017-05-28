@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -86,25 +87,28 @@ public class ClienteDAO {
 		return null;
 	}
 	@SuppressWarnings("unchecked")
-	public ArrayList<Cliente> buscarClientes (){
+	public List<Cliente> buscarClientes (){
 		Session session = sf.openSession();
+		List<Cliente>cliente=new ArrayList<Cliente>();
 		try {
 			
-			String hql = "FROM Cliente C ";
+			String hql = "FROM ClienteEntity C ";
 			
-			Query query = session.createQuery(hql);
+			List<ClienteEntity> query = session.createQuery(hql).list();
 			
-			return (ArrayList<Cliente>) query.list();
-				
+			
+			for (ClienteEntity cl : query) {
+				cliente.add(new Cliente(cl));
+			}				
 		}catch (QuerySyntaxException q){
 			JOptionPane.showMessageDialog(null, q, "Error", JOptionPane.ERROR_MESSAGE);
-			System.out.println("Exception de sintaxis en ClienteDAO: buscarParticulares");
+			System.out.println("Exception de sintaxis en ClienteDAO: buscarClientes");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			session.close();
 		}
-		return null;
+		return cliente;
 	}
 	public ClienteEntity ClienteToEntity(Cliente c){
 		ClienteEntity ce=new ClienteEntity();

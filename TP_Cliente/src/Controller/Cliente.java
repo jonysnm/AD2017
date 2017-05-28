@@ -2,6 +2,7 @@ package Controller;
 
 import java.rmi.RemoteException;
 import java.util.Date;
+import java.util.List;
 
 import businessDelegate.BusinessDelegate;
 import dto.ClienteDTO;
@@ -12,7 +13,7 @@ import dto.SucursalDTO;
 public class Cliente {
 	BusinessDelegate businessDelegate;
 	PedidoDTO pedido;
-	
+	ClienteDTO cliente;
 	public static void main(String[] args) {
 		new Cliente();
 	}
@@ -20,9 +21,15 @@ public class Cliente {
 	public Cliente() {
 		try{
 			businessDelegate=BusinessDelegate.getInstancia();
-			nuevoCliente();
-			nuevaSucursal();
-			nuevoPedido();
+			//nuevoCliente();
+			//cliente=businessDelegate.buscarCliente(1);
+			//System.out.println(cliente.getNombre());
+			List<ClienteDTO> clientesDTO=businessDelegate.obtenerClientes();
+			for (ClienteDTO cli : clientesDTO) {
+		     	System.out.println(cli.getNombre());	
+			}
+//			nuevaSucursal();
+//			nuevoPedido();
 //			obtenerPedido();
 			
     	}catch (RemoteException e){
