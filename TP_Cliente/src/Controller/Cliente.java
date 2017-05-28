@@ -19,7 +19,7 @@ import dto.TalleDTO;
 public class Cliente {
 	BusinessDelegate businessDelegate;
 	PedidoDTO pedido;
-
+	ClienteDTO cliente;
 	public static void main(String[] args) {
 		new Cliente();
 	}
@@ -35,6 +35,22 @@ public class Cliente {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
+		try{
+			businessDelegate=BusinessDelegate.getInstancia();
+			//nuevoCliente();
+			//cliente=businessDelegate.buscarCliente(1);
+			//System.out.println(cliente.getNombre());
+			List<ClienteDTO> clientesDTO=businessDelegate.obtenerClientes();
+			for (ClienteDTO cli : clientesDTO) {
+		     	System.out.println(cli.getNombre());	
+			}
+//			nuevaSucursal();
+//			nuevoPedido();
+//			obtenerPedido();
+			
+    	}catch (RemoteException e){
+    		e.printStackTrace();
+    	}
 	}
 
 	private void nuevoCliente() throws RemoteException {

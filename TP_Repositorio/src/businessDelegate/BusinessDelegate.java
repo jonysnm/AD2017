@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.List;
 
 import dto.ClienteDTO;
 import dto.EmpleadoDTO;
@@ -40,33 +41,31 @@ public class BusinessDelegate {
 			e.printStackTrace();
 		}
 	}
-	//LAU
-	/*public ClienteDTO buscarCliente(long id);
-	public boolean altaCliente(String nombre,String cuit,String tipoFacturacion,String limiteCredito);
-	public List<ClienteDTO> obtenerClientes();
-	public void modificarCliente(ClienteDTO c);
-	public void bajaCliente(ClienteDTO c);
-	public ClienteDTO editarCliente(ClienteDTO c);
-	//FRAN
-	public List<SucursalDTO> listarSucursales();
-	public List<SucursalDTO> obtenerSucursales(PedidoDTO p);
-	 */
-
-	//MAU
-	
+	/*FRAN*/
+	public void modificarCliente(ClienteDTO c) throws RemoteException{
+		interfazRemotaClientes.modificarCliente(c);
+	}
+	public void bajaCliente(Integer idCliente) throws RemoteException{
+		interfazRemotaClientes.bajaCliente(idCliente);
+	}
+	public ClienteDTO buscarCliente(Integer id) throws RemoteException{
+		return interfazRemotaClientes.buscarCliente(id);
+	}
+	public List<ClienteDTO> obtenerClientes() throws RemoteException{
+		return interfazRemotaClientes.obtenerClientes();
+	}	
 	public Integer altaCliente(ClienteDTO cliDTO) throws RemoteException{
 		return interfazRemotaClientes.altaCliente(cliDTO);
 	}
 	public void crearSucursal(SucursalDTO s)throws RemoteException{
-		 interfazRemotaSucursales.crearSucursal(s);
-	}
-	
+		interfazRemotaSucursales.crearSucursal(s);
+	}	
 	public void crearEmpleado(EmpleadoDTO e)throws RemoteException{
-		 interfazRemotaSucursales.crearEmpleado(e);
+		interfazRemotaSucursales.crearEmpleado(e);
 	}
 
 
-	
+
 	/*PEDIDO*/
 	public int nuevoPedido(PedidoDTO pedidoDTO,int idSucursal) throws RemoteException{
 		return interfazRemotaPuntoVenta.nuevoPedido(pedidoDTO,idSucursal);
@@ -81,5 +80,5 @@ public class BusinessDelegate {
 	//MAU
 	public List<FacturaDTO> getFacturas();	
 	public void generarFactura(PedidoDTO p);
-	*/
+	 */
 }
