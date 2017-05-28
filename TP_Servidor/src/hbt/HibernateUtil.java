@@ -14,6 +14,7 @@ public class HibernateUtil {
 			config.addAnnotatedClass(PedidoEntity.class);
 			config.addAnnotatedClass(ItemPedidoEntity.class);
 			config.addAnnotatedClass(PrendaEntity.class);
+			config.addAnnotatedClass(ItemPrendaEntity.class);
 			config.addAnnotatedClass(ItemMaterialPrendaEntity.class);
 			config.addAnnotatedClass(MateriaPrimaEntity.class);
 			config.addAnnotatedClass(TalleEntity.class);

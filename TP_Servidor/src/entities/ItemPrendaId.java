@@ -10,21 +10,18 @@ public class ItemPrendaId implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -6109442483529088615L;
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="IdPrenda")
-	private PrendaEntity prenda;
 	@OneToOne
 	@JoinColumn(name="idtalle")
 	private TalleEntity talle;
 	@OneToOne
 	@JoinColumn(name="idColor")
 	private ColorEntity color;
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((color == null) ? 0 : color.hashCode());
-		result = prime * result + ((prenda == null) ? 0 : prenda.hashCode());
 		result = prime * result + ((talle == null) ? 0 : talle.hashCode());
 		return result;
 	}
@@ -41,11 +38,6 @@ public class ItemPrendaId implements Serializable{
 			if (other.color != null)
 				return false;
 		} else if (!color.equals(other.color))
-			return false;
-		if (prenda == null) {
-			if (other.prenda != null)
-				return false;
-		} else if (!prenda.equals(other.prenda))
 			return false;
 		if (talle == null) {
 			if (other.talle != null)
