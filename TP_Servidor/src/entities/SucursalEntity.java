@@ -1,10 +1,15 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 
 @Entity
@@ -23,15 +28,17 @@ public class SucursalEntity implements Serializable{
 	private String localidad;
 	private String codigoPostal;
 	private String telefono;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="idGerente")
 	private EmpleadoEntity gerente;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="idRecepcionPed")
 	private EmpleadoEntity recepcionPedidos;
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="id")
-	private Set<EmpleadoEntity> empleados=new HashSet<EmpleadoEntity>();
+//	@OneToMany
+//	@JoinColumn(name="id",nullable=true,insertable=true,updatable=true)
+//	private List<EmpleadoEntity> empleados=new ArrayList<EmpleadoEntity>();
+//	
+	
 	public Integer getId() {
 		return id;
 	}
@@ -86,12 +93,13 @@ public class SucursalEntity implements Serializable{
 	public void setRecepcionPedidos(EmpleadoEntity recepcionPedidos) {
 		this.recepcionPedidos = recepcionPedidos;
 	}
-	public Set<EmpleadoEntity> getEmpleados() {
-		return empleados;
-	}
-	public void setEmpleados(HashSet<EmpleadoEntity> empleados) {
-		this.empleados = empleados;
-	}
+//	public List<EmpleadoEntity> getEmpleados() {
+//		return empleados;
+//	}
+//	public void setEmpleados(List<EmpleadoEntity> empleados) {
+//		this.empleados = empleados;
+//	}
+
 
 
 }

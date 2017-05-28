@@ -41,7 +41,6 @@ public class AdministracionDAO {
 			SucursalEntity se = SucursalToEntity(s);
 			session.save(se);
 			session.getTransaction().commit();
-			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("ERROR en el AdministraciónDAO ALTA SUCURSAL");
@@ -100,7 +99,7 @@ public class AdministracionDAO {
 			EmpleadoEntity ee = EmpleadoToEntity(e);
 			session.save(ee);
 			session.getTransaction().commit();
-			session.close();
+
 		} catch (Exception em) {
 			em.printStackTrace();
 			System.out.println("ERROR en el AdministraciónDAO ALTA EMPLEADO");
@@ -250,8 +249,11 @@ public class AdministracionDAO {
 		EmpleadoEntity ee = new EmpleadoEntity();
 		ee.setApellido(e.getApellido());
 		ee.setFechaEgreso(e.getFechaEgreso());
+		ee.setFechaIngreso(e.getFechaIngreso());
 		ee.setNombre(e.getNombre());
-		ee.setSucursal(SucursalToEntity(e.getSucursal()));
+//		if(e.getSucursal()!=null){
+//		ee.setSucursal(SucursalToEntity(e.getSucursal()));
+//		}
 		return ee;
 	}
 }

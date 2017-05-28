@@ -19,9 +19,10 @@ public class EmpleadoEntity implements Serializable{
 	private String apellido;
 	private Date fechaIngreso;
 	private Date fechaEgreso;
-	@OneToOne
-	@JoinColumn(name="idSucursal")
+	@OneToOne(optional=true)
+	@JoinColumn(name="idSucursal",nullable=true)
 	private SucursalEntity sucursal;
+	
 	public Integer getId() {
 		return id;
 	}

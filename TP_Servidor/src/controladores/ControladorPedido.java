@@ -32,6 +32,7 @@ public class ControladorPedido {
 	public void agregarPedido(Integer id){
 		return;
 	}
+	
 	/*
 	public void confirmarPedido(PedidoDTO pedido){
 		Pedido p=PedidoDAO.getInstancia().getPedido(pedido.getId());

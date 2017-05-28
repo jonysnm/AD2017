@@ -21,9 +21,9 @@ public class Cliente {
 		try{
 			businessDelegate=BusinessDelegate.getInstancia();
 			nuevoCliente();
-//			nuevaSucursal();
+			nuevaSucursal();
+			nuevoPedido();
 //			obtenerPedido();
-//			nuevoPedido();
 			
     	}catch (RemoteException e){
     		e.printStackTrace();
@@ -48,10 +48,11 @@ public class Cliente {
 		e.setApellido("Perez");
 		e.setNombre("Jose");
 		e.setFechaEgreso(new Date());
-		e.setFechaEgreso(new Date());
-		e.setIdSucursal(1);
+		e.setFechaIngreso(new Date());
+//		e.setIdSucursal(1);
 		
 		SucursalDTO s = new SucursalDTO();
+		s.setNombre("la sucursal");
 		s.setCodigoPostal("1234");
 		s.setDireccion("Pepiri 400");
 		s.setIdGerente(1);
@@ -76,7 +77,7 @@ public class Cliente {
 	
 	/*Nuevo Pedido*/
 	private void nuevoPedido() throws RemoteException {
-		int nroPedido = businessDelegate.getInstancia().nuevoPedido(12);
-		System.out.println(("IDPedido: %d"+nroPedido));
+		int nroPedido = businessDelegate.getInstancia().nuevoPedido(1);
+		System.out.println(("IDPedido: "+nroPedido));
 	}
 }
