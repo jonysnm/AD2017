@@ -1,17 +1,25 @@
 package controladores;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import dao.AdministracionDAO;
 import dao.ClienteDAO;
 import dao.PedidoDAO;
+import dto.ItemMaterialPrendaDTO;
 import dto.ItemPedidoDTO;
+import dto.ItemPrendaDTO;
 import dto.PedidoDTO;
 import negocio.Cliente;
+import negocio.Color;
+import negocio.ItemMaterialPrenda;
 import negocio.ItemPedido;
+import negocio.ItemPrenda;
 import negocio.Pedido;
 import negocio.Prenda;
 import negocio.Sucursal;
+import negocio.Talle;
 import utils.PedidoToDTO;
 
 
@@ -25,7 +33,6 @@ public class ControladorPedido {
 		return instancia;
 	}
 	
-//	FIXME ESTOY ACA MAU
 	public Integer nuevoPedido(PedidoDTO pedidoDTO,Integer idSucursal) throws Exception{
 		Sucursal s=AdministracionDAO.getInstancia().getSucursal(idSucursal);
 		Pedido p=new Pedido();
@@ -36,7 +43,33 @@ public class ControladorPedido {
 			iPedido.setCantidad(itemPedido.getCantidad());
 			iPedido.setImporte(itemPedido.getImporte());
 			Prenda prenda = new Prenda();
-//			prenda.setCodigo(codigo);
+			prenda.setCodigo(itemPedido.getPrenda().getCodigo());
+			prenda.setCostoProduccion(itemPedido.getPrenda().getCostoProduccion());
+			prenda.setCostoProduccionActual(itemPedido.getPrenda().getCostoProduccionActual());
+			prenda.setDescripcion(itemPedido.getPrenda().getDescripcion());
+			
+			List<ItemPrenda> itemsPrendas = new ArrayList<ItemPrenda>();
+			for (ItemPrendaDTO itemPrendaDTO : itemPedido.getPrenda().getItemPrenda()) {
+				ItemPrenda itemPrenda = new ItemPrenda();
+				Color color = new Color();
+				color.setDescripcion(itemPrendaDTO.getColor().getDescripcion());
+				itemPrenda.setColor(color);
+				Talle talle = new Talle();
+				talle.setDescripcion(itemPrendaDTO.getTalle().getDescripcion());
+				itemPrenda.setTalle(talle);
+				itemsPrendas.add(itemPrenda);
+				itemPrendaDTO.getColor();
+			}
+			prenda.setItemPrendas(itemsPrendas);
+			List<ItemMaterialPrenda> itemsMaterialPrenda = new ArrayList<ItemMaterialPrenda>();
+			for ( ItemMaterialPrendaDTO itemMaterialPrenda : itemPedido.getPrenda().getItemMaterialPrenda()) {
+				ItemMaterialPrenda iMPrenda = new ItemMaterialPrenda();
+				iMPrenda.setCantidadutilizada(itemMaterialPrenda.getCantidadutilizada());
+				iMPrenda.setDespedicio(itemMaterialPrenda.getDespedicio());
+				iMPrenda.setPrenda(prenda);
+				itemsMaterialPrenda.add(iMPrenda);
+			}
+			prenda.setItemMaterialPrenda(itemsMaterialPrenda);
 			iPedido.setPrenda(prenda);
 		}
 		p.setSucursal(s);

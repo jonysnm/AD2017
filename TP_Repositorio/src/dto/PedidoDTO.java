@@ -17,6 +17,7 @@ public class PedidoDTO implements Serializable{
 	private Date fecharealDespacho;
 	private List<ItemPedidoDTO> items;
 	private float total;
+	
 	public PedidoDTO(){
 		setItems(new ArrayList<ItemPedidoDTO>());
 	}
