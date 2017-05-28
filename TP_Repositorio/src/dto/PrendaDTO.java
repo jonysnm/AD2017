@@ -1,17 +1,21 @@
 package dto;
 
-import java.util.Collection;
+import java.io.Serializable;
+import java.util.List;
 
-public class PrendaDTO {
+public class PrendaDTO implements Serializable{
+	
+	private static final long serialVersionUID = -4504730923696951037L;
+
 	private int codigo;
 	private String descripcion;
-	private Collection<ColorDTO> colores;
-	private Collection<TalleDTO> talles;
-	private Collection<ItemMaterialPrendaDTO> itemMaterialPrenda;
+	private List<ItemPrendaDTO> itemPrenda;
+	private List<ItemMaterialPrendaDTO> itemMaterialPrenda;
 	private boolean vigente;
 	private float costoProduccion;
 	private float costoProduccionActual;
 	private float porcentajeGanancia;
+	
 	public PrendaDTO(){}
 	public int getCodigo() {
 		return codigo;
@@ -24,24 +28,6 @@ public class PrendaDTO {
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-	public Collection<ColorDTO> getColores() {
-		return colores;
-	}
-	public void setColores(Collection<ColorDTO> colores) {
-		this.colores = colores;
-	}
-	public Collection<TalleDTO> getTalles() {
-		return talles;
-	}
-	public void setTalles(Collection<TalleDTO> talles) {
-		this.talles = talles;
-	}
-	public Collection<ItemMaterialPrendaDTO> getItemMaterialPrenda() {
-		return itemMaterialPrenda;
-	}
-	public void setItemMaterialPrenda(Collection<ItemMaterialPrendaDTO> itemMaterialPrenda) {
-		this.itemMaterialPrenda = itemMaterialPrenda;
 	}
 	public boolean isVigente() {
 		return vigente;
@@ -66,5 +52,17 @@ public class PrendaDTO {
 	}
 	public void setPorcentajeGanancia(float porcentajeGanancia) {
 		this.porcentajeGanancia = porcentajeGanancia;
+	}
+	public List<ItemMaterialPrendaDTO> getItemMaterialPrenda() {
+		return itemMaterialPrenda;
+	}
+	public void setItemMaterialPrenda(List<ItemMaterialPrendaDTO> itemMaterialPrenda) {
+		this.itemMaterialPrenda = itemMaterialPrenda;
+	}
+	public List<ItemPrendaDTO> getItemPrenda() {
+		return itemPrenda;
+	}
+	public void setItemPrenda(List<ItemPrendaDTO> itemPrenda) {
+		this.itemPrenda = itemPrenda;
 	}
 }

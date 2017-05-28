@@ -8,8 +8,7 @@ import entities.PrendaEntity;
 public class Prenda {
 	private int codigo;
 	private String descripcion;
-	private List<Color> colores;
-	private List<Talle> talles;
+	private List<ItemPrenda> itemPrendas;
 	private List<ItemMaterialPrenda> itemMaterialPrenda;
 	private boolean vigente;
 	private float costoProduccion;
@@ -27,18 +26,6 @@ public class Prenda {
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-	public List<Color> getColores() {
-		return colores;
-	}
-	public void setColores(List<Color> colores) {
-		this.colores = colores;
-	}
-	public List<Talle> getTalles() {
-		return talles;
-	}
-	public void setTalles(List<Talle> talles) {
-		this.talles = talles;
 	}
 	public List<ItemMaterialPrenda> getItemMaterialPrenda() {
 		return itemMaterialPrenda;
@@ -83,6 +70,12 @@ public class Prenda {
 	}
 	public boolean SoslaPrenda(int codigo){
 		return(this.getCodigo()==codigo);		
+	}
+	public List<ItemPrenda> getItemPrendas() {
+		return itemPrendas;
+	}
+	public void setItemPrendas(List<ItemPrenda> itemPrendas) {
+		this.itemPrendas = itemPrendas;
 	}
 
 

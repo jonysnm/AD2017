@@ -63,9 +63,9 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 		return null;
 	}
 	@Override
-	public int nuevoPedido(int idSucursal) throws RemoteException{
+	public int nuevoPedido(PedidoDTO pedidoDTO,int idSucursal) throws RemoteException{
 		try {
-			return ControladorPedido.getInstancia().nuevoPedido(idSucursal);
+			return ControladorPedido.getInstancia().nuevoPedido(pedidoDTO,idSucursal);
 		} catch (Exception e) {
 			throw new RemoteException("Error al crear nuevo pedido: "+e.getMessage());
 		}

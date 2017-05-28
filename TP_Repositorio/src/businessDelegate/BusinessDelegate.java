@@ -68,8 +68,8 @@ public class BusinessDelegate {
 
 	
 	/*PEDIDO*/
-	public int nuevoPedido(int idSucursal) throws RemoteException{
-		return interfazRemotaPuntoVenta.nuevoPedido(idSucursal);
+	public int nuevoPedido(PedidoDTO pedidoDTO,int idSucursal) throws RemoteException{
+		return interfazRemotaPuntoVenta.nuevoPedido(pedidoDTO,idSucursal);
 	}
 	public PedidoDTO obtenerPedido(int idPedido) throws RemoteException{
 		return interfazRemotaPuntoVenta.obtenerPedido(idPedido);
