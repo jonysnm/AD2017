@@ -86,7 +86,7 @@ public class OCMPDAO {
 		}
 	}
 
-	public void modificarCliente(OCMP ocmp) {
+	public void modificarOCMP(OCMP ocmp) {
 		try {
 			Session session = sf.openSession();
 			session.beginTransaction();
@@ -99,7 +99,7 @@ public class OCMPDAO {
 		}
 	}
 
-	public void bajaCliente(OCMP ocmp) {
+	public void bajaOCMP(OCMP ocmp) {
 		try {
 			Session session = sf.getCurrentSession();
 			session.beginTransaction();
@@ -112,7 +112,7 @@ public class OCMPDAO {
 		}
 	}
 
-	public OCMP getCliente(int idOCMP) {
+	public OCMP getOCMP(int idOCMP) {
 		try {
 			Session session = sf.openSession();
 			session.beginTransaction();
