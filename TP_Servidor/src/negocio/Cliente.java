@@ -1,6 +1,7 @@
 package negocio;
 
 
+import dao.ClienteDAO;
 import entities.ClienteEntity;
 
 public class Cliente {
@@ -49,8 +50,16 @@ public class Cliente {
 	public void setCuit(String cuit) {
 		this.cuit = cuit;
 	}
+	public void editar() {
+		ClienteDAO.getInstancia().modificarCliente(this);
+	}
+	public void save(){
+		ClienteDAO.getInstancia().altaCliente(this);
+	}
+	public void baja(){
+		ClienteDAO.getInstancia().bajaCliente(this);
+	}
 }
-
 
 
 

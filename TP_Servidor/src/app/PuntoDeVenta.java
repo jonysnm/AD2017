@@ -5,7 +5,6 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 import controladores.ControladorPedido;
-import dto.ClienteDTO;
 import dto.FacturaDTO;
 import dto.PedidoDTO;
 import dto.SucursalDTO;
@@ -22,47 +21,14 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 	 * 
 	 */
 	private static final long serialVersionUID = -5215371751079945972L;
-	@Override
-	public ClienteDTO buscarCliente(long id)throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public boolean altaCliente(String nombre, String cuit, String tipoFacturacion, String limiteCredito) throws RemoteException{
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public List<ClienteDTO> obtenerClientes() throws RemoteException{
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public void modificarCliente(ClienteDTO c)throws RemoteException {
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void bajaCliente(ClienteDTO c) throws RemoteException{
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public ClienteDTO editarCliente(ClienteDTO c)throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
 	public List<SucursalDTO> listarSucursales()throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
 	public List<SucursalDTO> obtenerSucursales(PedidoDTO p)throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
 	public int nuevoPedido(int idSucursal) throws RemoteException{
 		try {
 			return ControladorPedido.getInstancia().nuevoPedido(idSucursal);
@@ -70,11 +36,6 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 			throw new RemoteException("Error al crear nuevo pedido: "+e.getMessage());
 		}
 	}
-	
-
-	
-	
-	@Override
 	public void confirmarPedido(PedidoDTO pedido)throws RemoteException {
 		// TODO Auto-generated method stub
 

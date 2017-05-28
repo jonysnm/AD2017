@@ -1,7 +1,13 @@
 package dao;
 
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
+import org.hibernate.hql.ast.QuerySyntaxException;
 
 import entities.ClienteEntity;
 import hbt.HibernateUtil;
@@ -76,6 +82,27 @@ public class ClienteDAO {
 		}catch(Exception e){
 			e.printStackTrace();
 			System.out.println("Error ClienteAO. Obtener cliente");
+		}
+		return null;
+	}
+	@SuppressWarnings("unchecked")
+	public ArrayList<Cliente> buscarClientes (){
+		Session session = sf.openSession();
+		try {
+			
+			String hql = "FROM Cliente C ";
+			
+			Query query = session.createQuery(hql);
+			
+			return (ArrayList<Cliente>) query.list();
+				
+		}catch (QuerySyntaxException q){
+			JOptionPane.showMessageDialog(null, q, "Error", JOptionPane.ERROR_MESSAGE);
+			System.out.println("Exception de sintaxis en ClienteDAO: buscarParticulares");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
 		}
 		return null;
 	}
