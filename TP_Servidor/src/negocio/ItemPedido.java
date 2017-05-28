@@ -2,12 +2,12 @@ package negocio;
 
 import dao.PedidoDAO;
 import entities.ItemPedidoEntity;
-import entities.PrendaEntity;
 
 public class ItemPedido {
 	private int cantidad;
 	private Prenda prenda;
 	private int importe;
+	
 	public ItemPedido(){}
 	public int getCantidad() {
 		return cantidad;

@@ -38,6 +38,7 @@ public class ControladorPedido {
 		Pedido p=new Pedido();
 		Cliente cliente =ClienteDAO.getInstancia().getCliente(pedidoDTO.getCliente().getId());
 		p.setCliente(cliente);
+		List<ItemPedido> itemsPedidos = new ArrayList<ItemPedido>();
 		for (ItemPedidoDTO itemPedido : pedidoDTO.getItems()) {
 			ItemPedido iPedido = new ItemPedido();
 			iPedido.setCantidad(itemPedido.getCantidad());
@@ -71,7 +72,9 @@ public class ControladorPedido {
 			}
 			prenda.setItemMaterialPrenda(itemsMaterialPrenda);
 			iPedido.setPrenda(prenda);
+			itemsPedidos.add(iPedido);
 		}
+		p.setItems(itemsPedidos);
 		p.setSucursal(s);
 		p.setFechaCreacion(new Date());
 		p.setEstado("En Verificación");

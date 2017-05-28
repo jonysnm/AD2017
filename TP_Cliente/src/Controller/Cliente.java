@@ -103,6 +103,7 @@ public class Cliente {
 		clienteDTO.setNombre("Jose Gonzales");
 		clienteDTO.setTipoFacturacion("2");
 		Integer nroCliente = BusinessDelegate.getInstancia().altaCliente(clienteDTO);
+		clienteDTO.setId(nroCliente );
 		pedidoDTO.setCliente(clienteDTO);
 		pedidoDTO.setFechaCreacion(new Date());
 		pedidoDTO.setFechaprobableDespacho(new Date());

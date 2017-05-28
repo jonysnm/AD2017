@@ -1,10 +1,20 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.*;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="pedidos")
@@ -25,7 +35,7 @@ public class PedidoEntity implements Serializable{
 	private Date fecharealDespacho;
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="IdPedido")
-	private Set<ItemPedidoEntity> items=new HashSet<ItemPedidoEntity>();
+	private List<ItemPedidoEntity> items=new ArrayList<ItemPedidoEntity>();
 	@ManyToOne
 	@JoinColumn(name="sucursal_id")
 	private SucursalEntity sucursal;
@@ -64,12 +74,6 @@ public class PedidoEntity implements Serializable{
 	public void setFecharealDespacho(Date fecharealDespacho) {
 		this.fecharealDespacho = fecharealDespacho;
 	}
-	public Set<ItemPedidoEntity> getItems() {
-		return items;
-	}
-	public void setItems(Set<ItemPedidoEntity> items) {
-		this.items = items;
-	}
 	public SucursalEntity getSucursal() {
 		return sucursal;
 	}
@@ -81,5 +85,11 @@ public class PedidoEntity implements Serializable{
 	}
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+	public List<ItemPedidoEntity> getItems() {
+		return items;
+	}
+	public void setItems(List<ItemPedidoEntity> items) {
+		this.items = items;
 	}
 }
