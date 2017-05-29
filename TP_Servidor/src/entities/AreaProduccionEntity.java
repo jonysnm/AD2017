@@ -23,7 +23,7 @@ public class AreaProduccionEntity implements Serializable{
 	private int codigo;
 	private String nombreArea;
 	@OneToMany (cascade=CascadeType.ALL)
-	@JoinColumn(name="codigoLinea")
+	@JoinColumn(name="idAreaProduccion")
 	private List<LineaProduccionEntity> lineas;
 	public int getCodigo() {
 		return codigo;

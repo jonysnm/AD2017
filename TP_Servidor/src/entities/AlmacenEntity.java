@@ -22,13 +22,13 @@ public class AlmacenEntity implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	@OneToMany (cascade=CascadeType.ALL)
-	@JoinColumn(name="idUbicacion")
+	@JoinColumn(name="idAlmacen")
 	private List<UbicacionEntity> ubicacion;
 	@OneToMany (cascade=CascadeType.ALL)
-	@JoinColumn(name="coditemsMovStock")
+	@JoinColumn(name="idAlmacen")
 	private List<ItemMovimientoStockEntity> stock;
 	@OneToMany (cascade=CascadeType.ALL)
-	@JoinColumn(name="coditembulto")
+	@JoinColumn(name="idAlmacen")
 	private List<ItemBultoEntity> scrap;
 	public int getId() {
 		return id;

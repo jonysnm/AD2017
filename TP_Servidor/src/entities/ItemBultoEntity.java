@@ -20,10 +20,10 @@ public class ItemBultoEntity implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	@ManyToOne
-	@JoinColumn(name="idMp")
+	@JoinColumn(name="idMateriaPrima")
 	private MateriaPrimaEntity mp;
 	@ManyToOne
-	@JoinColumn(name="idPr")
+	@JoinColumn(name="idPrenda")
 	private PrendaEntity pr;
 	private float cantidad;
 	public int getId() {

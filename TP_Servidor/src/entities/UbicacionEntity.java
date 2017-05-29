@@ -28,7 +28,7 @@ public class UbicacionEntity implements Serializable  {
 	private int posicion;
 	private boolean ocupado;
 	@OneToMany (cascade=CascadeType.ALL)
-	@JoinColumn(name="itembulto")
+	@JoinColumn(name="idUbicacion")
 	private List<ItemBultoEntity> bulto;
 	public int getId() {
 		return id;
