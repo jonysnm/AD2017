@@ -9,6 +9,7 @@ import org.hibernate.classic.Session;
 
 import entities.ColorEntity;
 import entities.ItemPedidoEntity;
+import entities.ItemPrendaEntity;
 import entities.PedidoEntity;
 import entities.PrendaEntity;
 import entities.SucursalEntity;
@@ -51,19 +52,29 @@ public class PedidoDAO {
 				talleEntity.setDescripcion(i.getTalle().getDescripcion());
 				talleEntity.setIdtalle(i.getTalle().getIdTalle());
 				itemPedidoEntity.setTalle(talleEntity);
-				
+
 				Prenda prenda = i.getPrenda();
 				PrendaEntity prendaEntity = new PrendaEntity();
-				prendaEntity.set
+				prendaEntity.setCostoProduccion(i.getPrenda().getCostoProduccion());
+				prendaEntity.setCostoProduccionActual(i.getPrenda().getCostoProduccionActual());
+				prendaEntity.setDescripcion(i.getPrenda().getDescripcion());
+				prendaEntity.setIdPrenda(i.getPrenda().getCodigo());
+				prendaEntity.setPorcentajeGanancia(i.getPrenda().getPorcentajeGanancia());
+				List<ItemPrendaEntity> ip = new ArrayList<ItemPrendaEntity>();
 				for ( ItemPrenda iPrendas: prenda.getItemPrendas()) {
-					ColorEntity colorEntity = new ColorEntity(iPrendas.getColor());
-					itemPedidoEntity.setColor(colorEntity);
-					
+					ItemPrendaEntity ipe=new ItemPrendaEntity();
+					ColorEntity ce = new ColorEntity(iPrendas.getColor());//ARREGLAR DAO
+					ipe.setColor(ce);
+					TalleEntity te = new TalleEntity();
+					te.setIdtalle(iPrendas.getTalle().getIdTalle());
+					te.setDescripcion(iPrendas.getTalle().getDescripcion());
+					ipe.setTalle(te);
+					ip.add(ipe);
 				}
 				itemPedidoEntity.setImporte(i.getImporte());
 				itemPedidoEntities.add(itemPedidoEntity);
 			}
-			
+
 			pe.setCliente(ClienteDAO.getInstancia().ClienteToEntity(pedido.getCliente()));
 			pe.setItems(itemPedidoEntities);
 			id=(Integer) session.save(pe);
