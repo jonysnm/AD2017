@@ -7,11 +7,14 @@ public class ItemPedido {
 	private int cantidad;
 	private Prenda prenda;
 	private int importe;
+	private Color color;
+	private Talle talle;
 	
 	public ItemPedido(){}
 	public int getCantidad() {
 		return cantidad;
 	}
+	
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
@@ -30,7 +33,14 @@ public class ItemPedido {
 	public ItemPedido(ItemPedidoEntity ipe){
 		this.cantidad=ipe.getCantidad();
 		this.importe=ipe.getImporte();
-		//COMPLETAR
+		Color color = new Color();
+		color.setDescripcion(ipe.getColor().getDescripcion());
+		color.setIdcolor(ipe.getColor().getIdcolor());
+		this.color=color;
+		Talle talle = new Talle();
+		talle.setDescripcion(ipe.getTalle().getDescripcion());
+		talle.setIdTalle(ipe.getTalle().getIdtalle());
+		this.talle=talle;
 	}
 	
 	public boolean obtenervigencia(Prenda p){
@@ -40,5 +50,17 @@ public class ItemPedido {
 		}else{
 			return false;
 		}
+	}
+	public Color getColor() {
+		return color;
+	}
+	public void setColor(Color color) {
+		this.color = color;
+	}
+	public Talle getTalle() {
+		return talle;
+	}
+	public void setTalle(Talle talle) {
+		this.talle = talle;
 	}
 }

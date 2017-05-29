@@ -45,18 +45,26 @@ public class PedidoDAO {
 			for (ItemPedido i: pedido.getItems()) {
 				ItemPedidoEntity itemPedidoEntity = new ItemPedidoEntity();
 				itemPedidoEntity.setCantidad(i.getCantidad());
+				ColorEntity colorEntity = new ColorEntity(i.getColor());
+				itemPedidoEntity.setColor(colorEntity);
+				TalleEntity talleEntity = new TalleEntity();
+				talleEntity.setDescripcion(i.getTalle().getDescripcion());
+				talleEntity.setIdtalle(i.getTalle().getIdTalle());
+				itemPedidoEntity.setTalle(talleEntity);
+				
 				Prenda prenda = i.getPrenda();
+				PrendaEntity prendaEntity = new PrendaEntity();
+				prendaEntity.set
 				for ( ItemPrenda iPrendas: prenda.getItemPrendas()) {
 					ColorEntity colorEntity = new ColorEntity(iPrendas.getColor());
 					itemPedidoEntity.setColor(colorEntity);
-					TalleEntity talleEntity = new TalleEntity();
-					talleEntity.setDescripcion(iPrendas.getTalle().getDescripcion());
-					talleEntity.setIdtalle(iPrendas.getTalle().getIdTalle());
-					itemPedidoEntity.setTalle(talleEntity);
+					
 				}
 				itemPedidoEntity.setImporte(i.getImporte());
 				itemPedidoEntities.add(itemPedidoEntity);
 			}
+			
+			pe.setCliente(ClienteDAO.getInstancia().ClienteToEntity(pedido.getCliente()));
 			pe.setItems(itemPedidoEntities);
 			id=(Integer) session.save(pe);
 			session.getTransaction();
