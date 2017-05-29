@@ -1,7 +1,6 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -18,8 +17,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import estados.EstadoOCMP;
-import negocio.ItemOCMP;
-import negocio.Proveedor;
 
 @Entity
 @Table(name="ocmps")
@@ -37,7 +34,7 @@ public class OCMPEntity implements Serializable{
 	@JoinColumn(name="idOcmp")
 	private List<ItemOCMPEntity> itemsOcmp;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="idProveedor")
 	private ProveedorEntity proveedor;
 	private Date fechaEntrega;

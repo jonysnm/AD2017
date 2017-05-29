@@ -3,6 +3,7 @@ package entities;
 import java.io.Serializable;
 
 import javax.persistence.*;
+
 import estados.EstadoMP;
 
 @Entity
@@ -13,7 +14,7 @@ public class MateriaPrimaEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = 6617885206957270077L;
 	@Id
-	@JoinColumn(name="codigomateriaprima")
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int codigo;
 	private float cantidadAComprar;
 	private String nombre;

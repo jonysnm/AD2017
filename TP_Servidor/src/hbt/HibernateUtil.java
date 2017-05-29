@@ -24,6 +24,20 @@ public class HibernateUtil {
 			config.addAnnotatedClass(SucursalEntity.class);
 			config.addAnnotatedClass(FacturaEntity.class);
 			config.addAnnotatedClass(ItemFacturaEntity.class);
+			config.addAnnotatedClass(AlmacenEntity.class);
+			config.addAnnotatedClass(AreaProduccionEntity.class);
+			config.addAnnotatedClass(AreaProduccionInvolucradaEntity.class);
+			config.addAnnotatedClass(CuentaCorrienteEntity.class);
+			config.addAnnotatedClass(ItemBultoEntity.class);
+			config.addAnnotatedClass(ItemMovimientoCtaCteEntity.class);
+			config.addAnnotatedClass(ItemMovimientoStockEntity.class);
+			config.addAnnotatedClass(LineaProduccionEntity.class);
+			config.addAnnotatedClass(ItemOCMPEntity.class);
+			config.addAnnotatedClass(OCMPEntity.class);
+			config.addAnnotatedClass(OrdenDespachoEntity.class);
+			config.addAnnotatedClass(UbicacionEntity.class);
+			
+			
 			sessionFactory=config.buildSessionFactory();
 		}catch(Throwable ex){
 			System.err.println("Initial SessionFactory creation failed." +ex);

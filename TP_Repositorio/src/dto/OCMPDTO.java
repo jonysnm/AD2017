@@ -8,6 +8,10 @@ import estados.EstadoOCMP;
 
 
 public class OCMPDTO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -580404944098880451L;
 	private int id;
 	private List<ItemOCMPDTO> itemsOcmp;
 	private int idProveedor;

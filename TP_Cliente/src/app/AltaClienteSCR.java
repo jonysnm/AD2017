@@ -29,6 +29,10 @@ import dto.ClienteDTO;
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
 public class AltaClienteSCR extends javax.swing.JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2899576484483212905L;
 	private JLabel jLabelcuit;
 	private JTextField jTextFieldcuit;
 	private JLabel jLabelnombre;
