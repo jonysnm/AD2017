@@ -2,6 +2,8 @@ package dto;
 
 import java.io.Serializable;
 
+
+
 public class ItemPedidoDTO implements Serializable {
 
 	private static final long serialVersionUID = 8291630079669964572L;
@@ -9,6 +11,8 @@ public class ItemPedidoDTO implements Serializable {
 	private int cantidad;
 	private PrendaDTO prenda;
 	private int importe;
+	private ColorDTO color;
+	private TalleDTO talle;
 	public ItemPedidoDTO(){}
 	public int getCantidad() {
 		return cantidad;
@@ -28,4 +32,17 @@ public class ItemPedidoDTO implements Serializable {
 	public void setImporte(int importe) {
 		this.importe = importe;
 	}
+	public ColorDTO getColor() {
+		return color;
+	}
+	public void setColor(ColorDTO color) {
+		this.color = color;
+	}
+	public TalleDTO getTalle() {
+		return talle;
+	}
+	public void setTalle(TalleDTO talle) {
+		this.talle = talle;
+	}
+	
 }

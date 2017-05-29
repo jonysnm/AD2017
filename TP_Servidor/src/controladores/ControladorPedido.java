@@ -43,25 +43,32 @@ public class ControladorPedido {
 			ItemPedido iPedido = new ItemPedido();
 			iPedido.setCantidad(itemPedido.getCantidad());
 			iPedido.setImporte(itemPedido.getImporte());
+			Color color = new Color();
+			color.setDescripcion(itemPedido.getColor().getDescripcion());
+			color.setIdcolor(itemPedido.getColor().getIdColor());
+			Talle talle = new Talle();
+			talle.setIdTalle(itemPedido.getTalle().getIdTalle());
+			talle.setDescripcion(itemPedido.getTalle().getDescripcion());
+			iPedido.setColor(color);
+			iPedido.setTalle(talle);
 			Prenda prenda = new Prenda();
 			prenda.setCodigo(itemPedido.getPrenda().getCodigo());
 			prenda.setCostoProduccion(itemPedido.getPrenda().getCostoProduccion());
 			prenda.setCostoProduccionActual(itemPedido.getPrenda().getCostoProduccionActual());
 			prenda.setDescripcion(itemPedido.getPrenda().getDescripcion());
-			
 			List<ItemPrenda> itemsPrendas = new ArrayList<ItemPrenda>();
 			for (ItemPrendaDTO itemPrendaDTO : itemPedido.getPrenda().getItemPrenda()) {
 				ItemPrenda itemPrenda = new ItemPrenda();
-				Color color = new Color();
-				color.setDescripcion(itemPrendaDTO.getColor().getDescripcion());
-				color.setIdcolor(itemPrendaDTO.getColor().getIdColor());
+				Color colores = new Color();
+				colores.setDescripcion(itemPrendaDTO.getColor().getDescripcion());
+				colores.setIdcolor(itemPrendaDTO.getColor().getIdColor());
 				itemPrenda.setColor(color);
-				Talle talle = new Talle();
-				talle.setIdTalle(itemPrendaDTO.getTalle().getIdTalle());
-				talle.setDescripcion(itemPrendaDTO.getTalle().getDescripcion());
+				Talle talles = new Talle();
+				talles.setIdTalle(itemPrendaDTO.getTalle().getIdTalle());
+				talles.setDescripcion(itemPrendaDTO.getTalle().getDescripcion());
 				itemPrenda.setTalle(talle);
 				itemsPrendas.add(itemPrenda);
-				itemPrendaDTO.getColor();
+				
 			}
 			prenda.setItemPrendas(itemsPrendas);
 			iPedido.setPrenda(prenda);
