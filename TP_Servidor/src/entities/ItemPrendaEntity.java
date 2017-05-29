@@ -13,7 +13,7 @@ public class ItemPrendaEntity implements Serializable{
 	private Integer id;
 	@ManyToOne
 	@JoinColumn(name="IdPrenda")
-	private PrendaEntity prenda;
+	private PrendaEntity IdItemPrenda;
 	@OneToOne
 	@JoinColumn(name="idtalle")
 	private TalleEntity talle;
@@ -24,10 +24,10 @@ public class ItemPrendaEntity implements Serializable{
 	public ItemPrendaEntity(){
 	}
 	public PrendaEntity getPrenda() {
-		return prenda;
+		return IdItemPrenda;
 	}
 	public void setPrenda(PrendaEntity prenda) {
-		this.prenda = prenda;
+		this.IdItemPrenda = prenda;
 	}
 	public TalleEntity getTalle() {
 		return talle;
