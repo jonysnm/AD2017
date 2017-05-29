@@ -15,6 +15,19 @@ public class ItemPedidoId implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="IdPrenda",nullable=false)
 	private PrendaEntity prenda;
+	
+	public PedidoEntity getPedido() {
+		return pedido;
+	}
+	public void setPedido(PedidoEntity pedido) {
+		this.pedido = pedido;
+	}
+	public PrendaEntity getPrenda() {
+		return prenda;
+	}
+	public void setPrenda(PrendaEntity prenda) {
+		this.prenda = prenda;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

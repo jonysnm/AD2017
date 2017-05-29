@@ -9,6 +9,7 @@ import org.hibernate.classic.Session;
 
 import entities.ColorEntity;
 import entities.ItemPedidoEntity;
+import entities.ItemPedidoId;
 import entities.ItemPrendaEntity;
 import entities.PedidoEntity;
 import entities.PrendaEntity;
@@ -20,6 +21,7 @@ import negocio.ItemPedido;
 import negocio.ItemPrenda;
 import negocio.Pedido;
 import negocio.Prenda;
+import negocio.Sucursal;
 
 public class PedidoDAO {
 	private static PedidoDAO instancia;
@@ -60,6 +62,7 @@ public class PedidoDAO {
 				prendaEntity.setDescripcion(i.getPrenda().getDescripcion());
 				prendaEntity.setIdPrenda(i.getPrenda().getCodigo());
 				prendaEntity.setPorcentajeGanancia(i.getPrenda().getPorcentajeGanancia());
+				session.save(prendaEntity);
 				List<ItemPrendaEntity> ip = new ArrayList<ItemPrendaEntity>();
 				for ( ItemPrenda iPrendas: prenda.getItemPrendas()) {
 					ItemPrendaEntity ipe=new ItemPrendaEntity();
@@ -69,14 +72,26 @@ public class PedidoDAO {
 					te.setIdtalle(iPrendas.getTalle().getIdTalle());
 					te.setDescripcion(iPrendas.getTalle().getDescripcion());
 					ipe.setTalle(te);
+					ipe.setPrenda(prendaEntity);
 					ip.add(ipe);
 				}
 				itemPedidoEntity.setImporte(i.getImporte());
+				session.save(pe.getSucursal());
+				session.save(pe);
+				ItemPedidoId uno=new ItemPedidoId();
+				uno.setPedido(pe);
+				uno.setPrenda(prendaEntity);
+				
+	
+				itemPedidoEntity.setIdItemPedido(uno);
+				//session.save(itemPedidoEntity);				
 				itemPedidoEntities.add(itemPedidoEntity);
+				session.save(pe);
+			
+				
 			}
-
 			pe.setCliente(ClienteDAO.getInstancia().ClienteToEntity(pedido.getCliente()));
-			pe.setItems(itemPedidoEntities);
+			pe.setItems(itemPedidoEntities);			
 			id=(Integer) session.save(pe);
 			session.getTransaction();
 			session.close();
