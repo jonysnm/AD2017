@@ -57,6 +57,8 @@ public class PedidoDAO {
 				itemPedidoEntity.setImporte(i.getImporte());
 				itemPedidoEntities.add(itemPedidoEntity);
 			}
+			
+			pe.setCliente(ClienteDAO.getInstancia().ClienteToEntity(pedido.getCliente()));
 			pe.setItems(itemPedidoEntities);
 			id=(Integer) session.save(pe);
 			session.getTransaction();
