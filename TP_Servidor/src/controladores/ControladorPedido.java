@@ -54,8 +54,10 @@ public class ControladorPedido {
 				ItemPrenda itemPrenda = new ItemPrenda();
 				Color color = new Color();
 				color.setDescripcion(itemPrendaDTO.getColor().getDescripcion());
+				color.setIdcolor(itemPrendaDTO.getColor().getIdColor());
 				itemPrenda.setColor(color);
 				Talle talle = new Talle();
+				talle.setIdTalle(itemPrendaDTO.getTalle().getIdTalle());
 				talle.setDescripcion(itemPrendaDTO.getTalle().getDescripcion());
 				itemPrenda.setTalle(talle);
 				itemsPrendas.add(itemPrenda);

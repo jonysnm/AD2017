@@ -7,9 +7,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="itemprenda")
 public class ItemPrendaEntity implements Serializable{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 3013620458553400990L;
 	@Id
 	private Integer id;

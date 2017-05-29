@@ -51,6 +51,7 @@ public class PedidoDAO {
 					itemPedidoEntity.setColor(colorEntity);
 					TalleEntity talleEntity = new TalleEntity();
 					talleEntity.setDescripcion(iPrendas.getTalle().getDescripcion());
+					talleEntity.setIdtalle(iPrendas.getTalle().getIdTalle());
 					itemPedidoEntity.setTalle(talleEntity);
 				}
 				itemPedidoEntity.setImporte(i.getImporte());
