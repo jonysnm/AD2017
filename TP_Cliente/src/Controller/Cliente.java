@@ -126,6 +126,7 @@ public class Cliente {
 		itemsPrenda.add(itemPrenda);
 		prendaDTO.setItemPrenda(itemsPrenda);
 		item.setPrenda(prendaDTO);
+		itemsPedido.add(item);
 		pedidoDTO.setItems(itemsPedido);
 
 		int nroPedido = businessDelegate.getInstancia().nuevoPedido(pedidoDTO, 1);

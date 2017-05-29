@@ -15,6 +15,7 @@ public class PrendaEntity implements Serializable{
 	 */
 	private static final long serialVersionUID = -2773817217273075770L;
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer IdPrenda;
 	private String descripcion;
 	@OneToMany(cascade=CascadeType.ALL)

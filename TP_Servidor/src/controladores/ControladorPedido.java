@@ -64,15 +64,6 @@ public class ControladorPedido {
 				itemPrendaDTO.getColor();
 			}
 			prenda.setItemPrendas(itemsPrendas);
-			List<ItemMaterialPrenda> itemsMaterialPrenda = new ArrayList<ItemMaterialPrenda>();
-			for ( ItemMaterialPrendaDTO itemMaterialPrenda : itemPedido.getPrenda().getItemMaterialPrenda()) {
-				ItemMaterialPrenda iMPrenda = new ItemMaterialPrenda();
-				iMPrenda.setCantidadutilizada(itemMaterialPrenda.getCantidadutilizada());
-				iMPrenda.setDespedicio(itemMaterialPrenda.getDespedicio());
-				iMPrenda.setPrenda(prenda);
-				itemsMaterialPrenda.add(iMPrenda);
-			}
-			prenda.setItemMaterialPrenda(itemsMaterialPrenda);
 			iPedido.setPrenda(prenda);
 			itemsPedidos.add(iPedido);
 		}
