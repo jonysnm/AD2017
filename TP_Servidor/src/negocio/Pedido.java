@@ -12,7 +12,7 @@ public class Pedido {
 	private Date fechaCreacion;
 	private Date fechaprobableDespacho;
 	private Date fecharealDespacho;
-	private HashSet<ItemPedido> items=new HashSet<ItemPedido>();
+	private List<ItemPedido> items=new ArrayList<ItemPedido>();
 	private Sucursal sucursal;
 	private String estado;
 	public Pedido(){}
@@ -24,7 +24,7 @@ public class Pedido {
 		this.fecharealDespacho=pedido.getFecharealDespacho();
 		this.sucursal=new Sucursal(pedido.getSucursal());
 		this.estado=pedido.getEstado();
-		this.items=new HashSet<ItemPedido>();
+		this.setItems(new ArrayList<ItemPedido>());
 	}
 	public int getId() {
 		return id;
@@ -56,12 +56,7 @@ public class Pedido {
 	public void setFecharealDespacho(Date fecharealDespacho) {
 		this.fecharealDespacho = fecharealDespacho;
 	}
-	public HashSet<ItemPedido> getItems() {
-		return items;
-	}
-	public void setItems(HashSet<ItemPedido> items) {
-		this.items = items;
-	}
+
 	public Sucursal getSucursal() {
 		return sucursal;
 	}
@@ -77,7 +72,7 @@ public class Pedido {
 	}
 	public float TotalPedido(int idpedido){
 		Pedido p=PedidoDAO.getInstancia().getPedido(idpedido);
-		HashSet<ItemPedido> it=p.getItems();
+		List<ItemPedido> it=p.getItems();
 		float total = 0;
 		for (ItemPedido ip : it) {
 			total=(ip.getImporte()*ip.getCantidad())+total;//CODIFICAR EN EL ITEM PEDIDO PARA OBTENER EL IMPORTE
@@ -86,7 +81,7 @@ public class Pedido {
 	}
 	public boolean ObtenerdisponibilidadporPrenda(PedidoDTO pedido) {
 		Pedido p=PedidoDAO.getInstancia().getPedido(pedido.getId());
-		HashSet<ItemPedido> it=p.getItems();
+		List<ItemPedido> it=p.getItems();
 		for(ItemPedido ip:it){
 			if(ip.obtenervigencia(ip.getPrenda())){
 				;
@@ -103,5 +98,11 @@ public class Pedido {
 
 	public void update(){
 		PedidoDAO.getInstancia().ModificarPedido(this);	
+	}
+	public List<ItemPedido> getItems() {
+		return items;
+	}
+	public void setItems(List<ItemPedido> items) {
+		this.items = items;
 	}
 }

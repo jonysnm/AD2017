@@ -1,6 +1,7 @@
 package utils;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import dto.ItemPedidoDTO;
 import dto.PedidoDTO;
@@ -16,8 +17,8 @@ public class PedidoToDTO {
 		pedidoDTO.setFechaprobableDespacho(p.getFechaprobableDespacho());
 		pedidoDTO.setFecharealDespacho(p.getFecharealDespacho());
 		pedidoDTO.setId(p.getId());
-		HashSet<ItemPedido> items = p.getItems();
-		HashSet<ItemPedidoDTO> itemsDTO = new HashSet<ItemPedidoDTO>();
+		List<ItemPedido> items = p.getItems();
+		List<ItemPedidoDTO> itemsDTO = new ArrayList<ItemPedidoDTO>();
 		for (ItemPedido itemPedido : items) {
 			ItemPedidoDTO itemPedidoDTO = new ItemPedidoDTO();
 			itemPedidoDTO.setCantidad(itemPedido.getCantidad());

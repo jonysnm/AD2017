@@ -7,7 +7,7 @@ public class TalleEntity {
 	@Id
 	private int idtalle;
 	private String descripcion;
-	private TalleEntity(){}
+	public TalleEntity(){}
 	public int getIdtalle() {
 		return idtalle;
 	}

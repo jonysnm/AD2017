@@ -1,0 +1,11 @@
+insert into colores values(1,'ROJO')
+insert into colores values(2,'AZUL')
+insert into colores values(3,'VERDE')
+insert into colores values(4,'NEGRO')
+insert into colores values(5,'BLANCO')
+
+insert into talles values(1,'S')
+insert into talles values(2,'M')
+insert into talles values(3,'L')
+insert into talles values(4,'XL')
+insert into talles values(5,'XXL')

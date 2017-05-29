@@ -15,21 +15,15 @@ public class PrendaEntity implements Serializable{
 	 */
 	private static final long serialVersionUID = -2773817217273075770L;
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer IdPrenda;
 	private String descripcion;
-	@ManyToMany(cascade=CascadeType.ALL)
-	@JoinTable(name="prenda_color",
-	joinColumns={@JoinColumn(name="IdPrenda")},
-	inverseJoinColumns={@JoinColumn(name="idColor")})
-	private Set<ColorEntity> colores=new HashSet<ColorEntity>();
-	@ManyToMany
-	@JoinTable(name="prenda_talle",
-	joinColumns={@JoinColumn(name="IdPrenda")},
-	inverseJoinColumns={@JoinColumn(name="idtalle")})
-	private Set<TalleEntity> talles=new HashSet<TalleEntity>();
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="item_materialprenda")
 	private Set<ItemMaterialPrendaEntity> itemMaterialPrenda=new HashSet<ItemMaterialPrendaEntity>();
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="IdItemPrenda")
+	private Set<ItemPrendaEntity> ip=new HashSet<ItemPrendaEntity>();
 	private boolean vigente;
 	private float costoProduccion;
 	private float costoProduccionActual;
@@ -46,23 +40,17 @@ public class PrendaEntity implements Serializable{
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public Set<ColorEntity> getColores() {
-		return colores;
-	}
-	public void setColores(Set<ColorEntity> colores) {
-		this.colores = colores;
-	}
-	public Set<TalleEntity> getTalles() {
-		return talles;
-	}
-	public void setTalles(Set<TalleEntity> talles) {
-		this.talles = talles;
-	}
 	public Set<ItemMaterialPrendaEntity> getItemMaterialPrenda() {
 		return itemMaterialPrenda;
 	}
 	public void setItemMaterialPrenda(Set<ItemMaterialPrendaEntity> itemMaterialPrenda) {
 		this.itemMaterialPrenda = itemMaterialPrenda;
+	}
+	public Set<ItemPrendaEntity> getIp() {
+		return ip;
+	}
+	public void setIp(Set<ItemPrendaEntity> ip) {
+		this.ip = ip;
 	}
 	public boolean isVigente() {
 		return vigente;
@@ -88,4 +76,6 @@ public class PrendaEntity implements Serializable{
 	public void setPorcentajeGanancia(float porcentajeGanancia) {
 		this.porcentajeGanancia = porcentajeGanancia;
 	}
+	
+
 }

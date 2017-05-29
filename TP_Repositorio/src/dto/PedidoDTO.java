@@ -1,20 +1,25 @@
 package dto;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 
-public class PedidoDTO {
+public class PedidoDTO implements Serializable{
+	
+	private static final long serialVersionUID = -5561839667832078737L;
+
 	private Integer id;
 	private ClienteDTO cliente;
 	private Date fechaCreacion;
 	private Date fechaprobableDespacho;
 	private Date fecharealDespacho;
-	private Set<ItemPedidoDTO> items;
+	private List<ItemPedidoDTO> items;
 	private float total;
+	
 	public PedidoDTO(){
-		items=new HashSet<ItemPedidoDTO>();
+		setItems(new ArrayList<ItemPedidoDTO>());
 	}
 	public int getId() {
 		return id;
@@ -46,16 +51,16 @@ public class PedidoDTO {
 	public void setFecharealDespacho(Date fecharealDespacho) {
 		this.fecharealDespacho = fecharealDespacho;
 	}
-	public Set<ItemPedidoDTO> getItems() {
-		return items;
-	}
-	public void setItems(Set<ItemPedidoDTO> items) {
-		this.items = items;
-	}
 	public float getTotal() {
 		return total;
 	}
 	public void setTotal(float total) {
 		this.total = total;
+	}
+	public List<ItemPedidoDTO> getItems() {
+		return items;
+	}
+	public void setItems(List<ItemPedidoDTO> items) {
+		this.items = items;
 	}
 }

@@ -13,7 +13,7 @@ public interface IPuntoDeVentaControlador extends Remote{
 	public List<SucursalDTO> listarSucursales()throws RemoteException;
 	public List<SucursalDTO> obtenerSucursales(PedidoDTO p)throws RemoteException;
 	/*PEDIDO*/
-	public int nuevoPedido(int idSucursal) throws RemoteException;
+	public int nuevoPedido(PedidoDTO pedidoDTO, int idSucursal) throws RemoteException;
 	public PedidoDTO obtenerPedido(int idPedido) throws RemoteException;
 	public void confirmarPedido(PedidoDTO pedido)throws RemoteException;
 	//public String informarEstadoPedido()throws RemoteException;

@@ -1,14 +1,22 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 
+import entities.ColorEntity;
+import entities.ItemPedidoEntity;
 import entities.PedidoEntity;
 import entities.PrendaEntity;
 import entities.SucursalEntity;
+import entities.TalleEntity;
 import hbt.HibernateUtil;
+import negocio.Color;
+import negocio.ItemPedido;
+import negocio.ItemPrenda;
 import negocio.Pedido;
 import negocio.Prenda;
 
@@ -33,6 +41,23 @@ public class PedidoDAO {
 			pe.setSucursal(AdministracionDAO.getInstancia().SucursalToEntity(pedido.getSucursal()));
 			pe.setFechaCreacion(pedido.getFechaCreacion());
 			pe.setEstado(pedido.getEstado());
+			List<ItemPedidoEntity> itemPedidoEntities = new ArrayList<ItemPedidoEntity>();
+			for (ItemPedido i: pedido.getItems()) {
+				ItemPedidoEntity itemPedidoEntity = new ItemPedidoEntity();
+				itemPedidoEntity.setCantidad(i.getCantidad());
+				Prenda prenda = i.getPrenda();
+				for ( ItemPrenda iPrendas: prenda.getItemPrendas()) {
+					ColorEntity colorEntity = new ColorEntity(iPrendas.getColor());
+					itemPedidoEntity.setColor(colorEntity);
+					TalleEntity talleEntity = new TalleEntity();
+					talleEntity.setDescripcion(iPrendas.getTalle().getDescripcion());
+					talleEntity.setIdtalle(iPrendas.getTalle().getIdTalle());
+					itemPedidoEntity.setTalle(talleEntity);
+				}
+				itemPedidoEntity.setImporte(i.getImporte());
+				itemPedidoEntities.add(itemPedidoEntity);
+			}
+			pe.setItems(itemPedidoEntities);
 			id=(Integer) session.save(pe);
 			session.getTransaction();
 			session.close();

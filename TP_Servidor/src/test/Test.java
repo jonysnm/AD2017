@@ -5,7 +5,6 @@ import hbt.HibernateUtil;
 public class Test {
 	private static Test instancia;
 
-	private Test() { }
 	
 	public static Test getInstancia(){
 		if(instancia == null)
