@@ -36,6 +36,7 @@ public class HibernateUtil {
 			config.addAnnotatedClass(OCMPEntity.class);
 			config.addAnnotatedClass(OrdenDespachoEntity.class);
 			config.addAnnotatedClass(UbicacionEntity.class);
+			config.addAnnotatedClass(ProveedorEntity.class);
 			
 			
 			sessionFactory=config.buildSessionFactory();
