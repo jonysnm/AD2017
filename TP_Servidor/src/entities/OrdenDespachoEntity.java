@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import estados.EstadoOrdenDespacho;
 import negocio.Pedido;
 @Entity
 @Table(name="ordenesdespacho")
@@ -29,6 +32,8 @@ public class OrdenDespachoEntity implements Serializable{
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="numeropedido")
 	private PedidoEntity pedido;
+	@Enumerated(EnumType.STRING)
+	private EstadoOrdenDespacho estado;
 	public int getId() {
 		return id;
 	}
@@ -59,6 +64,12 @@ public class OrdenDespachoEntity implements Serializable{
 	public void setPedido(PedidoEntity pedido) {
 		this.pedido = pedido;
 	}
+	public EstadoOrdenDespacho getEstado() {
+		return estado;
+	}
+	public void setEstado(EstadoOrdenDespacho estado) {
+		this.estado = estado;
+	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -67,21 +78,24 @@ public class OrdenDespachoEntity implements Serializable{
 		return "OrdenDespachoEntity [id=" + id + ", fecha=" + fecha
 				+ ", fechaEstimadaEntrega=" + fechaEstimadaEntrega
 				+ ", fechaRealEntrega=" + fechaRealEntrega + ", pedido="
-				+ pedido + "]";
+				+ pedido + ", estado=" + estado + "]";
 	}
 	public OrdenDespachoEntity(int id, Date fecha, Date fechaEstimadaEntrega,
-			Date fechaRealEntrega, PedidoEntity pedido) {
+			Date fechaRealEntrega, PedidoEntity pedido,
+			EstadoOrdenDespacho estado) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
 		this.fechaEstimadaEntrega = fechaEstimadaEntrega;
 		this.fechaRealEntrega = fechaRealEntrega;
 		this.pedido = pedido;
+		this.estado = estado;
 	}
 	public OrdenDespachoEntity() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	
 	
 }

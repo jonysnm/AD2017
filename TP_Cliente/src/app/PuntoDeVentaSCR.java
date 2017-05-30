@@ -38,7 +38,7 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 	private JMenu jMenu4;
 	
 	private JSeparator jSeparator2;
-	
+	private JMenuItem exitMenuItem;
 	private JMenuItem delClienteMenuItem;
 	private JMenuItem editClienteMenuItem;
 	private JMenuItem newClienteMenuItem;
@@ -81,8 +81,7 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 						newClienteMenuItem.addActionListener(new ActionListener() {
 							
 							public void actionPerformed(ActionEvent e) {
-								AltaClienteSCR ad = new AltaClienteSCR();
-								ad.setVisible(true);
+								AltaClienteSCR.getInstancia().setVisible(true);
 							}
 						});
 						
@@ -91,11 +90,23 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 						editClienteMenuItem = new JMenuItem();
 						jMenu3.add(editClienteMenuItem);
 						editClienteMenuItem.setText("Modificar");
+						/*editClienteMenuItem.addActionListener(new ActionListener() {
+							
+							public void actionPerformed(ActionEvent e) {
+								editClienteMenuItem.getInstancia().setVisible(true);
+							}
+						});*/
 					}
 					{
 						delClienteMenuItem = new JMenuItem();
 						jMenu3.add(delClienteMenuItem);
 						delClienteMenuItem.setText("Eliminar");
+						delClienteMenuItem.addActionListener(new ActionListener() {
+							
+							public void actionPerformed(ActionEvent e) {
+								BajaClienteSCR.getInstancia().setVisible(true);
+							}
+						});
 					}
 					
 					
@@ -113,16 +124,34 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 						newPedidoMenuItem = new JMenuItem();
 						jMenu4.add(newPedidoMenuItem);
 						newPedidoMenuItem.setText("Nuevo");
+						/*newPedidoMenuItem.addActionListener(new ActionListener() {
+							
+							public void actionPerformed(ActionEvent e) {
+								newPedidoMenuItem.getInstancia().setVisible(true);
+							}
+						});*/
 					}
 					{
 						confirmPedidoMenuItem = new JMenuItem();
 						jMenu4.add(confirmPedidoMenuItem);
 						confirmPedidoMenuItem.setText("Confirmar");
+						/*confirmPedidoMenuItem.addActionListener(new ActionListener() {
+							
+							public void actionPerformed(ActionEvent e) {
+								confirmPedidoMenuItem.getInstancia().setVisible(true);
+							}
+						});*/
 					}
 					{
 						cancelPedidoMenuItem = new JMenuItem();
 						jMenu4.add(cancelPedidoMenuItem);
 						cancelPedidoMenuItem.setText("Cancelar");
+						/*cancelPedidoMenuItem.addActionListener(new ActionListener() {
+							
+							public void actionPerformed(ActionEvent e) {
+								cancelPedidoMenuItem.getInstancia().setVisible(true);
+							}
+						});*/
 					}
 					{
 						jSeparator1 = new JSeparator();
@@ -142,6 +171,11 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 						helpMenuItem = new JMenuItem();
 						jMenu5.add(helpMenuItem);
 						helpMenuItem.setText("Acerca de");
+						helpMenuItem.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								AcercaDe.getInstancia().setVisible(true);
+							}
+						});
 					}
 				}
 				
@@ -149,6 +183,17 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 					jMenu6 = new JMenu();
 					jMenuBar1.add(jMenu6);
 					jMenu6.setText("Salir");
+					
+					exitMenuItem = new JMenuItem();
+					jMenu6.add(exitMenuItem);
+					exitMenuItem.setText("Salir");
+					exitMenuItem.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent evt) 
+						{
+							System.exit(0);
+						}
+					});
+					
 					
 				}
 				
