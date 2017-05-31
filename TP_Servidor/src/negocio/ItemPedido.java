@@ -30,6 +30,18 @@ public class ItemPedido {
 	public void setImporte(int importe) {
 		this.importe = importe;
 	}
+	public Color getColor() {
+		return color;
+	}
+	public void setColor(Color color) {
+		this.color = color;
+	}
+	public Talle getTalle() {
+		return talle;
+	}
+	public void setTalle(Talle talle) {
+		this.talle = talle;
+	}
 	public ItemPedido(ItemPedidoEntity ipe){
 		this.cantidad=ipe.getCantidad();
 		this.importe=ipe.getImporte();
@@ -50,17 +62,5 @@ public class ItemPedido {
 		}else{
 			return false;
 		}
-	}
-	public Color getColor() {
-		return color;
-	}
-	public void setColor(Color color) {
-		this.color = color;
-	}
-	public Talle getTalle() {
-		return talle;
-	}
-	public void setTalle(Talle talle) {
-		this.talle = talle;
 	}
 }

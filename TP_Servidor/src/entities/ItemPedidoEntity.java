@@ -14,6 +14,7 @@ public class ItemPedidoEntity implements Serializable{
 	 */
 	private static final long serialVersionUID = 6161471348651036527L;
 	@EmbeddedId
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private ItemPedidoId IdItemPedido;
 	@OneToOne
 	@JoinColumn(name="idtalle")

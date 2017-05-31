@@ -151,7 +151,7 @@ public class AdministracionDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Sucursal> listarSucursales() {
-		List<Sucursal> sucursales = new ArrayList<>();
+		List<Sucursal> sucursales = new ArrayList<Sucursal>();
 		try {
 			Session session = sf.openSession();
 			HashSet<SucursalEntity> lista = (HashSet<SucursalEntity>) session.createQuery("from Sucursal").list();
@@ -220,7 +220,7 @@ public class AdministracionDAO {
 			@SuppressWarnings("unchecked")
 			List<PedidoEntity> lista = session.createQuery("from Pedido where estado =" + "En Verificacion").list();
 			session.close();
-			List<Pedido> pedidos = new ArrayList<>();
+			List<Pedido> pedidos = new ArrayList<Pedido>();
 			for (PedidoEntity pedidoEntity : lista) {
 				pedidos.add(new Pedido(pedidoEntity));
 			}

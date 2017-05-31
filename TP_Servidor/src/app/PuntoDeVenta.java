@@ -29,7 +29,6 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
 	public int nuevoPedido(PedidoDTO pedidoDTO,int idSucursal) throws RemoteException{
 		try {
 			return ControladorPedido.getInstancia().nuevoPedido(pedidoDTO,idSucursal);
@@ -48,22 +47,18 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 		return null;
 	}
 	*/
-	@Override
 	public void cancelarPedido(Integer id)throws RemoteException {
 		// TODO Auto-generated method stub
 
 	}
-	@Override
 	public List<FacturaDTO> getFacturas() throws RemoteException{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
 	public void generarFactura(PedidoDTO p) throws RemoteException{
 		// TODO Auto-generated method stub
 
 	}
-	@Override
 	public PedidoDTO obtenerPedido(int idPedido) throws RemoteException {
 			try {
 				return ControladorPedido.getInstancia().obtenerPedido(idPedido);

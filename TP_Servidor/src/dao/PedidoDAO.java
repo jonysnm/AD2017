@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,8 +8,10 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 
+import entities.ClienteEntity;
 import entities.ColorEntity;
 import entities.ItemPedidoEntity;
+import entities.ItemPedidoId;
 import entities.ItemPrendaEntity;
 import entities.PedidoEntity;
 import entities.PrendaEntity;
@@ -20,6 +23,7 @@ import negocio.ItemPedido;
 import negocio.ItemPrenda;
 import negocio.Pedido;
 import negocio.Prenda;
+import negocio.Sucursal;
 
 public class PedidoDAO {
 	private static PedidoDAO instancia;
@@ -38,11 +42,14 @@ public class PedidoDAO {
 			Integer id;
 			Session session=sf.openSession();
 			session.beginTransaction();
+		
 			PedidoEntity pe=new PedidoEntity();
-			pe.setSucursal(AdministracionDAO.getInstancia().SucursalToEntity(pedido.getSucursal()));
+			pe.setSucursal((SucursalEntity)session.get(SucursalEntity.class, pedido.getSucursal().getId()));
 			pe.setFechaCreacion(pedido.getFechaCreacion());
 			pe.setEstado(pedido.getEstado());
+			
 			List<ItemPedidoEntity> itemPedidoEntities = new ArrayList<ItemPedidoEntity>();
+			
 			for (ItemPedido i: pedido.getItems()) {
 				ItemPedidoEntity itemPedidoEntity = new ItemPedidoEntity();
 				itemPedidoEntity.setCantidad(i.getCantidad());
@@ -52,35 +59,25 @@ public class PedidoDAO {
 				talleEntity.setDescripcion(i.getTalle().getDescripcion());
 				talleEntity.setIdtalle(i.getTalle().getIdTalle());
 				itemPedidoEntity.setTalle(talleEntity);
+				
 
-				Prenda prenda = i.getPrenda();
-				PrendaEntity prendaEntity = new PrendaEntity();
-				prendaEntity.setCostoProduccion(i.getPrenda().getCostoProduccion());
-				prendaEntity.setCostoProduccionActual(i.getPrenda().getCostoProduccionActual());
-				prendaEntity.setDescripcion(i.getPrenda().getDescripcion());
-				prendaEntity.setIdPrenda(i.getPrenda().getCodigo());
-				prendaEntity.setPorcentajeGanancia(i.getPrenda().getPorcentajeGanancia());
-				List<ItemPrendaEntity> ip = new ArrayList<ItemPrendaEntity>();
-				for ( ItemPrenda iPrendas: prenda.getItemPrendas()) {
-					ItemPrendaEntity ipe=new ItemPrendaEntity();
-					ColorEntity ce = new ColorEntity(iPrendas.getColor());//ARREGLAR DAO
-					ipe.setColor(ce);
-					TalleEntity te = new TalleEntity();
-					te.setIdtalle(iPrendas.getTalle().getIdTalle());
-					te.setDescripcion(iPrendas.getTalle().getDescripcion());
-					ipe.setTalle(te);
-					ip.add(ipe);
-				}
-				itemPedidoEntity.setImporte(i.getImporte());
+				PrendaEntity prendaEntity = (PrendaEntity)session.get(PrendaEntity.class, i.getPrenda().getCodigo());
+				
+				ItemPedidoId id2 = new ItemPedidoId();
+				id2.setPrenda(prendaEntity);
+				id2.setPedido(pe);
+				itemPedidoEntity.setIdItemPedido(id2);
 				itemPedidoEntities.add(itemPedidoEntity);
+			
 			}
-
-			pe.setCliente(ClienteDAO.getInstancia().ClienteToEntity(pedido.getCliente()));
+			pe.setCliente((ClienteEntity)session.get(ClienteEntity.class, (pedido.getCliente().getId())));
 			pe.setItems(itemPedidoEntities);
-			id=(Integer) session.save(pe);
-			session.getTransaction();
-			session.close();
-			return id;
+			
+			Integer idPedido = (Integer) session.save(pe);
+			session.getTransaction().commit();
+//			session.persist(pe);
+//			session.flush();
+			return idPedido;
 		}catch(Exception e){			
 			e.printStackTrace();
 			System.out.println("Error PedidoDAO. Nuevo Pedido");

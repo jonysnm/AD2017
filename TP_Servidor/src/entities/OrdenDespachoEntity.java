@@ -28,7 +28,7 @@ public class OrdenDespachoEntity implements Serializable{
 	private Date fechaRealEntrega;
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="numeropedido")
-	private Pedido pedido;
+	private PedidoEntity pedido;
 	public int getId() {
 		return id;
 	}
@@ -53,10 +53,10 @@ public class OrdenDespachoEntity implements Serializable{
 	public void setFechaRealEntrega(Date fechaRealEntrega) {
 		this.fechaRealEntrega = fechaRealEntrega;
 	}
-	public Pedido getPedido() {
+	public PedidoEntity getPedido() {
 		return pedido;
 	}
-	public void setPedido(Pedido pedido) {
+	public void setPedido(PedidoEntity pedido) {
 		this.pedido = pedido;
 	}
 	public static long getSerialversionuid() {
@@ -70,7 +70,7 @@ public class OrdenDespachoEntity implements Serializable{
 				+ pedido + "]";
 	}
 	public OrdenDespachoEntity(int id, Date fecha, Date fechaEstimadaEntrega,
-			Date fechaRealEntrega, Pedido pedido) {
+			Date fechaRealEntrega, PedidoEntity pedido) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
@@ -82,6 +82,6 @@ public class OrdenDespachoEntity implements Serializable{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	
 }

@@ -65,12 +65,10 @@ public class Sucursales extends UnicastRemoteObject implements IAdmSucursalesCon
 		}
 		return null;
 	}
-@Override
 	public List<SucursalDTO> listarSucursales()throws RemoteException {
 		AdministracionDAO.getInstancia().listarSucursales();
 		return null;
 	}
-	@Override
 	public List<EmpleadoDTO> listarEmpleados(int idSucursal)throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;

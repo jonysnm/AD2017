@@ -11,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import negocio.ItemBulto;
 @Entity
 @Table(name="almacenes")
 public class AlmacenEntity implements Serializable {
@@ -31,7 +29,7 @@ public class AlmacenEntity implements Serializable {
 	private List<ItemMovimientoStockEntity> stock;
 	@OneToMany (cascade=CascadeType.ALL)
 	@JoinColumn(name="coditembulto")
-	private List<ItemBulto> scrap;
+	private List<ItemBultoEntity> scrap;
 	public int getId() {
 		return id;
 	}
@@ -50,10 +48,10 @@ public class AlmacenEntity implements Serializable {
 	public void setStock(List<ItemMovimientoStockEntity> stock) {
 		this.stock = stock;
 	}
-	public List<ItemBulto> getScrap() {
+	public List<ItemBultoEntity> getScrap() {
 		return scrap;
 	}
-	public void setScrap(List<ItemBulto> scrap) {
+	public void setScrap(List<ItemBultoEntity> scrap) {
 		this.scrap = scrap;
 	}
 	public static long getSerialversionuid() {
@@ -65,7 +63,7 @@ public class AlmacenEntity implements Serializable {
 				+ ", stock=" + stock + ", scrap=" + scrap + "]";
 	}
 	public AlmacenEntity(int id, List<UbicacionEntity> ubicacion,
-			List<ItemMovimientoStockEntity> stock, List<ItemBulto> scrap) {
+			List<ItemMovimientoStockEntity> stock, List<ItemBultoEntity> scrap) {
 		super();
 		this.id = id;
 		this.ubicacion = ubicacion;
@@ -76,6 +74,7 @@ public class AlmacenEntity implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	
 	
 

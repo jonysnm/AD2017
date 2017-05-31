@@ -108,19 +108,23 @@ public class Cliente {
 		pedidoDTO.setFechaCreacion(new Date());
 		pedidoDTO.setFechaprobableDespacho(new Date());
 		ItemPedidoDTO item = new ItemPedidoDTO();
-		List<ItemPedidoDTO> itemsPedido = new ArrayList<>();
+		
+		List<ItemPedidoDTO> itemsPedido = new ArrayList<ItemPedidoDTO>();
+		
 		item.setCantidad(1);
 		item.setImporte(12);
-		PrendaDTO prendaDTO = new PrendaDTO();
-		prendaDTO.setCodigo(1);
-		ItemPrendaDTO itemPrenda = new ItemPrendaDTO();
 		ColorDTO colorDTO = new ColorDTO();
 		colorDTO.setIdColor(1);
 		colorDTO.setDescripcion("Rojo");
-		itemPrenda.setColor(colorDTO);
+		item.setColor(colorDTO);
 		TalleDTO talleDTO = new TalleDTO();
 		talleDTO.setDescripcion("M");
 		talleDTO.setIdTalle(1);
+		item.setTalle(talleDTO);
+		PrendaDTO prendaDTO = new PrendaDTO();
+		prendaDTO.setCodigo(1);
+		ItemPrendaDTO itemPrenda = new ItemPrendaDTO();
+		itemPrenda.setColor(colorDTO);
 		itemPrenda.setTalle(talleDTO);
 		List<ItemPrendaDTO> itemsPrenda = new ArrayList<ItemPrendaDTO>();
 		itemsPrenda.add(itemPrenda);
