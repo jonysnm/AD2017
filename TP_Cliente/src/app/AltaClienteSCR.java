@@ -32,7 +32,8 @@ public class AltaClienteSCR extends javax.swing.JFrame {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -2899576484483212905L;
+	private static final long serialVersionUID = 2029284686394835719L;
+	private static AltaClienteSCR instancia = new AltaClienteSCR();
 	private JLabel jLabelcuit;
 	private JTextField jTextFieldcuit;
 	private JLabel jLabelnombre;
@@ -62,6 +63,9 @@ public class AltaClienteSCR extends javax.swing.JFrame {
 		initGUI();
 	}
 	
+	public static AltaClienteSCR getInstancia(){
+		return instancia;
+	}
 	private void initGUI() {
 		try {
 			GroupLayout thisLayout = new GroupLayout((JComponent)getContentPane());
@@ -95,6 +99,7 @@ public class AltaClienteSCR extends javax.swing.JFrame {
 						float lim = Float.parseFloat(jTextFieldlimitecredito.getText());
 					
 						ClienteDTO clienteDTO = new ClienteDTO();
+						clienteDTO.setId(1);
 						clienteDTO.setCuit(cu);
 						clienteDTO.setLimiteCredito(lim);
 						clienteDTO.setNombre(nam);

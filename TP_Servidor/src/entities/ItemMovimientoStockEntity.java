@@ -32,7 +32,7 @@ public class ItemMovimientoStockEntity implements Serializable {
 	private TipoMovimientoStock tipo;
 	private Date fecha;
 	@OneToMany (cascade=CascadeType.ALL)
-	@JoinColumn(name="coditembulto")
+	@JoinColumn(name="idItemMovStock")
 	private List<ItemBultoEntity> bultoitems;
 	private String detalle;
 	@ManyToOne(cascade=CascadeType.ALL)

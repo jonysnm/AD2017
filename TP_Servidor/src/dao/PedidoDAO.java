@@ -1,8 +1,6 @@
 package dao;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -12,18 +10,14 @@ import entities.ClienteEntity;
 import entities.ColorEntity;
 import entities.ItemPedidoEntity;
 import entities.ItemPedidoId;
-import entities.ItemPrendaEntity;
 import entities.PedidoEntity;
 import entities.PrendaEntity;
 import entities.SucursalEntity;
 import entities.TalleEntity;
 import hbt.HibernateUtil;
-import negocio.Color;
 import negocio.ItemPedido;
-import negocio.ItemPrenda;
 import negocio.Pedido;
 import negocio.Prenda;
-import negocio.Sucursal;
 
 public class PedidoDAO {
 	private static PedidoDAO instancia;
@@ -39,7 +33,6 @@ public class PedidoDAO {
 	}
 	public Integer nuevoPedido(Pedido pedido){
 		try{
-			Integer id;
 			Session session=sf.openSession();
 			session.beginTransaction();
 		
@@ -75,8 +68,6 @@ public class PedidoDAO {
 			
 			Integer idPedido = (Integer) session.save(pe);
 			session.getTransaction().commit();
-//			session.persist(pe);
-//			session.flush();
 			return idPedido;
 		}catch(Exception e){			
 			e.printStackTrace();

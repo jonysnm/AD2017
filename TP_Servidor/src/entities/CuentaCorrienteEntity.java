@@ -23,7 +23,7 @@ public class CuentaCorrienteEntity implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idCuenta;
 	@OneToMany
-	@JoinColumn(name="itemMovCtaCte")
+	@JoinColumn(name="idCtaCte")
 	private List<ItemMovimientoCtaCteEntity> items;
 	public int getIdCuenta() {
 		return idCuenta;

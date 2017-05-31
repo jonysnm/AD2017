@@ -3,7 +3,32 @@ package hbt;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
-import entities.*;
+import entities.AlmacenEntity;
+import entities.AreaProduccionEntity;
+import entities.AreaProduccionInvolucradaEntity;
+import entities.ClienteEntity;
+import entities.ColorEntity;
+import entities.CuentaCorrienteEntity;
+import entities.EmpleadoEntity;
+import entities.FacturaEntity;
+import entities.ItemBultoEntity;
+import entities.ItemFacturaEntity;
+import entities.ItemMaterialPrendaEntity;
+import entities.ItemMovimientoCtaCteEntity;
+import entities.ItemMovimientoStockEntity;
+import entities.ItemOCMPEntity;
+import entities.ItemPedidoEntity;
+import entities.ItemPrendaEntity;
+import entities.LineaProduccionEntity;
+import entities.MateriaPrimaEntity;
+import entities.OCMPEntity;
+import entities.OrdenDespachoEntity;
+import entities.PedidoEntity;
+import entities.PrendaEntity;
+import entities.ProveedorEntity;
+import entities.SucursalEntity;
+import entities.TalleEntity;
+import entities.UbicacionEntity;
 
 public class HibernateUtil {
 	private static final SessionFactory sessionFactory;
