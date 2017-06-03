@@ -2,50 +2,26 @@ package entities;
 
 import java.io.Serializable;
 
-import javax.persistence.*;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
-@Table(name="itemprenda")
+@Table(name="Items_Prenda")
 public class ItemPrendaEntity implements Serializable{
 	
 	private static final long serialVersionUID = 3013620458553400990L;
-	@Id
-	private Integer id;
-	@ManyToOne
-	@JoinColumn(name="IdPrenda")
-	private PrendaEntity IdItemPrenda;
-	@OneToOne
-	@JoinColumn(name="idtalle")
-	private TalleEntity talle;
-	@OneToOne
-	@JoinColumn(name="idColor")
-	private ColorEntity color;
+	
+	@EmbeddedId
+	private ItemPrendaId itemPrendaId;
 	
 	public ItemPrendaEntity(){
 	}
-	public PrendaEntity getPrenda() {
-		return IdItemPrenda;
-	}
-	public void setPrenda(PrendaEntity prenda) {
-		this.IdItemPrenda = prenda;
-	}
-	public TalleEntity getTalle() {
-		return talle;
-	}
-	public void setTalle(TalleEntity talle) {
-		this.talle = talle;
-	}
-	public ColorEntity getColor() {
-		return color;
-	}
-	public void setColor(ColorEntity color) {
-		this.color = color;
-	}
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
 	
+	public ItemPrendaId getItemPrendaId() {
+		return itemPrendaId;
+	}
+	public void setItemPrendaId(ItemPrendaId itemPrendaId) {
+		this.itemPrendaId = itemPrendaId;
+	}
 }

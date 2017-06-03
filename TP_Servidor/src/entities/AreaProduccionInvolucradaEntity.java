@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 //la prendaEntity tiene una lista de esto
 @Entity
-@Table(name="areasproduccioninvolucradas")
+@Table(name="Areas_Produccion_Involucradas")
 public class AreaProduccionInvolucradaEntity implements Serializable{
 	/**
 	 * 

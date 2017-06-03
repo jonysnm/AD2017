@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import tipos.TipoMovimientoCtaCte;
 
 @Entity
-@Table(name="itemsmovimientosctasctes")
+@Table(name="Items_Movimientos_Ctas_Ctes")
 public class ItemMovimientoCtaCteEntity implements Serializable {
 /**
 	 * 

@@ -1,17 +1,20 @@
 package entities;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 import negocio.Color;
 @Entity
 @Table(name="Colores")
-public class ColorEntity {
+
+public class ColorEntity implements Serializable{
+	private static final long serialVersionUID = 9221850306316543012L;
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue
 	private int idColor;
 	private String descripcion;
-	
-
 	
 	public ColorEntity(Color c) {
 		this.idColor =c.getIdcolor();

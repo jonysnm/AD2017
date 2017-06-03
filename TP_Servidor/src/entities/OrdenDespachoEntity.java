@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 import estados.EstadoOrdenDespacho;
 @Entity
-@Table(name="ordenesdespacho")
+@Table(name="Ordenes_Despacho")
 public class OrdenDespachoEntity implements Serializable{
 	/**
 	 * 

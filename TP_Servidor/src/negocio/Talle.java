@@ -7,7 +7,7 @@ public class Talle {
 	private int idTalle;
 	private String descripcion;
 
-	public Talle(int id, String descripcion) {
+	public Talle(Integer id, String descripcion) {
 		this.idTalle=id;
 		this.descripcion=descripcion;
 	}

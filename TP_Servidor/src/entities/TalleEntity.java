@@ -1,17 +1,18 @@
 package entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.io.Serializable;
+
+import javax.persistence.*;
 @Entity
 @Table(name="Talles")
-public class TalleEntity {
+public class TalleEntity implements Serializable{
+	private static final long serialVersionUID = -6479446838679069821L;
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue
 	private int idTalle;
 	private String descripcion;
+	public TalleEntity(){}
 
 	public String getDescripcion() {
 		return descripcion;
@@ -53,21 +54,6 @@ public class TalleEntity {
 		if (idTalle != other.idTalle)
 			return false;
 		return true;
-	}
-
-	public TalleEntity(int idTalle, String descripcion) {
-		super();
-		this.idTalle = idTalle;
-		this.descripcion = descripcion;
-	}
-
-	public TalleEntity(String descripcion) {
-		super();
-		this.descripcion = descripcion;
-	}
-	public TalleEntity() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 
