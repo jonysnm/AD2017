@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename package &apos;Controladores&apos; to &apos;controladores&apos;&#x0D;&#x0A;- Original project: &apos;TP_Servidor&apos;&#x0D;&#x0A;- Original element: &apos;TP_Servidor/src/Controladores&apos;&#x0D;&#x0A;- Renamed element: &apos;TP_Servidor/src/controladores&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;Controladores&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src&lt;Controladores" name="controladores" qualified="false" references="true" stamp="1493513649434" textual="false" version="1.0"/>
-</session>
