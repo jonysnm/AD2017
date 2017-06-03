@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import businessDelegate.BusinessDelegate;
+import dto.TalleDTO;
+
 //import vo.ClienteVO;
 //import vo.PaqueteVO;
 //import vo.SucursalVO;
@@ -55,7 +58,16 @@ public class ControladorWeb extends HttpServlet {
         if ("default".equals(action))
         {
             jspPage = "/index.jsp";
-        }
+        }else if ("altaTalle".equals(action)) {
+			try {
+				TalleDTO talleDTO = new TalleDTO();
+				talleDTO.setDescripcion(request.getParameter("descripcion"));
+				BusinessDelegate.getInstancia().altaTalle(talleDTO);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+        	
+		}
         else if ("altaEnvioCarrier".equals(action))
         {
             try {				

@@ -10,6 +10,7 @@ import dao.PedidoDAO;
 import dto.ItemPedidoDTO;
 import dto.ItemPrendaDTO;
 import dto.PedidoDTO;
+import dto.TalleDTO;
 import negocio.Cliente;
 import negocio.Color;
 import negocio.ItemPedido;
@@ -127,6 +128,9 @@ public class ControladorPedido {
 			 pedidosDTO.add(PedidoToDTO.toDTO(pedido));	
 		}
 		 return pedidosDTO;
+	}
+	public void altaTalle(TalleDTO talleDTO) {
+		AdministracionDAO.getInstancia().altaTalle(talleDTO);
 	}
 
 }

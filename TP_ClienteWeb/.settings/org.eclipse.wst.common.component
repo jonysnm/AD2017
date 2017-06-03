@@ -2,6 +2,9 @@
     <wb-module deploy-name="TP_ClienteWeb">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="TP_Repositorio.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/TP_Repositorio/TP_Repositorio">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="TP_ClienteWeb"/>
         <property name="java-output-path" value="/TP_ClienteWeb/build/classes"/>
     </wb-module>

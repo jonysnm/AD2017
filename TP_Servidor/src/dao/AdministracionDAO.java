@@ -8,9 +8,11 @@ import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 
+import dto.TalleDTO;
 import entities.EmpleadoEntity;
 import entities.PedidoEntity;
 import entities.SucursalEntity;
+import entities.TalleEntity;
 import exceptions.PedidoException;
 import exceptions.SucursalException;
 import hbt.HibernateUtil;
@@ -256,5 +258,14 @@ public class AdministracionDAO {
 //		ee.setSucursal(SucursalToEntity(e.getSucursal()));
 //		}
 		return ee;
+	}
+
+	public void altaTalle(TalleDTO talleDTO) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		TalleEntity talleEntity = new TalleEntity();
+		talleEntity.setDescripcion(talleDTO.getDescripcion());
+		session.save(talleEntity);
+		session.getTransaction().commit();
 	}
 }

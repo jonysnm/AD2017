@@ -3,6 +3,7 @@
 	<name>TP_ClienteWeb</name>
 	<comment></comment>
 	<projects>
+		<project>TP_Repositorio</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

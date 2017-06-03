@@ -30,6 +30,11 @@
 		<h2>Seleccione una opción</h2>	
 		<br>
     </div>
+    <br>
+    	<a href="ControladorWeb?action=altaTalle" target="_self">Alta Talle</a>
+     <br>
+     	<a href="ControladorWeb?action=altaPrenda" target="_self">Alta Prenda</a>
+     <br>
     	<a href="ControladorWeb?action=altaPaquete" target="_self">Alta de Paquete</a>
     	<br>
     	<a href="ControladorWeb?action=altaEnvioCarrier" target="_self">Crear Envío-Carrier</a> 
