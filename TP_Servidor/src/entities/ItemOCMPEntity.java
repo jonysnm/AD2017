@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="itemsocmps")
+@Table(name="Items_Ocmps")
 public class ItemOCMPEntity implements Serializable {
 	/**
 	 * 

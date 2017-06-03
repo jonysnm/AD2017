@@ -146,7 +146,8 @@ public class TallesyColoresDAO {
 		return null;
 	}
 	public TalleEntity talletoEntiy(Talle ta) {
-		TalleEntity te = new TalleEntity(ta.getDescripcion());
+		TalleEntity te = new TalleEntity();
+		te.setDescripcion(ta.getDescripcion());
 		return te;
 	}
 

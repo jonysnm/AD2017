@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 import estados.EstadoLineaProduccion;
 @Entity
-@Table(name="lineasproduccion")
+@Table(name="Lineas_Produccion")
 public class LineaProduccionEntity implements Serializable {
 	/**
 	 * 

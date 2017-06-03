@@ -4,6 +4,7 @@ import java.util.*;
 
 import dao.PedidoDAO;
 import dto.PedidoDTO;
+import entities.ItemPedidoEntity;
 import entities.PedidoEntity;
 
 public class Pedido {
@@ -24,7 +25,17 @@ public class Pedido {
 		this.fecharealDespacho=pedido.getFecharealDespacho();
 		this.sucursal=new Sucursal(pedido.getSucursal());
 		this.estado=pedido.getEstado();
-		this.setItems(new ArrayList<ItemPedido>());
+		for ( ItemPedidoEntity itemPedidoEntity : pedido.getItems()) {
+			ItemPedido itemPedido = new ItemPedido();
+			itemPedido.setCantidad(itemPedidoEntity.getCantidad());
+			itemPedido.setColor(new Color(itemPedidoEntity.getColor()));
+			itemPedido.setImporte(itemPedidoEntity.getImporte());
+			Prenda p = new Prenda(itemPedidoEntity.getIdItemPedido().getPrenda());
+			itemPedido.setPrenda(p);
+			itemPedido.setTalle(new Talle(itemPedidoEntity.getTalle()));
+			items.add(itemPedido);
+		}
+		this.setItems(items);
 	}
 	public int getId() {
 		return id;
