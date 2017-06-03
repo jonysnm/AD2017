@@ -20,7 +20,7 @@ public class CuentaCorrienteEntity implements Serializable {
 
 	//ClienteEntity tiene una de esta
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idCuenta;
 	@OneToMany
 	@JoinColumn(name="idCtaCte")
@@ -53,7 +53,8 @@ public class CuentaCorrienteEntity implements Serializable {
 	}
 	public CuentaCorrienteEntity() {
 		super();
-		// TODO Auto-generated constructor stub
+		
+		
 	}
 	
 	

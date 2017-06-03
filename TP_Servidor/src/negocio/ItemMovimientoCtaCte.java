@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.Date;
 
+import entities.ItemMovimientoCtaCteEntity;
 import tipos.TipoMovimientoCtaCte;
 
 public class ItemMovimientoCtaCte {
@@ -57,6 +58,15 @@ public class ItemMovimientoCtaCte {
 	public ItemMovimientoCtaCte() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public ItemMovimientoCtaCte(ItemMovimientoCtaCteEntity ite) {
+		super();
+		this.id = ite.getId();
+		this.tipo = ite.getTipo();
+		this.fecha = ite.getFecha();
+		this.importe = ite.getImporte();
+		this.detalle = ite.getDetalle();
+		
 	}
 
 

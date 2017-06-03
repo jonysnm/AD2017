@@ -3,6 +3,7 @@ package negocio;
 
 import dao.ClienteDAO;
 import entities.ClienteEntity;
+import entities.CuentaCorrienteEntity;
 
 public class Cliente {
 	private Integer id;
@@ -10,6 +11,8 @@ public class Cliente {
 	private String cuit;
 	private String tipoFacturacion;
 	private float limiteCredito;
+	private CuentaCorriente ctacte;
+	
 	public Cliente() {
 		super();
 	}
@@ -37,12 +40,21 @@ public class Cliente {
 	public void setLimiteCredito(float limiteCredito) {
 		this.limiteCredito = limiteCredito;
 	}
+	public CuentaCorriente getCtacte() {
+		return ctacte;
+	}
+	public void setCtacte(CuentaCorriente ctacte) {
+		this.ctacte = ctacte;
+	}
+	
 	public Cliente(ClienteEntity c){
 		this.setCuit(c.getCuit());
 		this.id=c.getId();
 		this.limiteCredito=c.getLimiteCredito();
 		this.nombre=c.getNombre();
 		this.tipoFacturacion=c.getTipofacturacion();
+		CuentaCorrienteEntity ctaEntity = c.getCtacte();
+		CuentaCorriente cn = new CuentaCorriente(ctaEntity);
 	}
 	public String getCuit() {
 		return cuit;
@@ -59,6 +71,16 @@ public class Cliente {
 	public void baja(){
 		ClienteDAO.getInstancia().bajaCliente(this);
 	}
+	public Cliente(String nombre, String cuit, String tipoFacturacion,
+			float limiteCredito) {
+		super();
+		this.nombre = nombre;
+		this.cuit = cuit;
+		this.tipoFacturacion = tipoFacturacion;
+		this.limiteCredito = limiteCredito;
+	}
+
+	
 }
 
 
