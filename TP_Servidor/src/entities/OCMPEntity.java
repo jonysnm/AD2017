@@ -19,7 +19,7 @@ import javax.persistence.Table;
 import estados.EstadoOCMP;
 
 @Entity
-@Table(name="OCMPS")
+@Table(name="ocmps")
 public class OCMPEntity implements Serializable{
 	/**
 	 * 

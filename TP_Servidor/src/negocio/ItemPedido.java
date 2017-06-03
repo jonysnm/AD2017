@@ -51,7 +51,7 @@ public class ItemPedido {
 		this.color=color;
 		Talle talle = new Talle();
 		talle.setDescripcion(ipe.getTalle().getDescripcion());
-		talle.setIdTalle(ipe.getTalle().getidTalle());
+		talle.setIdTalle(ipe.getTalle().getIdtalle());
 		this.talle=talle;
 	}
 	

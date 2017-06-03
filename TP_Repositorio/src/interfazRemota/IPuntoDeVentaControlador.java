@@ -22,6 +22,5 @@ public interface IPuntoDeVentaControlador extends Remote{
 	/*MAU*/
 	public List<FacturaDTO> getFacturas()throws RemoteException;	
 	public void generarFactura(PedidoDTO p)throws RemoteException;
-	public List<PedidoDTO> listarPedidosPendientesDeValidacion() throws RemoteException;
 
 }

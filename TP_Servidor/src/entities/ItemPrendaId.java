@@ -6,33 +6,17 @@ import javax.persistence.*;
 
 @Embeddable
 public class ItemPrendaId implements Serializable{
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = -6109442483529088615L;
-
-	@ManyToOne
-	@JoinColumn(name="idTalle",nullable=false)
+	@OneToOne
+	@JoinColumn(name="idtalle")
 	private TalleEntity talle;
-	
-	@ManyToOne
-	@JoinColumn(name="idColor",nullable=false)
+	@OneToOne
+	@JoinColumn(name="idColor")
 	private ColorEntity color;
 	
-	@ManyToOne
-	@JoinColumn(name="IdPrenda",nullable=false)
-	private PrendaEntity prenda;
-	
-	
-	public TalleEntity getTalle() {
-		return talle;
-	}
-	public void setTalle(TalleEntity talle) {
-		this.talle = talle;
-	}
-	public ColorEntity getColor() {
-		return color;
-	}
-	public void setColor(ColorEntity color) {
-		this.color = color;
-	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -61,12 +45,6 @@ public class ItemPrendaId implements Serializable{
 		} else if (!talle.equals(other.talle))
 			return false;
 		return true;
-	}
-	public PrendaEntity getPrenda() {
-		return prenda;
-	}
-	public void setPrenda(PrendaEntity prenda) {
-		this.prenda = prenda;
 	}	
 	
 }

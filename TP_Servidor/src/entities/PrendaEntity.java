@@ -1,23 +1,18 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import java.util.HashSet;
+import java.util.Set;
 
-import org.hibernate.annotations.ForeignKey;
+import javax.persistence.*;
 
 @Entity
-@Table(name="Prenda")
+@Table(name="prenda")
 public class PrendaEntity implements Serializable{
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = -2773817217273075770L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -25,15 +20,14 @@ public class PrendaEntity implements Serializable{
 	private String descripcion;
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="item_materialprenda")
-	@ForeignKey(name="FK_ITEM_MATERIAL_PRENDA_ID")
-	private List<ItemMaterialPrendaEntity> itemMaterialPrenda=new ArrayList<ItemMaterialPrendaEntity>();
-	@OneToMany(mappedBy="itemPrendaId.prenda",cascade=CascadeType.ALL)
-	@ForeignKey(name="FK_ITEM_PRENDA_ID")
-	private List<ItemPrendaEntity> ip=new ArrayList<ItemPrendaEntity>();
-	private Boolean vigente;
-	private Float costoProduccion;
-	private Float costoProduccionActual;
-	private Float porcentajeGanancia;
+	private Set<ItemMaterialPrendaEntity> itemMaterialPrenda=new HashSet<ItemMaterialPrendaEntity>();
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="IdItemPrenda")
+	private Set<ItemPrendaEntity> ip=new HashSet<ItemPrendaEntity>();
+	private boolean vigente;
+	private float costoProduccion;
+	private float costoProduccionActual;
+	private float porcentajeGanancia;
 	public Integer getIdPrenda() {
 		return IdPrenda;
 	}
@@ -46,7 +40,18 @@ public class PrendaEntity implements Serializable{
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
+	public Set<ItemMaterialPrendaEntity> getItemMaterialPrenda() {
+		return itemMaterialPrenda;
+	}
+	public void setItemMaterialPrenda(Set<ItemMaterialPrendaEntity> itemMaterialPrenda) {
+		this.itemMaterialPrenda = itemMaterialPrenda;
+	}
+	public Set<ItemPrendaEntity> getIp() {
+		return ip;
+	}
+	public void setIp(Set<ItemPrendaEntity> ip) {
+		this.ip = ip;
+	}
 	public boolean isVigente() {
 		return vigente;
 	}
@@ -70,18 +75,6 @@ public class PrendaEntity implements Serializable{
 	}
 	public void setPorcentajeGanancia(float porcentajeGanancia) {
 		this.porcentajeGanancia = porcentajeGanancia;
-	}
-	public List<ItemMaterialPrendaEntity> getItemMaterialPrenda() {
-		return itemMaterialPrenda;
-	}
-	public void setItemMaterialPrenda(List<ItemMaterialPrendaEntity> itemMaterialPrenda) {
-		this.itemMaterialPrenda = itemMaterialPrenda;
-	}
-	public List<ItemPrendaEntity> getIp() {
-		return ip;
-	}
-	public void setIp(List<ItemPrendaEntity> ip) {
-		this.ip = ip;
 	}
 	
 

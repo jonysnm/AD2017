@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 @Entity
-@Table(name="Cuentas_Corrientes")
+@Table(name="cuentascorrientes")
 public class CuentaCorrienteEntity implements Serializable {
 /**
 	 * 
@@ -25,7 +25,7 @@ public class CuentaCorrienteEntity implements Serializable {
 	@OneToMany
 	@JoinColumn(name="idCtaCte")
 	private List<ItemMovimientoCtaCteEntity> items;
-	public Integer getIdCuenta() {
+	public int getIdCuenta() {
 		return idCuenta;
 	}
 	public void setIdCuenta(int idCuenta) {

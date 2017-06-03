@@ -19,7 +19,6 @@ import entities.ItemMovimientoStockEntity;
 import entities.ItemOCMPEntity;
 import entities.ItemPedidoEntity;
 import entities.ItemPrendaEntity;
-import entities.ItemPrendaId;
 import entities.LineaProduccionEntity;
 import entities.MateriaPrimaEntity;
 import entities.OCMPEntity;
@@ -40,7 +39,6 @@ public class HibernateUtil {
 			config.addAnnotatedClass(PedidoEntity.class);
 			config.addAnnotatedClass(ItemPedidoEntity.class);
 			config.addAnnotatedClass(PrendaEntity.class);
-			config.addAnnotatedClass(ItemPrendaId.class);
 			config.addAnnotatedClass(ItemPrendaEntity.class);
 			config.addAnnotatedClass(ItemMaterialPrendaEntity.class);
 			config.addAnnotatedClass(MateriaPrimaEntity.class);

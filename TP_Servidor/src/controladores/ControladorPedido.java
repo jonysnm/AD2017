@@ -7,11 +7,13 @@ import java.util.List;
 import dao.AdministracionDAO;
 import dao.ClienteDAO;
 import dao.PedidoDAO;
+import dto.ItemMaterialPrendaDTO;
 import dto.ItemPedidoDTO;
 import dto.ItemPrendaDTO;
 import dto.PedidoDTO;
 import negocio.Cliente;
 import negocio.Color;
+import negocio.ItemMaterialPrenda;
 import negocio.ItemPedido;
 import negocio.ItemPrenda;
 import negocio.Pedido;
@@ -119,14 +121,6 @@ public class ControladorPedido {
 		Pedido p = AdministracionDAO.getInstancia().obtenerPedido(idPedido);
 		PedidoDTO pedidoDTO = PedidoToDTO.toDTO(p);
 		return pedidoDTO;
-	}
-	public List<PedidoDTO> listarPedidosPendientesDeValidacion() {
-		 List<Pedido> pedidos = AdministracionDAO.getInstancia().obtenerPedidosPendientesDeValidacion();
-		 List<PedidoDTO>  pedidosDTO = new ArrayList<PedidoDTO>();
-		 for (Pedido pedido : pedidos) {
-			 pedidosDTO.add(PedidoToDTO.toDTO(pedido));	
-		}
-		 return pedidosDTO;
 	}
 
 }

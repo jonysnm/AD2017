@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 @Entity
-@Table(name="Items_Bultos")
+@Table(name="itemsbultos")
 public class ItemBultoEntity implements Serializable{
 	/**
 	 * 

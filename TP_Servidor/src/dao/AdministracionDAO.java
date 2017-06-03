@@ -218,8 +218,7 @@ public class AdministracionDAO {
 		try {
 			Session session = sf.openSession();
 			@SuppressWarnings("unchecked")
-//			List<PedidoEntity> lista = session.createQuery("from PedidoEntity where estado='En Verificacion'").list();
-			List<PedidoEntity> lista = session.createQuery("from PedidoEntity").list();
+			List<PedidoEntity> lista = session.createQuery("from Pedido where estado =" + "En Verificacion").list();
 			session.close();
 			List<Pedido> pedidos = new ArrayList<Pedido>();
 			for (PedidoEntity pedidoEntity : lista) {
@@ -228,7 +227,7 @@ public class AdministracionDAO {
 			return pedidos;
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("ErrorDAO: AdministracionDAO: Listar Pedidos pendientes de validacion");
+			System.out.println("ErrorDAO: AdministracionDAO: Listar empleados por Sucursal");
 		}
 		return null;
 	}

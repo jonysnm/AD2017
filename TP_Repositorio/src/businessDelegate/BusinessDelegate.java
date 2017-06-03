@@ -81,7 +81,4 @@ public class BusinessDelegate {
 	public List<FacturaDTO> getFacturas();	
 	public void generarFactura(PedidoDTO p);
 	 */
-	public List<PedidoDTO> listarPedidosPendientesDeValidacion() throws RemoteException{
-		return interfazRemotaPuntoVenta.listarPedidosPendientesDeValidacion();
-	}
 }

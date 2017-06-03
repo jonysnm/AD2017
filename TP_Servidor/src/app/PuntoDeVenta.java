@@ -4,7 +4,6 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-import businessDelegate.BusinessDelegate;
 import controladores.ControladorPedido;
 import dto.FacturaDTO;
 import dto.PedidoDTO;
@@ -67,9 +66,6 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 				e.printStackTrace();
 				throw new RemoteException("Error al obtener el pedido: "+e.getMessage());
 			}
-	}
-	public List<PedidoDTO> listarPedidosPendientesDeValidacion() throws RemoteException {
-		return ControladorPedido.getInstancia().listarPedidosPendientesDeValidacion();
 	}
 
 
