@@ -9,10 +9,10 @@ public class TalleEntity implements Serializable{
 	private static final long serialVersionUID = -6479446838679069821L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idTalle;
 	private String descripcion;
-	public TalleEntity(){}
+	
 
 	public String getDescripcion() {
 		return descripcion;
@@ -54,6 +54,21 @@ public class TalleEntity implements Serializable{
 		if (idTalle != other.idTalle)
 			return false;
 		return true;
+	}
+
+	public TalleEntity(int idTalle, String descripcion) {
+		super();
+		this.idTalle = idTalle;
+		this.descripcion = descripcion;
+	}
+
+	public TalleEntity(String descripcion) {
+		super();
+		this.descripcion = descripcion;
+	}
+	public TalleEntity() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 

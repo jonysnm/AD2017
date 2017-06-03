@@ -12,7 +12,9 @@ public class Test {
 		return instancia;
 	}
 	public static void main(String[] args) {
-		Test.getInstancia(); 
+		Test.getInstancia();
+		
 		new HibernateUtil();
+		AgregarDatos.guardarInfo();
 	}
 }

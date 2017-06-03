@@ -11,12 +11,11 @@ public class ColorEntity implements Serializable{
 	private static final long serialVersionUID = 9221850306316543012L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idColor;
 	private String descripcion;
 	
-	public ColorEntity() {
-	}
+
 	
 	public ColorEntity(Color c) {
 		this.idColor =c.getIdcolor();
@@ -62,5 +61,20 @@ public class ColorEntity implements Serializable{
 			return false;
 		return true;
 	}
+	public ColorEntity(int idColor, String descripcion) {
+		super();
+		this.idColor = idColor;
+		this.descripcion = descripcion;
+	}
+	public ColorEntity() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public ColorEntity(String descripcion) {
+		super();
+		this.descripcion = descripcion;
+	}
 
+	
+	
 }
