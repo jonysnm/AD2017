@@ -2,12 +2,18 @@ package app;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
+import java.util.List;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 import javax.swing.SwingUtilities;
+
+import businessDelegate.BusinessDelegate;
+import dto.ItemPedidoDTO;
+import dto.PedidoDTO;
 
 
 /**
@@ -146,7 +152,7 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 						cancelPedidoMenuItem = new JMenuItem();
 						jMenu4.add(cancelPedidoMenuItem);
 						cancelPedidoMenuItem.setText("Cancelar");
-						/*cancelPedidoMenuItem.addActionListener(new ActionListener() {
+						/*caCncelPedidoMenuItem.addActionListener(new ActionListener() {
 							
 							public void actionPerformed(ActionEvent e) {
 								cancelPedidoMenuItem.getInstancia().setVisible(true);
@@ -161,6 +167,22 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 						listPedidoMenuItem = new JMenuItem();
 						jMenu4.add(listPedidoMenuItem);
 						listPedidoMenuItem.setText("Listar");
+						listPedidoMenuItem.addActionListener(new ActionListener() {
+							
+							public void actionPerformed(ActionEvent e) {
+								try {
+							List<PedidoDTO> pedidos = BusinessDelegate.getInstancia().listarPedidosPendientesDeValidacion();
+							for (PedidoDTO pedidoDTO : pedidos) {
+								for (ItemPedidoDTO iPedidoDTO : pedidoDTO.getItems()) {
+									System.out.println(pedidoDTO.getId() +" "+ pedidoDTO.getTotal() +" "+ 	iPedidoDTO.getTalle() +" "+  iPedidoDTO.getColor() +" "+  iPedidoDTO.getPrenda() +" "+  iPedidoDTO.getImporte());
+								}
+							}
+								} catch (RemoteException e1) {
+									e1.printStackTrace();
+								}
+							}
+						});
+						
 					}
 				}
 				{

@@ -1,13 +1,13 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,8 +16,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ForeignKey;
+
 @Entity
-@Table(name="pedidos")
+@Table(name="Pedidos")
 public class PedidoEntity implements Serializable{
 	/**
 	 * 
@@ -29,20 +31,25 @@ public class PedidoEntity implements Serializable{
 	private int id;
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
+	@ForeignKey(name="FK_CLIENTE_ID")
 	private ClienteEntity cliente;
 	private Date fechaCreacion;
 	private Date fechaprobableDespacho;
 	private Date fecharealDespacho;
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="IdPedido")
-	private List<ItemPedidoEntity> items=new ArrayList<ItemPedidoEntity>();
+	@ForeignKey(name="FK_ITEMS_PEDIDO_ID")
+	private List<ItemPedidoEntity> items;
 	@ManyToOne
 	@JoinColumn(name="sucursal_id")
+	@ForeignKey(name="FK_SUCURSAL_ID")
 	private SucursalEntity sucursal;
 	@ManyToOne
 	@JoinColumn(name="factura_id")
+	@ForeignKey(name="FK_FACTURA_ID")
 	private FacturaEntity factura;
 	private String estado;
+	
 	public PedidoEntity(){}
 	public int getId() {
 		return id;

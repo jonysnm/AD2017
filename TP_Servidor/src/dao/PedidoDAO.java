@@ -50,7 +50,7 @@ public class PedidoDAO {
 				itemPedidoEntity.setColor(colorEntity);
 				TalleEntity talleEntity = new TalleEntity();
 				talleEntity.setDescripcion(i.getTalle().getDescripcion());
-				talleEntity.setIdtalle(i.getTalle().getIdTalle());
+				talleEntity.setidTalle(i.getTalle().getIdTalle());
 				itemPedidoEntity.setTalle(talleEntity);
 				
 
