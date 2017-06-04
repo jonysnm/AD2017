@@ -55,6 +55,7 @@ public class Cliente {
 		this.tipoFacturacion=c.getTipofacturacion();
 		CuentaCorrienteEntity ctaEntity = c.getCtacte();
 		CuentaCorriente cn = new CuentaCorriente(ctaEntity);
+		this.ctacte=cn;
 	}
 	public String getCuit() {
 		return cuit;
