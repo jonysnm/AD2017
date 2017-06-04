@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +19,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
+
+import estados.EstadoAprobacionPedidoCliente;
 
 @Entity
 @Table(name="Pedidos")
@@ -48,7 +52,8 @@ public class PedidoEntity implements Serializable{
 	@JoinColumn(name="factura_id")
 	@ForeignKey(name="FK_FACTURA_ID")
 	private FacturaEntity factura;
-	private String estado;
+	@Enumerated(EnumType.STRING)
+	private EstadoAprobacionPedidoCliente estado;
 	
 	public PedidoEntity(){}
 	public int getId() {
@@ -87,10 +92,10 @@ public class PedidoEntity implements Serializable{
 	public void setSucursal(SucursalEntity sucursal) {
 		this.sucursal = sucursal;
 	}
-	public String getEstado() {
+	public EstadoAprobacionPedidoCliente getEstado() {
 		return estado;
 	}
-	public void setEstado(String estado) {
+	public void setEstado(EstadoAprobacionPedidoCliente estado) {
 		this.estado = estado;
 	}
 	public List<ItemPedidoEntity> getItems() {

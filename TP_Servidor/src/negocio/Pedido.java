@@ -6,6 +6,7 @@ import dao.PedidoDAO;
 import dto.PedidoDTO;
 import entities.ItemPedidoEntity;
 import entities.PedidoEntity;
+import estados.EstadoAprobacionPedidoCliente;
 
 public class Pedido {
 	private int id;
@@ -15,7 +16,7 @@ public class Pedido {
 	private Date fecharealDespacho;
 	private List<ItemPedido> items=new ArrayList<ItemPedido>();
 	private Sucursal sucursal;
-	private String estado;
+	private EstadoAprobacionPedidoCliente estado;
 	public Pedido(){}
 	public Pedido(PedidoEntity pedido){
 		this.id=pedido.getId();
@@ -75,10 +76,10 @@ public class Pedido {
 		this.sucursal = sucursal;
 	}
 
-	public String getEstado() {
+	public EstadoAprobacionPedidoCliente getEstado() {
 		return estado;
 	}
-	public void setEstado(String estado) {
+	public void setEstado(EstadoAprobacionPedidoCliente estado) {
 		this.estado = estado;
 	}
 	public float TotalPedido(int idpedido){

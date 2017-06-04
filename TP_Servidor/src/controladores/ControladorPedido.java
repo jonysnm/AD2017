@@ -11,6 +11,7 @@ import dto.ItemPedidoDTO;
 import dto.ItemPrendaDTO;
 import dto.PedidoDTO;
 import dto.TalleDTO;
+import estados.EstadoAprobacionPedidoCliente;
 import negocio.Cliente;
 import negocio.Color;
 import negocio.ItemPedido;
@@ -76,7 +77,7 @@ public class ControladorPedido {
 		p.setItems(itemsPedidos);
 		p.setSucursal(s);
 		p.setFechaCreacion(new Date());
-		p.setEstado("En Verificación");
+		p.setEstado(EstadoAprobacionPedidoCliente.PENDIENTE);
 		Integer id=PedidoDAO.getInstancia().nuevoPedido(p);
 		return id;
 	}
