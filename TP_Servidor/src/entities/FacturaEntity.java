@@ -11,7 +11,7 @@ import javax.persistence.*;
 import estados.EstadoFactura;
 
 @Entity
-@Table(name="facturas")
+@Table(name="Facturas")
 public class FacturaEntity implements Serializable {
 	/**
 	 * 
@@ -19,7 +19,7 @@ public class FacturaEntity implements Serializable {
 	private static final long serialVersionUID = -7876162327418102462L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int nro;
+	private Integer nro;
 	private Date fechaEmision;
 	private Date fechaVencimiento;
 	@OneToOne
@@ -28,10 +28,10 @@ public class FacturaEntity implements Serializable {
 	@OneToMany (cascade=CascadeType.ALL)
 	@JoinColumn(name="itemfactura")
 	private List<ItemFacturaEntity> itemsFactura;
-	private float total;
+	private Float total;
 	@Enumerated(EnumType.STRING)
 	private EstadoFactura estado;
-	public int getNro() {
+	public Integer getNro() {
 		return nro;
 	}
 	public void setNro(int nro) {

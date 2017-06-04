@@ -1,6 +1,10 @@
 package negocio;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import entities.CuentaCorrienteEntity;
+import entities.ItemMovimientoCtaCteEntity;
 
 public class CuentaCorriente {
 //Cliente tiene una de esta
@@ -52,6 +56,18 @@ public class CuentaCorriente {
 	public CuentaCorriente() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public CuentaCorriente(CuentaCorrienteEntity ctaEntity) {
+		super();
+		this.idCuenta = ctaEntity.getIdCuenta();
+		List<ItemMovimientoCtaCte> listaItems = new ArrayList<ItemMovimientoCtaCte>();
+		for(ItemMovimientoCtaCteEntity ite : ctaEntity.getItems()){
+			listaItems.add(new ItemMovimientoCtaCte(ite)) ;
+		}
+		
+		
+		
 	}
 	
 	

@@ -1,30 +1,40 @@
 package entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.ForeignKey;
 
 
 @Entity
-@Table(name="itemsfacturas")
+@Table(name="Items_Facturas")
 public class ItemFacturaEntity implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -9175778631423059423L;
 	@Id
-	@JoinColumn(name="nroFactura")
-	private int itemfactura;
-	private int cantidad;
+	@GeneratedValue
+	private Integer itemFactura;
 	@ManyToOne
 	@JoinColumn(name="IdPrenda")
+	@ForeignKey(name="FK_PREN_ID")
 	private PrendaEntity prenda;
-	private float precioUnitario;
-	public int getItemfactura() {
-		return itemfactura;
-	}
-	public void setItemfactura(int itemfactura) {
-		this.itemfactura = itemfactura;
-	}
+	
+	@ManyToOne
+	@JoinColumn(name="nro")
+	@ForeignKey(name="FK_FACT_NRO")
+	private FacturaEntity facturaEntity;
+	
+	private Integer cantidad;
+	private Float precioUnitario;
+	
 	public int getCantidad() {
 		return cantidad;
 	}
@@ -42,6 +52,18 @@ public class ItemFacturaEntity implements Serializable {
 	}
 	public void setPrecioUnitario(float precioUnitario) {
 		this.precioUnitario = precioUnitario;
+	}
+	public FacturaEntity getFacturaEntity() {
+		return facturaEntity;
+	}
+	public void setFacturaEntity(FacturaEntity facturaEntity) {
+		this.facturaEntity = facturaEntity;
+	}
+	public int getItemFactura() {
+		return itemFactura;
+	}
+	public void setItemFactura(int itemFactura) {
+		this.itemFactura = itemFactura;
 	}
 	
 	

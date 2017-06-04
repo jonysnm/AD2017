@@ -8,6 +8,7 @@ import controladores.ControladorPedido;
 import dto.FacturaDTO;
 import dto.PedidoDTO;
 import dto.SucursalDTO;
+import dto.TalleDTO;
 import interfazRemota.IPuntoDeVentaControlador;
 
 public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaControlador {
@@ -66,6 +67,12 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 				e.printStackTrace();
 				throw new RemoteException("Error al obtener el pedido: "+e.getMessage());
 			}
+	}
+	public List<PedidoDTO> listarPedidosPendientesDeValidacion() throws RemoteException {
+		return ControladorPedido.getInstancia().listarPedidosPendientesDeValidacion();
+	}
+	public void altaTalle(TalleDTO talleDTO) throws RemoteException {
+		ControladorPedido.getInstancia().altaTalle(talleDTO);
 	}
 
 

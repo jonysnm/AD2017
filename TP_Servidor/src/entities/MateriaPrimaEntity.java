@@ -7,7 +7,7 @@ import javax.persistence.*;
 import estados.EstadoMP;
 
 @Entity
-@Table(name="materiasprimas")
+@Table(name="Materias_Primas")
 public class MateriaPrimaEntity implements Serializable {
 	/**
 	 * 

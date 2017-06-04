@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 @Entity
-@Table(name="cuentascorrientes")
+@Table(name="Cuentas_Corrientes")
 public class CuentaCorrienteEntity implements Serializable {
 /**
 	 * 
@@ -20,12 +20,12 @@ public class CuentaCorrienteEntity implements Serializable {
 
 	//ClienteEntity tiene una de esta
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idCuenta;
 	@OneToMany
 	@JoinColumn(name="idCtaCte")
 	private List<ItemMovimientoCtaCteEntity> items;
-	public int getIdCuenta() {
+	public Integer getIdCuenta() {
 		return idCuenta;
 	}
 	public void setIdCuenta(int idCuenta) {
@@ -53,7 +53,8 @@ public class CuentaCorrienteEntity implements Serializable {
 	}
 	public CuentaCorrienteEntity() {
 		super();
-		// TODO Auto-generated constructor stub
+		
+		
 	}
 	
 	

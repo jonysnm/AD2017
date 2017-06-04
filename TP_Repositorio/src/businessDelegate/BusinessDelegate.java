@@ -10,6 +10,7 @@ import dto.ClienteDTO;
 import dto.EmpleadoDTO;
 import dto.PedidoDTO;
 import dto.SucursalDTO;
+import dto.TalleDTO;
 import interfazRemota.IAdmSucursalesControlador;
 import interfazRemota.IClienteControlador;
 import interfazRemota.IPuntoDeVentaControlador;
@@ -81,4 +82,10 @@ public class BusinessDelegate {
 	public List<FacturaDTO> getFacturas();	
 	public void generarFactura(PedidoDTO p);
 	 */
+	public List<PedidoDTO> listarPedidosPendientesDeValidacion() throws RemoteException{
+		return interfazRemotaPuntoVenta.listarPedidosPendientesDeValidacion();
+	}
+	public void altaTalle(TalleDTO talleDTO) throws RemoteException{
+		interfazRemotaPuntoVenta.altaTalle(talleDTO);
+	}
 }

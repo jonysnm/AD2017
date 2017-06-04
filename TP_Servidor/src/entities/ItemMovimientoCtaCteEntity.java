@@ -14,14 +14,14 @@ import javax.persistence.Table;
 import tipos.TipoMovimientoCtaCte;
 
 @Entity
-@Table(name="itemsmovimientosctasctes")
+@Table(name="Items_Movimientos_Ctas_Ctes")
 public class ItemMovimientoCtaCteEntity implements Serializable {
 /**
 	 * 
 	 */
 	private static final long serialVersionUID = 99727418379779371L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	@Enumerated(EnumType.STRING)
 	private TipoMovimientoCtaCte tipo;
@@ -80,6 +80,16 @@ public class ItemMovimientoCtaCteEntity implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	public ItemMovimientoCtaCteEntity(TipoMovimientoCtaCte tipo, Date fecha,
+			float importe, String detalle) {
+		super();
+		this.tipo = tipo;
+		this.fecha = fecha;
+		this.importe = importe;
+		this.detalle = detalle;
+	}
+	
+	
 	
 	
 	
