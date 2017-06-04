@@ -31,7 +31,7 @@
 		<br>
     </div>
     <br>
-    	<a href="ControladorWeb?action=altaTalle" target="_self">Alta Talle</a>
+    	<a href="altaTalle.jsp" target="_self">Alta Talle</a>
      <br>
      	<a href="ControladorWeb?action=altaPrenda" target="_self">Alta Prenda</a>
      <br>
