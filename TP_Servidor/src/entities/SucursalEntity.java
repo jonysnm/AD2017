@@ -20,7 +20,7 @@ public class SucursalEntity implements Serializable{
 	 */
 	private static final long serialVersionUID = -5903447911015402661L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String nombre;
 	private String direccion;

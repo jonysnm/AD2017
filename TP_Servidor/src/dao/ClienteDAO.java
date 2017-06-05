@@ -11,8 +11,16 @@ import org.hibernate.classic.Session;
 import org.hibernate.hql.ast.QuerySyntaxException;
 
 import entities.ClienteEntity;
+import entities.CuentaCorrienteEntity;
+import entities.ItemMovimientoCtaCteEntity;
+import entities.ItemPedidoEntity;
+import entities.ItemPedidoId;
+import entities.PrendaEntity;
 import hbt.HibernateUtil;
 import negocio.Cliente;
+import negocio.CuentaCorriente;
+import negocio.ItemMovimientoCtaCte;
+import negocio.ItemPedido;
 
 public class ClienteDAO {
 	private static ClienteDAO instancia;
@@ -31,18 +39,34 @@ public class ClienteDAO {
 		Session session=sf.openSession();
 		try{
 			session.beginTransaction();
-			ClienteEntity c=ClienteToEntity(cliente);
-			Integer numeroCliente = (Integer) session.save(c);
+			ClienteEntity c=ClienteToEntity(cliente);	
+			CuentaCorrienteEntity cce=new CuentaCorrienteEntity();
+			c.setCtacte(cce);
+		    Integer numeroCliente = (Integer) session.save(c);
 			session.getTransaction().commit();
+			session.close();
 			return numeroCliente;
 		}catch(Exception e){
 			e.printStackTrace();
 			System.out.println("Error ClienteAO. Alta cliente");
 		}
-		finally {
-			session.close();
-		}
 		return null;
+	}
+	/**Cuenta Corriente**/
+	public void altaCuentaCorriente(CuentaCorriente cc){
+		Session session=sf.openSession();
+		try{
+			session.beginTransaction();
+			CuentaCorrienteEntity cce=CuentaCorrienteToEntity(cc);
+			session.save(cce);
+			session.getTransaction().commit();
+			session.close();
+			return;
+		}catch(Exception e){
+			e.printStackTrace();
+			System.out.println("Error CCDAO. Alta CC");
+		}
+		
 	}
 	public void bajaCliente(Cliente cliente){
 		try{
@@ -91,12 +115,12 @@ public class ClienteDAO {
 		Session session = sf.openSession();
 		List<Cliente>cliente=new ArrayList<Cliente>();
 		try {
-			
+
 			String hql = "FROM ClienteEntity C ";
-			
+
 			List<ClienteEntity> query = session.createQuery(hql).list();
-			
-			
+
+
 			for (ClienteEntity cl : query) {
 				cliente.add(new Cliente(cl));
 			}				
@@ -118,5 +142,18 @@ public class ClienteDAO {
 		ce.setNombre(c.getNombre());
 		return ce;		
 	}
-
+	public CuentaCorrienteEntity CuentaCorrienteToEntity(CuentaCorriente cc){
+		CuentaCorrienteEntity cce=new CuentaCorrienteEntity();
+		List<ItemMovimientoCtaCteEntity> itemMovCCEntities = new ArrayList<ItemMovimientoCtaCteEntity>();
+		for (ItemMovimientoCtaCte i: cc.getItems()) {
+			ItemMovimientoCtaCteEntity itemMovCCEntity = new ItemMovimientoCtaCteEntity();
+			itemMovCCEntity.setDetalle(i.getDetalle());
+			itemMovCCEntity.setFecha(i.getFecha());
+			itemMovCCEntity.setImporte(i.getImporte());
+			itemMovCCEntity.setTipo(i.getTipo());
+			itemMovCCEntities.add(itemMovCCEntity);
+		}
+		cce.setItems(itemMovCCEntities);
+		return cce;
+	}
 }

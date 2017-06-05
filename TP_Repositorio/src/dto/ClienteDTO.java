@@ -7,12 +7,13 @@ public class ClienteDTO implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 8298631398702523680L;
-	
+
 	private Integer id;
 	private String nombre;
 	private String cuit;
 	private String tipoFacturacion;
 	private float limiteCredito;
+	private CuentaCorrienteDTO ctacte;
 	public ClienteDTO(){}
 	public Integer getId() {
 		return id;
@@ -44,6 +45,10 @@ public class ClienteDTO implements Serializable{
 	public void setLimiteCredito(float limiteCredito) {
 		this.limiteCredito = limiteCredito;
 	}
-
-
+	public CuentaCorrienteDTO getCtacte() {
+		return ctacte;
+	}
+	public void setCtacte(CuentaCorrienteDTO ctacte) {
+		this.ctacte = ctacte;
+	}
 }

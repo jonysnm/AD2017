@@ -3,6 +3,8 @@ package negocio;
 import java.util.*;
 
 import dao.PedidoDAO;
+import dto.ItemPedidoDTO;
+import dto.ItemPrendaDTO;
 import dto.PedidoDTO;
 import entities.ItemPedidoEntity;
 import entities.PedidoEntity;
@@ -15,7 +17,7 @@ public class Pedido {
 	private Date fecharealDespacho;
 	private List<ItemPedido> items=new ArrayList<ItemPedido>();
 	private Sucursal sucursal;
-	private String estado;
+	private ESTADO estado;
 	public Pedido(){}
 	public Pedido(PedidoEntity pedido){
 		this.id=pedido.getId();
@@ -24,7 +26,7 @@ public class Pedido {
 		this.fechaprobableDespacho=pedido.getFechaprobableDespacho();
 		this.fecharealDespacho=pedido.getFecharealDespacho();
 		this.sucursal=new Sucursal(pedido.getSucursal());
-		this.estado=pedido.getEstado();
+		this.estado=pedido.getEstado();	
 		for ( ItemPedidoEntity itemPedidoEntity : pedido.getItems()) {
 			ItemPedido itemPedido = new ItemPedido();
 			itemPedido.setCantidad(itemPedidoEntity.getCantidad());
@@ -36,6 +38,7 @@ public class Pedido {
 			items.add(itemPedido);
 		}
 		this.setItems(items);
+		
 	}
 	public int getId() {
 		return id;
@@ -74,24 +77,15 @@ public class Pedido {
 	public void setSucursal(Sucursal sucursal) {
 		this.sucursal = sucursal;
 	}
-
-	public String getEstado() {
-		return estado;
-	}
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-	public float TotalPedido(int idpedido){
-		Pedido p=PedidoDAO.getInstancia().getPedido(idpedido);
-		List<ItemPedido> it=p.getItems();
-		float total = 0;
-		for (ItemPedido ip : it) {
-			total=(ip.getImporte()*ip.getCantidad())+total;//CODIFICAR EN EL ITEM PEDIDO PARA OBTENER EL IMPORTE
+    public int TotalPedido(Pedido p){
+		int total=0;
+		for (ItemPedido itemPedido : p.getItems()) {
+			total=(itemPedido.getCantidad()*itemPedido.getImporte())+total;
 		}
+		System.out.printf("TOTAL:%d",total);
 		return total;
 	}
-	public boolean ObtenerdisponibilidadporPrenda(PedidoDTO pedido) {
-		Pedido p=PedidoDAO.getInstancia().getPedido(pedido.getId());
+	public boolean ObtenerdisponibilidadporPrenda(Pedido p) {
 		List<ItemPedido> it=p.getItems();
 		for(ItemPedido ip:it){
 			if(ip.obtenervigencia(ip.getPrenda())){
@@ -116,4 +110,11 @@ public class Pedido {
 	public void setItems(List<ItemPedido> items) {
 		this.items = items;
 	}
+	public ESTADO getEstado() {
+		return estado;
+	}
+	public void setEstado(ESTADO estado) {
+		this.estado = estado;
+	}
+	
 }

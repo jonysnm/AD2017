@@ -56,9 +56,8 @@ public class ItemPedido {
 	}
 	
 	public boolean obtenervigencia(Prenda p){
-		Prenda pr=PedidoDAO.getInstancia().getPrenda(p.getCodigo());
-		if(prenda.SoslaPrenda(prenda.getCodigo())){
-			return prenda.estoyVigente(prenda.getCodigo());
+		if(p.SoslaPrenda(p.getCodigo())){
+			return p.estoyVigente(p.getCodigo());
 		}else{
 			return false;
 		}

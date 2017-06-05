@@ -2,14 +2,14 @@ package app;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
+
 import java.util.List;
 
 import controladores.ControladorClientes;
 
 import dto.ClienteDTO;
 import interfazRemota.IClienteControlador;
-import negocio.Cliente;
+
 
 public class ClientesRMI extends UnicastRemoteObject implements IClienteControlador {
 
@@ -19,13 +19,7 @@ public class ClientesRMI extends UnicastRemoteObject implements IClienteControla
 		super();
 	}
 	public Integer altaCliente(ClienteDTO cDTO) throws RemoteException {
-		Cliente cli = new Cliente();
-		cli.setCuit(cDTO.getCuit());
-		cli.setLimiteCredito(cDTO.getLimiteCredito());
-		cli.setNombre(cDTO.getNombre());
-		cli.setTipoFacturacion(cDTO.getTipoFacturacion());
-		Integer nroCliente = ControladorClientes.getInstancia().nuevaCliente(cli);
-		return nroCliente;
+	       return ControladorClientes.getInstancia().nuevaCliente(cDTO);
 	}
 	public void modificarCliente(ClienteDTO c) throws RemoteException {
 		ControladorClientes.getInstancia().modificarCliente(c);
@@ -38,15 +32,6 @@ public class ClientesRMI extends UnicastRemoteObject implements IClienteControla
 	}
 	public List<ClienteDTO> obtenerClientes() throws RemoteException {
 		return ControladorClientes.getInstancia().obtenerClientes();
-	}
-	public Cliente ClienteDTOToNegocio(ClienteDTO cliente){
-		Cliente c=new Cliente();
-		c.setCuit(cliente.getCuit());
-		c.setId(cliente.getId());
-		c.setLimiteCredito(cliente.getLimiteCredito());
-		c.setNombre(cliente.getNombre());
-		c.setTipoFacturacion(cliente.getTipoFacturacion());
-		return c;
 	}
 }
 

@@ -74,9 +74,11 @@ public class BusinessDelegate {
 	public PedidoDTO obtenerPedido(int idPedido) throws RemoteException{
 		return interfazRemotaPuntoVenta.obtenerPedido(idPedido);
 	}
+	
+	public void confirmarPedido(Integer IdPedido) throws RemoteException{
+		interfazRemotaPuntoVenta.confirmarPedido(IdPedido);
+	}
 	/*
-	public void confirmarPedido(PedidoDTO pedido);
-	//public String informarEstadoPedido();
 	public void cancelarPedido(Integer id);
 	//MAU
 	public List<FacturaDTO> getFacturas();	

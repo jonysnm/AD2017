@@ -6,7 +6,9 @@ import java.util.List;
 
 import dao.ClienteDAO;
 import dto.ClienteDTO;
+import dto.CuentaCorrienteDTO;
 import negocio.Cliente;
+import negocio.CuentaCorriente;
 import utils.ClienteToClienteDTO;
 
 public class ControladorClientes {
@@ -19,9 +21,9 @@ public class ControladorClientes {
 		return instancia;
 	}
 
-	public Integer nuevaCliente(Cliente cliente){
-		Integer nroCliente = ClienteDAO.getInstancia().altaCliente(cliente);
-		return nroCliente;
+	public Integer nuevaCliente(ClienteDTO cDTO){
+		Cliente cli = ClienteDTOToNegocio(cDTO);
+		return ClienteDAO.getInstancia().altaCliente(cli);	
 	}
 	public void modificarCliente(ClienteDTO c) throws RemoteException {
 		Cliente cli=ClienteDTOToNegocio(c);
@@ -47,11 +49,12 @@ public class ControladorClientes {
 	}
 	public Cliente ClienteDTOToNegocio(ClienteDTO cliente){
 		Cliente c=new Cliente();
+		CuentaCorriente cc= new CuentaCorriente();
 		c.setCuit(cliente.getCuit());
-		c.setId(cliente.getId());
 		c.setLimiteCredito(cliente.getLimiteCredito());
 		c.setNombre(cliente.getNombre());
 		c.setTipoFacturacion(cliente.getTipoFacturacion());
+		c.setCtacte(cc);
 		return c;
 	}
 }

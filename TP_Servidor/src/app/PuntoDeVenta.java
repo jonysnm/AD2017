@@ -37,8 +37,8 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 			throw new RemoteException("Error al crear nuevo pedido: "+e.getMessage());
 		}
 	}
-	public void confirmarPedido(PedidoDTO pedido)throws RemoteException {
-		// TODO Auto-generated method stub
+	public void confirmarPedido(Integer Idpedido)throws RemoteException {
+		ControladorPedido.getInstancia().confirmarPedido(Idpedido);
 
 	}
 	/*

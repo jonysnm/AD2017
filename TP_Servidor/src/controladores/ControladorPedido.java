@@ -7,12 +7,14 @@ import java.util.List;
 import dao.AdministracionDAO;
 import dao.ClienteDAO;
 import dao.PedidoDAO;
+import dto.ClienteDTO;
 import dto.ItemPedidoDTO;
 import dto.ItemPrendaDTO;
 import dto.PedidoDTO;
 import dto.TalleDTO;
 import negocio.Cliente;
 import negocio.Color;
+import negocio.ESTADO;
 import negocio.ItemPedido;
 import negocio.ItemPrenda;
 import negocio.Pedido;
@@ -76,46 +78,47 @@ public class ControladorPedido {
 		p.setItems(itemsPedidos);
 		p.setSucursal(s);
 		p.setFechaCreacion(new Date());
-		p.setEstado("En Verificación");
+		p.setEstado(ESTADO.En_Verificación);
 		Integer id=PedidoDAO.getInstancia().nuevoPedido(p);
 		return id;
 	}
 	
 	public void agregarPedido(Integer id){
 		return;
+	}	
+	public void confirmarPedido(Integer idPedido){
+		Pedido p=PedidoDAO.getInstancia().getPedido(idPedido);
+			if(p.getCliente().getLimiteCredito()>p.TotalPedido(p)){
+				if(p.ObtenerdisponibilidadporPrenda(p)){
+					p.setEstado(ESTADO.Procesar_Pedido);
+					p.update();
+					System.out.println("PEDIDO OK");
+					
+				}
+			}else{
+				System.out.println("PEDIDO NO OK");
+				p.setEstado(ESTADO.Cancelado);
+				p.update();
+			}
+	}
+	public float Obtenerlimitecrédito(Cliente c){
+		Cliente cli=ClienteDAO.getInstancia().getCliente(c.getId());
+		return cli.getLimiteCredito();		
+	}
+	public String informarEstadoPedido(){
+		return null;
+	}
+
+	public void cancelarPedido(Integer id){
+		Pedido pe=PedidoDAO.getInstancia().getPedido(id);
+		pe.setEstado(ESTADO.Cancelado);
+		pe.update();
 	}
 	
-//	/*
-//	public void confirmarPedido(PedidoDTO pedido){
-//		Pedido p=PedidoDAO.getInstancia().getPedido(pedido.getId());
-//		if(p.getEstado().equals("En Verificación")){
-//			if(Obtenerlimitecrédito(pedido.getCliente())<p.TotalPedido(pedido.getId())){
-//				if(p.ObtenerdisponibilidadporPrenda(pedido)){
-//					p.setEstado("Procesar Pedido");
-//				}
-//			}else{
-//				cancelarPedido(p.getId());
-//			}
-//		}
-//	}
-//	public float Obtenerlimitecrédito(ClienteDTO c){
-//		Cliente cli=ClienteDAO.getInstancia().getCliente(c.getId());
-//		return cli.getLimiteCredito();		
-//	}
-//	public String informarEstadoPedido(){
-//		return null;
-//	}
-//	/*
-//	public void cancelarPedido(Integer id){
-//		Pedido pe=PedidoDAO.getInstancia().getPedido(id);
-//		pe.setEstado("Cancelado");
-//		PedidoDAO.getInstancia().modificarPedido(pe);
-//	}
-//	
-//	public List<Pedido> obtenerPedidoPendientesDeValidacion(){
-//		return AdministracionDAO.getInstancia().obtenerPedidosPendientesDeValidacion();
-//	}
-//	*/
+	public List<Pedido> obtenerPedidoPendientesDeValidacion(){
+		return AdministracionDAO.getInstancia().obtenerPedidosPendientesDeValidacion();
+	}
+
 	public PedidoDTO obtenerPedido(int idPedido) throws Exception {
 		Pedido p = AdministracionDAO.getInstancia().obtenerPedido(idPedido);
 		PedidoDTO pedidoDTO = PedidoToDTO.toDTO(p);

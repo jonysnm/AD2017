@@ -3,8 +3,12 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
+import org.hibernate.hql.ast.QuerySyntaxException;
 
 import entities.ClienteEntity;
 import entities.ColorEntity;
@@ -46,6 +50,7 @@ public class PedidoDAO {
 			for (ItemPedido i: pedido.getItems()) {
 				ItemPedidoEntity itemPedidoEntity = new ItemPedidoEntity();
 				itemPedidoEntity.setCantidad(i.getCantidad());
+				itemPedidoEntity.setImporte(i.getImporte());
 				ColorEntity colorEntity = new ColorEntity(i.getColor());
 				itemPedidoEntity.setColor(colorEntity);
 				TalleEntity talleEntity = new TalleEntity();
@@ -68,6 +73,8 @@ public class PedidoDAO {
 			
 			Integer idPedido = (Integer) session.save(pe);
 			session.getTransaction().commit();
+			session.flush();
+			session.close();
 			return idPedido;
 		}catch(Exception e){			
 			e.printStackTrace();
@@ -76,18 +83,30 @@ public class PedidoDAO {
 		return null;
 	}
 	public Pedido getPedido(Integer idpedido){
-		try{
-			Session session=sf.openSession();
-			session.beginTransaction();
-			PedidoEntity pedido=(PedidoEntity) session.get(PedidoEntity.class, idpedido);
-			session.getTransaction().commit();
-			session.close();
-			return new Pedido(pedido);
-		}catch(Exception e){
+		PedidoEntity pedido = null;
+		try {
+			Session session = sf.openSession();
+			
+			String hql = "FROM PedidoEntity P " +
+						 "WHERE P.id = :id";
+			
+			Query query = session.createQuery(hql);
+			query.setParameter("id", idpedido);
+			query.setMaxResults(1);
+			
+			if(query.uniqueResult() != null){
+				pedido = (PedidoEntity) query.uniqueResult();
+	        	session.close();
+	        }else{
+	        	session.close();
+	        }
+		}catch (QuerySyntaxException q){
+			JOptionPane.showMessageDialog(null, q, "Error", JOptionPane.ERROR_MESSAGE);
+			System.out.println("Exception de sintaxis en ProductoDAO: buscarProducto");
+		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Error PedidoDAO. Get IDPedido");
 		}
-		return null;
+		return new Pedido(pedido);
 	}
 	public Prenda getPrenda(int codigo){
 		try{
@@ -108,7 +127,12 @@ public class PedidoDAO {
 		try{
 			Session session=sf.openSession();
 			session.beginTransaction();
-			PedidoEntity pe=PedidoToEntity(pedido);
+			PedidoEntity pe=new PedidoEntity();
+			pe.setId(pedido.getId());
+		    pe.setSucursal((SucursalEntity)session.get(SucursalEntity.class,pedido.getSucursal().getId()));
+			pe.setFechaCreacion(pedido.getFechaCreacion());
+			pe.setCliente((ClienteEntity)session.get(ClienteEntity.class, (pedido.getCliente().getId())));
+			pe.setEstado(pedido.getEstado());
 			session.update(pe);
 			session.getTransaction().commit();
 			session.close();
