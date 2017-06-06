@@ -127,13 +127,10 @@ public class PedidoDAO {
 		try{
 			Session session=sf.openSession();
 			session.beginTransaction();
-			PedidoEntity pe=new PedidoEntity();
-			pe.setId(pedido.getId());
-		    pe.setSucursal((SucursalEntity)session.get(SucursalEntity.class,pedido.getSucursal().getId()));
-			pe.setFechaCreacion(pedido.getFechaCreacion());
-			pe.setCliente((ClienteEntity)session.get(ClienteEntity.class, (pedido.getCliente().getId())));
-			pe.setEstado(pedido.getEstado());
-			session.update(pe);
+			Query query = session.createQuery("From PedidoEntity where id = :idPedi");
+			PedidoEntity p = (PedidoEntity) query.setParameter("idPedi", pedido.getId()).uniqueResult();
+			p.setEstado(pedido.getEstado());
+			session.update(p);
 			session.getTransaction().commit();
 			session.close();
 		}catch(Exception e){

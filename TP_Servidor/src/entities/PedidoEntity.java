@@ -22,6 +22,7 @@ import org.hibernate.annotations.ForeignKey;
 
 import negocio.ESTADO;
 
+
 @Entity
 @Table(name="Pedidos")
 public class PedidoEntity implements Serializable{
@@ -32,7 +33,7 @@ public class PedidoEntity implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="numeropedido")
-	private int id;
+	private Integer id;
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
 	@ForeignKey(name="FK_CLIENTE_ID")
@@ -53,7 +54,9 @@ public class PedidoEntity implements Serializable{
 	@ForeignKey(name="FK_FACTURA_ID")
 	private FacturaEntity factura;
 	@Enumerated(EnumType.STRING)
+
 	private ESTADO estado;
+
 	
 	public PedidoEntity(){}
 	public int getId() {
@@ -92,6 +95,8 @@ public class PedidoEntity implements Serializable{
 	public void setSucursal(SucursalEntity sucursal) {
 		this.sucursal = sucursal;
 	}
+
+
 	public List<ItemPedidoEntity> getItems() {
 		return items;
 	}

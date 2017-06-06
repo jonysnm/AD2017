@@ -3,7 +3,6 @@ package controlador;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.SimpleFormatter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -67,6 +66,12 @@ public class ControladorWeb extends HttpServlet {
 				// TODO: handle exception
 			}
         	
+		}else if ("validarPedido".equals(action)) {
+			try {
+				BusinessDelegate.getInstancia().confirmarPedido(Integer.valueOf(request.getParameter("IdPedido")));
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 		}
         else if ("altaEnvioCarrier".equals(action))
         {

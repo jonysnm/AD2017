@@ -7,7 +7,6 @@ import java.util.List;
 import dao.AdministracionDAO;
 import dao.ClienteDAO;
 import dao.PedidoDAO;
-import dto.ClienteDTO;
 import dto.ItemPedidoDTO;
 import dto.ItemPrendaDTO;
 import dto.PedidoDTO;
@@ -78,7 +77,9 @@ public class ControladorPedido {
 		p.setItems(itemsPedidos);
 		p.setSucursal(s);
 		p.setFechaCreacion(new Date());
+
 		p.setEstado(ESTADO.En_Verificación);
+
 		Integer id=PedidoDAO.getInstancia().nuevoPedido(p);
 		return id;
 	}
@@ -97,6 +98,7 @@ public class ControladorPedido {
 				}
 			}else{
 				System.out.println("PEDIDO NO OK");
+				//verificar si se puede vender (stock almacenado)
 				p.setEstado(ESTADO.Cancelado);
 				p.update();
 			}

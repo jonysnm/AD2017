@@ -8,6 +8,7 @@ import java.util.List;
 import businessDelegate.BusinessDelegate;
 import dto.ClienteDTO;
 import dto.ColorDTO;
+import dto.CuentaCorrienteDTO;
 import dto.EmpleadoDTO;
 import dto.ItemPedidoDTO;
 import dto.ItemPrendaDTO;
@@ -29,10 +30,10 @@ public class Cliente {
 			businessDelegate = BusinessDelegate.getInstancia();
 			nuevoCliente();
 			nuevaSucursal();
-			nuevoPedido();
-			// obtenerPedido();
-
-		} catch (RemoteException e) {
+			Integer id=nuevoPedido();
+			System.out.println(("IDPedido: " + id));
+			businessDelegate.confirmarPedido(id);
+      	} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 		try{
@@ -44,9 +45,6 @@ public class Cliente {
 			for (ClienteDTO cli : clientesDTO) {
 		     	System.out.println(cli.getNombre());	
 			}
-//			nuevaSucursal();
-//			nuevoPedido();
-//			obtenerPedido();
 			
     	}catch (RemoteException e){
     		e.printStackTrace();
@@ -72,7 +70,7 @@ public class Cliente {
 		e.setNombre("Jose");
 		e.setFechaEgreso(new Date());
 		e.setFechaIngreso(new Date());
-		// e.setIdSucursal(1);
+		
 
 		SucursalDTO s = new SucursalDTO();
 		s.setNombre("la sucursal");
@@ -84,35 +82,37 @@ public class Cliente {
 		s.setProvincia("CABA");
 		s.setTelefono("44448888");
 
-		businessDelegate.getInstancia().crearEmpleado(e);
-		businessDelegate.getInstancia().crearSucursal(s);
+		businessDelegate.crearEmpleado(e);
+		businessDelegate.crearSucursal(s);
 	}
 
 	/* Obtener Pedido */
 	private void obtenerPedido() throws RemoteException {
-		pedido = businessDelegate.getInstancia().obtenerPedido(12);
+		pedido = businessDelegate.obtenerPedido(12);
 		System.out.println(("IDPedido: %d" + pedido.getId()));
 	}
 
 	/* Nuevo Pedido */
-	private void nuevoPedido() throws RemoteException {
+	private Integer nuevoPedido() throws RemoteException {
 		PedidoDTO pedidoDTO = new PedidoDTO();
 		ClienteDTO clienteDTO = new ClienteDTO();
-		clienteDTO.setCuit("27111111111");
-		clienteDTO.setLimiteCredito(12333);
-		clienteDTO.setNombre("Jose Gonzales");
+		clienteDTO.setCuit("27111111113");
+		clienteDTO.setLimiteCredito(600);
+		clienteDTO.setNombre("PEPE GOZALO");
 		clienteDTO.setTipoFacturacion("2");
 		Integer nroCliente = BusinessDelegate.getInstancia().altaCliente(clienteDTO);
-		clienteDTO.setId(nroCliente );
+		clienteDTO.setId(nroCliente);
 		pedidoDTO.setCliente(clienteDTO);
 		pedidoDTO.setFechaCreacion(new Date());
 		pedidoDTO.setFechaprobableDespacho(new Date());
+	    
+
 		ItemPedidoDTO item = new ItemPedidoDTO();
 		
 		List<ItemPedidoDTO> itemsPedido = new ArrayList<ItemPedidoDTO>();
 		
 		item.setCantidad(1);
-		item.setImporte(12);
+		item.setImporte(500);
 		ColorDTO colorDTO = new ColorDTO();
 		colorDTO.setIdColor(1);
 		colorDTO.setDescripcion("Rojo");
@@ -133,7 +133,7 @@ public class Cliente {
 		itemsPedido.add(item);
 		pedidoDTO.setItems(itemsPedido);
 
-		int nroPedido = businessDelegate.getInstancia().nuevoPedido(pedidoDTO, 1);
-		System.out.println(("IDPedido: " + nroPedido));
-	}
+		return businessDelegate.nuevoPedido(pedidoDTO, 1);
+	
+		}
 }

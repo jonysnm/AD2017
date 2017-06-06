@@ -221,7 +221,7 @@ public class AdministracionDAO {
 			Session session = sf.openSession();
 			@SuppressWarnings("unchecked")
 //			List<PedidoEntity> lista = session.createQuery("from PedidoEntity where estado='En Verificacion'").list();
-			List<PedidoEntity> lista = session.createQuery("from PedidoEntity").list();
+			List<PedidoEntity> lista = session.createQuery("from PedidoEntity p where p.estado = 'PENDIENTE'").list();
 			session.close();
 			List<Pedido> pedidos = new ArrayList<Pedido>();
 			for (PedidoEntity pedidoEntity : lista) {
@@ -264,7 +264,7 @@ public class AdministracionDAO {
 		Session session = sf.openSession();
 		session.beginTransaction();
 		TalleEntity talleEntity = new TalleEntity();
-		talleEntity.setDescripcion(talleDTO.getDescripcion());
+		talleEntity.setDescripcion(talleDTO.getDescripcion().toUpperCase());
 		session.save(talleEntity);
 		session.getTransaction().commit();
 	}

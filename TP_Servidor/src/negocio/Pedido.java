@@ -1,11 +1,10 @@
 package negocio;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import dao.PedidoDAO;
-import dto.ItemPedidoDTO;
-import dto.ItemPrendaDTO;
-import dto.PedidoDTO;
 import entities.ItemPedidoEntity;
 import entities.PedidoEntity;
 
@@ -18,7 +17,7 @@ public class Pedido {
 	private List<ItemPedido> items=new ArrayList<ItemPedido>();
 	private Sucursal sucursal;
 	private ESTADO estado;
-	public Pedido(){}
+public Pedido(){}
 	public Pedido(PedidoEntity pedido){
 		this.id=pedido.getId();
 		this.cliente=new Cliente(pedido.getCliente());
