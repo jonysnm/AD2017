@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import businessDelegate.BusinessDelegate;
+import dto.PrendaDTO;
 import dto.TalleDTO;
 
 //import vo.ClienteVO;
@@ -25,19 +26,21 @@ import dto.TalleDTO;
 @WebServlet(description = "Controlador", urlPatterns = { "/ControladorWeb" })
 public class ControladorWeb extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ControladorWeb() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ControladorWeb() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
 	}
 
@@ -63,14 +66,23 @@ public class ControladorWeb extends HttpServlet {
 				talleDTO.setDescripcion(request.getParameter("descripcion"));
 				BusinessDelegate.getInstancia().altaTalle(talleDTO);
 			} catch (Exception e) {
-				// TODO: handle exception
+				e.printStackTrace();
 			}
         	
 		}else if ("validarPedido".equals(action)) {
 			try {
 				BusinessDelegate.getInstancia().confirmarPedido(Integer.valueOf(request.getParameter("IdPedido")));
 			} catch (Exception e) {
-				// TODO: handle exception
+			}
+		}else if ("altaPrenda".equals(action)) {
+			try {
+				PrendaDTO prendaDTO = new PrendaDTO();
+				prendaDTO.setCostoProduccion(Float.parseFloat(request.getParameter("costoProduccion")));
+				prendaDTO.setCostoProduccionActual(Float.parseFloat(request.getParameter("costoProduccionActual")));
+				prendaDTO.setDescripcion(request.getParameter("descripcion"));
+//				String itemMaterialPrenda = request.getParameter("itemMaterialPrenda"));
+			} catch (Exception e) {
+			e.printStackTrace();
 			}
 		}
         else if ("altaEnvioCarrier".equals(action))
@@ -230,7 +242,8 @@ public class ControladorWeb extends HttpServlet {
 		dispatch(jspPage, request, response);
 	}
 
-	protected void dispatch(String jsp, HttpServletRequest request,	HttpServletResponse response) throws ServletException, IOException {
+	protected void dispatch(String jsp, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		if (jsp != null) {
 			/*
 			 * Envía el control al JSP que pasamos como parámetro, y con los
@@ -241,7 +254,3 @@ public class ControladorWeb extends HttpServlet {
 		}
 	}
 }
-
-
-
-
