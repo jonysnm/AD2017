@@ -2,6 +2,7 @@ package controlador;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
@@ -49,7 +50,8 @@ public class ControladorWeb extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String action = request.getParameter("action");
+        String action = request.getParameter("action");        
+
         String jspPage = "/index.jsp";
         
         if ((action == null) || (action.length() < 1))
@@ -57,188 +59,45 @@ public class ControladorWeb extends HttpServlet {
             action = "default";
         }
         
-        if ("default".equals(action))
-        {
-            jspPage = "/index.jsp";
-        }else if ("altaTalle".equals(action)) {
-			try {
-				TalleDTO talleDTO = new TalleDTO();
-				talleDTO.setDescripcion(request.getParameter("descripcion"));
-				BusinessDelegate.getInstancia().altaTalle(talleDTO);
-			} catch (Exception e) {
-				e.printStackTrace();
+        switch (action) {
+		case "default":
+			jspPage = "/index.jsp";
+			break;
+		case "aprobar_rechazar_pedidos":
+			
+			//TODO: agregar cuando Arturo confirme que esta ok request.setAttribute("enviosCarrier", BusinessDelegate.getInstancia().listarPedidosPendientesDeValidacion());				
+			//TODO: por ahora uso este mockup
+			ArrayList<String> lstPedidosPendientesAprobacionDTO = new ArrayList<String>();
+			lstPedidosPendientesAprobacionDTO.add("Pedido 1 - Jona");
+			lstPedidosPendientesAprobacionDTO.add("Pedido 2 - Jona");
+			lstPedidosPendientesAprobacionDTO.add("Pedido 3 - Jona");
+			lstPedidosPendientesAprobacionDTO.add("4");
+			
+			request.setAttribute("lstPedidosPendientesAprobacionDTO",lstPedidosPendientesAprobacionDTO);
+			
+			jspPage = "/AprobarRechazarPedidosPendientes.jsp";
+			break;
+		case "AprobarRechazarPedidoPost":
+			int idPedido = Integer.parseInt(request.getParameter("hdnIdPedido"));
+			String operacion = request.getParameter("hdnOperacion");
+			//TODO: aca llamar al metodo del busines delegate que le cambia el estado al pedido y devolver a una pantalla de confirmacion
+			String mensaje="";
+			if(operacion.equals("Aprobar"))
+			{
+				mensaje="El pedido nro: "+ Integer.toString(idPedido) + "ha sido aprobado";	
 			}
-        	
-		}else if ("validarPedido".equals(action)) {
-			try {
-				BusinessDelegate.getInstancia().confirmarPedido(Integer.valueOf(request.getParameter("IdPedido")));
-			} catch (Exception e) {
+			else
+			{
+				mensaje="El pedido nro: "+ Integer.toString(idPedido) + "ha sido rechazado";
 			}
-		}else if ("altaPrenda".equals(action)) {
-			try {
-				PrendaDTO prendaDTO = new PrendaDTO();
-				prendaDTO.setCostoProduccion(Float.parseFloat(request.getParameter("costoProduccion")));
-				prendaDTO.setCostoProduccionActual(Float.parseFloat(request.getParameter("costoProduccionActual")));
-				prendaDTO.setDescripcion(request.getParameter("descripcion"));
-//				String itemMaterialPrenda = request.getParameter("itemMaterialPrenda"));
-			} catch (Exception e) {
-			e.printStackTrace();
-			}
+			
+			request.setAttribute("Mensaje",mensaje);
+			jspPage = "/Confirmaciones.jsp";
+			break;
+		default:
+			break;
 		}
-        else if ("altaEnvioCarrier".equals(action))
-        {
-            try {				
-//				request.setAttribute("empresas", Delegado.getInstancia().getReferenciaRemota().getListadoEmpresasSubContratadas());				
-//				request.setAttribute("sucursales", Delegado.getInstancia().getReferenciaRemota().getListadoSucursales());
-//				request.setAttribute("paquetes", Delegado.getInstancia().getReferenciaRemota().getListadoPaquetesCarrier());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-            jspPage = "/altaEnvioCarrier.jsp";
-        }
-        else if ("consultarEnvios".equals(action))
-        {
-        	try {				
-//				request.setAttribute("enviosCarrier", Delegado.getInstancia().getReferenciaRemota().getListadoEnviosCarrier());				
-//				request.setAttribute("enviosDomicilio", Delegado.getInstancia().getReferenciaRemota().getListadoEnviosDomicilio());
-//				request.setAttribute("enviosInterSucursal", Delegado.getInstancia().getReferenciaRemota().getListadoEnviosInterSucursal());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-            jspPage = "/consultarEnvios.jsp";
-        }
-        else if ("consultarPaquetes".equals(action))
-        {
-        	try {				
-//				request.setAttribute("paquetes", Delegado.getInstancia().getReferenciaRemota().getListadoPaquetes());				
-				} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-            jspPage = "/consultarPaquetes.jsp";
-        }
-        else if ("consultarFactura".equalsIgnoreCase(action))
-        {
-        	try {				
-//				request.setAttribute("facturas", Delegado.getInstancia().getReferenciaRemota().getListadoFacturas());				
-				} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-            jspPage = "/consultarFactura.jsp";
-        }
-        else if ("modificarEstadoEnvio".equals(action))
-        {
-
-            jspPage = "/modificarEstadoEnvio.jsp";
-        }
-        else if ("modificarEstadoEnvioPost".equals(action))
-        {
-        	int idEnvio = Integer.parseInt(request.getParameter("idEnvio"));
-        	try {
-//				Delegado.getInstancia().getReferenciaRemota().ActualizarEstadoEnvioArribado(idEnvio);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-        }
-        else if ("getPaqueteDescription".equals(action))
-        {
-
-			try {
-	        	int idPaquete = Integer.parseInt(request.getParameter("idPaquete"));
-//				String info = Delegado.getInstancia().getReferenciaRemota().buscarPaquete(idPaquete).toInfo();
-	        	response.setContentType("text/plain");
-//	            response.getWriter().write(info);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-            return;
-        }
-        else if("crearEnvioCarrier".equals(action))
-        {
-        	try {
-        		String direccionDestino = request.getParameter("direccionDestino");
-	        	int idSucOrigen = Integer.parseInt(request.getParameter("idSucOrigen"));
-	        	String sidPaquetes = request.getParameter("paquetes");
-	        	String cuit = request.getParameter("empresaSubContratada");
-	        	
-
-	        	SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-	    		Date fArrivoEstimada = sdf.parse(request.getParameter("fechaArrivoEstimada"));
-	        	
-	        	String[] idPaquetesString = sidPaquetes.split(",");
-	        	int[] idPaquete = new int[idPaquetesString.length];
-	        	for(int i = 0; i < idPaquetesString.length; i++)
-	        	{
-	        		idPaquete[i] = Integer.parseInt(idPaquetesString[i]);
-	        	}
-	        	
-//	        	Delegado.getInstancia().getReferenciaRemota().generarEnvioCarrier(idPaquete, cuit, direccionDestino, fArrivoEstimada, idSucOrigen);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        }else if("altaPaquete".equals(action))
-        {
-        	  try {							
-//  				request.setAttribute("sucursales", Delegado.getInstancia().getReferenciaRemota().getListadoSucursales());
-//  				request.setAttribute("empresas", Delegado.getInstancia().getReferenciaRemota().getListadoClientesEmpresa());
-//  				request.setAttribute("particulares", Delegado.getInstancia().getReferenciaRemota().getListadoClientesParticular());
-  			} catch (Exception e) {
-  				// TODO Auto-generated catch block
-  				e.printStackTrace();
-  			}
-              jspPage = "/altaPaquete.jsp";
-        }else if("generarAltaPaquete".equals(action)){
-        	try {
-	        	int idSucOrigen = Integer.parseInt(request.getParameter("idSucOrigen"));
-	        	boolean apilable = true;
-	        	String checkEnvioCarrier = request.getParameter("isEnvioCarrier");
-	        	boolean isEnvioCarrier = true;
-	        	int cantidadApilable = 0;
-	        	if(checkEnvioCarrier==null)
-	        	{
-	        		isEnvioCarrier=false;
-	        	}
-	        	if(request.getParameter("apilable").equals("0"))
-	        	{
-	        		apilable=false;
-	        	}else{
-	        		cantidadApilable = Integer.parseInt(request.getParameter("cantApilable"));
-	        	}
-//	        	SucursalVO sucDestino  = null;
-	        	if(request.getParameter("domicilio").equals("0")){
-//	        		sucDestino = Delegado.getInstancia().getReferenciaRemota().BuscarSucursalVO(Integer.parseInt(request.getParameter("idSucDestino")));
-	        	}
-	        	
-	        	SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-//	        	ClienteVO cliente = null;
-	        	if(request.getParameter("selectTipoCliente").equals("Empresa")){
-//	        		cliente = Delegado.getInstancia().getReferenciaRemota().BuscarClienteVO(request.getParameter("clienteEmpresa"));
-	        	}else{
-//	        		cliente = Delegado.getInstancia().getReferenciaRemota().BuscarClienteVO(request.getParameter("clienteParticular"));
-	        	}
-	        	
-//	        	PaqueteVO pvo = new PaqueteVO(Integer.parseInt(request.getParameter("alto")), Integer.parseInt(request.getParameter("ancho")), 
-//	        			Integer.parseInt(request.getParameter("profundidad")), Float.parseFloat(request.getParameter("peso")), request.getParameter("tratamiento"), 
-//	        			request.getParameter("fragilidad"), apilable, cantidadApilable, request.getParameter("coordenadasGPS"), cliente,
-//	        			request.getParameter("condiciones"), request.getParameter("manipulacion"), request.getParameter("estado"),	request.getParameter("direccionOrigen"), 
-//	        			request.getParameter("direccionDestino"), sucDestino,  sdf.parse(request.getParameter("fechaEntregaEstimada")),  sdf.parse(request.getParameter("fechaMaxDestino")));
-//	        	pvo.setEnvioCarrier(isEnvioCarrier);
-	        	
-//	        	Delegado.getInstancia().getReferenciaRemota().altaPaquete(idSucOrigen, pvo);
-        	} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        }
-        
+                                 
 		dispatch(jspPage, request, response);
 	}
 
