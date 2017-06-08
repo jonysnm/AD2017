@@ -5,7 +5,7 @@ import java.util.List;
 
 import entities.CuentaCorrienteEntity;
 import entities.ItemMovimientoCtaCteEntity;
-
+import tipos.TipoMovimientoCtaCte;
 public class CuentaCorriente {
 //Cliente tiene una de esta
 	private int idCuenta;
@@ -55,6 +55,7 @@ public class CuentaCorriente {
 
 	public CuentaCorriente() {
 		super();
+		this.items = new ArrayList<ItemMovimientoCtaCte>();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -68,6 +69,13 @@ public class CuentaCorriente {
 		
 		
 		
+	}
+
+	public float getSaldo() {
+		
+		float sumaDebito = (float) this.getItems().stream().filter(o -> o.getTipo().toString().equals("DEBITO")).mapToDouble(o -> o.getImporte()).sum();
+		float sumaCredito = (float) this.getItems().stream().filter(o -> o.getTipo().toString().equals("CREDITO")).mapToDouble(o -> o.getImporte()).sum();
+		return (sumaCredito - sumaDebito);
 	}
 	
 	

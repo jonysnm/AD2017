@@ -10,6 +10,7 @@ import dao.PedidoDAO;
 import dto.ItemPedidoDTO;
 import dto.ItemPrendaDTO;
 import dto.PedidoDTO;
+import dto.PedidosPendientesAprobacionDTO;
 import dto.TalleDTO;
 import negocio.Cliente;
 import negocio.Color;
@@ -134,6 +135,10 @@ public class ControladorPedido {
 		}
 		 return pedidosDTO;
 	}
+	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal) {
+		return AdministracionDAO.getInstancia().obtenerPedidosPendientesdeAprobacion( idSucursal);
+	}
+	
 	public void altaTalle(TalleDTO talleDTO) {
 		AdministracionDAO.getInstancia().altaTalle(talleDTO);
 	}

@@ -25,8 +25,9 @@ public class AlmacenDAO {
 	}
 
 
-	public void obtenerDisponiblePorPrenda(int idPrenda) {
+	public int obtenerDisponiblePorPrenda(int idPrenda) {
 		// TODO Auto-generated method stub
+		return 0;
 		
 	}
 

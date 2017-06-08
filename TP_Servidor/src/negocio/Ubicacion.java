@@ -77,6 +77,7 @@ public class Ubicacion {
 	}
 	public Ubicacion() {
 		super();
+	
 		// TODO Auto-generated constructor stub
 	}
 

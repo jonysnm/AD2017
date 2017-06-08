@@ -15,6 +15,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
 
+import negocio.AreaProduccionInvolucrada;
+
 @Entity
 @Table(name="Prenda")
 public class PrendaEntity implements Serializable{
@@ -34,6 +36,9 @@ public class PrendaEntity implements Serializable{
 	private Float costoProduccion;
 	private Float costoProduccionActual;
 	private Float porcentajeGanancia;
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="idPrenda")
+	private List<AreaProduccionInvolucradaEntity> areasInvolucradas;
 	public Integer getIdPrenda() {
 		return IdPrenda;
 	}
@@ -82,6 +87,12 @@ public class PrendaEntity implements Serializable{
 	}
 	public void setIp(List<ItemPrendaEntity> ip) {
 		this.ip = ip;
+	}
+	public List<AreaProduccionInvolucradaEntity> getAreasInvolucradas() {
+		return areasInvolucradas;
+	}
+	public void setAreasInvolucradas(List<AreaProduccionInvolucradaEntity> areasInvolucradas) {
+		this.areasInvolucradas = areasInvolucradas;
 	}
 	
 

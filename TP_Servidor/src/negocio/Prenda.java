@@ -14,6 +14,9 @@ public class Prenda {
 	private float costoProduccion;
 	private float costoProduccionActual;
 	private float porcentajeGanancia;
+	private List<AreaProduccionInvolucrada> areasInvolucradas;
+	
+	
 	public Prenda(){}
 	public int getCodigo() {
 		return codigo;
@@ -56,7 +59,15 @@ public class Prenda {
 	}
 	public void setPorcentajeGanancia(float porcentajeGanancia) {
 		this.porcentajeGanancia = porcentajeGanancia;
+	
 	}
+	public List<AreaProduccionInvolucrada> getAreasInvolucradas() {
+		return areasInvolucradas;
+	}
+	public void setAreasInvolucradas(List<AreaProduccionInvolucrada> areasInvolucradas) {
+		this.areasInvolucradas = areasInvolucradas;
+	}
+
 	public boolean estoyVigente(int codigo){
 		Prenda p=PedidoDAO.getInstancia().getPrenda(codigo);
 		return p.isVigente();
@@ -76,6 +87,10 @@ public class Prenda {
 	}
 	public void setItemPrendas(List<ItemPrenda> itemPrendas) {
 		this.itemPrendas = itemPrendas;
+	}
+	public boolean estoyVigente2() {
+		return this.vigente;
+	
 	}
 
 

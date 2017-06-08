@@ -7,6 +7,7 @@ import java.util.List;
 import controladores.ControladorPedido;
 import dto.FacturaDTO;
 import dto.PedidoDTO;
+import dto.PedidosPendientesAprobacionDTO;
 import dto.SucursalDTO;
 import dto.TalleDTO;
 import interfazRemota.IPuntoDeVentaControlador;
@@ -74,7 +75,8 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 	public void altaTalle(TalleDTO talleDTO) throws RemoteException {
 		ControladorPedido.getInstancia().altaTalle(talleDTO);
 	}
-
-
+	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal) throws RemoteException {
+		return ControladorPedido.getInstancia().obtenerPedidosPendientesdeAprobacion( idSucursal);
+	}
 
 }

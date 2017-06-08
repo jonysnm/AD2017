@@ -8,6 +8,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 
+import dto.PedidosPendientesAprobacionDTO;
 import dto.TalleDTO;
 import entities.EmpleadoEntity;
 import entities.PedidoEntity;
@@ -220,8 +221,8 @@ public class AdministracionDAO {
 		try {
 			Session session = sf.openSession();
 			@SuppressWarnings("unchecked")
-//			List<PedidoEntity> lista = session.createQuery("from PedidoEntity where estado='En Verificacion'").list();
-			List<PedidoEntity> lista = session.createQuery("from PedidoEntity p where p.estado = 'PENDIENTE'").list();
+		List<PedidoEntity> lista = session.createQuery("from PedidoEntity where estado='En Verificacion'").list();
+//			List<PedidoEntity> lista = session.createQuery("from PedidoEntity p where p.estado = 'PENDIENTE'").list();
 			session.close();
 			List<Pedido> pedidos = new ArrayList<Pedido>();
 			for (PedidoEntity pedidoEntity : lista) {
@@ -235,6 +236,47 @@ public class AdministracionDAO {
 		return null;
 	}
 
+//	crear un metodo que se llame: "ObtenerPedidosPendientesdeAprobacion(idSucursal):List"
+//
+//		el metodo recibe idSucursal: porque va a mostrar los pedidos pendientes de la sucursal para el gerente de la misma los visualice
+//		el metodo devuelve un listado de los pedidos pendientes de aprobación (esto es una lista de PedidosPendientesAprobacionDTO)
+//		*Crear el metodo en todas las capas involucradas: controladorWeb, businessdelegate, objetoRemoto, interfazremota, controladorPedido, clase de negocio Pedido, PedidoDTO.. (y si hace falta algún otro también)
+//		
+//		
+	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal) {
+		try {
+			Session session = sf.openSession();
+			@SuppressWarnings("unchecked")
+		List<PedidoEntity> lista = session.createQuery("from PedidoEntity where estado='En Verificacion' AND sucursal.id=:idsuc").setInteger("idsuc", idSucursal).list();
+//			List<PedidoEntity> lista = session.createQuery("from PedidoEntity p where p.estado = 'PENDIENTE'").list();
+			session.close();
+			
+			List<Pedido> pedidos = new ArrayList<Pedido>();
+			for (PedidoEntity pedidoEntity : lista) {
+				pedidos.add(new Pedido(pedidoEntity));
+			}
+			List<PedidosPendientesAprobacionDTO> pedidosVista = new ArrayList<PedidosPendientesAprobacionDTO>();
+			for (Pedido pedido : pedidos) {
+				PedidosPendientesAprobacionDTO peddto = new PedidosPendientesAprobacionDTO();
+				peddto.setCuit(pedido.getCliente().getCuit());
+				peddto.setFechaCreacion(pedido.getFechaCreacion());
+				peddto.setNombreCliente(pedido.getCliente().getNombre());
+				peddto.setTipoFacturacion(pedido.getCliente().getTipoFacturacion());
+				peddto.setLimiteCredito(pedido.getCliente().getLimiteCredito());
+				peddto.setSaldoCtaCte(pedido.getCliente().getCtacte().getSaldo());
+				peddto.setTotal(pedido.TotalPedido2());
+				
+				peddto.setContieneDiscontinuosyHaystock(pedido.discontinuosStock());
+				
+			}
+			return pedidosVista;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("ErrorDAO: AdministracionDAO: Listar Pedidos pendientes de validacion");
+		}
+		return null;
+	}
+	
 	public SucursalEntity SucursalToEntity(Sucursal s) {
 		SucursalEntity se = new SucursalEntity();
 		se.setCodigoPostal(s.getCodigoPostal());

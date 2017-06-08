@@ -5,6 +5,7 @@ public class ItemBulto {
 	private MateriaPrima mp;
 	private Prenda pr;
 	private float cantidad;
+	private float cantidadReservada;
 	public int getId() {
 		return id;
 	}
@@ -29,23 +30,32 @@ public class ItemBulto {
 	public void setCantidad(float cantidad) {
 		this.cantidad = cantidad;
 	}
+	public float getCantidadReservada() {
+		return cantidadReservada;
+	}
+	public void setCantidadReservada(float cantidadReservada) {
+		this.cantidadReservada = cantidadReservada;
+	}
 	@Override
 	public String toString() {
 		return "ItemBulto [id=" + id + ", mp=" + mp + ", pr=" + pr
-				+ ", cantidad=" + cantidad + "]";
+				+ ", cantidad=" + cantidad + ", cantidadReservada="
+				+ cantidadReservada + "]";
 	}
-	public ItemBulto(int id, MateriaPrima mp, Prenda pr, float cantidad) {
+	public ItemBulto(int id, MateriaPrima mp, Prenda pr, float cantidad,
+			float cantidadReservada) {
 		super();
 		this.id = id;
 		this.mp = mp;
 		this.pr = pr;
 		this.cantidad = cantidad;
+		this.cantidadReservada = cantidadReservada;
 	}
 	public ItemBulto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	
 	
 	
