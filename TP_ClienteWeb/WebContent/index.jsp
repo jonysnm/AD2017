@@ -30,21 +30,8 @@
 		<h2>Seleccione una opción</h2>	
 		<br>
     </div>
-    <br>
-    	<a href="altaTalle.jsp" target="_self">Alta Talle</a>
      <br>
-     	<a href="ControladorWeb?action=altaPrenda" target="_self">Alta Prenda</a>
-     <br>
-    	<a href="ControladorWeb?action=altaPaquete" target="_self">Alta de Paquete</a>
+    	<a href="ControladorWeb?action=aprobar_rechazar_pedidos" target="_self">Aprobar-Rechazar Pedidos</a>
     	<br>
-    	<a href="ControladorWeb?action=altaEnvioCarrier" target="_self">Crear Envío-Carrier</a> 
-    	<br>
-    	<a href="ControladorWeb?action=modificarEstadoEnvio" target="_self">Registrar Envío arribado</a> 
-    	<br>
-    	<a href="ControladorWeb?action=consultarEnvios" target="_self">Consultar envíos...</a>
-    	<br>
-    	<a href="ControladorWeb?action=consultarPaquetes" target="_self">Consultar Paquetes...</a>
-    	<br>
-    	<a href="ControladorWeb?action=consultarFactura" target="_self">Consultar Factura...</a>
 </body>
 </html>
