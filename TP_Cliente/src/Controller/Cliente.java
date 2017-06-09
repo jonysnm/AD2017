@@ -8,7 +8,6 @@ import java.util.List;
 import businessDelegate.BusinessDelegate;
 import dto.ClienteDTO;
 import dto.ColorDTO;
-import dto.CuentaCorrienteDTO;
 import dto.EmpleadoDTO;
 import dto.ItemPedidoDTO;
 import dto.ItemPrendaDTO;

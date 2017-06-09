@@ -2,7 +2,11 @@ package dao;
 
 import hbt.HibernateUtil;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
+import entities.PedidoEntity;
 
 public class AlmacenDAO {
 	private static AlmacenDAO instancia;
@@ -23,13 +27,10 @@ public class AlmacenDAO {
 		}
 		return instancia;
 	}
-
-
 	public int obtenerDisponiblePorPrenda(int idPrenda) {
-		// TODO Auto-generated method stub
-		return 0;
-		
+		Session s=sf.openSession();
+		String consulta="select a.IdPrenda.cantidad from AlmacenEntity a join a.scrap where IdPrenda = :idPrenda";
+		Query query=(Query) s.createQuery(consulta).setParameter("idPrenda", idPrenda).uniqueResult();
+		return (int) query.uniqueResult();		
 	}
-
-
 }

@@ -84,15 +84,7 @@ public Pedido(){}
 		System.out.printf("TOTAL:%d",total);
 		return total;
 	}
-    public float TotalPedido2(){
-		float total=0;
-		for (ItemPedido itemPedido : this.getItems()) {
-			total+=(itemPedido.getCantidad()*itemPedido.getImporte());
-		}
-		System.out.printf("TOTAL:%d",total);
-		return total;
-	}
-	public boolean ObtenerdisponibilidadporPrenda(Pedido p) {
+  	public boolean ObtenerdisponibilidadporPrenda(Pedido p) {
 		List<ItemPedido> it=p.getItems();
 		for(ItemPedido ip:it){
 			if(ip.obtenervigencia(ip.getPrenda())){
@@ -103,8 +95,18 @@ public Pedido(){}
 		}
 		return true;
 	}
-
-	public void save(){
+  	public boolean ObtenerStockDiscontinuos(Pedido p){
+  		List<ItemPedido> it=p.getItems();
+  		for(ItemPedido ip:it){
+  			if(ip.hayStock(ip.getPrenda())){
+  				return true;
+  			}else{
+  				;
+  			}
+  		}
+  		return false;
+  	}
+  	public void save(){
 		PedidoDAO.getInstancia().nuevoPedido(this);	
 	}
 
@@ -122,16 +124,5 @@ public Pedido(){}
 	}
 	public void setEstado(ESTADO estado) {
 		this.estado = estado;
-	}
-	public boolean discontinuosStock() {
-		List<ItemPedido> it= this.getItems();
-		for(ItemPedido ip:it){
-			if(!ip.obtenervigencia2()){
-				if(!ip.hayStock()){
-					return false;
-				}
-			}
-		}
-		return true;
 	}
 }

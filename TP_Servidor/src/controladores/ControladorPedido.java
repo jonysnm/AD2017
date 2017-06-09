@@ -96,10 +96,15 @@ public class ControladorPedido {
 					p.update();
 					System.out.println("PEDIDO OK");
 					
+				}else{
+					if(p.ObtenerStockDiscontinuos(p)){
+						p.setEstado(ESTADO.Procesar_Pedido);
+						p.update();
+						System.out.println("PEDIDO OK DISCONTINUO");
+					}
 				}
 			}else{
-				System.out.println("PEDIDO NO OK");
-				//verificar si se puede vender (stock almacenado)
+				System.out.println("PEDIDO NO OK");		
 				p.setEstado(ESTADO.Cancelado);
 				p.update();
 			}

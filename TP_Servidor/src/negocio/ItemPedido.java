@@ -1,5 +1,7 @@
 package negocio;
 
+import java.util.List;
+
 import dao.AlmacenDAO;
 import dao.PedidoDAO;
 import entities.ItemPedidoEntity;
@@ -63,13 +65,8 @@ public class ItemPedido {
 			return false;
 		}
 	}
-	public boolean obtenervigencia2() {
-		
-			return this.getPrenda().estoyVigente2();
-		
-	}
-	public boolean hayStock() {
-		int cantidadAlmacen =  AlmacenDAO.getInstancia().obtenerDisponiblePorPrenda(this.prenda.getCodigo());
+	public boolean hayStock(Prenda p) {	
+		int cantidadAlmacen =  AlmacenDAO.getInstancia().obtenerDisponiblePorPrenda(p.getCodigo());
 		if(this.cantidad <= cantidadAlmacen  )
 			return true;
 		
