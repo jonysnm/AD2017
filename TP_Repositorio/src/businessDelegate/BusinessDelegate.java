@@ -4,11 +4,13 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 import dto.ClienteDTO;
 import dto.EmpleadoDTO;
 import dto.PedidoDTO;
+import dto.PedidosPendientesAprobacionDTO;
 import dto.SucursalDTO;
 import dto.TalleDTO;
 import interfazRemota.IAdmSucursalesControlador;
@@ -89,5 +91,40 @@ public class BusinessDelegate {
 	}
 	public void altaTalle(TalleDTO talleDTO) throws RemoteException{
 		interfazRemotaPuntoVenta.altaTalle(talleDTO);
+	}
+	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int i) {
+		// TODO Auto-generated method stub
+		List<PedidosPendientesAprobacionDTO> lstReturn = new ArrayList<PedidosPendientesAprobacionDTO>();
+		PedidosPendientesAprobacionDTO pedido = new PedidosPendientesAprobacionDTO();
+		pedido.setId(0001);
+		pedido.setContieneDiscontinuosyHaystock(false);
+		pedido.setLimiteCredito(1250);
+		pedido.setNombreCliente("Cliente Jonathan");
+		
+		PedidosPendientesAprobacionDTO pedido2 = new PedidosPendientesAprobacionDTO();
+		pedido2.setId(0002);
+		pedido2.setContieneDiscontinuosyHaystock(false);
+		pedido2.setLimiteCredito(1250);
+		pedido2.setNombreCliente("Cliente Segundo");
+		
+		
+		PedidosPendientesAprobacionDTO pedido3 = new PedidosPendientesAprobacionDTO();
+		pedido3.setId(0003);
+		pedido3.setContieneDiscontinuosyHaystock(true);
+		pedido3.setLimiteCredito(1250);
+		pedido3.setNombreCliente("Cliente Tercero");
+		
+		
+		PedidosPendientesAprobacionDTO pedido4 = new PedidosPendientesAprobacionDTO();
+		pedido4.setId(0004);
+		pedido4.setContieneDiscontinuosyHaystock(false);
+		pedido4.setLimiteCredito(1250);
+		pedido4.setNombreCliente("Cliente Cuarto");
+
+		lstReturn.add(pedido);
+		lstReturn.add(pedido2);
+		lstReturn.add(pedido3);
+		lstReturn.add(pedido4);
+		return lstReturn;
 	}
 }
