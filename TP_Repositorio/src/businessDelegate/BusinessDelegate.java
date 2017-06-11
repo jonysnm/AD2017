@@ -9,6 +9,7 @@ import java.util.List;
 import dto.ClienteDTO;
 import dto.EmpleadoDTO;
 import dto.PedidoDTO;
+import dto.PedidosPendientesAprobacionDTO;
 import dto.SucursalDTO;
 import dto.TalleDTO;
 import dto.UbicacionDTO;
@@ -91,5 +92,8 @@ public class BusinessDelegate {
 	}
 	public void IniciarProcesamientoPedidoAprobado(Integer Idpedido)throws RemoteException{
 		interfazRemotaPuntoVenta.IniciarProcesamientoPedidoAprobado(Idpedido);
+	}
+	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal)throws RemoteException {
+		return interfazRemotaPuntoVenta.obtenerPedidosPendientesdeAprobacion(idSucursal);
 	}
 }

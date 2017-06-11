@@ -264,9 +264,10 @@ public class AdministracionDAO {
 				peddto.setTipoFacturacion(pedido.getCliente().getTipoFacturacion());
 				peddto.setLimiteCredito(pedido.getCliente().getLimiteCredito());
 				peddto.setSaldoCtaCte(pedido.getCliente().getCtacte().getSaldo());
-				peddto.setTotal(pedido.TotalPedido(pedido));
+				peddto.setTotal(pedido.TotalPedido2());
 				
-				peddto.setContieneDiscontinuosyHaystock(pedido.ObtenerStockDiscontinuos(pedido));
+				peddto.setContieneDiscontinuosyHaystock(pedido.discontinuosStock());
+				pedidosVista.add(peddto);
 				
 			}
 			return pedidosVista;

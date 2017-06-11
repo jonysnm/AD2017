@@ -85,6 +85,15 @@ public Pedido(){}
 		System.out.printf("TOTAL:%d",total);
 		return total;
 	}
+    
+    public float TotalPedido2(){
+		float total=0;
+		for (ItemPedido itemPedido : this.getItems()) {
+			total+=(itemPedido.getCantidad()*itemPedido.getImporte());
+		}
+		System.out.printf("TOTAL:%d",total);
+		return total;
+	}
   	public boolean ObtenerdisponibilidadporPrenda(Pedido p) {
 		List<ItemPedido> it=p.getItems();
 		for(ItemPedido ip:it){
@@ -118,6 +127,19 @@ public Pedido(){}
   		}
   		return false;
   	}
+  	
+  	public boolean discontinuosStock() {
+		List<ItemPedido> it= this.getItems();
+		for(ItemPedido ip:it){
+			if(!ip.obtenervigencia2()){
+				if(!ip.hayStock(ip.getPrenda())){
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
   	public void save(){
 		PedidoDAO.getInstancia().nuevoPedido(this);	
 	}
