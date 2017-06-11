@@ -11,14 +11,18 @@ import dto.EmpleadoDTO;
 import dto.PedidoDTO;
 import dto.SucursalDTO;
 import dto.TalleDTO;
+import dto.UbicacionDTO;
 import interfazRemota.IAdmSucursalesControlador;
 import interfazRemota.IClienteControlador;
+import interfazRemota.ILogistica;
 import interfazRemota.IPuntoDeVentaControlador;
+
 
 public class BusinessDelegate {
 	private IPuntoDeVentaControlador interfazRemotaPuntoVenta;
 	private IAdmSucursalesControlador interfazRemotaSucursales;
 	private IClienteControlador interfazRemotaClientes;
+	private ILogistica interfazRemotaDespacho;
 	private static BusinessDelegate instancia;
 
 	public static BusinessDelegate getInstancia(){
@@ -32,6 +36,7 @@ public class BusinessDelegate {
 			interfazRemotaPuntoVenta=(IPuntoDeVentaControlador) Naming.lookup("//localhost/GestionPuntoVenta");
 			interfazRemotaSucursales=(IAdmSucursalesControlador) Naming.lookup("//localhost/GestionSucursal");
 			interfazRemotaClientes=(IClienteControlador) Naming.lookup("//localhost/GestionCliente");
+			interfazRemotaDespacho=(ILogistica) Naming.lookup("//localhost/GestionDespacho");
 		}catch(RemoteException e){
 			e.printStackTrace();
 		} catch (MalformedURLException e) {
@@ -64,9 +69,6 @@ public class BusinessDelegate {
 	public void crearEmpleado(EmpleadoDTO e)throws RemoteException{
 		interfazRemotaSucursales.crearEmpleado(e);
 	}
-
-
-
 	/*PEDIDO*/
 	public int nuevoPedido(PedidoDTO pedidoDTO,int idSucursal) throws RemoteException{
 		return interfazRemotaPuntoVenta.nuevoPedido(pedidoDTO,idSucursal);
@@ -78,16 +80,16 @@ public class BusinessDelegate {
 	public void confirmarPedido(Integer IdPedido) throws RemoteException{
 		interfazRemotaPuntoVenta.confirmarPedido(IdPedido);
 	}
-	/*
-	public void cancelarPedido(Integer id);
-	//MAU
-	public List<FacturaDTO> getFacturas();	
-	public void generarFactura(PedidoDTO p);
-	 */
 	public List<PedidoDTO> listarPedidosPendientesDeValidacion() throws RemoteException{
 		return interfazRemotaPuntoVenta.listarPedidosPendientesDeValidacion();
 	}
 	public void altaTalle(TalleDTO talleDTO) throws RemoteException{
 		interfazRemotaPuntoVenta.altaTalle(talleDTO);
+	}
+	public void altaUbicacion(UbicacionDTO ubicacion) throws RemoteException{
+		interfazRemotaDespacho.altaUbicacion(ubicacion);
+	}
+	public void IniciarProcesamientoPedidoAprobado(Integer Idpedido)throws RemoteException{
+		interfazRemotaPuntoVenta.IniciarProcesamientoPedidoAprobado(Idpedido);
 	}
 }

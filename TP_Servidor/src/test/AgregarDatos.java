@@ -2,6 +2,8 @@ package test;
 
 import negocio.Color;
 import negocio.Talle;
+import negocio.Ubicacion;
+import dao.AlmacenDAO;
 import dao.TallesyColoresDAO;
 public class AgregarDatos {
 	public static void guardarInfo(){

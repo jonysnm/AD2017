@@ -1,5 +1,5 @@
 package estados;
 
 public enum EstadoAprobacionPedidoCliente {
-	AprobadoenSucursal, PendienteAprobarSucursal, RechazadoenSucursal;
+	IngresadoenSucursal,AprobadoenSucursal, PendienteAprobarSucursal, RechazadoenSucursal,Completo;
 }

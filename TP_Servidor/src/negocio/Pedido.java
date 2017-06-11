@@ -7,6 +7,7 @@ import java.util.List;
 import dao.PedidoDAO;
 import entities.ItemPedidoEntity;
 import entities.PedidoEntity;
+import estados.EstadoAprobacionPedidoCliente;
 
 public class Pedido {
 	private int id;
@@ -16,7 +17,7 @@ public class Pedido {
 	private Date fecharealDespacho;
 	private List<ItemPedido> items=new ArrayList<ItemPedido>();
 	private Sucursal sucursal;
-	private ESTADO estado;
+	private EstadoAprobacionPedidoCliente estado;
 public Pedido(){}
 	public Pedido(PedidoEntity pedido){
 		this.id=pedido.getId();
@@ -95,10 +96,21 @@ public Pedido(){}
 		}
 		return true;
 	}
-  	public boolean ObtenerStockDiscontinuos(Pedido p){
+  	public boolean ObtenerStockDiscontinuo(Pedido p){
   		List<ItemPedido> it=p.getItems();
   		for(ItemPedido ip:it){
   			if(ip.hayStock(ip.getPrenda())){
+  				return true;
+  			}else{
+  				;
+  			}
+  		}
+  		return false;
+  	}
+  	public boolean ObtenerDisponiblePrenda(Pedido p){
+  		List<ItemPedido> it=p.getItems();
+  		for(ItemPedido ip:it){
+  			if(ip.ObtenerDisponibilidadStock(ip.getPrenda())){
   				return true;
   			}else{
   				;
@@ -119,10 +131,11 @@ public Pedido(){}
 	public void setItems(List<ItemPedido> items) {
 		this.items = items;
 	}
-	public ESTADO getEstado() {
+	public EstadoAprobacionPedidoCliente getEstado() {
 		return estado;
 	}
-	public void setEstado(ESTADO estado) {
+	public void setEstado(EstadoAprobacionPedidoCliente estado) {
 		this.estado = estado;
 	}
+	
 }
