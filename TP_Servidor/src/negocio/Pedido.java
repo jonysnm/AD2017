@@ -94,7 +94,7 @@ public Pedido(){}
 		System.out.printf("TOTAL:%d",total);
 		return total;
 	}
-  	public boolean ObtenerdisponibilidadporPrenda(Pedido p) {
+  	public boolean ObtenerVigenciaporPrenda(Pedido p) {
 		List<ItemPedido> it=p.getItems();
 		for(ItemPedido ip:it){
 			if(ip.obtenervigencia(ip.getPrenda())){
@@ -105,34 +105,22 @@ public Pedido(){}
 		}
 		return true;
 	}
-  	public boolean ObtenerStockDiscontinuo(Pedido p){
+   	public boolean ObtenerDisponiblePrenda(Pedido p){
   		List<ItemPedido> it=p.getItems();
   		for(ItemPedido ip:it){
-  			if(ip.hayStock(ip.getPrenda())){
+  			if(ip.ObtenerDisponibilidadStock(ip)){
   				return true;
   			}else{
   				;
   			}
   		}
   		return false;
-  	}
-  	public boolean ObtenerDisponiblePrenda(Pedido p){
-  		List<ItemPedido> it=p.getItems();
-  		for(ItemPedido ip:it){
-  			if(ip.ObtenerDisponibilidadStock(ip.getPrenda())){
-  				return true;
-  			}else{
-  				;
-  			}
-  		}
-  		return false;
-  	}
-  	
+  	}  	
   	public boolean discontinuosStock() {
 		List<ItemPedido> it= this.getItems();
 		for(ItemPedido ip:it){
 			if(!ip.obtenervigencia2()){
-				if(!ip.hayStock(ip.getPrenda())){
+				if(!ip.ObtenerDisponibilidadStock(ip.getPrenda())){
 					return false;
 				}
 			}

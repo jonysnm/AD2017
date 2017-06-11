@@ -138,13 +138,6 @@ public class Cliente {
 		item.setTalle(talleDTO);
 		PrendaDTO prendaDTO = new PrendaDTO();
 		prendaDTO.setCodigo(5);
-		ItemPrendaDTO itemPrenda = new ItemPrendaDTO();
-		itemPrenda.setColor(colorDTO);
-		itemPrenda.setTalle(talleDTO);
-		List<ItemPrendaDTO> itemsPrenda = new ArrayList<ItemPrendaDTO>();
-		itemsPrenda.add(itemPrenda);
-		prendaDTO.setItemPrenda(itemsPrenda);
-		item.setPrenda(prendaDTO);
 		itemsPedido.add(item);
 		pedidoDTO.setItems(itemsPedido);
 

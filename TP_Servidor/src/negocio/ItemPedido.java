@@ -70,17 +70,8 @@ public class ItemPedido {
 		return this.getPrenda().estoyVigente2();
 	
 }
-	public boolean hayStock(Prenda p) {	
-		float cantidadAlmacen =  AlmacenDAO.getInstancia().obtenerDisponiblePorPrenda(p.getCodigo());
-		if(this.cantidad <= cantidadAlmacen  )
-			return true;
-		
-		return false;
-	}
-	
-	
-	public boolean ObtenerDisponibilidadStock(Prenda p) {
-	    float cantidadstock=AlmacenDAO.getInstancia().obtenerDisponiblePorPrenda(p.getCodigo());
+public boolean ObtenerDisponibilidadStock(ItemPedido it) {
+	    float cantidadstock=AlmacenDAO.getInstancia().obtenerDisponiblePorPrenda(it);
 	    if(cantidadstock>=this.cantidad){
 	    	return true;
 	    }

@@ -23,10 +23,10 @@ public class ItemBultoEntity implements Serializable{
 	@JoinColumn(name="idMateriaPrima")
 	private MateriaPrimaEntity mp;
 	@ManyToOne
-	@JoinColumn(name="idPrenda")
-	private PrendaEntity pr;
-	private float cantidad;
-	private float cantidadReservada;
+	@JoinColumn(name="id_ItemPrenda")
+	private ItemPrendaEntity ipr;
+	//private float cantidad;
+	//private float cantidadReservada;
 	public int getId() {
 		return id;
 	}
@@ -39,50 +39,14 @@ public class ItemBultoEntity implements Serializable{
 	public void setMp(MateriaPrimaEntity mp) {
 		this.mp = mp;
 	}
-	public PrendaEntity getPr() {
-		return pr;
-	}
-	public void setPr(PrendaEntity pr) {
-		this.pr = pr;
-	}
-	public float getCantidad() {
-		return cantidad;
-	}
-	public void setCantidad(float cantidad) {
-		this.cantidad = cantidad;
-	}
-	public float getCantidadReservada() {
-		return cantidadReservada;
-	}
-	public void setCantidadReservada(float cantidadReservada) {
-		this.cantidadReservada = cantidadReservada;
-	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	@Override
-	public String toString() {
-		return "ItemBultoEntity [id=" + id + ", mp=" + mp + ", pr=" + pr
-				+ ", cantidad=" + cantidad + ", cantidadReservada="
-				+ cantidadReservada + "]";
-	}
-	public ItemBultoEntity(int id, MateriaPrimaEntity mp, PrendaEntity pr,
-			float cantidad, float cantidadReservada) {
-		super();
-		this.id = id;
-		this.mp = mp;
-		this.pr = pr;
-		this.cantidad = cantidad;
-		this.cantidadReservada = cantidadReservada;
-	}
 	public ItemBultoEntity() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
-	
-	
-	
+	public ItemPrendaEntity getIpr() {
+		return ipr;
+	}
+	public void setIpr(ItemPrendaEntity ipr) {
+		this.ipr = ipr;
+	}
 }

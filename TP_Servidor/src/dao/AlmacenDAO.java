@@ -53,9 +53,10 @@ public class AlmacenDAO {
 		}
 		return instancia;
 	}
-	public float obtenerDisponiblePorPrenda(int idPrenda) {
+	public float obtenerDisponiblePorPrenda(ItemPedido ip) {
 		Session s=sf.openSession();
-		String consulta="select ub.pr.IdPrenda.cantidad from UbicacionEntity u join u.bulto ub where IdPrenda = :idPrenda";
+		String consulta="select ub.pr.IdPrenda.cantidad from UbicacionEntity u join u.bulto ub "+
+		"join ub.ip where IdPrenda = :idPrenda";
 		return (float) s.createQuery(consulta).setParameter("idPrenda", idPrenda).uniqueResult();
 			
 	}

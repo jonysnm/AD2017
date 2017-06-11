@@ -91,16 +91,20 @@ public class ControladorPedido {
 	public void confirmarPedido(Integer idPedido){
 		Pedido p=PedidoDAO.getInstancia().getPedido(idPedido);
 			if(p.getCliente().getLimiteCredito()>p.TotalPedido(p)){
-				if(p.ObtenerdisponibilidadporPrenda(p)){
+				if(p.ObtenerVigenciaporPrenda(p)){
 					p.setEstado(EstadoAprobacionPedidoCliente.AprobadoenSucursal);
 					p.update();
 					System.out.println("PEDIDO OK");
 					
 				}else{
-					if(p.ObtenerStockDiscontinuo(p)){
-						p.setEstado(EstadoAprobacionPedidoCliente.AprobadoenSucursal);
+					if(p.ObtenerDisponiblePrenda(p)){
+						p.setEstado(EstadoAprobacionPedidoCliente.Completo);
 						p.update();
 						System.out.println("PEDIDO OK DISCONTINUO");
+					}else{
+						p.setEstado(EstadoAprobacionPedidoCliente.AprobadoenSucursal);
+						p.update();
+						System.out.println("PEDIDO NO OK DISCONTINUO");
 					}
 				}
 			}else{
