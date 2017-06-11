@@ -14,66 +14,17 @@
 </head>
 <body>
 	<%
-		ArrayList<ItemMaterialPrendaDTO> itemsMaterialPrenda = (ArrayList<ItemMaterialPrendaDTO>)request.getAttribute("itemsMaterialPrenda");	
+		ArrayList<ItemMaterialPrendaDTO> itemsMaterialPrenda = (ArrayList<ItemMaterialPrendaDTO>) request
+				.getAttribute("itemsMaterialPrenda");
 	%>
-
-	<script type="text/javascript">
-		$(function() {
-			$("#btnAgregarItemPrenda").button().on(
-					"click",
-					function() {
-						var idPaquete = $("#selectPaquetes").val();
-
-						$("#lblPaquetesAgregados").append(idPaquete + "<br/>");
-						if ($("#hdnPaquetesAgregados").val() === "")
-							$("#hdnPaquetesAgregados").val(idPaquete);
-						else
-							$("#hdnPaquetesAgregados").val(
-									$("#hdnPaquetesAgregados").val() + ","
-											+ idPaquete);
-
-					});
-			var dialog = $("#modalAgregarPaquete").dialog({
-				autoOpen : false,
-				height : 450,
-				width : 450,
-				title : "Agregar paquete",
-				modal : true,
-				buttons : {
-					Cancel : function() {
-						dialog.dialog("close");
-					}
-				},
-				close : function() {
-
-				}
-			});
-
-			$("#btnAgregarPaquetes").button().on("click", function() {
-				dialog.dialog("open");
-			});
-
-			$("#selectPaquetes").change(function() {
-				$.ajax({
-					url : 'ControladorWeb?action=getPaqueteDescription',
-					data : {
-						idPaquete : $(this).val()
-					},
-					success : function(responseText) {
-						$('#txtInfoPaquete').text(responseText);
-					}
-				});
-			});
-		});
-	</script>
-
 
 
 	<h1>Crear Prenda</h1>
 	<div>
 		<form action="ControladorWeb?action=altaPrenda" method="post">
-			<table cellpadding="1" cellspacing="1" border="1" width="60%">
+			<table cellpadding="1" cellspacing="1" border="1" width="70%">
 				<tr>
+				<th>Prenda:</th>
 					<td><b>descripcion</b></td>
 					<td><input type="text" name="descripcion"></td>
 
@@ -89,41 +40,85 @@
 					<td><b>porcentajeGanancia</b></td>
 					<td><input type="text" name="porcentajeGanancia"></td>
 				<tr>
-					<td><b>Paquetes agregados</b></td>
-					<td><label id="lblPaquetesAgregados"></label> <input
-						type="submit" name="paquetes" id="agregarPaquetes" value="Agregar"/></td>
-				</tr>
-
-				<td><input type="submit" id="btnSubmit" value="Alta Prenda" /></td>
-				</tr>
 			</table>
 
 		</form>
 
 	</div>
-	<div id="modalAgregarPaquete">
-		<table cellspacing="2" cellpadding="2" border="1" width="100%">
+	<div id="itemPrenda">
+		<table cellspacing="1" cellpadding="2" border="1" width="70% "
+			id="tablaItemPrenda">
 			<tr>
-				<td><b>Id itemsMaterialPrenda:</b></td>
-				<td><select id="selectPaquetes">
-<%-- 						<% --%>
-// 							if (itemsMaterialPrenda.size() > 0)
-<%-- 								for (ItemMaterialPrendaDTO itemMaterial : itemsMaterialPrenda) {	%> --%>
-<%-- 						<option value="<%=itemMaterial.getCantidadutilizada() %>"><%= itemMaterial.getCantidadutilizada()%></option> --%>
-<%-- 						<%}	%> --%>
+			<th>ItemPrenda:</th>
+				<td><b>Talle:</b></td>
+				<td><select name="talles">
+						<option value="XS">XS</option>
+						<option value="S">S</option>
+						<option value="M">M</option>
+						<option value="L">L</option>
+						<option value="XL">XL</option>
 				</select></td>
-			</tr>
-			<tr>
-				<td><b>Descripción Paquete:</b></td>
-				<td><textarea rows="15" cols="40" id="txtInfoPaquete"></textarea>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2" style="text-align: center;"><input
-					type="button" value="Agregar" id="btnAgregarPaquetePopUp" /></td>
+					<td><b>Color:</b></td>
+				<td><select name="colores">
+						<option value="Rojo">Rojo</option>
+						<option value="Verde">Verder</option>
+						<option value="Azul">Azul</option>
+						<option value="Amarillo">Amarillo</option>
+						<option value="Blanco">Blanco</option>
+				</select></td>
 			</tr>
 		</table>
 	</div>
+	<button value="Agregar ItemsPrenda" type="button" onclick="agregarItemPrenda()">Agregar ItemsPrenda</button>
+
+
+	<div id="itemMaterialPrenda">
+		<table cellspacing="1" cellpadding="2" border="1" width="70% "
+			id="tablaPrenda">
+			<tr>
+				<td><b>Item Material:</b></td>
+			</tr>
+			<tr>
+				<td><b>Cantidad Utilizada:<input type="text"></b></td>
+				<td><b>Desperdicio:<input type="text"></b></td>
+				<td>
+				<div>
+				<table>
+				<tr>
+				<td><b>Materia Prima:</b></td>
+				<td><b>Codigo:<input type="text"></b></td>
+				<td><b>Cantidad a Comprar:<input type="text"></b></td>
+				<td><b>nomber:<input type="text"></b></td>
+				</tr>
+				</table>
+				</div>
+				
+				</td>
+				<td><b>Codigo:<input type="text"></b></td>
+				<td><b>Cantidad a Comprar:<input type="text"></b></td>
+				<td><b>Nombre:<input type="text"></b></td>
+				<td><b>Descripción Paquete: </b> <textarea rows="15" cols="40"
+						id="txtInfoPaquete"></textarea></td>
+			</tr>
+		</table>
+	</div>
+	<button value="Agregar Items" type="button" onclick="agregarPaquete()">Agregar
+		Items</button>
+	<script type="text/javascript">
+		function agregarPaquete() {
+			var table = document.getElementById("itemMaterialPrenda");
+			var cln = table.cloneNode(true);
+			document.getElementById("itemMaterialPrenda").appendChild(cln);
+		}
+	</script>
+
+<script type="text/javascript">
+		function agregarItemPrenda() {
+			var table = document.getElementById("itemPrenda");
+			var cln = table.cloneNode(true);
+			document.getElementById("itemPrenda").appendChild(cln);
+}
+	</script>
 
 </body>
 </html>

@@ -221,7 +221,7 @@ public class AdministracionDAO {
 		try {
 			Session session = sf.openSession();
 			@SuppressWarnings("unchecked")
-		List<PedidoEntity> lista = session.createQuery("from PedidoEntity where estado='En Verificacion'").list();
+		List<PedidoEntity> lista = session.createQuery("from PedidoEntity ped where ped.estado = 'En_Verificación'").list();
 //			List<PedidoEntity> lista = session.createQuery("from PedidoEntity p where p.estado = 'PENDIENTE'").list();
 			session.close();
 			List<Pedido> pedidos = new ArrayList<Pedido>();
@@ -296,9 +296,9 @@ public class AdministracionDAO {
 		ee.setFechaEgreso(e.getFechaEgreso());
 		ee.setFechaIngreso(e.getFechaIngreso());
 		ee.setNombre(e.getNombre());
-//		if(e.getSucursal()!=null){
-//		ee.setSucursal(SucursalToEntity(e.getSucursal()));
-//		}
+		if(e.getSucursal()!=null){
+		ee.setSucursal(SucursalToEntity(e.getSucursal()));
+		}
 		return ee;
 	}
 

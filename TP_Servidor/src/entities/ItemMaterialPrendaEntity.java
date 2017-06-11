@@ -12,22 +12,20 @@ public class ItemMaterialPrendaEntity implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 592441283341549459L;
+
 	@Id
-	@JoinColumn(name="IdPrenda")
-	private int item_materialprenda;
+	private Integer item_materialprenda;
+	
 	private int cantidadutilizada;
 	private float despedicio;
-	@OneToOne
-	@JoinColumn(name="codigomateriaprima")
+
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="codigo",nullable=false)
 	private MateriaPrimaEntity materiaprima;
+
+	
 	public ItemMaterialPrendaEntity() {
 		super();
-	}
-	public int getItem_materialprenda() {
-		return item_materialprenda;
-	}
-	public void setItem_materialprenda(int item_materialprenda) {
-		this.item_materialprenda = item_materialprenda;
 	}
 	public int getCantidadutilizada() {
 		return cantidadutilizada;
@@ -41,12 +39,6 @@ public class ItemMaterialPrendaEntity implements Serializable {
 	public void setDespedicio(float despedicio) {
 		this.despedicio = despedicio;
 	}
-	public MateriaPrimaEntity getMateriaprima() {
-		return materiaprima;
-	}
-	public void setMateriaprima(MateriaPrimaEntity materiaprima) {
-		this.materiaprima = materiaprima;
-	}
 	/*EN PROCESO
 	public ItemMaterialPrendaEntity(ItemMaterialPrenda imp) {
 		this.cantidadutilizada=imp.getCantidadutilizada();
@@ -55,6 +47,18 @@ public class ItemMaterialPrendaEntity implements Serializable {
 		this.prenda=new PrendaEntity(imp.getPrenda());
 	}
 	 */
+	public Integer getItem_materialprenda() {
+		return item_materialprenda;
+	}
+	public void setItem_materialprenda(Integer item_materialprenda) {
+		this.item_materialprenda = item_materialprenda;
+	}
+	public MateriaPrimaEntity getMateriaprima() {
+		return materiaprima;
+	}
+	public void setMateriaprima(MateriaPrimaEntity materiaprima) {
+		this.materiaprima = materiaprima;
+	}
 
 
 

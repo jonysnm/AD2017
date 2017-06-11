@@ -9,10 +9,10 @@ public class ItemPedidoId implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="IdPedido",nullable=false)
 	private PedidoEntity pedido;
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="IdPrenda",nullable=false)
 	private PrendaEntity prenda;
 	

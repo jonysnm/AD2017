@@ -1,13 +1,17 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -34,10 +38,9 @@ public class SucursalEntity implements Serializable{
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="idRecepcionPed")
 	private EmpleadoEntity recepcionPedidos;
-//	@OneToMany
-//	@JoinColumn(name="id",nullable=true,insertable=true,updatable=true)
-//	private List<EmpleadoEntity> empleados=new ArrayList<EmpleadoEntity>();
-//	
+	@OneToMany(mappedBy="sucursal",fetch=FetchType.EAGER)
+	private List<EmpleadoEntity> empleados=new ArrayList<EmpleadoEntity>();
+	
 	
 	public Integer getId() {
 		return id;
@@ -93,12 +96,12 @@ public class SucursalEntity implements Serializable{
 	public void setRecepcionPedidos(EmpleadoEntity recepcionPedidos) {
 		this.recepcionPedidos = recepcionPedidos;
 	}
-//	public List<EmpleadoEntity> getEmpleados() {
-//		return empleados;
-//	}
-//	public void setEmpleados(List<EmpleadoEntity> empleados) {
-//		this.empleados = empleados;
-//	}
+	public List<EmpleadoEntity> getEmpleados() {
+		return empleados;
+	}
+	public void setEmpleados(List<EmpleadoEntity> empleados) {
+		this.empleados = empleados;
+	}
 
 
 

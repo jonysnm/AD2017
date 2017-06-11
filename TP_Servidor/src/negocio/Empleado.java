@@ -55,7 +55,8 @@ public class Empleado {
 		this.fechaIngreso=empleado.getFechaIngreso();
 		this.id=empleado.getId();
 		this.nombre=empleado.getNombre();
-//		this.sucursal=new Sucursal(empleado.getSucursal());
+		if(empleado.getSucursal()!=null)
+		this.sucursal=new Sucursal(empleado.getSucursal());
 	}
 	public void save(){
 		AdministracionDAO.getInstancia().altaEmpleado(this);

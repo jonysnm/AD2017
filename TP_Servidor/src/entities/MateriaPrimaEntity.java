@@ -21,6 +21,7 @@ public class MateriaPrimaEntity implements Serializable {
 	
 	@Enumerated(EnumType.STRING)
 	private EstadoMP estado;
+	
 	public int getCodigo() {
 		return codigo;
 	}

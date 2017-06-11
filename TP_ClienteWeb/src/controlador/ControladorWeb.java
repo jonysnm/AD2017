@@ -1,9 +1,7 @@
 package controlador;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import businessDelegate.BusinessDelegate;
-import dto.PrendaDTO;
 import dto.TalleDTO;
 
 //import vo.ClienteVO;
@@ -46,57 +43,80 @@ public class ControladorWeb extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        String action = request.getParameter("action");
-        String jspPage = "/index.jsp";
-        
-        if ((action == null) || (action.length() < 1))
-        {
-            action = "default";
-        }
-        
-        switch (action) {
+		String action = request.getParameter("action");
+		String jspPage = "/index.jsp";
+
+		if ((action == null) || (action.length() < 1)) {
+			action = "default";
+		}
+
+		switch (action) {
 		case "default":
 			jspPage = "/index.jsp";
 			break;
 		case "aprobar_rechazar_pedidos":
-			
-			//TODO: agregar cuando Arturo confirme que esta ok request.setAttribute("enviosCarrier", BusinessDelegate.getInstancia().listarPedidosPendientesDeValidacion());				
-			//TODO: por ahora uso este mockup
+
+			// TODO: agregar cuando Arturo confirme que esta ok
+			// request.setAttribute("enviosCarrier",
+			// BusinessDelegate.getInstancia().listarPedidosPendientesDeValidacion());
+			// TODO: por ahora uso este mockup
 			ArrayList<String> lstPedidosPendientesAprobacionDTO = new ArrayList<String>();
 			lstPedidosPendientesAprobacionDTO.add("Pedido 1 - Jona");
 			lstPedidosPendientesAprobacionDTO.add("Pedido 2 - Jona");
 			lstPedidosPendientesAprobacionDTO.add("Pedido 3 - Jona");
 			lstPedidosPendientesAprobacionDTO.add("4");
-			
-			request.setAttribute("lstPedidosPendientesAprobacionDTO",lstPedidosPendientesAprobacionDTO);
-			
+
+			request.setAttribute("lstPedidosPendientesAprobacionDTO", lstPedidosPendientesAprobacionDTO);
+
 			jspPage = "/AprobarRechazarPedidosPendientes.jsp";
 			break;
 		case "AprobarRechazarPedidoPost":
 			int idPedido = Integer.parseInt(request.getParameter("hdnIdPedido"));
 			String operacion = request.getParameter("hdnOperacion");
-			//TODO: aca llamar al metodo del busines delegate que le cambia el estado al pedido y devolver a una pantalla de confirmacion
-			String mensaje="";
-			if(operacion.equals("Aprobar"))
-			{
-				mensaje="El pedido nro: "+ Integer.toString(idPedido) + "ha sido aprobado";	
+			// TODO: aca llamar al metodo del busines delegate que le cambia el
+			// estado al pedido y devolver a una pantalla de confirmacion
+			String mensaje = "";
+			if (operacion.equals("Aprobar")) {
+				mensaje = "El pedido nro: " + Integer.toString(idPedido) + "ha sido aprobado";
+			} else {
+				mensaje = "El pedido nro: " + Integer.toString(idPedido) + "ha sido rechazado";
 			}
-			else
-			{
-				mensaje="El pedido nro: "+ Integer.toString(idPedido) + "ha sido rechazado";
-			}
-			
-			request.setAttribute("Mensaje",mensaje);
+
+			request.setAttribute("Mensaje", mensaje);
 			jspPage = "/Confirmaciones.jsp";
+			break;
+
+		case "altaTalle":
+			try {
+				TalleDTO talleDTO = new TalleDTO();
+				talleDTO.setDescripcion(request.getParameter("descripcion"));
+				BusinessDelegate.getInstancia().altaTalle(talleDTO);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+
+		case "validarPedido":
+			try {
+				BusinessDelegate.getInstancia().confirmarPedido(Integer.valueOf(request.getParameter("IdPedido")));
+				String msj = "El pedido fue validado exitosamente";
+				request.setAttribute("Mensaje", msj);
+				jspPage = "/confirmarPedido.jsp";
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			break;
 		default:
 			break;
 		}
-                                 
+
 		dispatch(jspPage, request, response);
 	}
 

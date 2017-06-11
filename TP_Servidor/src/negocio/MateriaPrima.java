@@ -1,5 +1,6 @@
 package negocio;
 
+import entities.MateriaPrimaEntity;
 import estados.EstadoMP;
 
 public class MateriaPrima {
@@ -95,6 +96,12 @@ public class MateriaPrima {
 	public MateriaPrima() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public MateriaPrima(MateriaPrimaEntity materiaprima) {
+		this.cantidadAComprar=materiaprima.getCantidadAComprar();
+		this.codigo=materiaprima.getCodigo();
+		this.nombre=materiaprima.getNombre();
 	}
 	
 	

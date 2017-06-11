@@ -8,7 +8,10 @@
 </head>
 <body>
 <%
-		String mensaje = request.getAttribute("Mensaje").toString();	
+		Object mensaje = request.getAttribute("Mensaje");	
+	if(mensaje!=null){
+		mensaje = mensaje.toString();
+	}
 	%>
 <h1><%= mensaje %></h1>
 </body>

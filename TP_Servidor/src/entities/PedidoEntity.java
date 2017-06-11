@@ -54,7 +54,6 @@ public class PedidoEntity implements Serializable{
 	@ForeignKey(name="FK_FACTURA_ID")
 	private FacturaEntity factura;
 	@Enumerated(EnumType.STRING)
-
 	private ESTADO estado;
 
 	

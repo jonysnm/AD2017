@@ -31,8 +31,8 @@ public class Cliente {
 			nuevoCliente();
 			nuevaSucursal();
 			Integer id=nuevoPedido();
-			System.out.println(("IDPedido: " + id));
-			businessDelegate.confirmarPedido(id);
+//			System.out.println(("IDPedido: " + id));
+//			businessDelegate.confirmarPedido(id);
       	} catch (RemoteException e) {
 			e.printStackTrace();
 		}

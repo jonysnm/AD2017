@@ -1,5 +1,6 @@
 package negocio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dao.PedidoDAO;
@@ -78,6 +79,20 @@ public class Prenda {
 		this.costoProduccionActual=pr.getCostoProduccionActual();
 		this.descripcion=pr.getDescripcion();
 		this.vigente=pr.isVigente();
+		List<ItemPrenda> itemsPrenda = new ArrayList<ItemPrenda>();
+		for (int i=0 ;i<pr.getIp().size(); i++) {
+			ItemPrenda ip = new ItemPrenda();
+			ip.setColor(new Color(pr.getIp().get(i).getItemPrendaId().getColor()));
+			ip.setTalle(new Talle(pr.getIp().get(i).getItemPrendaId().getTalle()));
+			itemsPrenda.add(ip);
+		}
+		this.itemPrendas=itemsPrenda;
+		List<ItemMaterialPrenda> itemMaterialPrendas = new ArrayList<ItemMaterialPrenda>();
+		for (int i=0;i < pr.getItemMaterialPrenda().size();i++) {
+			itemMaterialPrendas.add(new ItemMaterialPrenda(pr.getItemMaterialPrenda().get(i)));
+		}
+		this.itemMaterialPrenda=itemMaterialPrendas;
+		
 	}
 	public boolean SoslaPrenda(int codigo){
 		return(this.getCodigo()==codigo);		

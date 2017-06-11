@@ -39,7 +39,6 @@ public class PrendaToDTO {
 			i.setCantidadutilizada(itemMaterialPrenda.getCantidadutilizada());
 			i.setDespedicio(itemMaterialPrenda.getDespedicio());
 			i.setMateriaprima(MateriaPrimaToDTO.toDTO(itemMaterialPrenda.getMateriaprima()));
-			i.setPrenda(PrendaToDTO.toDTO(itemMaterialPrenda.getPrenda()));
 			itemMaterialPrendaDTOs.add(i);
 		}
 		prendaDTO.setItemMaterialPrenda(itemMaterialPrendaDTOs);

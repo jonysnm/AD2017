@@ -1,11 +1,11 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,9 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.ForeignKey;
-
-import negocio.AreaProduccionInvolucrada;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name="Prenda")
@@ -25,19 +24,22 @@ public class PrendaEntity implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer IdPrenda;
 	private String descripcion;
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="item_materialprenda")
-	@ForeignKey(name="FK_ITEM_MATERIAL_PRENDA_ID")
-	private List<ItemMaterialPrendaEntity> itemMaterialPrenda=new ArrayList<ItemMaterialPrendaEntity>();
-	@OneToMany(mappedBy="itemPrendaId.prenda",cascade=CascadeType.ALL)
-	@ForeignKey(name="FK_ITEM_PRENDA_ID")
-	private List<ItemPrendaEntity> ip=new ArrayList<ItemPrendaEntity>();
+	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@Fetch(value=FetchMode.SELECT)
+	@JoinColumn(name="IdPrenda", referencedColumnName="IdPrenda")
+	private List<ItemMaterialPrendaEntity> itemMaterialPrenda;
+
+	@OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL,mappedBy="itemPrendaId.prenda")
+	@Fetch(value=FetchMode.SELECT)
+	private List<ItemPrendaEntity> ip;
+	
 	private Boolean vigente;
 	private Float costoProduccion;
 	private Float costoProduccionActual;
 	private Float porcentajeGanancia;
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="idPrenda")
+	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@JoinColumn(name="IdPrenda")
+	@Fetch(value=FetchMode.SELECT)
 	private List<AreaProduccionInvolucradaEntity> areasInvolucradas;
 	public Integer getIdPrenda() {
 		return IdPrenda;

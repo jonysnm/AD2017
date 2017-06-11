@@ -5,6 +5,7 @@ import java.util.HashSet;
 
 import dao.AdministracionDAO;
 import dto.SucursalDTO;
+import entities.EmpleadoEntity;
 import entities.SucursalEntity;
 
 public class Sucursal {
@@ -99,7 +100,10 @@ public class Sucursal {
 	public Sucursal(SucursalEntity sucursal){
 		this.codigoPostal=sucursal.getCodigoPostal();
 		this.direccion=sucursal.getDireccion();
-		this.empleados=new HashSet<Empleado>();//REVISAR
+		this.empleados=new HashSet<Empleado>();
+		for (EmpleadoEntity empleadoEntity : sucursal.getEmpleados()) {
+			this.empleados.add(new Empleado(empleadoEntity));
+		}
 		this.gerente=new Empleado(sucursal.getGerente());
 		this.id=sucursal.getId();
 		this.localidad=sucursal.getLocalidad();

@@ -17,6 +17,7 @@ public class PedidoDTO implements Serializable{
 	private Date fecharealDespacho;
 	private List<ItemPedidoDTO> items;
 	private float total;
+	private String estado;
 	
 	public PedidoDTO(){
 		setItems(new ArrayList<ItemPedidoDTO>());
@@ -62,5 +63,11 @@ public class PedidoDTO implements Serializable{
 	}
 	public void setItems(List<ItemPedidoDTO> items) {
 		this.items = items;
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 }
