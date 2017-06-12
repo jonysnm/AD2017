@@ -8,6 +8,7 @@ import dao.PedidoDAO;
 import entities.ItemPedidoEntity;
 import entities.PedidoEntity;
 
+
 public class Pedido {
 	private int id;
 	private Cliente cliente;
@@ -16,6 +17,7 @@ public class Pedido {
 	private Date fecharealDespacho;
 	private List<ItemPedido> items=new ArrayList<ItemPedido>();
 	private Sucursal sucursal;
+	private List<ItemFaltantePedido> lstItemsFaltantesPedidos = new ArrayList<ItemFaltantePedido>();
 	private ESTADO estado;
 public Pedido(){}
 	public Pedido(PedidoEntity pedido){
@@ -106,6 +108,16 @@ public Pedido(){}
   		}
   		return false;
   	}
+  	
+  	
+  	//Jonathan Methods
+  	public void AgregarItemFaltante(Pedido pedido, ItemPedido itemPedido, int cantidadFaltante)
+  	{
+  		ItemFaltantePedido itemFaltante = new ItemFaltantePedido(pedido, itemPedido, cantidadFaltante);
+  				  		
+  		PedidoDAO.getInstancia().NuevoItemFaltantePedido(itemFaltante);
+  	}
+  	
   	public void save(){
 		PedidoDAO.getInstancia().nuevoPedido(this);	
 	}

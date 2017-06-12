@@ -12,6 +12,7 @@ import org.hibernate.hql.ast.QuerySyntaxException;
 
 import entities.ClienteEntity;
 import entities.ColorEntity;
+import entities.ItemFaltantePedidoEntity;
 import entities.ItemPedidoEntity;
 import entities.ItemPedidoId;
 import entities.PedidoEntity;
@@ -19,6 +20,7 @@ import entities.PrendaEntity;
 import entities.SucursalEntity;
 import entities.TalleEntity;
 import hbt.HibernateUtil;
+import negocio.ItemFaltantePedido;
 import negocio.ItemPedido;
 import negocio.Pedido;
 import negocio.Prenda;
@@ -147,6 +149,18 @@ public class PedidoDAO {
 		pe.setFecharealDespacho(p.getFecharealDespacho());
 		pe.setSucursal(AdministracionDAO.getInstancia().SucursalToEntity(p.getSucursal()));
 		return pe;
+	}
+	public int NuevoItemFaltantePedido(ItemFaltantePedido itemFaltante) {
+		// TODO Auto-generated method stub
+		ItemFaltantePedidoEntity ifp = itemFaltante.ToEntity();
+		
+		Session session=sf.openSession();
+		session.beginTransaction();
+		Integer idItemFaltantePedido = (Integer) session.save(ifp);
+		session.getTransaction().commit();
+		session.flush();
+		session.close();
+		return idItemFaltantePedido;
 	}
 	
 

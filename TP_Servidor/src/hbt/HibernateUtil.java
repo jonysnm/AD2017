@@ -30,6 +30,7 @@ import entities.ProveedorEntity;
 import entities.SucursalEntity;
 import entities.TalleEntity;
 import entities.UbicacionEntity;
+import negocio.ItemFaltantePedido;
 
 public class HibernateUtil {
 	private static final SessionFactory sessionFactory;
@@ -64,6 +65,7 @@ public class HibernateUtil {
 			config.addAnnotatedClass(OrdenDespachoEntity.class);
 			config.addAnnotatedClass(UbicacionEntity.class);
 			config.addAnnotatedClass(ProveedorEntity.class);
+			config.addAnnotatedClass(ItemFaltantePedido.class);
 			
 			
 			sessionFactory=config.buildSessionFactory();
