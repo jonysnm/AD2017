@@ -9,6 +9,7 @@ import entities.ItemPedidoEntity;
 import entities.PedidoEntity;
 import estados.EstadoAprobacionPedidoCliente;
 
+
 public class Pedido {
 	private int id;
 	private Cliente cliente;
@@ -17,7 +18,12 @@ public class Pedido {
 	private Date fecharealDespacho;
 	private List<ItemPedido> items=new ArrayList<ItemPedido>();
 	private Sucursal sucursal;
+<<<<<<< HEAD
 	private EstadoAprobacionPedidoCliente estado;
+=======
+	private List<ItemFaltantePedido> lstItemsFaltantesPedidos = new ArrayList<ItemFaltantePedido>();
+	private ESTADO estado;
+>>>>>>> Jonathan_Dev
 public Pedido(){}
 	public Pedido(PedidoEntity pedido){
 		this.id=pedido.getId();
@@ -115,6 +121,7 @@ public Pedido(){}
   			}
   		}
   		return false;
+
   	}  	
   	public boolean discontinuosStock() {
 		List<ItemPedido> it= this.getItems();
@@ -127,6 +134,19 @@ public Pedido(){}
 		}
 		return true;
 	}
+
+
+  	}
+  	
+  	
+  	//Jonathan Methods
+  	public void AgregarItemFaltante(Pedido pedido, ItemPedido itemPedido, int cantidadFaltante)
+  	{
+  		ItemFaltantePedido itemFaltante = new ItemFaltantePedido(pedido, itemPedido, cantidadFaltante);
+  				  		
+  		PedidoDAO.getInstancia().NuevoItemFaltantePedido(itemFaltante);
+  	}
+  	
 
   	public void save(){
 		PedidoDAO.getInstancia().nuevoPedido(this);	

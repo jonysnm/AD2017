@@ -86,8 +86,11 @@ public class Prenda {
 	
 	}
 
-
-
-
+	public PrendaEntity ToEntity()
+	{
+		PrendaEntity entity = new PrendaEntity();
+		//TODO: Completar mapeo
+		return entity;
+	}
 
 }
