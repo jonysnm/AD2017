@@ -24,6 +24,9 @@ public class ItemPrendaEntity implements Serializable{
 	private float cantidad;
 	private float cantidadReservada;
 	
+	public ItemPrendaEntity() {
+		super();
+	}
 	public Integer getLote() {
 		return lote;
 	}

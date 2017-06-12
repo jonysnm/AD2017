@@ -20,9 +20,12 @@ import dao.AdministracionDAO;
 import dao.AlmacenDAO;
 import dao.ClienteDAO;
 import dao.PedidoDAO;
+import dto.ColorDTO;
 import dto.ItemBultoDTO;
 import dto.ItemPedidoDTO;
 import dto.ItemPrendaDTO;
+import dto.PrendaDTO;
+import dto.TalleDTO;
 import dto.UbicacionDTO;
 import entities.ItemBultoEntity;
 import entities.PrendaEntity;
@@ -80,18 +83,23 @@ public class ControladorAlmacen {
 		List<ItemBulto> itemsbulto=new ArrayList<ItemBulto>();
 		for(ItemBultoDTO ib: ubicacion.getBulto()){
 			ItemBulto iBulto=new ItemBulto();
-			iBulto.setCantidad(ib.getCantidad());
-			iBulto.setCantidadReservada(ib.getCantidadReservada());
-			Prenda prenda = new Prenda();
-			prenda.setCodigo(ib.getPr().getCodigo());
-			prenda.setCostoProduccion(ib.getPr().getCostoProduccion());
-			prenda.setCostoProduccionActual(ib.getPr().getCostoProduccionActual());
-			prenda.setDescripcion(ib.getPr().getDescripcion());
-			iBulto.setPr(prenda);
+			ItemPrenda ip=new ItemPrenda();
+			ip.setCantidad(ib.getIpr().getCantidad());
+			ip.setCantidadReservada(ib.getIpr().getCantidadReservada());
+			Prenda p=new Prenda();
+			p.setCodigo(ib.getIpr().getPrenda().getCodigo());
+			ip.setPrenda(p);
+			Color c=new Color();
+			c.setIdcolor(ib.getIpr().getColor().getIdColor());
+			Talle t=new Talle();
+			t.setIdTalle(ib.getIpr().getTalle().getIdTalle());
+			ip.setColor(c);
+			ip.setTalle(t);
+			iBulto.setIpr(ip);
 			itemsbulto.add(iBulto);
 		}
 		ub.setBulto(itemsbulto);
-		AlmacenDAO.getInstancia().nuevaUbicacion(ub);
+		AlmacenDAO.getInstancia().nuevaUbicacion(ub);		
 	}
 	//	public void iniciarProcesamientoPedido(Pedido pedido) {
 //	//TODO 3_

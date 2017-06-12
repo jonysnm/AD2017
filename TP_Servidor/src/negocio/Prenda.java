@@ -8,7 +8,6 @@ import entities.PrendaEntity;
 public class Prenda {
 	private int codigo;
 	private String descripcion;
-	private List<ItemPrenda> itemPrendas;
 	private List<ItemMaterialPrenda> itemMaterialPrenda;
 	private boolean vigente;
 	private float costoProduccion;
@@ -81,12 +80,6 @@ public class Prenda {
 	}
 	public boolean SoslaPrenda(int codigo){
 		return(this.getCodigo()==codigo);		
-	}
-	public List<ItemPrenda> getItemPrendas() {
-		return itemPrendas;
-	}
-	public void setItemPrendas(List<ItemPrenda> itemPrendas) {
-		this.itemPrendas = itemPrendas;
 	}
 	public boolean estoyVigente2() {
 		return this.vigente;

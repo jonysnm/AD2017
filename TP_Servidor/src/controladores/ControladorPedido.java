@@ -57,21 +57,6 @@ public class ControladorPedido {
 			prenda.setCostoProduccion(itemPedido.getPrenda().getCostoProduccion());
 			prenda.setCostoProduccionActual(itemPedido.getPrenda().getCostoProduccionActual());
 			prenda.setDescripcion(itemPedido.getPrenda().getDescripcion());
-			List<ItemPrenda> itemsPrendas = new ArrayList<ItemPrenda>();
-			for (ItemPrendaDTO itemPrendaDTO : itemPedido.getPrenda().getItemPrenda()) {
-				ItemPrenda itemPrenda = new ItemPrenda();
-				Color colores = new Color();
-				colores.setDescripcion(itemPrendaDTO.getColor().getDescripcion());
-				colores.setIdcolor(itemPrendaDTO.getColor().getIdColor());
-				itemPrenda.setColor(color);
-				Talle talles = new Talle();
-				talles.setIdTalle(itemPrendaDTO.getTalle().getIdTalle());
-				talles.setDescripcion(itemPrendaDTO.getTalle().getDescripcion());
-				itemPrenda.setTalle(talle);
-				itemsPrendas.add(itemPrenda);
-				
-			}
-			prenda.setItemPrendas(itemsPrendas);
 			iPedido.setPrenda(prenda);
 			itemsPedidos.add(iPedido);
 		}

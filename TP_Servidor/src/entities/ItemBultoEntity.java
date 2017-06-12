@@ -17,7 +17,7 @@ public class ItemBultoEntity implements Serializable{
 	 */
 	private static final long serialVersionUID = -5819313655117422063L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	@ManyToOne
 	@JoinColumn(name="idMateriaPrima")
@@ -27,6 +27,7 @@ public class ItemBultoEntity implements Serializable{
 	private ItemPrendaEntity ipr;
 	//private float cantidad;
 	//private float cantidadReservada;
+	
 	public int getId() {
 		return id;
 	}

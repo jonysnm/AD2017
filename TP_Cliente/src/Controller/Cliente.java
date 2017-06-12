@@ -97,11 +97,19 @@ public class Cliente {
     private void nuevaubicacion()throws RemoteException {
     	UbicacionDTO ubicacionDTO=new UbicacionDTO();
     	ItemBultoDTO item=new ItemBultoDTO();
-    	item.setCantidad(5);
-    	item.setCantidadReservada(2);
+    	ItemPrendaDTO ip=new ItemPrendaDTO();
+    	ip.setCantidad(5);
+    	ip.setCantidadReservada(2);
+    	ColorDTO colorDTO = new ColorDTO();
+		colorDTO.setIdColor(1);
+		ip.setColor(colorDTO);
+		TalleDTO talleDTO = new TalleDTO();
+		talleDTO.setIdTalle(1);
+    	ip.setTalle(talleDTO);;
     	PrendaDTO prendaDTO = new PrendaDTO();
-		prendaDTO.setCodigo(5);
-		item.setPr(prendaDTO);
+		prendaDTO.setCodigo(3);
+		ip.setPrenda(prendaDTO);
+		item.setIpr(ip);		
 		List<ItemBultoDTO> itemsbultos = new ArrayList<ItemBultoDTO>();
 		itemsbultos.add(item);
 		ubicacionDTO.setBulto(itemsbultos);		
@@ -137,7 +145,8 @@ public class Cliente {
 		talleDTO.setIdTalle(1);
 		item.setTalle(talleDTO);
 		PrendaDTO prendaDTO = new PrendaDTO();
-		prendaDTO.setCodigo(5);
+		prendaDTO.setCodigo(3);
+		item.setPrenda(prendaDTO);
 		itemsPedido.add(item);
 		pedidoDTO.setItems(itemsPedido);
 
