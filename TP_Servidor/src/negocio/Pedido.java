@@ -136,7 +136,7 @@ public Pedido(){}
 		PedidoDAO.getInstancia().ModificarPedido(this);	
 	}
 	public List<ItemPedido> getItems() {
-		return items;
+		return items;;
 	}
 	public void setItems(List<ItemPedido> items) {
 		this.items = items;
