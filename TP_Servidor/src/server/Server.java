@@ -2,6 +2,8 @@ package server;
 
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
 import app.ClientesRMI;
 import app.Logistica;
@@ -12,10 +14,25 @@ import interfazRemota.IClienteControlador;
 import interfazRemota.ILogistica;
 import interfazRemota.IPuntoDeVentaControlador;
 
+
 public class Server {
-	public static void main(String[] args) {
-		new Server();
+	
+	private static Server instancia;
+	
+	Registry registry;
+	String msje;
+	
+	
+	public static Server getInstancia(){
+		if(instancia == null){
+			instancia = new Server();
+		} 
+		return instancia;
 	}
+	
+//	public static void main(String[] args) {
+//		new Server();
+//	}
 	public Server() {
 		iniciar();
 	}	
@@ -34,10 +51,23 @@ public class Server {
 			System.out.println("Se fija el SERVIDOR GESTION SUCURSALES");
 			System.out.println("Se fija el SERVIDOR GESTION CLIENTES");
 			System.out.println("Se fija el SERVIDOR GESTION DESPACHO");			
-			
+			this.msje ="Se cargó el servidor";
 		}catch(Exception e){
+			this.msje = "ERROR al cargar Server.Java";
 			e.printStackTrace();
 		}
+	}
+	
+	public void cerrar(){
+		try {
+			UnicastRemoteObject.unexportObject(this.registry, true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public String getMensaje() {	
+		return this.msje;
 	}
 
 }
