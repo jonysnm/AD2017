@@ -33,7 +33,7 @@ import entities.ItemBultoEntity;
 import entities.ItemMovimientoStockEntity;
 import entities.ItemPedidoEntity;
 import entities.ItemPedidoId;
-import entities.ItemPrendaEntity;
+import entities.ItemPrendaStockEntity;
 import entities.PedidoEntity;
 import entities.PrendaEntity;
 import entities.SucursalEntity;
@@ -78,7 +78,7 @@ public class AlmacenDAO {
 			
 			for(ItemBulto ib: ubicacion.getBulto()){				
 				ItemBultoEntity iBulto=new ItemBultoEntity();
-				ItemPrendaEntity ip=new ItemPrendaEntity();
+				ItemPrendaStockEntity ip=new ItemPrendaStockEntity();
 				ip.setCantidad(ib.getIpr().getCantidad());
 				ip.setCantidadReservada(ib.getIpr().getCantidadReservada());
 				PrendaEntity prendaEntity = (PrendaEntity)session.get(PrendaEntity.class, ib.getIpr().getPrenda().getCodigo());

@@ -24,7 +24,7 @@ public class ItemBultoEntity implements Serializable{
 	private MateriaPrimaEntity mp;
 	@ManyToOne
 	@JoinColumn(name="id_ItemPrenda")
-	private ItemPrendaEntity ipr;
+	private ItemPrendaStockEntity ipr;
 	//private float cantidad;
 	//private float cantidadReservada;
 	
@@ -44,10 +44,10 @@ public class ItemBultoEntity implements Serializable{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ItemPrendaEntity getIpr() {
+	public ItemPrendaStockEntity getIpr() {
 		return ipr;
 	}
-	public void setIpr(ItemPrendaEntity ipr) {
+	public void setIpr(ItemPrendaStockEntity ipr) {
 		this.ipr = ipr;
 	}
 }

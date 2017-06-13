@@ -98,6 +98,13 @@ public class ControladorPedido {
 				p.update();
 			}
 	}
+	public void cambiarEstadoPedidoPendienteAprobacion(Integer idPedido,EstadoAprobacionPedidoCliente estado){
+		Pedido p=PedidoDAO.getInstancia().getPedido(idPedido);
+					p.setEstado(estado);
+					p.update();
+	}
+
+	
 	public void IniciarProcesamientoPedidoAprobado(Integer idPedido){
 		   Pedido p=PedidoDAO.getInstancia().getPedidoAprobado(idPedido);
 		   if(p!=null){

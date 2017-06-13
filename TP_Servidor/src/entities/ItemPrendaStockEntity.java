@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 @Entity
 @Table(name="Items_Prenda_Stock")
-public class ItemPrendaEntity implements Serializable{
+public class ItemPrendaStockEntity implements Serializable{
 	
 	private static final long serialVersionUID = 3013620458553400990L;
 	
@@ -24,7 +24,7 @@ public class ItemPrendaEntity implements Serializable{
 	private float cantidad;
 	private float cantidadReservada;
 	
-	public ItemPrendaEntity() {
+	public ItemPrendaStockEntity() {
 		super();
 	}
 	public Integer getLote() {
