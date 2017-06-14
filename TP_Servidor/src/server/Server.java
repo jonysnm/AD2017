@@ -30,9 +30,9 @@ public class Server {
 		return instancia;
 	}
 	
-//	public static void main(String[] args) {
-//		new Server();
-//	}
+	public static void main(String[] args) {
+		new Server();
+	}
 	public Server() {
 		iniciar();
 	}	

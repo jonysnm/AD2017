@@ -23,7 +23,7 @@ public class ItemBultoEntity implements Serializable{
 	@JoinColumn(name="idMateriaPrima")
 	private MateriaPrimaEntity mp;
 	@ManyToOne
-	@JoinColumn(name="id_ItemPrenda")
+	@JoinColumn(name="id_ItemPrendaStock")
 	private ItemPrendaStockEntity ipr;
 	//private float cantidad;
 	//private float cantidadReservada;
