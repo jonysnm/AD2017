@@ -1,5 +1,6 @@
 package test;
 
+
 import hbt.HibernateUtil;
 
 public class Test {

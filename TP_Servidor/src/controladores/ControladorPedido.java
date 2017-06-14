@@ -12,9 +12,9 @@ import dto.ItemPrendaDTO;
 import dto.PedidoDTO;
 import dto.PedidosPendientesAprobacionDTO;
 import dto.TalleDTO;
+import estados.EstadoAprobacionPedidoCliente;
 import negocio.Cliente;
 import negocio.Color;
-import negocio.ESTADO;
 import negocio.ItemPedido;
 import negocio.ItemPrenda;
 import negocio.Pedido;
@@ -79,7 +79,7 @@ public class ControladorPedido {
 		p.setSucursal(s);
 		p.setFechaCreacion(new Date());
 
-		p.setEstado(ESTADO.En_Verificación);
+		p.setEstado(EstadoAprobacionPedidoCliente.PendienteAprobarSucursal);
 
 		Integer id=PedidoDAO.getInstancia().nuevoPedido(p);
 		return id;
@@ -91,18 +91,41 @@ public class ControladorPedido {
 	public void confirmarPedido(Integer idPedido){
 		Pedido p=PedidoDAO.getInstancia().getPedido(idPedido);
 			if(p.getCliente().getLimiteCredito()>p.TotalPedido(p)){
-				if(p.ObtenerdisponibilidadporPrenda(p)){
-					p.setEstado(ESTADO.Procesar_Pedido);
+				if(p.ObtenerVigenciaporPrenda(p)){
+					p.setEstado(EstadoAprobacionPedidoCliente.AprobadoenSucursal);
 					p.update();
 					System.out.println("PEDIDO OK");
 					
+				}else{
+//					FIXME VER FRAN
+//					if(p.ObtenerDisponiblePrenda(p)){
+//						p.setEstado(EstadoAprobacionPedidoCliente.Completo);
+//						p.update();
+//						System.out.println("PEDIDO OK DISCONTINUO");
+//					}else{
+//						p.setEstado(EstadoAprobacionPedidoCliente.AprobadoenSucursal);
+//						p.update();
+//						System.out.println("PEDIDO NO OK DISCONTINUO");
+//					}
 				}
 			}else{
-				System.out.println("PEDIDO NO OK");
-				//verificar si se puede vender (stock almacenado)
-				p.setEstado(ESTADO.Cancelado);
+				System.out.println("PEDIDO NO OK");		
+				p.setEstado(EstadoAprobacionPedidoCliente.RechazadoenSucursal);
 				p.update();
 			}
+	}
+	public void IniciarProcesamientoPedidoAprobado(Integer idPedido){
+		   Pedido p=PedidoDAO.getInstancia().getPedidoAprobado(idPedido);
+		   if(p!=null){
+//				FIXME VER FRAN
+////			   if(p.ObtenerDisponiblePrenda(p)){
+//				   p.setEstado(EstadoAprobacionPedidoCliente.Completo);
+//				   p.update();
+//				   System.out.println("PEDIDO OK COMPLETO");
+//			   }else{
+//				   //PENDIENTE
+//			   }
+		   }
 	}
 	public float Obtenerlimitecrédito(Cliente c){
 		Cliente cli=ClienteDAO.getInstancia().getCliente(c.getId());
@@ -114,7 +137,7 @@ public class ControladorPedido {
 
 	public void cancelarPedido(Integer id){
 		Pedido pe=PedidoDAO.getInstancia().getPedido(id);
-		pe.setEstado(ESTADO.Cancelado);
+		pe.setEstado(EstadoAprobacionPedidoCliente.RechazadoenSucursal);
 		pe.update();
 	}
 	

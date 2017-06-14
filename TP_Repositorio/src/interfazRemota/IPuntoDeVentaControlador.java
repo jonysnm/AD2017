@@ -24,5 +24,7 @@ public interface IPuntoDeVentaControlador extends Remote{
 	public void generarFactura(PedidoDTO p)throws RemoteException;
 	public List<PedidoDTO> listarPedidosPendientesDeValidacion() throws RemoteException;
 	public void altaTalle(TalleDTO talleDTO) throws RemoteException;
+	public void IniciarProcesamientoPedidoAprobado(Integer Idpedido)throws RemoteException;
+	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal)throws RemoteException;
 
 }

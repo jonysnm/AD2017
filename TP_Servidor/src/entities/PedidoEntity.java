@@ -20,7 +20,9 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
 
-import negocio.ESTADO;
+import dto.ESTADO;
+import estados.EstadoAprobacionPedidoCliente;
+
 
 
 @Entity
@@ -54,7 +56,8 @@ public class PedidoEntity implements Serializable{
 	@ForeignKey(name="FK_FACTURA_ID")
 	private FacturaEntity factura;
 	@Enumerated(EnumType.STRING)
-	private ESTADO estado;
+	private ESTADO state;
+	private EstadoAprobacionPedidoCliente estado;
 
 	
 	public PedidoEntity(){}
@@ -102,11 +105,12 @@ public class PedidoEntity implements Serializable{
 	public void setItems(List<ItemPedidoEntity> items) {
 		this.items = items;
 	}
-	public ESTADO getEstado() {
+	public EstadoAprobacionPedidoCliente getEstado() {
 		return estado;
 	}
-	public void setEstado(ESTADO estado) {
+	public void setEstado(EstadoAprobacionPedidoCliente estado) {
 		this.estado = estado;
 	}
+	
 	
 }

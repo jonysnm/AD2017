@@ -266,7 +266,8 @@ public class AdministracionDAO {
 				peddto.setSaldoCtaCte(pedido.getCliente().getCtacte().getSaldo());
 				peddto.setTotal(pedido.TotalPedido2());
 				
-				peddto.setContieneDiscontinuosyHaystock(pedido.discontinuosStock());
+//				peddto.setContieneDiscontinuosyHaystock(pedido.discontinuosStock());
+				pedidosVista.add(peddto);
 				
 			}
 			return pedidosVista;

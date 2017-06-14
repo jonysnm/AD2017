@@ -42,6 +42,9 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 		ControladorPedido.getInstancia().confirmarPedido(Idpedido);
 
 	}
+	public void IniciarProcesamientoPedidoAprobado(Integer Idpedido)throws RemoteException {
+		ControladorPedido.getInstancia().IniciarProcesamientoPedidoAprobado(Idpedido);;
+	}
 	/*
 	@Override
 	public String informarEstadoPedido() {

@@ -8,14 +8,14 @@ import java.util.List;
 import businessDelegate.BusinessDelegate;
 import dto.ClienteDTO;
 import dto.ColorDTO;
-import dto.CuentaCorrienteDTO;
 import dto.EmpleadoDTO;
+import dto.ItemBultoDTO;
 import dto.ItemPedidoDTO;
-import dto.ItemPrendaDTO;
 import dto.PedidoDTO;
 import dto.PrendaDTO;
 import dto.SucursalDTO;
 import dto.TalleDTO;
+import dto.UbicacionDTO;
 
 public class Cliente {
 	BusinessDelegate businessDelegate;
@@ -31,8 +31,10 @@ public class Cliente {
 			nuevoCliente();
 			nuevaSucursal();
 			Integer id=nuevoPedido();
-//			System.out.println(("IDPedido: " + id));
-//			businessDelegate.confirmarPedido(id);
+			nuevaubicacion();
+			System.out.println(("IDPedido: " + id));
+			businessDelegate.confirmarPedido(id);
+			businessDelegate.IniciarProcesamientoPedidoAprobado(id);
       	} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -91,7 +93,19 @@ public class Cliente {
 		pedido = businessDelegate.obtenerPedido(12);
 		System.out.println(("IDPedido: %d" + pedido.getId()));
 	}
-
+    private void nuevaubicacion()throws RemoteException {
+    	UbicacionDTO ubicacionDTO=new UbicacionDTO();
+    	ItemBultoDTO item=new ItemBultoDTO();
+    	item.setCantidad(5);
+    	item.setCantidadReservada(2);
+    	PrendaDTO prendaDTO = new PrendaDTO();
+		prendaDTO.setCodigo(5);
+		item.setPr(prendaDTO);
+		List<ItemBultoDTO> itemsbultos = new ArrayList<ItemBultoDTO>();
+		itemsbultos.add(item);
+		ubicacionDTO.setBulto(itemsbultos);		
+		businessDelegate.altaUbicacion(ubicacionDTO);
+    }
 	/* Nuevo Pedido */
 	private Integer nuevoPedido() throws RemoteException {
 		PedidoDTO pedidoDTO = new PedidoDTO();
@@ -122,14 +136,7 @@ public class Cliente {
 		talleDTO.setIdTalle(1);
 		item.setTalle(talleDTO);
 		PrendaDTO prendaDTO = new PrendaDTO();
-		prendaDTO.setCodigo(1);
-		ItemPrendaDTO itemPrenda = new ItemPrendaDTO();
-		itemPrenda.setColor(colorDTO);
-		itemPrenda.setTalle(talleDTO);
-		List<ItemPrendaDTO> itemsPrenda = new ArrayList<ItemPrendaDTO>();
-		itemsPrenda.add(itemPrenda);
-		prendaDTO.setItemPrenda(itemsPrenda);
-		item.setPrenda(prendaDTO);
+		prendaDTO.setCodigo(5);
 		itemsPedido.add(item);
 		pedidoDTO.setItems(itemsPedido);
 

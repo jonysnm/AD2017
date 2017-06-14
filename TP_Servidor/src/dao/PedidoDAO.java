@@ -108,6 +108,32 @@ public class PedidoDAO {
 		}
 		return new Pedido(pedido);
 	}
+	public Pedido getPedidoAprobado(Integer idpedido){
+		PedidoEntity pedido = null;
+		try {
+			Session session = sf.openSession();
+			
+			String hql = "FROM PedidoEntity P " +
+						 "WHERE P.id = :id and P.estado='AprobadoenSucursal'";
+			
+			Query query = session.createQuery(hql);
+			query.setParameter("id", idpedido);
+			query.setMaxResults(1);
+			
+			if(query.uniqueResult() != null){
+				pedido = (PedidoEntity) query.uniqueResult();
+	        	session.close();
+	        }else{
+	        	session.close();
+	        }
+		}catch (QuerySyntaxException q){
+			JOptionPane.showMessageDialog(null, q, "Error", JOptionPane.ERROR_MESSAGE);
+			System.out.println("Exception de sintaxis en PEDIDODAO: buscarpedidoscompletos");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new Pedido(pedido);
+	}
 	public Prenda getPrenda(int codigo){
 		try{
 			Session session=sf.openSession();
@@ -137,6 +163,24 @@ public class PedidoDAO {
 			e.printStackTrace();
 			System.out.println("Error PedidoDAO. Modificar Pedido");
 		}
+	}
+	public List<Pedido> obtenerPedidosCompletos() {
+		try {
+			Session session = sf.openSession();
+			@SuppressWarnings("unchecked")
+		List<PedidoEntity> lista = session.createQuery("from PedidoEntity where estado='En Verificacion'").list();
+//			List<PedidoEntity> lista = session.createQuery("from PedidoEntity p where p.estado = 'PENDIENTE'").list();
+			session.close();
+			List<Pedido> pedidos = new ArrayList<Pedido>();
+			for (PedidoEntity pedidoEntity : lista) {
+				pedidos.add(new Pedido(pedidoEntity));
+			}
+			return pedidos;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("ErrorDAO: AdministracionDAO: Listar Pedidos pendientes de validacion");
+		}
+		return null;
 	}
 	public PedidoEntity PedidoToEntity(Pedido p){
 		PedidoEntity pe=new PedidoEntity();

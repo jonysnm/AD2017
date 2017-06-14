@@ -1,9 +1,15 @@
 package controladores;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import negocio.MateriaPrima;
 import dao.AlmacenDAO;
+import dto.ItemBultoDTO;
+import dto.UbicacionDTO;
+import negocio.ItemBulto;
+import negocio.MateriaPrima;
+import negocio.Prenda;
+import negocio.Ubicacion;
 
 public class ControladorAlmacen {
 
@@ -18,10 +24,10 @@ public class ControladorAlmacen {
 	}
 	
 	
-	public void obtenerDisponiblePorPrenda(int idPrenda) {
-		AlmacenDAO.getInstancia().obtenerDisponiblePorPrenda(idPrenda);
-		
-	}
+//	public void obtenerDisponiblePorPrenda(int idPrenda) {
+//		AlmacenDAO.getInstancia().obtenerDisponiblePorPrenda(idPrenda);
+//		
+//	}
 	
 	public void actualizarStockPrenda(int idPrenda) {
 	
@@ -51,9 +57,25 @@ public class ControladorAlmacen {
 	public void asignarUbicacionDeposito(int idLote) {
 	
 	}
-
-	
-//	public void iniciarProcesamientoPedido(Pedido pedido) {
+	public void altaUbicacion(UbicacionDTO ubicacion){
+		Ubicacion ub=new Ubicacion();
+		List<ItemBulto> itemsbulto=new ArrayList<ItemBulto>();
+		for(ItemBultoDTO ib: ubicacion.getBulto()){
+			ItemBulto iBulto=new ItemBulto();
+			iBulto.setCantidad(ib.getCantidad());
+			iBulto.setCantidadReservada(ib.getCantidadReservada());
+			Prenda prenda = new Prenda();
+			prenda.setCodigo(ib.getPr().getCodigo());
+			prenda.setCostoProduccion(ib.getPr().getCostoProduccion());
+			prenda.setCostoProduccionActual(ib.getPr().getCostoProduccionActual());
+			prenda.setDescripcion(ib.getPr().getDescripcion());
+			iBulto.setPr(prenda);
+			itemsbulto.add(iBulto);
+		}
+		ub.setBulto(itemsbulto);
+		AlmacenDAO.getInstancia().nuevaUbicacion(ub);
+	}
+	//	public void iniciarProcesamientoPedido(Pedido pedido) {
 //	//TODO 3_
 //	}
 //	

@@ -7,6 +7,7 @@ import java.util.List;
 import dao.PedidoDAO;
 import entities.ItemPedidoEntity;
 import entities.PedidoEntity;
+import estados.EstadoAprobacionPedidoCliente;
 
 public class Pedido {
 	private int id;
@@ -16,7 +17,7 @@ public class Pedido {
 	private Date fecharealDespacho;
 	private List<ItemPedido> items=new ArrayList<ItemPedido>();
 	private Sucursal sucursal;
-	private ESTADO estado;
+	private EstadoAprobacionPedidoCliente estado;
 public Pedido(){}
 	public Pedido(PedidoEntity pedido){
 		this.id=pedido.getId();
@@ -84,6 +85,7 @@ public Pedido(){}
 		System.out.printf("TOTAL:%d",total);
 		return total;
 	}
+    
     public float TotalPedido2(){
 		float total=0;
 		for (ItemPedido itemPedido : this.getItems()) {
@@ -92,7 +94,7 @@ public Pedido(){}
 		System.out.printf("TOTAL:%d",total);
 		return total;
 	}
-	public boolean ObtenerdisponibilidadporPrenda(Pedido p) {
+  	public boolean ObtenerVigenciaporPrenda(Pedido p) {
 		List<ItemPedido> it=p.getItems();
 		for(ItemPedido ip:it){
 			if(ip.obtenervigencia(ip.getPrenda())){
@@ -103,8 +105,31 @@ public Pedido(){}
 		}
 		return true;
 	}
+//	FIXME VER FRAN
+//   	public boolean ObtenerDisponiblePrenda(Pedido p){
+//  		List<ItemPedido> it=p.getItems();
+//  		for(ItemPedido ip:it){
+//  			if(ip.ObtenerDisponibilidadStock(ip)){
+//  				return true;
+//  			}else{
+//  				;
+//  			}
+//  		}
+//  		return false;
+//  	}  	
+//  	public boolean discontinuosStock() {
+//		List<ItemPedido> it= this.getItems();
+//		for(ItemPedido ip:it){
+//			if(!ip.obtenervigencia2()){
+//				if(!ip.ObtenerDisponibilidadStock(ip.getPrenda())){
+//					return false;
+//				}
+//			}
+//		}
+//		return true;
+//	}
 
-	public void save(){
+  	public void save(){
 		PedidoDAO.getInstancia().nuevoPedido(this);	
 	}
 
@@ -117,21 +142,11 @@ public Pedido(){}
 	public void setItems(List<ItemPedido> items) {
 		this.items = items;
 	}
-	public ESTADO getEstado() {
+	public EstadoAprobacionPedidoCliente getEstado() {
 		return estado;
 	}
-	public void setEstado(ESTADO estado) {
+	public void setEstado(EstadoAprobacionPedidoCliente estado) {
 		this.estado = estado;
 	}
-	public boolean discontinuosStock() {
-		List<ItemPedido> it= this.getItems();
-		for(ItemPedido ip:it){
-			if(!ip.obtenervigencia2()){
-				if(!ip.hayStock()){
-					return false;
-				}
-			}
-		}
-		return true;
-	}
+	
 }

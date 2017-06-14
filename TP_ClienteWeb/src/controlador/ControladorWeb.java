@@ -1,7 +1,8 @@
 package controlador;
 
+
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import businessDelegate.BusinessDelegate;
+import dto.PedidosPendientesAprobacionDTO;
 import dto.TalleDTO;
 
 //import vo.ClienteVO;
@@ -61,31 +63,41 @@ public class ControladorWeb extends HttpServlet {
 			jspPage = "/index.jsp";
 			break;
 		case "aprobar_rechazar_pedidos":
-
-			// TODO: agregar cuando Arturo confirme que esta ok
-			// request.setAttribute("enviosCarrier",
-			// BusinessDelegate.getInstancia().listarPedidosPendientesDeValidacion());
-			// TODO: por ahora uso este mockup
+			
+			//TODO: agregar cuando Arturo confirme que esta ok request.setAttribute("enviosCarrier", BusinessDelegate.getInstancia().listarPedidosPendientesDeValidacion());				
+			//TODO: por ahora uso este mockup
+			
+			List<PedidosPendientesAprobacionDTO> lstPedidosPendientesAprobacionDTO = BusinessDelegate.getInstancia().obtenerPedidosPendientesdeAprobacion(1);
+			/*
+>>>>>>> c8fb046bc518783dee2cdbe2e38036cae99aa25d
 			ArrayList<String> lstPedidosPendientesAprobacionDTO = new ArrayList<String>();
 			lstPedidosPendientesAprobacionDTO.add("Pedido 1 - Jona");
 			lstPedidosPendientesAprobacionDTO.add("Pedido 2 - Jona");
 			lstPedidosPendientesAprobacionDTO.add("Pedido 3 - Jona");
 			lstPedidosPendientesAprobacionDTO.add("4");
+<<<<<<< HEAD
 
 			request.setAttribute("lstPedidosPendientesAprobacionDTO", lstPedidosPendientesAprobacionDTO);
 
+=======
+			*/
+			request.setAttribute("lstPedidosPendientesAprobacionDTO",lstPedidosPendientesAprobacionDTO);
+			
 			jspPage = "/AprobarRechazarPedidosPendientes.jsp";
 			break;
 		case "AprobarRechazarPedidoPost":
 			int idPedido = Integer.parseInt(request.getParameter("hdnIdPedido"));
 			String operacion = request.getParameter("hdnOperacion");
-			// TODO: aca llamar al metodo del busines delegate que le cambia el
-			// estado al pedido y devolver a una pantalla de confirmacion
-			String mensaje = "";
-			if (operacion.equals("Aprobar")) {
-				mensaje = "El pedido nro: " + Integer.toString(idPedido) + "ha sido aprobado";
-			} else {
-				mensaje = "El pedido nro: " + Integer.toString(idPedido) + "ha sido rechazado";
+			String mensaje="";
+			if(operacion.equals("Aprobar"))
+			{
+				mensaje="El pedido nro: "+ Integer.toString(idPedido) + "ha sido aprobado";
+				//TODO: aca llamar al metodo del busines delegate que le cambia el estado al pedido y devolver a una pantalla de confirmacion
+			}
+			else
+			{
+				mensaje="El pedido nro: "+ Integer.toString(idPedido) + "ha sido rechazado";
+				//TODO: aca llamar al metodo del busines delegate que le cambia el estado al pedido y devolver a una pantalla de confirmacion
 			}
 
 			request.setAttribute("Mensaje", mensaje);

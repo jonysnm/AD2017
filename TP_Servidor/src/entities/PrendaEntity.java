@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+
 @Entity
 @Table(name="Prenda")
 public class PrendaEntity implements Serializable{
@@ -84,17 +85,17 @@ public class PrendaEntity implements Serializable{
 	public void setItemMaterialPrenda(List<ItemMaterialPrendaEntity> itemMaterialPrenda) {
 		this.itemMaterialPrenda = itemMaterialPrenda;
 	}
-	public List<ItemPrendaEntity> getIp() {
-		return ip;
-	}
-	public void setIp(List<ItemPrendaEntity> ip) {
-		this.ip = ip;
-	}
 	public List<AreaProduccionInvolucradaEntity> getAreasInvolucradas() {
 		return areasInvolucradas;
 	}
 	public void setAreasInvolucradas(List<AreaProduccionInvolucradaEntity> areasInvolucradas) {
 		this.areasInvolucradas = areasInvolucradas;
+	}
+	public List<ItemPrendaEntity> getIp() {
+		return ip;
+	}
+	public void setIp(List<ItemPrendaEntity> ip) {
+		this.ip = ip;
 	}
 	
 

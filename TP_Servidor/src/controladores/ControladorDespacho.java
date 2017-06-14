@@ -1,13 +1,20 @@
 package controladores;
 
+import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+
+import negocio.ItemPedido;
+import negocio.Pedido;
 import negocio.Prenda;
+import dao.AdministracionDAO;
 import dao.DespachoDAO;
+import dao.PedidoDAO;
 import dto.OrdenDespachoDTO;
 import dto.PedidoDTO;
+import dto.UbicacionDTO;
 
 public class ControladorDespacho {
 	
@@ -22,6 +29,8 @@ public class ControladorDespacho {
 		return instancia;
 	}
 	
+	
+
 	
 
 	public List<OrdenDespachoDTO> obtenerDespachosPendientesDeConfirmacion() {
@@ -63,9 +72,5 @@ public class ControladorDespacho {
 	public Date calcularFechaEstimadaEntrega(int idPedido) {
 		return DespachoDAO.getInstancia().calcularFechaEstimadaEntrega(idPedido);
 		
-	}
-	
-	
-
-	
+	}	
 }

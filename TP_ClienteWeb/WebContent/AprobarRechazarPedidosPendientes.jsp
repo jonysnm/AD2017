@@ -1,4 +1,5 @@
-<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="dto.PedidosPendientesAprobacionDTO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -10,7 +11,7 @@
 <body>
 
 	<%
-		ArrayList<String> itemsGrillaPedidosPendientesAprobacion = (ArrayList<String>)request.getAttribute("lstPedidosPendientesAprobacionDTO");	
+	List<PedidosPendientesAprobacionDTO> lstPedidosPendientesAprobacionDTO  = (List<PedidosPendientesAprobacionDTO>)request.getAttribute("lstPedidosPendientesAprobacionDTO");	
 	%>
 
 	<h2>Pedidos Pendientes Aprobacion</h2>
@@ -22,19 +23,19 @@
 			<tr>
 				<td>Id Pedido</td>
 				<td>Cliente</td>
-				<td>Credito</td>
+				<td>Limite Credito</td>
 				<td>Tiene Discontinuos</td>
 				<td>Accion</td>
 			</tr>
-	<%for (String ec : itemsGrillaPedidosPendientesAprobacion){ %>
+	<%for (PedidosPendientesAprobacionDTO ec : lstPedidosPendientesAprobacionDTO){ %>
 			<tr>
-				<td><%=ec%></td>
-				<td><%=ec%></td>
-				<td><%=ec%></td>
-				<td><%=ec%></td>
+				<td><%=ec.getId()%></td>
+				<td><%=ec.getNombreCliente()%></td>
+				<td><%=ec.getLimiteCredito()%></td>
+				<td><%=ec.getSaldoCtaCte()%></td>
 				<td>
-				<input type="submit" name="<%=ec %>" value="Aprobar" onclick="this.form.hdnIdPedido.value=this.name;this.form.hdnOperacion.value=this.value;this.form.submit();" />
-				<input type="submit" name="<%=ec %>" value="Rechazar" onclick="this.form.hdnIdPedido.value=this.name;this.form.hdnOperacion.value=this.value;this.form.submit();" />					 									
+				<input type="submit" name="<%=ec.getId() %>" value="Aprobar" onclick="this.form.hdnIdPedido.value=this.name;this.form.hdnOperacion.value=this.value;this.form.submit();" />
+				<input type="submit" name="<%=ec.getId() %>" value="Rechazar" onclick="this.form.hdnIdPedido.value=this.name;this.form.hdnOperacion.value=this.value;this.form.submit();" />					 									
 				<td>
 			</tr>
 	<%} %>			
