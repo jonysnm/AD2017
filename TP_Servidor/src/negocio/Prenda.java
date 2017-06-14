@@ -9,13 +9,13 @@ import entities.PrendaEntity;
 public class Prenda {
 	private int codigo;
 	private String descripcion;
-	private List<ItemPrenda> itemPrendas;
 	private List<ItemMaterialPrenda> itemMaterialPrenda;
 	private boolean vigente;
 	private float costoProduccion;
 	private float costoProduccionActual;
 	private float porcentajeGanancia;
 	private List<AreaProduccionInvolucrada> areasInvolucradas;
+	private List<ItemPrenda> itemPrendas;
 	
 	
 	public Prenda(){}
@@ -86,7 +86,7 @@ public class Prenda {
 			ip.setTalle(new Talle(pr.getIp().get(i).getItemPrendaId().getTalle()));
 			itemsPrenda.add(ip);
 		}
-		this.itemPrendas=itemsPrenda;
+		this.setItemPrendas(itemsPrenda);
 		List<ItemMaterialPrenda> itemMaterialPrendas = new ArrayList<ItemMaterialPrenda>();
 		for (int i=0;i < pr.getItemMaterialPrenda().size();i++) {
 			itemMaterialPrendas.add(new ItemMaterialPrenda(pr.getItemMaterialPrenda().get(i)));
@@ -97,19 +97,22 @@ public class Prenda {
 	public boolean SoslaPrenda(int codigo){
 		return(this.getCodigo()==codigo);		
 	}
+	public boolean estoyVigente2() {
+		return this.vigente;
+	
+	}
+
+	public PrendaEntity ToEntity()
+	{
+		PrendaEntity entity = new PrendaEntity();
+		//TODO: Completar mapeo
+		return entity;
+	}
 	public List<ItemPrenda> getItemPrendas() {
 		return itemPrendas;
 	}
 	public void setItemPrendas(List<ItemPrenda> itemPrendas) {
 		this.itemPrendas = itemPrendas;
 	}
-	public boolean estoyVigente2() {
-		return this.vigente;
-	
-	}
-
-
-
-
 
 }

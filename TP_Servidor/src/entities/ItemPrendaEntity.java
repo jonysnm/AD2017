@@ -18,8 +18,6 @@ public class ItemPrendaEntity implements Serializable {
 	
 	private float cantidad;
 	private float cantidadReservada;
-
-
 	public float getCantidad() {
 		return cantidad;
 	}

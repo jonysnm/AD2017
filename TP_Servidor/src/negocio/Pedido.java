@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import dao.PedidoDAO;
+import dto.ESTADO;
 import entities.ItemPedidoEntity;
 import entities.PedidoEntity;
 import estados.EstadoAprobacionPedidoCliente;
@@ -18,6 +19,8 @@ public class Pedido {
 	private List<ItemPedido> items=new ArrayList<ItemPedido>();
 	private Sucursal sucursal;
 	private EstadoAprobacionPedidoCliente estado;
+	private List<ItemFaltantePedido> lstItemsFaltantesPedidos = new ArrayList<ItemFaltantePedido>();
+	private ESTADO state;
 public Pedido(){}
 	public Pedido(PedidoEntity pedido){
 		this.id=pedido.getId();
@@ -105,18 +108,19 @@ public Pedido(){}
 		}
 		return true;
 	}
-//	FIXME VER FRAN
-//   	public boolean ObtenerDisponiblePrenda(Pedido p){
-//  		List<ItemPedido> it=p.getItems();
-//  		for(ItemPedido ip:it){
-//  			if(ip.ObtenerDisponibilidadStock(ip)){
-//  				return true;
-//  			}else{
-//  				;
-//  			}
-//  		}
-//  		return false;
-//  	}  	
+   	public boolean ObtenerDisponiblePrenda(Pedido p){
+  		List<ItemPedido> it=p.getItems();
+  		for(ItemPedido ip:it){
+  			if(ip.ObtenerDisponibilidadStock(ip)){
+  				return true;
+  			}else{
+  				;
+  			}
+  		}
+  		return false;
+
+  	}  	
+//   	FIXME VER FRAN
 //  	public boolean discontinuosStock() {
 //		List<ItemPedido> it= this.getItems();
 //		for(ItemPedido ip:it){
@@ -128,6 +132,18 @@ public Pedido(){}
 //		}
 //		return true;
 //	}
+//
+//  	}
+  	
+  	
+  	//Jonathan Methods
+  	public void AgregarItemFaltante(Pedido pedido, ItemPedido itemPedido, int cantidadFaltante)
+  	{
+  		ItemFaltantePedido itemFaltante = new ItemFaltantePedido(pedido, itemPedido, cantidadFaltante);
+  				  		
+  		PedidoDAO.getInstancia().NuevoItemFaltantePedido(itemFaltante);
+  	}
+  	
 
   	public void save(){
 		PedidoDAO.getInstancia().nuevoPedido(this);	
@@ -147,6 +163,18 @@ public Pedido(){}
 	}
 	public void setEstado(EstadoAprobacionPedidoCliente estado) {
 		this.estado = estado;
+	}
+	public ESTADO getState() {
+		return state;
+	}
+	public void setState(ESTADO state) {
+		this.state = state;
+	}
+	public List<ItemFaltantePedido> getLstItemsFaltantesPedidos() {
+		return lstItemsFaltantesPedidos;
+	}
+	public void setLstItemsFaltantesPedidos(List<ItemFaltantePedido> lstItemsFaltantesPedidos) {
+		this.lstItemsFaltantesPedidos = lstItemsFaltantesPedidos;
 	}
 	
 }

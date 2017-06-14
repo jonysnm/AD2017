@@ -22,7 +22,7 @@ public class UbicacionEntity implements Serializable  {
 	private static final long serialVersionUID = 8281211607689975461L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)	
-	private int id;
+	private Integer id;
 	private char calle;
 	private int estante;
 	private int posicion;
@@ -74,16 +74,6 @@ public class UbicacionEntity implements Serializable  {
 		return "UbicacionEntity [id=" + id + ", calle=" + calle + ", estante="
 				+ estante + ", posicion=" + posicion + ", ocupado=" + ocupado
 				+ ", bulto=" + bulto + "]";
-	}
-	public UbicacionEntity(int id, char calle, int estante, int posicion,
-			boolean ocupado, List<ItemBultoEntity> bulto) {
-		super();
-		this.id = id;
-		this.calle = calle;
-		this.estante = estante;
-		this.posicion = posicion;
-		this.ocupado = ocupado;
-		this.bulto = bulto;
 	}
 	public UbicacionEntity() {
 		super();

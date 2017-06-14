@@ -43,6 +43,10 @@ public class Talle {
 	}
 
 	
-	
+	public TalleEntity ToEntiy() {
+		TalleEntity te = new TalleEntity();
+		te.setDescripcion(this.getDescripcion());
+		return te;
+	}
 	
 }

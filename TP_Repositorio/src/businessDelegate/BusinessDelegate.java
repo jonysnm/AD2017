@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 import dto.ClienteDTO;
@@ -87,6 +88,7 @@ public class BusinessDelegate {
 	public void altaTalle(TalleDTO talleDTO) throws RemoteException{
 		interfazRemotaPuntoVenta.altaTalle(talleDTO);
 	}
+
 	public void altaUbicacion(UbicacionDTO ubicacion) throws RemoteException{
 		interfazRemotaDespacho.altaUbicacion(ubicacion);
 	}
@@ -95,5 +97,6 @@ public class BusinessDelegate {
 	}
 	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal)throws RemoteException {
 		return interfazRemotaPuntoVenta.obtenerPedidosPendientesdeAprobacion(idSucursal);
+
 	}
 }
