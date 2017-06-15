@@ -47,10 +47,11 @@ public class ControladorPedido {
 			iPedido.setImporte(itemPedido.getImporte());
 			Prenda prenda=PedidoDAO.getInstancia().getPrenda(itemPedido.getPrenda().getCodigo());
 			iPedido.setPrenda(prenda);
-			Color color=TallesyColoresDAO.getInstancia().getColor(itemPedido.getColor().getIdColor());
-			Talle talle =TallesyColoresDAO.getInstancia().getTalle(itemPedido.getTalle().getIdTalle());
-			iPedido.setColor(color);
-			iPedido.setTalle(talle);
+			List<ItemPrenda> itemsPrenda=prenda.getItemPrendas();
+			for(ItemPrenda ip:itemsPrenda){
+				iPedido.setColor(ip.getColor());
+				iPedido.setTalle(ip.getTalle());
+			}
 			itemsPedidos.add(iPedido);
 		}
 		p.setItems(itemsPedidos);

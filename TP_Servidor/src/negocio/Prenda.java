@@ -59,31 +59,31 @@ public class Prenda {
 	public Prenda(PrendaEntity pr){
 		this.codigo=pr.getIdPrenda();
 		this.descripcion=pr.getDescripcion();
-		this.vigente=pr.isVigente();
+		//this.vigente=pr.isVigente();
 		List<ItemPrenda> itemsPrenda = new ArrayList<ItemPrenda>();
 		for (int i=0 ;i<pr.getIp().size(); i++) {
 			ItemPrenda ip = new ItemPrenda();
 			ip.setColor(new Color(pr.getIp().get(i).getItemPrendaId().getColor()));
 			ip.setTalle(new Talle(pr.getIp().get(i).getItemPrendaId().getTalle()));
-			ip.setCantidadEnOPC(pr.getIp().get(i).getCantidadEnOPC());
-			ip.setCostoProduccionActual(pr.getIp().get(i).getCostoProduccionActual());
-			ip.setPorcentajeGanancia(pr.getIp().get(i).getPorcentajeGanancia());
-			List<ItemMaterialPrenda> itemMaterialPrendas = new ArrayList<ItemMaterialPrenda>();
-			for(ItemMaterialPrendaEntity imp : pr.getIp().get(i).getItemMaterialPrenda()){
-				ItemMaterialPrenda impt2 = new ItemMaterialPrenda(imp);
-				itemMaterialPrendas.add(impt2);
-			}
+			//ip.setCantidadEnOPC(pr.getIp().get(i).getCantidadEnOPC());
+			//ip.setCostoProduccionActual(pr.getIp().get(i).getCostoProduccionActual());
+			//ip.setPorcentajeGanancia(pr.getIp().get(i).getPorcentajeGanancia());
+			//List<ItemMaterialPrenda> itemMaterialPrendas = new ArrayList<ItemMaterialPrenda>();
+			//for(ItemMaterialPrendaEntity imp : pr.getIp().get(i).getItemMaterialPrenda()){
+				//ItemMaterialPrenda impt2 = new ItemMaterialPrenda(imp);
+				//itemMaterialPrendas.add(impt2);
+			//}
 
-			ip.setItemMaterialPrenda(itemMaterialPrendas);
+			//ip.setItemMaterialPrenda(itemMaterialPrendas);
 
 
 			itemsPrenda.add(ip);
 		}
 		this.setItemPrendas(itemsPrenda);
-		List<AreaProduccionInvolucrada> areasinv = new ArrayList<AreaProduccionInvolucrada>();
-		for(AreaProduccionInvolucradaEntity area : pr.getAreasInvolucradas()){
-			areasinv.add(new AreaProduccionInvolucrada(area));
-		}
+		//List<AreaProduccionInvolucrada> areasinv = new ArrayList<AreaProduccionInvolucrada>();
+		//for(AreaProduccionInvolucradaEntity area : pr.getAreasInvolucradas()){
+			//areasinv.add(new AreaProduccionInvolucrada(area));
+		//}
 
 	}
 	public boolean SoslaPrenda(int codigo){

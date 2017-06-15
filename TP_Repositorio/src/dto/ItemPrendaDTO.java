@@ -9,7 +9,6 @@ public class ItemPrendaDTO implements Serializable{
 
 	private TalleDTO talle;
 	private ColorDTO color;
-	private PrendaDTO prenda;
 	private float cantidad;
 	private float cantidadReservada;
 	public TalleDTO getTalle() {
@@ -23,12 +22,6 @@ public class ItemPrendaDTO implements Serializable{
 	}
 	public void setColor(ColorDTO color) {
 		this.color = color;
-	}
-	public PrendaDTO getPrenda() {
-		return prenda;
-	}
-	public void setPrenda(PrendaDTO prenda) {
-		this.prenda = prenda;
 	}
 	public float getCantidad() {
 		return cantidad;
