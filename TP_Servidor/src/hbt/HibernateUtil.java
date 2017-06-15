@@ -12,7 +12,10 @@ import entities.CuentaCorrienteEntity;
 import entities.EmpleadoEntity;
 import entities.FacturaEntity;
 import entities.ItemBultoEntity;
+import entities.ItemBultoMPEntity;
+import entities.ItemBultoPrendaEntity;
 import entities.ItemFacturaEntity;
+import entities.ItemFaltantePedidoEntity;
 import entities.ItemMaterialPrendaEntity;
 import entities.ItemMovimientoCtaCteEntity;
 import entities.ItemMovimientoStockEntity;
@@ -21,17 +24,20 @@ import entities.ItemPedidoEntity;
 import entities.ItemPrendaEntity;
 import entities.ItemPrendaId;
 import entities.ItemPrendaStockEntity;
+import entities.ItemRemitoEntity;
 import entities.LineaProduccionEntity;
 import entities.MateriaPrimaEntity;
 import entities.OCMPEntity;
 import entities.OrdenDespachoEntity;
+import entities.OrdenProduccionEntity;
+import entities.OrdenProduccionParcialEntity;
 import entities.PedidoEntity;
 import entities.PrendaEntity;
 import entities.ProveedorEntity;
+import entities.RemitoEntity;
 import entities.SucursalEntity;
 import entities.TalleEntity;
 import entities.UbicacionEntity;
-import negocio.ItemFaltantePedido;
 
 public class HibernateUtil {
 	private static final SessionFactory sessionFactory;
@@ -67,7 +73,13 @@ public class HibernateUtil {
 			config.addAnnotatedClass(OrdenDespachoEntity.class);
 			config.addAnnotatedClass(UbicacionEntity.class);
 			config.addAnnotatedClass(ProveedorEntity.class);
-			config.addAnnotatedClass(ItemFaltantePedido.class);
+			config.addAnnotatedClass(ItemFaltantePedidoEntity.class);
+			config.addAnnotatedClass(OrdenProduccionEntity.class);
+			config.addAnnotatedClass(OrdenProduccionParcialEntity.class);
+			config.addAnnotatedClass(ItemRemitoEntity.class);
+			config.addAnnotatedClass(RemitoEntity.class);
+			config.addAnnotatedClass(ItemBultoPrendaEntity.class);
+			config.addAnnotatedClass(ItemBultoMPEntity.class);
 			
 			
 			sessionFactory=config.buildSessionFactory();

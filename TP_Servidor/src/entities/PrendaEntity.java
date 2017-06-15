@@ -25,19 +25,14 @@ public class PrendaEntity implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer IdPrenda;
 	private String descripcion;
-	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-	@Fetch(value=FetchMode.SELECT)
-	@JoinColumn(name="IdPrenda", referencedColumnName="IdPrenda")
-	private List<ItemMaterialPrendaEntity> itemMaterialPrenda;
+
 
 	@OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL,mappedBy="itemPrendaId.prenda")
 	@Fetch(value=FetchMode.SELECT)
 	private List<ItemPrendaEntity> ip;
 	
 	private Boolean vigente;
-	private Float costoProduccion;
-	private Float costoProduccionActual;
-	private Float porcentajeGanancia;
+	
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="IdPrenda")
 	@Fetch(value=FetchMode.SELECT)
@@ -61,30 +56,8 @@ public class PrendaEntity implements Serializable{
 	public void setVigente(boolean vigente) {
 		this.vigente = vigente;
 	}
-	public float getCostoProduccion() {
-		return costoProduccion;
-	}
-	public void setCostoProduccion(float costoProduccion) {
-		this.costoProduccion = costoProduccion;
-	}
-	public float getCostoProduccionActual() {
-		return costoProduccionActual;
-	}
-	public void setCostoProduccionActual(float costoProduccionActual) {
-		this.costoProduccionActual = costoProduccionActual;
-	}
-	public float getPorcentajeGanancia() {
-		return porcentajeGanancia;
-	}
-	public void setPorcentajeGanancia(float porcentajeGanancia) {
-		this.porcentajeGanancia = porcentajeGanancia;
-	}
-	public List<ItemMaterialPrendaEntity> getItemMaterialPrenda() {
-		return itemMaterialPrenda;
-	}
-	public void setItemMaterialPrenda(List<ItemMaterialPrendaEntity> itemMaterialPrenda) {
-		this.itemMaterialPrenda = itemMaterialPrenda;
-	}
+	
+	
 	public List<AreaProduccionInvolucradaEntity> getAreasInvolucradas() {
 		return areasInvolucradas;
 	}

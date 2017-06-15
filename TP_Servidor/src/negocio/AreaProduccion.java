@@ -1,6 +1,10 @@
 package negocio;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import entities.AreaProduccionEntity;
+import entities.LineaProduccionEntity;
 
 
 
@@ -40,6 +44,17 @@ public class AreaProduccion {
 	}
 	public AreaProduccion() {
 		super();
+		// TODO Auto-generated constructor stub
+	}
+	public AreaProduccion(AreaProduccionEntity area) {
+		this.codigo = area.getCodigo();
+		this.nombreArea = area.getNombreArea();
+		List<LineaProduccion> lnp = new ArrayList<LineaProduccion>();
+		for(LineaProduccionEntity lne : area.getLineas() ){
+			LineaProduccion lpr = new LineaProduccion(lne.getCodigo(),lne.getEstado(),lne.getOcupadoHasta());  
+			lnp.add(lpr);
+		}
+		this.lineas= lnp;
 		// TODO Auto-generated constructor stub
 	}
 	

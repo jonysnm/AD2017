@@ -5,9 +5,9 @@ import java.util.Date;
 import java.util.List;
 
 import dao.PedidoDAO;
-import dto.ESTADO;
 import entities.ItemPedidoEntity;
 import entities.PedidoEntity;
+import estados.EstadoPedido;
 import estados.EstadoAprobacionPedidoCliente;
 
 public class Pedido {
@@ -20,7 +20,7 @@ public class Pedido {
 	private Sucursal sucursal;
 	private EstadoAprobacionPedidoCliente estado;
 	private List<ItemFaltantePedido> lstItemsFaltantesPedidos = new ArrayList<ItemFaltantePedido>();
-	private ESTADO state;
+	private EstadoPedido state;
 public Pedido(){}
 	public Pedido(PedidoEntity pedido){
 		this.id=pedido.getId();
@@ -120,28 +120,25 @@ public Pedido(){}
   		return false;
 
   	}  	
-//   	FIXME VER FRAN
-//  	public boolean discontinuosStock() {
+//	public boolean discontinuosStock() {
 //		List<ItemPedido> it= this.getItems();
 //		for(ItemPedido ip:it){
 //			if(!ip.obtenervigencia2()){
-//				if(!ip.ObtenerDisponibilidadStock(ip.getPrenda())){
+//				if(!ip.hayStock()){
 //					return false;
 //				}
 //			}
 //		}
 //		return true;
 //	}
-//
-//  	}
   	
   	
   	//Jonathan Methods
   	public void AgregarItemFaltante(Pedido pedido, ItemPedido itemPedido, int cantidadFaltante)
   	{
-  		ItemFaltantePedido itemFaltante = new ItemFaltantePedido(pedido, itemPedido, cantidadFaltante);
+//  		ItemFaltantePedido itemFaltante = new ItemFaltantePedido(pedido, itemPedido, cantidadFaltante);
   				  		
-  		PedidoDAO.getInstancia().NuevoItemFaltantePedido(itemFaltante);
+//  		PedidoDAO.getInstancia().NuevoItemFaltantePedido(itemFaltante);
   	}
   	
 
@@ -164,10 +161,10 @@ public Pedido(){}
 	public void setEstado(EstadoAprobacionPedidoCliente estado) {
 		this.estado = estado;
 	}
-	public ESTADO getState() {
+	public EstadoPedido getState() {
 		return state;
 	}
-	public void setState(ESTADO state) {
+	public void setState(EstadoPedido state) {
 		this.state = state;
 	}
 	public List<ItemFaltantePedido> getLstItemsFaltantesPedidos() {

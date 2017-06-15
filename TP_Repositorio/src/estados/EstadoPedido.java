@@ -1,6 +1,6 @@
-package dto;
+package estados;
 
-public enum ESTADO {
+public enum EstadoPedido {
 	En_Verificación,
 	Procesar_Pedido,
 	Cancelado

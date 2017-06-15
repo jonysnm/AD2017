@@ -54,23 +54,23 @@ public class AlmacenDAO {
 			UbicacionEntity ub=new UbicacionEntity();
 			List<ItemBultoEntity> itemsbulto=new ArrayList<ItemBultoEntity>();
 			
-			for(ItemBulto ib: ubicacion.getBulto()){				
-				ItemBultoEntity iBulto=new ItemBultoEntity();
-				ItemPrendaStockEntity ip=new ItemPrendaStockEntity();
-				ip.setCantidad(ib.getIpr().getCantidad());
-				ip.setCantidadReservada(ib.getIpr().getCantidadReservada());
-				PrendaEntity prendaEntity = (PrendaEntity)session.get(PrendaEntity.class, ib.getIpr().getPrenda().getCodigo());
-				ip.setPrenda(prendaEntity);
-				ColorEntity c=new ColorEntity();
-				c.setIdcolor(ib.getIpr().getColor().getIdcolor());
-				TalleEntity t=new TalleEntity();
-				t.setidTalle(ib.getIpr().getTalle().getIdTalle());
-				ip.setColor(c);
-				ip.setTalle(t);
-				iBulto.setIpr(ip);
-				itemsbulto.add(iBulto);
-				session.save(ip);
-			}
+//			for(ItemBulto ib: ubicacion.getBulto()){				
+//				ItemBultoEntity iBulto=new ItemBultoPEntity();
+//				ItemPrendaStockEntity ip=new ItemPrendaStockEntity();
+////				ip.setCantidad(ib.getIpr().getCantidad());
+////				ip.setCantidadReservada(ib.getIpr().getCantidadReservada());
+////				PrendaEntity prendaEntity = (PrendaEntity)session.get(PrendaEntity.class, ib.getIpr().getPrenda().getCodigo());
+////				ip.setPrenda(prendaEntity);
+//				ColorEntity c=new ColorEntity();
+//				c.setIdcolor(ib.getIpr().getColor().getIdcolor());
+//				TalleEntity t=new TalleEntity();
+//				t.setidTalle(ib.getIpr().getTalle().getIdTalle());
+//				ip.setColor(c);
+//				ip.setTalle(t);
+////				iBulto.setIpr(ip);
+//				itemsbulto.add(iBulto);
+//				session.save(ip);
+//			}
 			ub.setBulto(itemsbulto);
 			session.save(ub);
 			session.getTransaction().commit();

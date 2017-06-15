@@ -53,9 +53,11 @@ public class ControladorPedido {
 			iPedido.setColor(color);
 			iPedido.setTalle(talle);
 			Prenda prenda = new Prenda();
+			//Aca no deberia buscar la prenda entre las disponibles y no crear una nueva?
+			
 			prenda.setCodigo(itemPedido.getPrenda().getCodigo());
-			prenda.setCostoProduccion(itemPedido.getPrenda().getCostoProduccion());
-			prenda.setCostoProduccionActual(itemPedido.getPrenda().getCostoProduccionActual());
+//			prenda.setCostoProduccion(itemPedido.getPrenda().getCostoProduccion());
+//			prenda.setCostoProduccionActual(itemPedido.getPrenda().getCostoProduccionActual());
 			prenda.setDescripcion(itemPedido.getPrenda().getDescripcion());
 			iPedido.setPrenda(prenda);
 			itemsPedidos.add(iPedido);

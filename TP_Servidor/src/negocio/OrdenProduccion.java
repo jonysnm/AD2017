@@ -1,6 +1,8 @@
 package negocio;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import estados.EstadoOrdenProduccion;
 
@@ -10,6 +12,21 @@ public class OrdenProduccion {
 	private Prenda prenda;
 	private Date fecha;
 	private EstadoOrdenProduccion estado;
+	private List<OCMP> ocmps;
+	private Date fechaEntrega;
+	private float costoProduccion;
+
+	
+	public List<ItemFaltantePedido> obtenerListaCantidades() {
+
+		List<ItemFaltantePedido> listaFaltante = new ArrayList<ItemFaltantePedido>();
+		for(ItemPrenda items : prenda.getItemPrendas()){
+			ItemFaltantePedido itf = new ItemFaltantePedido(items.getCantidadEnOPC(), prenda, items);
+			listaFaltante.add(itf);
+		}
+		return listaFaltante;
+	}
+
 	
 //	public boolean VerificarStockMateriaPrima(Object prenda) {
 //	

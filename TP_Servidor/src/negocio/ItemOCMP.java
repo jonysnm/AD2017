@@ -1,7 +1,9 @@
 package negocio;
 public class ItemOCMP {
+	private int idItemOCMP;
 	private MateriaPrima materiaPrima;
 	private float cantidadSolicitada;
+	private float cantidadComprada;
 	private float costo;
 	
 	
@@ -23,48 +25,25 @@ public class ItemOCMP {
 	public void setCosto(float costo) {
 		this.costo = costo;
 	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + Float.floatToIntBits(cantidadSolicitada);
-		result = prime * result + Float.floatToIntBits(costo);
-		result = prime * result
-				+ ((materiaPrima == null) ? 0 : materiaPrima.hashCode());
-		return result;
+	public int getIdItemOCMP() {
+		return idItemOCMP;
 	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ItemOCMP other = (ItemOCMP) obj;
-		if (Float.floatToIntBits(cantidadSolicitada) != Float
-				.floatToIntBits(other.cantidadSolicitada))
-			return false;
-		if (Float.floatToIntBits(costo) != Float.floatToIntBits(other.costo))
-			return false;
-		if (materiaPrima == null) {
-			if (other.materiaPrima != null)
-				return false;
-		} else if (!materiaPrima.equals(other.materiaPrima))
-			return false;
-		return true;
+	public void setIdItemOCMP(int idItemOCMP) {
+		this.idItemOCMP = idItemOCMP;
 	}
-	@Override
-	public String toString() {
-		return "ItemOCMP [materiaPrima=" + materiaPrima
-				+ ", cantidadSolicitada=" + cantidadSolicitada + ", costo="
-				+ costo + "]";
+	public float getCantidadComprada() {
+		return cantidadComprada;
 	}
-	public ItemOCMP(MateriaPrima materiaPrima, float cantidadSolicitada,
+	public void setCantidadComprada(float cantidadComprada) {
+		this.cantidadComprada = cantidadComprada;
+	}
+	public ItemOCMP(int idItemOCMP, MateriaPrima materiaPrima, float cantidadSolicitada, float cantidadComprada,
 			float costo) {
 		super();
+		this.idItemOCMP = idItemOCMP;
 		this.materiaPrima = materiaPrima;
 		this.cantidadSolicitada = cantidadSolicitada;
+		this.cantidadComprada = cantidadComprada;
 		this.costo = costo;
 	}
 	public ItemOCMP() {

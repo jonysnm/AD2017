@@ -67,6 +67,7 @@ public class ItemPedido {
 		return this.getPrenda().estoyVigente2();
 	
 }
+	
 public boolean ObtenerDisponibilidadStock(ItemPedido it) {
 	    float cantidadstock=AlmacenDAO.getInstancia().obtenerDisponiblePorPrenda(it);
 	    if(cantidadstock>=this.cantidad){
@@ -74,4 +75,6 @@ public boolean ObtenerDisponibilidadStock(ItemPedido it) {
 	    }
 	    return false;
 	}
+
+
 }
