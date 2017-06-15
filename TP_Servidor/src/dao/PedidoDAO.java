@@ -53,13 +53,12 @@ public class PedidoDAO {
 				ItemPedidoEntity itemPedidoEntity = new ItemPedidoEntity();
 				itemPedidoEntity.setCantidad(i.getCantidad());
 				itemPedidoEntity.setImporte(i.getImporte());
-				ColorEntity colorEntity = new ColorEntity(i.getColor());
-				itemPedidoEntity.setColor(colorEntity);
-				TalleEntity talleEntity = new TalleEntity();
-				talleEntity.setDescripcion(i.getTalle().getDescripcion());
-				talleEntity.setidTalle(i.getTalle().getIdTalle());
-				itemPedidoEntity.setTalle(talleEntity);
 				
+				ColorEntity colorEntity = (ColorEntity) session.get(ColorEntity.class, i.getColor().getIdcolor());
+				itemPedidoEntity.setColor(colorEntity);
+				
+				TalleEntity talleEntity = (TalleEntity) session.get(TalleEntity.class, i.getTalle().getIdTalle());
+				itemPedidoEntity.setTalle(talleEntity);				
 
 				PrendaEntity prendaEntity = (PrendaEntity)session.get(PrendaEntity.class, i.getPrenda().getCodigo());
 				
@@ -136,20 +135,31 @@ public class PedidoDAO {
 		}
 		return new Pedido(pedido);
 	}
-	public Prenda getPrenda(int codigo){
-		try{
-			Session session=sf.openSession();
-			session.beginTransaction();
-			PrendaEntity prenda=(PrendaEntity) session.get(PrendaEntity.class,codigo);
-			session.getTransaction().commit();
-			session.close();
-			Prenda p = new Prenda(prenda);
-			return p;
-		}catch(Exception e){
+	public Prenda getPrenda(Integer idPrenda){
+		PrendaEntity prenda = null;
+		try {
+			Session session = sf.openSession();
+			
+			String hql = "FROM PrendaEntity P " +
+						 "WHERE P.IdPrenda = :id";
+			
+			Query query = session.createQuery(hql);
+			query.setParameter("id", idPrenda);
+			query.setMaxResults(1);
+			
+			if(query.uniqueResult() != null){
+				prenda = (PrendaEntity) query.uniqueResult();
+	        	session.close();
+	        }else{
+	        	session.close();
+	        }
+		}catch (QuerySyntaxException q){
+			JOptionPane.showMessageDialog(null, q, "Error", JOptionPane.ERROR_MESSAGE);
+			System.out.println("Exception de sintaxis en PedidoDAO: GETPRENDA");
+		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Error PedidoDAO. Get Prenda");
 		}
-		return null;
+		return new Prenda(prenda);
 	}
 	public void ModificarPedido(Pedido pedido){
 		try{
@@ -206,6 +216,7 @@ public class PedidoDAO {
 		session.close();
 		return idItemFaltantePedido;
 	}
+	
 	
 
 }

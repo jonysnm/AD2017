@@ -20,7 +20,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
 
-import estados.EstadoPedido;
+
 import estados.EstadoAprobacionPedidoCliente;
 
 
@@ -56,7 +56,6 @@ public class PedidoEntity implements Serializable{
 	@ForeignKey(name="FK_FACTURA_ID")
 	private FacturaEntity factura;
 	@Enumerated(EnumType.STRING)
-	private EstadoPedido state;
 	private EstadoAprobacionPedidoCliente estado;
 
 	

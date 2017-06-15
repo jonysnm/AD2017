@@ -7,6 +7,7 @@ import java.util.List;
 import dao.AdministracionDAO;
 import dao.ClienteDAO;
 import dao.PedidoDAO;
+import dao.TallesyColoresDAO;
 import dto.ItemPedidoDTO;
 import dto.ItemPrendaDTO;
 import dto.PedidoDTO;
@@ -44,22 +45,12 @@ public class ControladorPedido {
 			ItemPedido iPedido = new ItemPedido();
 			iPedido.setCantidad(itemPedido.getCantidad());
 			iPedido.setImporte(itemPedido.getImporte());
-			Color color = new Color();
-			color.setDescripcion(itemPedido.getColor().getDescripcion());
-			color.setIdcolor(itemPedido.getColor().getIdColor());
-			Talle talle = new Talle();
-			talle.setIdTalle(itemPedido.getTalle().getIdTalle());
-			talle.setDescripcion(itemPedido.getTalle().getDescripcion());
+			Prenda prenda=PedidoDAO.getInstancia().getPrenda(itemPedido.getPrenda().getCodigo());
+			iPedido.setPrenda(prenda);
+			Color color=TallesyColoresDAO.getInstancia().getColor(itemPedido.getColor().getIdColor());
+			Talle talle =TallesyColoresDAO.getInstancia().getTalle(itemPedido.getTalle().getIdTalle());
 			iPedido.setColor(color);
 			iPedido.setTalle(talle);
-			Prenda prenda = new Prenda();
-			//Aca no deberia buscar la prenda entre las disponibles y no crear una nueva?
-			
-			prenda.setCodigo(itemPedido.getPrenda().getCodigo());
-//			prenda.setCostoProduccion(itemPedido.getPrenda().getCostoProduccion());
-//			prenda.setCostoProduccionActual(itemPedido.getPrenda().getCostoProduccionActual());
-			prenda.setDescripcion(itemPedido.getPrenda().getDescripcion());
-			iPedido.setPrenda(prenda);
 			itemsPedidos.add(iPedido);
 		}
 		p.setItems(itemsPedidos);

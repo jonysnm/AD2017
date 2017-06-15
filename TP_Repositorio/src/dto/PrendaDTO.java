@@ -7,7 +7,7 @@ public class PrendaDTO implements Serializable{
 	
 	private static final long serialVersionUID = -4504730923696951037L;
 
-	private int codigo;
+	private Integer codigo;
 	private String descripcion;
 	private List<ItemPrendaDTO> itemPrenda;
 	private List<ItemMaterialPrendaDTO> itemMaterialPrenda;
@@ -17,12 +17,15 @@ public class PrendaDTO implements Serializable{
 	private float porcentajeGanancia;
 	
 	public PrendaDTO(){}
-	public int getCodigo() {
+	
+	public Integer getCodigo() {
 		return codigo;
 	}
-	public void setCodigo(int codigo) {
+
+	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
 	}
+
 	public String getDescripcion() {
 		return descripcion;
 	}

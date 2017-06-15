@@ -9,38 +9,41 @@ import entities.ItemMaterialPrendaEntity;
 import entities.PrendaEntity;
 
 public class Prenda {
-	private int codigo;
+	private Integer codigo;
 	private String descripcion;
-	private boolean vigente;
-	
-	
-	
+	private boolean vigente;	
 	private List<AreaProduccionInvolucrada> areasInvolucradas;
 	private List<ItemPrenda> itemPrendas;
-	
-	
+
+
 	public Prenda(){}
-	public int getCodigo() {
+	
+
+	public Integer getCodigo() {
 		return codigo;
 	}
-	public void setCodigo(int codigo) {
+
+
+	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
 	}
+
+
 	public String getDescripcion() {
 		return descripcion;
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
+
 	public boolean isVigente() {
 		return vigente;
 	}
 	public void setVigente(boolean vigente) {
 		this.vigente = vigente;
 	}
-	
-	
+
+
 
 	public List<AreaProduccionInvolucrada> getAreasInvolucradas() {
 		return areasInvolucradas;
@@ -55,8 +58,6 @@ public class Prenda {
 	}
 	public Prenda(PrendaEntity pr){
 		this.codigo=pr.getIdPrenda();
-//		this.costoProduccion=pr.getCostoProduccion();
-//		this.costoProduccionActual=pr.getCostoProduccionActual();
 		this.descripcion=pr.getDescripcion();
 		this.vigente=pr.isVigente();
 		List<ItemPrenda> itemsPrenda = new ArrayList<ItemPrenda>();
@@ -74,8 +75,8 @@ public class Prenda {
 			}
 
 			ip.setItemMaterialPrenda(itemMaterialPrendas);
-		
-			
+
+
 			itemsPrenda.add(ip);
 		}
 		this.setItemPrendas(itemsPrenda);
@@ -83,21 +84,14 @@ public class Prenda {
 		for(AreaProduccionInvolucradaEntity area : pr.getAreasInvolucradas()){
 			areasinv.add(new AreaProduccionInvolucrada(area));
 		}
-		
+
 	}
 	public boolean SoslaPrenda(int codigo){
 		return(this.getCodigo()==codigo);		
 	}
 	public boolean estoyVigente2() {
 		return this.vigente;
-	
-	}
 
-	public PrendaEntity ToEntity()
-	{
-		PrendaEntity entity = new PrendaEntity();
-		//TODO: Completar mapeo
-		return entity;
 	}
 	public List<ItemPrenda> getItemPrendas() {
 		return itemPrendas;

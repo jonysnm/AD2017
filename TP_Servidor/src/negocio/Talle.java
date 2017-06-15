@@ -41,12 +41,4 @@ public class Talle {
 		super();
 		this.descripcion = descripcion;
 	}
-
-	
-	public TalleEntity ToEntiy() {
-		TalleEntity te = new TalleEntity();
-		te.setDescripcion(this.getDescripcion());
-		return te;
-	}
-	
 }

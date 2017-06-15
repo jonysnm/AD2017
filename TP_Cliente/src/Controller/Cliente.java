@@ -32,10 +32,10 @@ public class Cliente {
 			nuevoCliente();
 			nuevaSucursal();
 			Integer id=nuevoPedido();
-			nuevaubicacion();
+			//nuevaubicacion();
 			System.out.println(("IDPedido: " + id));
-			businessDelegate.confirmarPedido(id);
-			businessDelegate.IniciarProcesamientoPedidoAprobado(id);
+			//businessDelegate.confirmarPedido(id);
+			//businessDelegate.IniciarProcesamientoPedidoAprobado(id);
       	} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -145,7 +145,7 @@ public class Cliente {
 		talleDTO.setIdTalle(1);
 		item.setTalle(talleDTO);
 		PrendaDTO prendaDTO = new PrendaDTO();
-		prendaDTO.setCodigo(3);
+		prendaDTO.setCodigo(1);
 		item.setPrenda(prendaDTO);
 		itemsPedido.add(item);
 		pedidoDTO.setItems(itemsPedido);

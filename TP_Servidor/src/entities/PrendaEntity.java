@@ -26,8 +26,8 @@ public class PrendaEntity implements Serializable{
 	private Integer IdPrenda;
 	private String descripcion;
 
-
-	@OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL,mappedBy="itemPrendaId.prenda")
+	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@JoinColumn(name="IdPrenda")
 	@Fetch(value=FetchMode.SELECT)
 	private List<ItemPrendaEntity> ip;
 	

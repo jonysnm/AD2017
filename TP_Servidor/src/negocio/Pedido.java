@@ -7,7 +7,6 @@ import java.util.List;
 import dao.PedidoDAO;
 import entities.ItemPedidoEntity;
 import entities.PedidoEntity;
-import estados.EstadoPedido;
 import estados.EstadoAprobacionPedidoCliente;
 
 public class Pedido {
@@ -20,7 +19,6 @@ public class Pedido {
 	private Sucursal sucursal;
 	private EstadoAprobacionPedidoCliente estado;
 	private List<ItemFaltantePedido> lstItemsFaltantesPedidos = new ArrayList<ItemFaltantePedido>();
-	private EstadoPedido state;
 public Pedido(){}
 	public Pedido(PedidoEntity pedido){
 		this.id=pedido.getId();
@@ -160,12 +158,6 @@ public Pedido(){}
 	}
 	public void setEstado(EstadoAprobacionPedidoCliente estado) {
 		this.estado = estado;
-	}
-	public EstadoPedido getState() {
-		return state;
-	}
-	public void setState(EstadoPedido state) {
-		this.state = state;
 	}
 	public List<ItemFaltantePedido> getLstItemsFaltantesPedidos() {
 		return lstItemsFaltantesPedidos;
