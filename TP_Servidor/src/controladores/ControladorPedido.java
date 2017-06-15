@@ -99,7 +99,7 @@ public class ControladorPedido {
 				p.update();
 			}
 	}
-	public void cambiarEstadoPedidoPendienteAprobacion(Integer idPedido,EstadoAprobacionPedidoCliente estado){
+	public void cambiarEstadoPedido(Integer idPedido,EstadoAprobacionPedidoCliente estado){
 		Pedido p=PedidoDAO.getInstancia().getPedido(idPedido);
 					p.setEstado(estado);
 					p.update();

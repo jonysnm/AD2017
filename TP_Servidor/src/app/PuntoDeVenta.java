@@ -10,6 +10,7 @@ import dto.PedidoDTO;
 import dto.PedidosPendientesAprobacionDTO;
 import dto.SucursalDTO;
 import dto.TalleDTO;
+import estados.EstadoAprobacionPedidoCliente;
 import interfazRemota.IPuntoDeVentaControlador;
 
 public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaControlador {
@@ -80,6 +81,12 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 	}
 	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal) throws RemoteException {
 		return ControladorPedido.getInstancia().obtenerPedidosPendientesdeAprobacion( idSucursal);
+	}
+	
+	/* Jona */
+	@Override
+	public void cambiarEstadoPedido(Integer idPedido, EstadoAprobacionPedidoCliente estado) throws RemoteException {
+		ControladorPedido.getInstancia().cambiarEstadoPedido(idPedido, estado);
 	}
 
 }
