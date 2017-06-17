@@ -3,6 +3,7 @@ package negocio;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.AlmacenDAO;
 import dao.PedidoDAO;
 import entities.AreaProduccionInvolucradaEntity;
 import entities.ItemMaterialPrendaEntity;
@@ -98,6 +99,17 @@ public class Prenda {
 	}
 	public void setItemPrendas(List<ItemPrenda> itemPrendas) {
 		this.itemPrendas = itemPrendas;
+	}
+
+
+	public boolean HayStockSuficiente(int cantidad, Color color, Talle talle) {
+		ItemPedido ip = new ItemPedido();
+		ip.setCantidad(cantidad);
+		ip.setColor(color);
+		ip.setTalle(talle);
+		float cantidadDisponible = AlmacenDAO.getInstancia().obtenerDisponiblePorPrenda(ip);
+				
+		return cantidadDisponible>=cantidad;
 	}
 
 }
