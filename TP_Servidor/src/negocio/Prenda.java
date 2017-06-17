@@ -59,7 +59,7 @@ public class Prenda {
 	public Prenda(PrendaEntity pr){
 		this.codigo=pr.getIdPrenda();
 		this.descripcion=pr.getDescripcion();
-		//this.vigente=pr.isVigente();
+		this.vigente=pr.isVigente();
 		List<ItemPrenda> itemsPrenda = new ArrayList<ItemPrenda>();
 		for (int i=0 ;i<pr.getIp().size(); i++) {
 			ItemPrenda ip = new ItemPrenda();

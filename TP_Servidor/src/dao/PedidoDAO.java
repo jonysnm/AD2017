@@ -145,6 +145,7 @@ public class PedidoDAO {
 			session.beginTransaction();		
 			PrendaEntity pe=new PrendaEntity();
 			pe.setDescripcion(Prenda.getDescripcion());
+			pe.setVigente(Prenda.isVigente());
 			List<ItemPrendaEntity> ip=new ArrayList<ItemPrendaEntity>();
 			for(ItemPrenda ipp:Prenda.getItemPrendas()){
 				ItemPrendaEntity it=new ItemPrendaEntity();
