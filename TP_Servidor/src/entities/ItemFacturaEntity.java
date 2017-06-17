@@ -24,7 +24,7 @@ public class ItemFacturaEntity implements Serializable {
 	private Integer itemFactura;
 	@ManyToOne
 	@JoinColumn(name="IdPrenda")
-	@ForeignKey(name="FK_PREN_ID")
+	@ForeignKey(name="FK_PREND_ID")
 	private PrendaEntity prenda;
 	
 	@ManyToOne

@@ -2,12 +2,18 @@ package dao;
 
 import hbt.HibernateUtil;
 import negocio.Color;
+import negocio.Prenda;
 import negocio.Talle;
 
+import javax.swing.JOptionPane;
+
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
+import org.hibernate.hql.ast.QuerySyntaxException;
 
 import entities.ColorEntity;
+import entities.PrendaEntity;
 import entities.TalleEntity;
 
 public class TallesyColoresDAO {
@@ -36,7 +42,9 @@ public class TallesyColoresDAO {
 			
 			Session session = sf.openSession();
 			session.beginTransaction();
-			session.save(this.colortoEntiy(color));
+			ColorEntity ce=new ColorEntity();
+			ce.setDescripcion(color.getDescripcion());
+			session.save(ce);
 			session.getTransaction().commit();
 			session.close();
 		} catch (Exception e) {
@@ -72,31 +80,39 @@ public class TallesyColoresDAO {
 	}
 
 	public Color getColor(int idColor) {
+		ColorEntity color = null;
 		try {
 			Session session = sf.openSession();
-			session.beginTransaction();
-			Color color = (Color) session.get(Color.class, idColor);
-			session.getTransaction().commit();
-			session.close();
-			return color;
+			
+			String hql = "FROM ColorEntity C " +
+						 "WHERE C.idColor = :id";
+			
+			Query query = session.createQuery(hql);
+			query.setParameter("id", idColor);
+			query.setMaxResults(1);
+			
+			if(query.uniqueResult() != null){
+				color = (ColorEntity) query.uniqueResult();
+	        	session.close();
+	        }else{
+	        	session.close();
+	        }
+		}catch (QuerySyntaxException q){
+			JOptionPane.showMessageDialog(null, q, "Error", JOptionPane.ERROR_MESSAGE);
+			System.out.println("Exception de sintaxis en ProductoDAO: buscarProducto");
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Error Color. Get Color");
 		}
-		return null;
+		return new Color(color);
 	}
-	public ColorEntity colortoEntiy(Color co) {
-		ColorEntity ce = new ColorEntity(co.getDescripcion());
-		return ce;
-	}
-	
-	
 	public void altaTalle(Talle talle) {
 		try {
 			
 			Session session = sf.openSession();
 			session.beginTransaction();
-			session.save(this.talletoEntiy(talle));
+			TalleEntity te=new TalleEntity();
+			te.setDescripcion(talle.getDescripcion());
+			session.save(te);
 			session.getTransaction().commit();
 			session.close();
 		} catch (Exception e) {
@@ -132,23 +148,29 @@ public class TallesyColoresDAO {
 	}
 
 	public Talle getTalle(int idTalle) {
+		TalleEntity talle = null;
 		try {
 			Session session = sf.openSession();
-			session.beginTransaction();
-			Talle talle = (Talle) session.get(Talle.class, idTalle);
-			session.getTransaction().commit();
-			session.close();
-			return talle;
+			
+			String hql = "FROM TalleEntity T " +
+						 "WHERE T.idTalle = :id";
+			
+			Query query = session.createQuery(hql);
+			query.setParameter("id", idTalle);
+			query.setMaxResults(1);
+			
+			if(query.uniqueResult() != null){
+				talle = (TalleEntity) query.uniqueResult();
+	        	session.close();
+	        }else{
+	        	session.close();
+	        }
+		}catch (QuerySyntaxException q){
+			JOptionPane.showMessageDialog(null, q, "Error", JOptionPane.ERROR_MESSAGE);
+			System.out.println("Exception de sintaxis en ProductoDAO: buscarProducto");
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Error Talle. Get Talle");
 		}
-		return null;
+		return new Talle(talle);
 	}
-	public TalleEntity talletoEntiy(Talle ta) {
-		TalleEntity te = new TalleEntity();
-		te.setDescripcion(ta.getDescripcion());
-		return te;
-	}
-
 }

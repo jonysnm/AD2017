@@ -32,10 +32,10 @@ public class Cliente {
 			nuevoCliente();
 			nuevaSucursal();
 			Integer id=nuevoPedido();
-			nuevaubicacion();
+			//nuevaubicacion();
 			System.out.println(("IDPedido: " + id));
-			businessDelegate.confirmarPedido(id);
-			businessDelegate.IniciarProcesamientoPedidoAprobado(id);
+			//businessDelegate.confirmarPedido(id);
+			//businessDelegate.IniciarProcesamientoPedidoAprobado(id);
       	} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -108,7 +108,7 @@ public class Cliente {
     	ip.setTalle(talleDTO);;
     	PrendaDTO prendaDTO = new PrendaDTO();
 		prendaDTO.setCodigo(3);
-		ip.setPrenda(prendaDTO);
+		
 		item.setIpr(ip);		
 		List<ItemBultoDTO> itemsbultos = new ArrayList<ItemBultoDTO>();
 		itemsbultos.add(item);
@@ -131,8 +131,10 @@ public class Cliente {
 	    
 
 		ItemPedidoDTO item = new ItemPedidoDTO();
+		ItemPrendaDTO ipd=new ItemPrendaDTO();
 		
 		List<ItemPedidoDTO> itemsPedido = new ArrayList<ItemPedidoDTO>();
+		List<ItemPrendaDTO> ip=new ArrayList<ItemPrendaDTO>();
 		
 		item.setCantidad(1);
 		item.setImporte(500);
@@ -141,11 +143,15 @@ public class Cliente {
 		colorDTO.setDescripcion("Rojo");
 		item.setColor(colorDTO);
 		TalleDTO talleDTO = new TalleDTO();
-		talleDTO.setDescripcion("M");
+		talleDTO.setDescripcion("S");
 		talleDTO.setIdTalle(1);
 		item.setTalle(talleDTO);
-		PrendaDTO prendaDTO = new PrendaDTO();
-		prendaDTO.setCodigo(3);
+		ipd.setColor(colorDTO);
+		ipd.setTalle(talleDTO);
+		ip.add(ipd);
+	    PrendaDTO prendaDTO = new PrendaDTO();
+		prendaDTO.setCodigo(1);
+		prendaDTO.setItemPrenda(ip);		
 		item.setPrenda(prendaDTO);
 		itemsPedido.add(item);
 		pedidoDTO.setItems(itemsPedido);

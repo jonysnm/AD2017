@@ -1,4 +1,7 @@
 package negocio;
+
+import entities.AreaProduccionInvolucradaEntity;
+
 public class AreaProduccionInvolucrada {
 	//la prenda tiene una lista de esto
 	private int codigo;
@@ -46,6 +49,13 @@ public class AreaProduccionInvolucrada {
 	public AreaProduccionInvolucrada() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public AreaProduccionInvolucrada(AreaProduccionInvolucradaEntity area2) {
+		this.codigo = area2.getCodigo();
+		this.area = new AreaProduccion(area2.getArea());
+		this.ordenDeEjecucion = area2.getOrdenDeEjecucion();
+		this.tiempoEnSegundos = area2.getTiempoEnSegundos();
+		
 	}
 	
 

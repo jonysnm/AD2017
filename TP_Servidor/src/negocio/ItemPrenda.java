@@ -1,42 +1,43 @@
 package negocio;
 
+import java.util.List;
 
 public class ItemPrenda {
-	private Integer lote;
-	private Prenda prenda;
-	private float cantidad;
-	private float cantidadReservada;
+
+
+	private List<ItemMaterialPrenda> itemMaterialPrenda;
+	private int cantidadEnOPC;
+
 	private Color color;
 	private Talle talle;
-	public Integer getLote() {
-		return lote;
+
+	private float costoProduccionActual;
+	private float porcentajeGanancia;
+	
+	
+
+	
+	
+	public int getCantidadEnOPC() {
+		return cantidadEnOPC;
 	}
-	public void setLote(Integer lote) {
-		this.lote = lote;
+	public void setCantidadEnOPC(int cantidadEnOPC) {
+		this.cantidadEnOPC = cantidadEnOPC;
 	}
-	public Prenda getPrenda() {
-		return prenda;
-	}
-	public void setPrenda(Prenda prenda) {
-		this.prenda = prenda;
-	}
-	public float getCantidad() {
-		return cantidad;
-	}
-	public void setCantidad(float cantidad) {
-		this.cantidad = cantidad;
-	}
-	public float getCantidadReservada() {
-		return cantidadReservada;
-	}
-	public void setCantidadReservada(float cantidadReservada) {
-		this.cantidadReservada = cantidadReservada;
-	}
+
 	public Color getColor() {
 		return color;
 	}
+	
 	public void setColor(Color color) {
 		this.color = color;
+	}
+
+	public List<ItemMaterialPrenda> getItemMaterialPrenda() {
+		return itemMaterialPrenda;
+	}
+	public void setItemMaterialPrenda(List<ItemMaterialPrenda> itemMaterialPrenda) {
+		this.itemMaterialPrenda = itemMaterialPrenda;
 	}
 	public Talle getTalle() {
 		return talle;
@@ -44,7 +45,19 @@ public class ItemPrenda {
 	public void setTalle(Talle talle) {
 		this.talle = talle;
 	}
-	
+
+	public float getCostoProduccionActual() {
+		return costoProduccionActual;
+	}
+	public void setCostoProduccionActual(float costoProduccionActual) {
+		this.costoProduccionActual = costoProduccionActual;
+	}
+	public float getPorcentajeGanancia() {
+		return porcentajeGanancia;
+	}
+	public void setPorcentajeGanancia(float porcentajeGanancia) {
+		this.porcentajeGanancia = porcentajeGanancia;
+	}
 	
 	
 	

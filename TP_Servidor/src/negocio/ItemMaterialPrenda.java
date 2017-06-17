@@ -29,4 +29,5 @@ public class ItemMaterialPrenda {
 		this.cantidadutilizada=i.getCantidadutilizada();
 	}
 
+
 }

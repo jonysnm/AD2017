@@ -7,6 +7,7 @@ import java.util.List;
 import dao.AdministracionDAO;
 import dao.ClienteDAO;
 import dao.PedidoDAO;
+import dao.TallesyColoresDAO;
 import dto.ItemPedidoDTO;
 import dto.ItemPrendaDTO;
 import dto.PedidoDTO;
@@ -44,20 +45,13 @@ public class ControladorPedido {
 			ItemPedido iPedido = new ItemPedido();
 			iPedido.setCantidad(itemPedido.getCantidad());
 			iPedido.setImporte(itemPedido.getImporte());
-			Color color = new Color();
-			color.setDescripcion(itemPedido.getColor().getDescripcion());
-			color.setIdcolor(itemPedido.getColor().getIdColor());
-			Talle talle = new Talle();
-			talle.setIdTalle(itemPedido.getTalle().getIdTalle());
-			talle.setDescripcion(itemPedido.getTalle().getDescripcion());
-			iPedido.setColor(color);
-			iPedido.setTalle(talle);
-			Prenda prenda = new Prenda();
-			prenda.setCodigo(itemPedido.getPrenda().getCodigo());
-			prenda.setCostoProduccion(itemPedido.getPrenda().getCostoProduccion());
-			prenda.setCostoProduccionActual(itemPedido.getPrenda().getCostoProduccionActual());
-			prenda.setDescripcion(itemPedido.getPrenda().getDescripcion());
+			Prenda prenda=PedidoDAO.getInstancia().getPrenda(itemPedido.getPrenda().getCodigo());
 			iPedido.setPrenda(prenda);
+			List<ItemPrenda> itemsPrenda=prenda.getItemPrendas();
+			for(ItemPrenda ip:itemsPrenda){
+				iPedido.setColor(ip.getColor());
+				iPedido.setTalle(ip.getTalle());
+			}
 			itemsPedidos.add(iPedido);
 		}
 		p.setItems(itemsPedidos);

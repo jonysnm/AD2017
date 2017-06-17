@@ -21,7 +21,7 @@ public class UbicacionEntity implements Serializable  {
 	 */
 	private static final long serialVersionUID = 8281211607689975461L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)	
+	@GeneratedValue(strategy=GenerationType.IDENTITY)	
 	private Integer id;
 	private char calle;
 	private int estante;
