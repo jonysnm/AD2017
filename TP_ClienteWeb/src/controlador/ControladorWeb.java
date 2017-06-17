@@ -48,26 +48,12 @@ public class ControladorWeb extends HttpServlet {
 			jspPage = "/index.jsp";
 			break;
 		case "aprobar_rechazar_pedidos":
-							
-			//TODO: por ahora uso este mockup
-			/*
+			
+			//TODO: falta armar logica login para obtener sucursal de la session
 			List<PedidosPendientesAprobacionDTO> lstPedidosPendientesAprobacionDTO = BusinessDelegate.getInstancia().obtenerPedidosPendientesdeAprobacion(1);
-			*/
-			
-			List<PedidosPendientesAprobacionDTO> lstPedidosPendientesAprobacionDTO = new ArrayList<PedidosPendientesAprobacionDTO>(); 
-			
-			PedidosPendientesAprobacionDTO mock = new PedidosPendientesAprobacionDTO();
-			mock.setId(2);
-			mock.setContieneDiscontinuosyHaystock(false);
-			mock.setLimiteCredito(5000);
-			mock.setNombreCliente("Cliente Prueba");
-			lstPedidosPendientesAprobacionDTO.add(mock);
-
 			request.setAttribute("lstPedidosPendientesAprobacionDTO", lstPedidosPendientesAprobacionDTO);
-
 			
-			String mensaje="";
-			
+			String mensaje="";	
 			if(lstPedidosPendientesAprobacionDTO.size()==0)
 			{
 				mensaje="No registra pedidos pendientes de aprobacion";
@@ -131,10 +117,6 @@ public class ControladorWeb extends HttpServlet {
 	protected void dispatch(String jsp, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (jsp != null) {
-			/*
-			 * Envía el control al JSP que pasamos como parámetro, y con los
-			 * request / response cargados con los parámetros
-			 */
 			RequestDispatcher rd = request.getRequestDispatcher(jsp);
 			rd.forward(request, response);
 		}
