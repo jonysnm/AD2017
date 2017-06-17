@@ -22,17 +22,25 @@
 	<table>	
 			<tr>
 				<td>Id Pedido</td>
+				<td>Fecha Aprobacion</td>
 				<td>Cliente</td>
+				<td>CUIT</td>
+				<td>Tipo Facturacion</td>
 				<td>Limite Credito</td>
+				<td>Saldo en Cuenta Corriente</td>
 				<td>Tiene Discontinuos</td>
 				<td>Accion</td>
 			</tr>
 	<%for (PedidosPendientesAprobacionDTO ec : lstPedidosPendientesAprobacionDTO){ %>
 			<tr>
 				<td><%=ec.getId()%></td>
+				<td><%=ec.getFechaCreacion()%></td>
 				<td><%=ec.getNombreCliente()%></td>
+				<td><%=ec.getCuit()%></td>
+				<td><%=ec.getTipoFacturacion()%></td>
 				<td><%=ec.getLimiteCredito()%></td>
 				<td><%=ec.getSaldoCtaCte()%></td>
+				<td><%=ec.isContieneDiscontinuosyHaystock()%></td>
 				<td>
 				<input type="submit" name="<%=ec.getId() %>" value="Aprobar" onclick="this.form.hdnIdPedido.value=this.name;this.form.hdnOperacion.value=this.value;this.form.submit();" />
 				<input type="submit" name="<%=ec.getId() %>" value="Rechazar" onclick="this.form.hdnIdPedido.value=this.name;this.form.hdnOperacion.value=this.value;this.form.submit();" />					 									

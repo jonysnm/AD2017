@@ -236,41 +236,19 @@ public class AdministracionDAO {
 		return null;
 	}
 
-//	crear un metodo que se llame: "ObtenerPedidosPendientesdeAprobacion(idSucursal):List"
-//
-//		el metodo recibe idSucursal: porque va a mostrar los pedidos pendientes de la sucursal para el gerente de la misma los visualice
-//		el metodo devuelve un listado de los pedidos pendientes de aprobación (esto es una lista de PedidosPendientesAprobacionDTO)
-//		*Crear el metodo en todas las capas involucradas: controladorWeb, businessdelegate, objetoRemoto, interfazremota, controladorPedido, clase de negocio Pedido, PedidoDTO.. (y si hace falta algún otro también)
-//		
-//		
-	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal) {
+//Jonathan Methods	
+	public List<Pedido> obtenerPedidosPendientesdeAprobacion(int idSucursal) {
 		try {
 			Session session = sf.openSession();
+
 			@SuppressWarnings("unchecked")
-		List<PedidoEntity> lista = session.createQuery("from PedidoEntity where estado='En Verificacion' AND sucursal.id=:idsuc").setInteger("idsuc", idSucursal).list();
-//			List<PedidoEntity> lista = session.createQuery("from PedidoEntity p where p.estado = 'PENDIENTE'").list();
-			session.close();
-			
+			List<PedidoEntity> lista = session.createQuery("from PedidoEntity where estado='En Verificacion' AND sucursal.id=:idsuc").setInteger("idsuc", idSucursal).list();
+			session.close();			
 			List<Pedido> pedidos = new ArrayList<Pedido>();
 			for (PedidoEntity pedidoEntity : lista) {
 				pedidos.add(new Pedido(pedidoEntity));
-			}
-			List<PedidosPendientesAprobacionDTO> pedidosVista = new ArrayList<PedidosPendientesAprobacionDTO>();
-			for (Pedido pedido : pedidos) {
-				PedidosPendientesAprobacionDTO peddto = new PedidosPendientesAprobacionDTO();
-				peddto.setCuit(pedido.getCliente().getCuit());
-				peddto.setFechaCreacion(pedido.getFechaCreacion());
-				peddto.setNombreCliente(pedido.getCliente().getNombre());
-				peddto.setTipoFacturacion(pedido.getCliente().getTipoFacturacion());
-				peddto.setLimiteCredito(pedido.getCliente().getLimiteCredito());
-				peddto.setSaldoCtaCte(pedido.getCliente().getCtacte().getSaldo());
-				peddto.setTotal(pedido.TotalPedido2());
-				
-//				peddto.setContieneDiscontinuosyHaystock(pedido.discontinuosStock());
-				pedidosVista.add(peddto);
-				
-			}
-			return pedidosVista;
+			}			
+			return pedidos;
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("ErrorDAO: AdministracionDAO: Listar Pedidos pendientes de validacion");
@@ -278,15 +256,18 @@ public class AdministracionDAO {
 		return null;
 	}
 	
+//Fin Jonathan Methods
+	
+	
 	public SucursalEntity SucursalToEntity(Sucursal s) {
 		SucursalEntity se = new SucursalEntity();
 		se.setCodigoPostal(s.getCodigoPostal());
 		se.setDireccion(s.getDireccion());
-		se.setGerente(EmpleadoToEntity(s.getGerente()));
+//		se.setGerente(EmpleadoToEntity(s.getGerente()));
 		se.setLocalidad(s.getLocalidad());
 		se.setNombre(s.getNombre());
 		se.setProvincia(s.getProvincia());
-		se.setRecepcionPedidos(EmpleadoToEntity(s.getRecepcionPedidos()));
+//		se.setRecepcionPedidos(EmpleadoToEntity(s.getRecepcionPedidos()));
 		se.setTelefono(s.getTelefono());
 		return se;
 	}

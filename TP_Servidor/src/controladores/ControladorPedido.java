@@ -145,7 +145,10 @@ public class ControladorPedido {
 		 return pedidosDTO;
 	}
 	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal) {
-		return AdministracionDAO.getInstancia().obtenerPedidosPendientesdeAprobacion( idSucursal);
+		Pedido pedidoNegocio = new Pedido();
+		return pedidoNegocio.obtenerPedidosPendientesdeAprobacion( idSucursal);
+		
+		//return AdministracionDAO.getInstancia().obtenerPedidosPendientesdeAprobacion( idSucursal);
 	}
 	
 	public void altaTalle(TalleDTO talleDTO) {
