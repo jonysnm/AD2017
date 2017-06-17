@@ -1,7 +1,10 @@
 package entities;
 import java.io.Serializable;
 
-import javax.persistence.*;
+import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Embeddable
 public class ItemPedidoId implements Serializable {
@@ -9,9 +12,12 @@ public class ItemPedidoId implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="IdPedido",nullable=false)
 	private PedidoEntity pedido;
+	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="IdPrenda",nullable=false)
 	private PrendaEntity prenda;

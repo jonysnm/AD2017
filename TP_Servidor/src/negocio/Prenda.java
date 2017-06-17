@@ -5,8 +5,6 @@ import java.util.List;
 
 import dao.AlmacenDAO;
 import dao.PedidoDAO;
-import entities.AreaProduccionInvolucradaEntity;
-import entities.ItemMaterialPrendaEntity;
 import entities.PrendaEntity;
 
 public class Prenda {

@@ -16,15 +16,19 @@ public class ItemPedidoEntity implements Serializable{
 	@EmbeddedId
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private ItemPedidoId IdItemPedido;
+	
 	@OneToOne
 	@JoinColumn(name="idtalle")
 	private TalleEntity talle;
+	
 	@OneToOne
 	@JoinColumn(name="idColor")
 	private ColorEntity color;
+	
 	private int importe;
 	private int cantidad;	
 	public ItemPedidoEntity(){}
+	
 	public ItemPedidoId getIdItemPedido() {
 		return IdItemPedido;
 	}

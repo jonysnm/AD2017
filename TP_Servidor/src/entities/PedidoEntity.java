@@ -36,21 +36,26 @@ public class PedidoEntity implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="numeropedido")
 	private Integer id;
+	
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
 	@ForeignKey(name="FK_CLIENTE_ID")
 	private ClienteEntity cliente;
+	
 	private Date fechaCreacion;
 	private Date fechaprobableDespacho;
 	private Date fecharealDespacho;
+	
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="IdPedido")
 	@ForeignKey(name="FK_ITEMS_PEDIDO_ID")
 	private List<ItemPedidoEntity> items;
+	
 	@ManyToOne
 	@JoinColumn(name="sucursal_id")
 	@ForeignKey(name="FK_SUCURSAL_ID")
 	private SucursalEntity sucursal;
+	
 	@ManyToOne
 	@JoinColumn(name="factura_id")
 	@ForeignKey(name="FK_FACTURA_ID")

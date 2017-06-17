@@ -12,8 +12,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
 
-import negocio.ItemFaltantePedido;
-
 
 @Entity
 @Table(name="Items_Faltantes_Pedido")

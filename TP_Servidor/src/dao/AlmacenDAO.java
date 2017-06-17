@@ -1,20 +1,12 @@
 package dao;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import entities.ColorEntity;
 import entities.ItemBultoEntity;
-import entities.ItemPrendaStockEntity;
-import entities.PrendaEntity;
-import entities.TalleEntity;
 import entities.UbicacionEntity;
 import hbt.HibernateUtil;
-import negocio.ItemBulto;
 import negocio.ItemPedido;
 import negocio.Ubicacion;
 
@@ -52,7 +44,7 @@ public class AlmacenDAO {
 			Session session=sf.openSession();
 			session.beginTransaction();
 			UbicacionEntity ub=new UbicacionEntity();
-			List<ItemBultoEntity> itemsbulto=new ArrayList<ItemBultoEntity>();
+			ItemBultoEntity itemsbulto= new ItemBultoEntity();
 			
 //			for(ItemBulto ib: ubicacion.getBulto()){				
 //				ItemBultoEntity iBulto=new ItemBultoPEntity();

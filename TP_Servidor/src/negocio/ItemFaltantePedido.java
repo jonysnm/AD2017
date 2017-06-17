@@ -1,7 +1,5 @@
 package negocio;
 
-import entities.ItemFaltantePedidoEntity;
-
 public class ItemFaltantePedido {
 	private int id;
 	private int cantidadFaltante;
@@ -46,13 +44,7 @@ public class ItemFaltantePedido {
 	}
 	public ItemFaltantePedido() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	public ItemFaltantePedidoEntity ToEntity() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	
 	
 //	

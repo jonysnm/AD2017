@@ -22,13 +22,11 @@ import entities.PrendaEntity;
 import entities.SucursalEntity;
 import entities.TalleEntity;
 import hbt.HibernateUtil;
-import negocio.Color;
 import negocio.ItemFaltantePedido;
 import negocio.ItemPedido;
 import negocio.ItemPrenda;
 import negocio.Pedido;
 import negocio.Prenda;
-import negocio.Talle;
 
 public class PedidoDAO {
 	private static PedidoDAO instancia;

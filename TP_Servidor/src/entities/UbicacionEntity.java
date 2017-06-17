@@ -1,7 +1,6 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -27,9 +26,9 @@ public class UbicacionEntity implements Serializable  {
 	private int estante;
 	private int posicion;
 	private boolean ocupado;
-	@OneToMany (cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="idUbicacion")
-	private List<ItemBultoEntity> bulto;
+	private ItemBultoEntity bulto;
 	public int getId() {
 		return id;
 	}
@@ -60,12 +59,6 @@ public class UbicacionEntity implements Serializable  {
 	public void setOcupado(boolean ocupado) {
 		this.ocupado = ocupado;
 	}
-	public List<ItemBultoEntity> getBulto() {
-		return bulto;
-	}
-	public void setBulto(List<ItemBultoEntity> bulto) {
-		this.bulto = bulto;
-	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -73,11 +66,17 @@ public class UbicacionEntity implements Serializable  {
 	public String toString() {
 		return "UbicacionEntity [id=" + id + ", calle=" + calle + ", estante="
 				+ estante + ", posicion=" + posicion + ", ocupado=" + ocupado
-				+ ", bulto=" + bulto + "]";
+				+ ", bulto=" + getBulto() + "]";
 	}
 	public UbicacionEntity() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public ItemBultoEntity getBulto() {
+		return bulto;
+	}
+	public void setBulto(ItemBultoEntity bulto) {
+		this.bulto = bulto;
 	}
 	
 	
