@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import dao.AdministracionDAO;
 import dao.PedidoDAO;
+import dto.PedidosPendientesAprobacionDTO;
 import entities.ItemPedidoEntity;
 import entities.PedidoEntity;
 import estados.EstadoAprobacionPedidoCliente;
@@ -166,4 +168,35 @@ public Pedido(){}
 		this.lstItemsFaltantesPedidos = lstItemsFaltantesPedidos;
 	}
 	
+	
+	//Jonathan Methods
+	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal) {
+
+		List<Pedido> pedidos = AdministracionDAO.getInstancia().obtenerPedidosPendientesdeAprobacion( idSucursal);
+		List<PedidosPendientesAprobacionDTO> pedidosVista = new ArrayList<PedidosPendientesAprobacionDTO>();
+		for (Pedido pedido : pedidos) {
+			pedidosVista.add(pedido.ToPedidosPendientesAprobacionDTO());		
+			}
+		return pedidosVista;
+	}
+	
+	public PedidosPendientesAprobacionDTO ToPedidosPendientesAprobacionDTO(){
+		PedidosPendientesAprobacionDTO peddto = new PedidosPendientesAprobacionDTO();
+		peddto.setCuit(this.getCliente().getCuit());
+		peddto.setFechaCreacion(this.getFechaCreacion());
+		peddto.setNombreCliente(this.getCliente().getNombre());
+		peddto.setTipoFacturacion(this.getCliente().getTipoFacturacion());
+		peddto.setLimiteCredito(this.getCliente().getLimiteCredito());
+		peddto.setSaldoCtaCte(this.getCliente().getCtacte().getSaldo());
+		peddto.setTotal(this.TotalPedido2());			
+		peddto.setContieneDiscontinuosyHaystock(TengoDiscontinuossinStock());
+		return peddto;
+	}
+	
+	private boolean TengoDiscontinuossinStock() {
+		//TODO: Agregar verificacion de Prendas discountinuas sin stock
+		return false;
+	}
+	//Fin Jonathan Methods
+
 }
