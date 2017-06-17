@@ -14,6 +14,7 @@ import dto.PedidosPendientesAprobacionDTO;
 import dto.SucursalDTO;
 import dto.TalleDTO;
 import dto.UbicacionDTO;
+import estados.EstadoAprobacionPedidoCliente;
 import interfazRemota.IAdmSucursalesControlador;
 import interfazRemota.IClienteControlador;
 import interfazRemota.ILogistica;
@@ -98,5 +99,9 @@ public class BusinessDelegate {
 	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal)throws RemoteException {
 		return interfazRemotaPuntoVenta.obtenerPedidosPendientesdeAprobacion(idSucursal);
 
+	}	
+	/*Jona*/
+	public void cambiarEstadoPedido(Integer idPedido, EstadoAprobacionPedidoCliente estado) throws RemoteException{
+		interfazRemotaPuntoVenta.cambiarEstadoPedido(idPedido, estado);
 	}
 }

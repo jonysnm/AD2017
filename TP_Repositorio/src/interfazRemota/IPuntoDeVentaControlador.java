@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import dto.*;
+import estados.EstadoAprobacionPedidoCliente;
 
 public interface IPuntoDeVentaControlador extends Remote{
 	/*LAU*/
@@ -27,4 +28,6 @@ public interface IPuntoDeVentaControlador extends Remote{
 	public void IniciarProcesamientoPedidoAprobado(Integer Idpedido)throws RemoteException;
 	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal)throws RemoteException;
 
+	/*JONA */
+	public void cambiarEstadoPedido(Integer idPedido,EstadoAprobacionPedidoCliente estado) throws RemoteException;
 }

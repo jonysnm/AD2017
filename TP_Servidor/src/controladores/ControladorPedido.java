@@ -93,7 +93,7 @@ public class ControladorPedido {
 				p.update();
 			}
 	}
-	public void cambiarEstadoPedidoPendienteAprobacion(Integer idPedido,EstadoAprobacionPedidoCliente estado){
+	public void cambiarEstadoPedido(Integer idPedido,EstadoAprobacionPedidoCliente estado){
 		Pedido p=PedidoDAO.getInstancia().getPedido(idPedido);
 					p.setEstado(estado);
 					p.update();
@@ -145,7 +145,10 @@ public class ControladorPedido {
 		 return pedidosDTO;
 	}
 	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal) {
-		return AdministracionDAO.getInstancia().obtenerPedidosPendientesdeAprobacion( idSucursal);
+		Pedido pedidoNegocio = new Pedido();
+		return pedidoNegocio.obtenerPedidosPendientesdeAprobacion( idSucursal);
+		
+		//return AdministracionDAO.getInstancia().obtenerPedidosPendientesdeAprobacion( idSucursal);
 	}
 	
 	public void altaTalle(TalleDTO talleDTO) {

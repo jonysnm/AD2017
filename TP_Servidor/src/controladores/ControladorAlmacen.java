@@ -69,7 +69,7 @@ public class ControladorAlmacen {
 //			ip.setCantidad(ib.getIpr().getCantidad());
 //			ip.setCantidadReservada(ib.getIpr().getCantidadReservada()); //usar itemstockprenda
 			Prenda p=new Prenda();
-			p.setCodigo(ib.getIpr().getPrenda().getCodigo());
+//			p.setCodigo(ib.getIpr().getPrenda().getCodigo());
 //			ip.setPrenda(p);
 			Color c=new Color();
 			c.setIdcolor(ib.getIpr().getColor().getIdColor());
