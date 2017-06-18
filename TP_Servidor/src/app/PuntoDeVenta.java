@@ -73,9 +73,9 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 				throw new RemoteException("Error al obtener el pedido: "+e.getMessage());
 			}
 	}
-	public List<PedidoDTO> listarPedidosPendientesDeValidacion() throws RemoteException {
-		return ControladorPedido.getInstancia().listarPedidosPendientesDeValidacion();
-	}
+//	public List<PedidoDTO> listarPedidosPendientesDeValidacion() throws RemoteException {
+//		return ControladorPedido.getInstancia().listarPedidosPendientesDeValidacion();
+//	}
 	public void altaTalle(TalleDTO talleDTO) throws RemoteException {
 		ControladorPedido.getInstancia().altaTalle(talleDTO);
 	}
@@ -83,10 +83,10 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 		return ControladorPedido.getInstancia().obtenerPedidosPendientesdeAprobacion( idSucursal);
 	}
 	
-	/* Jona */
+	// Jonathan Methods --> PREGUNTAR ANTES DE MODIFICAR
 	@Override
 	public void cambiarEstadoPedido(Integer idPedido, EstadoAprobacionPedidoCliente estado) throws RemoteException {
 		ControladorPedido.getInstancia().cambiarEstadoPedido(idPedido, estado);
 	}
-
+	// FIN Jonathan Methods
 }

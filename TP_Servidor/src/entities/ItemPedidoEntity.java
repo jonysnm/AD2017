@@ -26,7 +26,7 @@ public class ItemPedidoEntity implements Serializable{
 	private ColorEntity color;
 	
 	private int importe;
-	private int cantidad;	
+	private float cantidad;	
 	public ItemPedidoEntity(){}
 	
 	public ItemPedidoId getIdItemPedido() {
@@ -53,10 +53,10 @@ public class ItemPedidoEntity implements Serializable{
 	public void setImporte(int importe) {
 		this.importe = importe;
 	}
-	public int getCantidad() {
+	public float getCantidad() {
 		return cantidad;
 	}
-	public void setCantidad(int cantidad) {
+	public void setCantidad(float cantidad) {
 		this.cantidad = cantidad;
 	}
 }

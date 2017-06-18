@@ -4,18 +4,18 @@ import dao.AlmacenDAO;
 import entities.ItemPedidoEntity;
 
 public class ItemPedido {
-	private int cantidad;
+	private float cantidad;
 	private Prenda prenda;
 	private int importe;
 	private Color color;
 	private Talle talle;
 	
 	public ItemPedido(){}
-	public int getCantidad() {
+	public float getCantidad() {
 		return cantidad;
 	}
 	
-	public void setCantidad(int cantidad) {
+	public void setCantidad(float cantidad) {
 		this.cantidad = cantidad;
 	}
 	public Prenda getPrenda() {

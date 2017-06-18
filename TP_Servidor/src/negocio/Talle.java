@@ -41,4 +41,15 @@ public class Talle {
 		super();
 		this.descripcion = descripcion;
 	}
+	
+	//Jonathan Methods  --> CONSULTAR ANTES DE MODIFICAR
+	public TalleEntity ToEntity()
+	{
+		TalleEntity talleEntity = new TalleEntity();
+		talleEntity.setDescripcion(this.getDescripcion());
+		talleEntity.setidTalle(this.getIdTalle());
+		return talleEntity;
+	}
+	
+	//FINJonathan Methods  --> CONSULTAR ANTES DE MODIFICAR
 }

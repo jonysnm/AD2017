@@ -16,6 +16,7 @@ import dto.TalleDTO;
 import estados.EstadoAprobacionPedidoCliente;
 import negocio.Cliente;
 import negocio.Color;
+import negocio.ItemFaltantePedido;
 import negocio.ItemPedido;
 import negocio.ItemPrenda;
 import negocio.Pedido;
@@ -67,60 +68,72 @@ public class ControladorPedido {
 	public void agregarPedido(Integer id){
 		return;
 	}
-//este metodo ya no se usa
-//	public void confirmarPedido(Integer idPedido){
-//		Pedido p=PedidoDAO.getInstancia().getPedido(idPedido);
-//			if(p.getCliente().getLimiteCredito()>p.TotalPedido(p)){
-//				if(p.ObtenerVigenciaporPrenda(p)){
-//					p.setEstado(EstadoAprobacionPedidoCliente.AprobadoenSucursal);
-//					p.update();
-//					System.out.println("PEDIDO OK");
-//					
-//				}else{
-////					FIXME VER FRAN
-////					if(p.ObtenerDisponiblePrenda(p)){
-////						p.setEstado(EstadoAprobacionPedidoCliente.Completo);
-////						p.update();
-////						System.out.println("PEDIDO OK DISCONTINUO");
-////					}else{
-////						p.setEstado(EstadoAprobacionPedidoCliente.AprobadoenSucursal);
-////						p.update();
-////						System.out.println("PEDIDO NO OK DISCONTINUO");
-////					}
-//				}
-//			}else{
-//				System.out.println("PEDIDO NO OK");		
-//				p.setEstado(EstadoAprobacionPedidoCliente.RechazadoenSucursal);
-//				p.update();
-//			}
-//	}
+
 	public void cambiarEstadoPedido(Integer idPedido,EstadoAprobacionPedidoCliente estado){
 		Pedido p=PedidoDAO.getInstancia().getPedido(idPedido);
 					p.setEstado(estado);
 					p.update();
 	}
 
+		   		   			   
+//Jonathan Methods--> CONSULTAR ANTES DE MODIFICAR
+	public void IniciarProcesamientoPedidoAprobado(Integer idPedido)
+	{   
+		List<ItemFaltantePedido> lstItemsFaltantesPedido = new ArrayList<ItemFaltantePedido>();
+		ItemFaltantePedido itemFaltantePedido = null;
+		Pedido p=PedidoDAO.getInstancia().getPedidoAprobado(idPedido);		   		  		
+		if(p!=null)
+		{
+		// * 1- verificar si tengo stock disponible de las prendas del pedido			   
+			for (ItemPedido itemPedido : p.getItems()) 
+			{
+				float cantidadFaltante = itemPedido.getCantidad() - itemPedido.getPrenda().ObtenerDisponible(itemPedido);
+				if(cantidadFaltante < 0) //significa que hay faltante
+				{
+					// * 2- voy cargando la lista de items faltantes que al final de recorer todas las prendas del pedido 
+					//me va a dejar decidir si reservo o no reservo las prendas
+					itemFaltantePedido = new ItemFaltantePedido();
+					itemFaltantePedido.setPrenda(itemPedido.getPrenda());
+					itemFaltantePedido.setCantidadFaltante(cantidadFaltante);
+					itemFaltantePedido.setColor(itemPedido.getColor());
+					itemFaltantePedido.setTalle(itemPedido.getTalle());
+					lstItemsFaltantesPedido.add(itemFaltantePedido);
+				}
+			}
+			// *3- cuando termino de armar la lista de faltantes, me fijo como quedo la lista para decidir puedo marcarlo como
+			// "Completo" o si tengo que emitir orden de produccion
+			
+			if (lstItemsFaltantesPedido.size()==0)
+			{
+				p.setEstado(EstadoAprobacionPedidoCliente.Completo);
+				this.cambiarEstadoPedido(idPedido, EstadoAprobacionPedidoCliente.Completo);
+			}
+			else
+			{
+				DefiniryCrearTipoOrdenProduccion(lstItemsFaltantesPedido);
+				GuardarItemsFaltantePedido(lstItemsFaltantesPedido);
+			}						
+		}
+	}
+			   
+	private void GuardarItemsFaltantePedido(List<ItemFaltantePedido> lstItemsFaltantesPedido) {		
+		PedidoDAO pedidoDao = PedidoDAO.getInstancia();
+		for (ItemFaltantePedido itemFaltantePedido : lstItemsFaltantesPedido) {
+			pedidoDao.NuevoItemFaltantePedido(itemFaltantePedido);
+		}		
+	}
+	private void DefiniryCrearTipoOrdenProduccion(List<ItemFaltantePedido> lstItemsFaltantesPedido) {
+		// TODO Auto-generated method stub
+		
+	}
 	
-	public void IniciarProcesamientoPedidoAprobado(Integer idPedido){
-		   Pedido p=PedidoDAO.getInstancia().getPedidoAprobado(idPedido);
-		   if(p!=null){
-//				FIXME VER FRAN
-////			   if(p.ObtenerDisponiblePrenda(p)){
-//				   p.setEstado(EstadoAprobacionPedidoCliente.Completo);
-//				   p.update();
-//				   System.out.println("PEDIDO OK COMPLETO");
-//			   }else{
-//				   //PENDIENTE
-//			   }
-		   }
+	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal) {
+		Pedido pedidoNegocio = new Pedido();
+		return pedidoNegocio.obtenerPedidosPendientesdeAprobacion( idSucursal);		
 	}
-	public float Obtenerlimitecrédito(Cliente c){
-		Cliente cli=ClienteDAO.getInstancia().getCliente(c.getId());
-		return cli.getLimiteCredito();		
-	}
-	public String informarEstadoPedido(){
-		return null;
-	}
+	
+//FIN Jonathan Methods--> CONSULTAR ANTES DE MODIFICAR
+	
 
 	public void cancelarPedido(Integer id){
 		Pedido pe=PedidoDAO.getInstancia().getPedido(id);
@@ -128,30 +141,12 @@ public class ControladorPedido {
 		pe.update();
 	}
 	
-	public List<Pedido> obtenerPedidoPendientesDeValidacion(){
-		return AdministracionDAO.getInstancia().obtenerPedidosPendientesDeValidacion();
-	}
-
 	public PedidoDTO obtenerPedido(int idPedido) throws Exception {
 		Pedido p = AdministracionDAO.getInstancia().obtenerPedido(idPedido);
 		PedidoDTO pedidoDTO = PedidoToDTO.toDTO(p);
 		return pedidoDTO;
 	}
-	public List<PedidoDTO> listarPedidosPendientesDeValidacion() {
-		 List<Pedido> pedidos = AdministracionDAO.getInstancia().obtenerPedidosPendientesDeValidacion();
-		 List<PedidoDTO>  pedidosDTO = new ArrayList<PedidoDTO>();
-		 for (Pedido pedido : pedidos) {
-			 pedidosDTO.add(PedidoToDTO.toDTO(pedido));	
-		}
-		 return pedidosDTO;
-	}
-	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal) {
-		Pedido pedidoNegocio = new Pedido();
-		return pedidoNegocio.obtenerPedidosPendientesdeAprobacion( idSucursal);
 		
-		//return AdministracionDAO.getInstancia().obtenerPedidosPendientesdeAprobacion( idSucursal);
-	}
-	
 	public void altaTalle(TalleDTO talleDTO) {
 		AdministracionDAO.getInstancia().altaTalle(talleDTO);
 	}

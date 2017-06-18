@@ -22,7 +22,7 @@ public class PedidoToDTO {
 		List<ItemPedidoDTO> itemsDTO = new ArrayList<ItemPedidoDTO>();
 		for (ItemPedido itemPedido : items) {
 			ItemPedidoDTO itemPedidoDTO = new ItemPedidoDTO();
-			itemPedidoDTO.setCantidad(itemPedido.getCantidad());
+//			itemPedidoDTO.setCantidad(itemPedido.getCantidad());
 			itemPedidoDTO.setImporte(itemPedido.getImporte());
 			itemPedidoDTO.setPrenda(PrendaToDTO.toDTO(itemPedido.getPrenda()));
 			itemsDTO.add(itemPedidoDTO);

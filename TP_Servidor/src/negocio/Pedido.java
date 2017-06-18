@@ -83,7 +83,7 @@ public Pedido(){}
     public int TotalPedido(Pedido p){
 		int total=0;
 		for (ItemPedido itemPedido : p.getItems()) {
-			total=(itemPedido.getCantidad()*itemPedido.getImporte())+total;
+			total=(int) ((itemPedido.getCantidad()*itemPedido.getImporte())+total);
 		}
 		System.out.printf("TOTAL:%d",total);
 		return total;

@@ -99,15 +99,30 @@ public class Prenda {
 		this.itemPrendas = itemPrendas;
 	}
 
-
-	public boolean HayStockSuficiente(int cantidad, Color color, Talle talle) {
+//Jonathan Methods --> CONSULTAR ANTES DE MODIFICAR
+	public boolean HayStockSuficiente(float cantidad, Color color, Talle talle) {
 		ItemPedido ip = new ItemPedido();
 		ip.setCantidad(cantidad);
 		ip.setColor(color);
 		ip.setTalle(talle);
-		float cantidadDisponible = AlmacenDAO.getInstancia().obtenerDisponiblePorPrenda(ip);
+		float cantidadDisponible = ObtenerDisponible(ip);
 				
 		return cantidadDisponible>=cantidad;
+	}	
+	
+	public float ObtenerDisponible(ItemPedido ip){
+		return AlmacenDAO.getInstancia().obtenerDisponiblePorPrenda(ip);
 	}
 
+
+	public PrendaEntity ToEntity() {
+		PrendaEntity prendaEntity = new PrendaEntity();
+		//prendaEntity.setAreasInvolucradas(this.getAreasInvolucradas());
+		prendaEntity.setDescripcion(this.getDescripcion());
+		prendaEntity.setIdPrenda(this.getCodigo());
+		//prendaEntity.setIp(ip);
+		prendaEntity.setVigente(this.isVigente());
+		return prendaEntity;
+	}
+//FIN Jonathan Methods
 }

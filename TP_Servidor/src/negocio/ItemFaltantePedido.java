@@ -1,9 +1,14 @@
 package negocio;
 
+import entities.*;
+
 public class ItemFaltantePedido {
 	private int id;
-	private int cantidadFaltante;
+	private float cantidadFaltante;
 	private Prenda prenda;	
+	private Talle talle;
+	private Color color;
+	
 	private ItemPrenda itemPrenda;
 	public int getId() {
 		return id;
@@ -11,10 +16,10 @@ public class ItemFaltantePedido {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getCantidadFaltante() {
+	public float getCantidadFaltante() {
 		return cantidadFaltante;
 	}
-	public void setCantidadFaltante(int cantidadFaltante) {
+	public void setCantidadFaltante(float cantidadFaltante) {
 		this.cantidadFaltante = cantidadFaltante;
 	}
 	public Prenda getPrenda() {
@@ -45,51 +50,29 @@ public class ItemFaltantePedido {
 	public ItemFaltantePedido() {
 		super();
 	}
-	
-	
-//	
-//	public ItemFaltantePedido (Pedido pedido, ItemPedido itemPedido, int cantidadFaltante)
-//	{
-//		this.setCantidadFaltante(cantidadFaltante);
-//		this.setPrenda(itemPedido.getPrenda());
-//		this.setColor(itemPedido.getColor());
-//		this.setTalle(itemPedido.getTalle());
-//	}
-//	
-//	public int getCantidadFaltante() {
-//		return cantidadFaltante;
-//	}
-//	public void setCantidadFaltante(int cantidadFaltante) {
-//		this.cantidadFaltante = cantidadFaltante;
-//	}
-//	public Prenda getPrenda() {
-//		return prenda;
-//	}
-//	public void setPrenda(Prenda prenda) {
-//		this.prenda = prenda;
-//	}
-//	public Color getColor() {
-//		return color;
-//	}
-//	public void setColor(Color color) {
-//		this.color = color;
-//	}
-//	public Talle getTalle() {
-//		return talle;
-//	}
-//	public void setTalle(Talle talle) {
-//		this.talle = talle;
-//	}
-//
-//	public ItemFaltantePedidoEntity ToEntity() {
-//			
-//		ItemFaltantePedidoEntity entity = new ItemFaltantePedidoEntity();
-//		entity.setColor(new ColorEntity(this.getColor().getDescripcion()));
-//		entity.setTalle(this.getTalle().ToEntiy());
-//		entity.setPrenda(this.getPrenda().ToEntity());
-//		entity.setCantidadFaltante(this.getCantidadFaltante());
-//		return entity;
-//		
-//	}
-//	
+	public Talle getTalle() {
+		return talle;
+	}
+	public void setTalle(Talle talle) {
+		this.talle = talle;
+	}
+	public Color getColor() {
+		return color;
+	}
+	public void setColor(Color color) {
+		this.color = color;
+	}
+		
+	//Jonathan Methods --> CONSULTAR ANTES DE MODIFICAR
+	public ItemFaltantePedidoEntity ToEntity() {
+			
+		ItemFaltantePedidoEntity entity = new ItemFaltantePedidoEntity();
+		entity.setColor(new ColorEntity(this.getColor().getDescripcion()));
+		entity.setTalle(this.getTalle().ToEntity());
+		entity.setPrenda(this.getPrenda().ToEntity());
+		entity.setCantidadFaltante(this.getCantidadFaltante());
+		return entity;
+		
+	}
+	//FIN Jonathan Methods --> CONSULTAR ANTES DE MODIFICAR
 }
