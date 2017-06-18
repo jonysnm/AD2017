@@ -67,32 +67,33 @@ public class ControladorPedido {
 	public void agregarPedido(Integer id){
 		return;
 	}	
-	public void confirmarPedido(Integer idPedido){
-		Pedido p=PedidoDAO.getInstancia().getPedido(idPedido);
-			if(p.getCliente().getLimiteCredito()>p.TotalPedido(p)){
-				if(p.ObtenerVigenciaporPrenda(p)){
-					p.setEstado(EstadoAprobacionPedidoCliente.AprobadoenSucursal);
-					p.update();
-					System.out.println("PEDIDO OK");
-					
-				}else{
-//					FIXME VER FRAN
-//					if(p.ObtenerDisponiblePrenda(p)){
-//						p.setEstado(EstadoAprobacionPedidoCliente.Completo);
-//						p.update();
-//						System.out.println("PEDIDO OK DISCONTINUO");
-//					}else{
-//						p.setEstado(EstadoAprobacionPedidoCliente.AprobadoenSucursal);
-//						p.update();
-//						System.out.println("PEDIDO NO OK DISCONTINUO");
-//					}
-				}
-			}else{
-				System.out.println("PEDIDO NO OK");		
-				p.setEstado(EstadoAprobacionPedidoCliente.RechazadoenSucursal);
-				p.update();
-			}
-	}
+//ESTE hace la verificacion automatica de limite de credito y discontinuos
+//	public void confirmarPedido(Integer idPedido){
+//		Pedido p=PedidoDAO.getInstancia().getPedido(idPedido);
+//			if(p.getCliente().getLimiteCredito()>p.TotalPedido(p)){
+//				if(p.ObtenerVigenciaporPrenda(p)){
+//					p.setEstado(EstadoAprobacionPedidoCliente.AprobadoenSucursal);
+//					p.update();
+//					System.out.println("PEDIDO OK");
+//					
+//				}else{
+////					FIXME VER FRAN
+////					if(p.ObtenerDisponiblePrenda(p)){
+////						p.setEstado(EstadoAprobacionPedidoCliente.Completo);
+////						p.update();
+////						System.out.println("PEDIDO OK DISCONTINUO");
+////					}else{
+////						p.setEstado(EstadoAprobacionPedidoCliente.AprobadoenSucursal);
+////						p.update();
+////						System.out.println("PEDIDO NO OK DISCONTINUO");
+////					}
+//				}
+//			}else{
+//				System.out.println("PEDIDO NO OK");		
+//				p.setEstado(EstadoAprobacionPedidoCliente.RechazadoenSucursal);
+//				p.update();
+//			}
+//	}
 	public void cambiarEstadoPedido(Integer idPedido,EstadoAprobacionPedidoCliente estado){
 		Pedido p=PedidoDAO.getInstancia().getPedido(idPedido);
 					p.setEstado(estado);
@@ -103,7 +104,7 @@ public class ControladorPedido {
 	public void IniciarProcesamientoPedidoAprobado(Integer idPedido){
 		   Pedido p=PedidoDAO.getInstancia().getPedidoAprobado(idPedido);
 		   if(p!=null){
-//				FIXME VER FRAN
+			   
 ////			   if(p.ObtenerDisponiblePrenda(p)){
 //				   p.setEstado(EstadoAprobacionPedidoCliente.Completo);
 //				   p.update();
