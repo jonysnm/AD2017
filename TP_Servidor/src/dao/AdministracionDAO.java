@@ -289,11 +289,11 @@ public class AdministracionDAO {
 		SucursalEntity se = new SucursalEntity();
 		se.setCodigoPostal(s.getCodigoPostal());
 		se.setDireccion(s.getDireccion());
-//		se.setGerente(EmpleadoToEntity(s.getGerente()));
+		se.setGerente(EmpleadoToEntity(s.getGerente()));
 		se.setLocalidad(s.getLocalidad());
 		se.setNombre(s.getNombre());
 		se.setProvincia(s.getProvincia());
-//		se.setRecepcionPedidos(EmpleadoToEntity(s.getRecepcionPedidos()));
+		se.setRecepcionPedidos(EmpleadoToEntity(s.getRecepcionPedidos()));
 		se.setTelefono(s.getTelefono());
 		return se;
 	}

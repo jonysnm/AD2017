@@ -2,13 +2,11 @@ package entities;
 
 import java.io.Serializable;
 
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 @Entity
-@DiscriminatorValue("IBMP")
 @Table(name="Item_Bulto_MP")
 public class ItemBultoMPEntity extends ItemBultoEntity implements Serializable{
 	

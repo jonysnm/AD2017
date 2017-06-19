@@ -29,13 +29,13 @@ public class Cliente {
 	public Cliente() {
 		try {
 			businessDelegate = BusinessDelegate.getInstancia();
-			nuevoCliente();
-			nuevaSucursal();
-			Integer id=nuevoPedido();
+//			nuevoCliente();
+//			nuevaSucursal();
+//			Integer id=nuevoPedido();
 			//nuevaubicacion();
-			System.out.println(("IDPedido: " + id));
-			//businessDelegate.confirmarPedido(id);
-			//businessDelegate.IniciarProcesamientoPedidoAprobado(id);
+//			System.out.println(("IDPedido: " + id));
+			businessDelegate.confirmarPedido(1);
+			businessDelegate.IniciarProcesamientoPedidoAprobado(1);
       	} catch (RemoteException e) {
 			e.printStackTrace();
 		}

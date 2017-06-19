@@ -3,6 +3,7 @@ package entities;
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -19,7 +20,7 @@ public class ItemPrendaId implements Serializable {
 	@JoinColumn(name = "idColor", nullable = false)
 	private ColorEntity color;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "IdPrenda", nullable = false)
 	private PrendaEntity prenda;
 
@@ -38,11 +39,13 @@ public class ItemPrendaId implements Serializable {
 	public void setColor(ColorEntity color) {
 		this.color = color;
 	}
-     public PrendaEntity getPrenda() {
-	 return prenda;
-	 }
-	 public void setPrenda(PrendaEntity prenda) {
-	 this.prenda = prenda;
-	 }
+
+	public PrendaEntity getPrenda() {
+		return prenda;
+	}
+
+	public void setPrenda(PrendaEntity prenda) {
+		this.prenda = prenda;
+	}
 
 }
