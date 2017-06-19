@@ -10,7 +10,9 @@
 <h2>Se muestran los pedidos que estan listos para que el personal de despacho arme el paquete y arregle en envio</h2>
 </head>
 <body>
-
+	<div>
+		<a href="ControladorWeb?action=default" target="_self"><b>Home</b></a>
+	</div>
 	<%
 	List<PedidosCompletosPendientesDespacharDTO> lstPedidosCompletosPendientesDespacharDTO  = (List<PedidosCompletosPendientesDespacharDTO>)request.getAttribute("lstPedidosCompletosPendientesDespacharDTO");	
 	%>
