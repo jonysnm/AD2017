@@ -16,6 +16,6 @@ public class Test {
 		Test.getInstancia();
 		
 		new HibernateUtil();
-//		AgregarDatos.guardarInfo();
+        AgregarDatos.guardarInfo();
 	}
 }

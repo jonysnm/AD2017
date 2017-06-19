@@ -23,29 +23,26 @@ public class ItemBultoPrendaEntity extends ItemBultoEntity implements Serializab
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumns({@JoinColumn(name="idTalle"),@JoinColumn(name="idColor"),@JoinColumn(name="IdPrenda")})
 	private ItemPrendaEntity itemPrenda;
+
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="idOrdenProduccion")
 	private OrdenProduccionEntity op;
-	
-
-//	public ItemPrendaEntity getItemPrenda() {
-//		return itemPrenda;
-//	}
-//
-//
-//
-//	public void setItemPrenda(ItemPrendaEntity itemPrenda) {
-//		this.itemPrenda = itemPrenda;
-//	}
 
 
-
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public ItemBultoPrendaEntity() {
+		super();
 	}
 
+
+	public ItemPrendaEntity getItemPrenda() {
+		return itemPrenda;
+	}
+
+
+	public void setItemPrenda(ItemPrendaEntity itemPrenda) {
+		this.itemPrenda = itemPrenda;
+	}
 
 
 	public OrdenProduccionEntity getOp() {
@@ -53,33 +50,10 @@ public class ItemBultoPrendaEntity extends ItemBultoEntity implements Serializab
 	}
 
 
-
 	public void setOp(OrdenProduccionEntity op) {
 		this.op = op;
 	}
-
-
-
-	public ItemBultoPrendaEntity() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-
-
-	public ItemBultoPrendaEntity(int id) {
-		super(id);
-		// TODO Auto-generated constructor stub
-	}
-
-
-
-	public ItemBultoPrendaEntity(int id, PrendaEntity prenda, ItemPrendaEntity itemPrenda,OrdenProduccionEntity op) {
-		super(id);
-//		this.itemPrenda = itemPrenda;
-		this.op = op;
-	}
 	
-	
+
 
 }

@@ -148,6 +148,7 @@ public class PedidoDAO {
 			for(ItemPrenda ipp:Prenda.getItemPrendas()){
 				ItemPrendaEntity it=new ItemPrendaEntity();
 				ItemPrendaId id=new ItemPrendaId();
+				id.setPrenda(pe);
 				id.setColor((ColorEntity)session.get(ColorEntity.class,ipp.getColor().getIdcolor()));
 				id.setTalle((TalleEntity)session.get(TalleEntity.class, ipp.getTalle().getIdTalle()));
 				it.setItemPrendaId(id);

@@ -72,15 +72,6 @@ public class ItemPrendaEntity implements Serializable {
 		return serialVersionUID;
 	}
 
-	public ItemPrendaEntity(int id, Float costoProduccionActual, Float porcentajeGanancia, int cantidadEnOPC,
-			List<ItemMaterialPrendaEntity> itemMaterialPrenda) {
-		super();
-		this.costoProduccionActual = costoProduccionActual;
-		this.porcentajeGanancia = porcentajeGanancia;
-		this.cantidadEnOPC = cantidadEnOPC;
-		this.itemMaterialPrenda = itemMaterialPrenda;
-	}
-
 	public ItemPrendaEntity() {
 		super();
 		// TODO Auto-generated constructor stub

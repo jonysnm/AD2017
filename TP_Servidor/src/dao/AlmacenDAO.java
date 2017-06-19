@@ -5,10 +5,18 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import entities.ItemBultoEntity;
+import entities.ItemBultoPrendaEntity;
+import entities.ItemPrendaEntity;
+import entities.ItemPrendaId;
+import entities.PedidoEntity;
+import entities.PrendaEntity;
 import entities.UbicacionEntity;
 import hbt.HibernateUtil;
+import negocio.ItemBulto;
+import negocio.ItemBultoPrenda;
 import negocio.ItemPedido;
 import negocio.Ubicacion;
+import utils.PrendaToDTO;
 
 public class AlmacenDAO {
 	private static AlmacenDAO instancia;
@@ -44,26 +52,16 @@ public class AlmacenDAO {
 			Session session=sf.openSession();
 			session.beginTransaction();
 			UbicacionEntity ub=new UbicacionEntity();
-			ItemBultoEntity itemsbulto= new ItemBultoEntity();
-			
-//			for(ItemBulto ib: ubicacion.getBulto()){				
-//				ItemBultoEntity iBulto=new ItemBultoPEntity();
-//				ItemPrendaStockEntity ip=new ItemPrendaStockEntity();
-////				ip.setCantidad(ib.getIpr().getCantidad());
-////				ip.setCantidadReservada(ib.getIpr().getCantidadReservada());
-////				PrendaEntity prendaEntity = (PrendaEntity)session.get(PrendaEntity.class, ib.getIpr().getPrenda().getCodigo());
-////				ip.setPrenda(prendaEntity);
-//				ColorEntity c=new ColorEntity();
-//				c.setIdcolor(ib.getIpr().getColor().getIdcolor());
-//				TalleEntity t=new TalleEntity();
-//				t.setidTalle(ib.getIpr().getTalle().getIdTalle());
-//				ip.setColor(c);
-//				ip.setTalle(t);
-////				iBulto.setIpr(ip);
-//				itemsbulto.add(iBulto);
-//				session.save(ip);
-//			}
-			ub.setBulto(itemsbulto);
+			ItemBultoPrenda ib=(ItemBultoPrenda) ubicacion.getBulto();
+			ItemBultoPrendaEntity ibpre=new ItemBultoPrendaEntity();
+			Query query = session.createQuery("From PrendaEntity where IdPrenda = :idPedi");
+			PrendaEntity p = (PrendaEntity) query.setParameter("idPedi", ib.getItemPrenda().getPrenda().getCodigo()).uniqueResult();
+			for(ItemPrendaEntity ip:p.getIp()){
+				
+			}
+			ibpre.setCantidad(ib.getCantidad());
+			ibpre.setCantidadReservada(ib.getCantidadReservada());
+			ub.setBulto(ibpre);
 			session.save(ub);
 			session.getTransaction().commit();
 			session.flush();

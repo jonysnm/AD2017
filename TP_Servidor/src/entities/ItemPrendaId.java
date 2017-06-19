@@ -38,21 +38,11 @@ public class ItemPrendaId implements Serializable {
 	public void setColor(ColorEntity color) {
 		this.color = color;
 	}
-
-	public PrendaEntity getPrenda() {
-		return prenda;
-	}
-
-	public void setPrenda(PrendaEntity prenda) {
-		this.prenda = prenda;
-	}
-
-	// public PrendaEntity getPrenda() {
-	// return prenda;
-	// }
-	//
-	// public void setPrenda(PrendaEntity prenda) {
-	// this.prenda = prenda;
-	// }
+     public PrendaEntity getPrenda() {
+	 return prenda;
+	 }
+	 public void setPrenda(PrendaEntity prenda) {
+	 this.prenda = prenda;
+	 }
 
 }
