@@ -4,19 +4,14 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import entities.ItemBultoEntity;
 import entities.ItemBultoPrendaEntity;
 import entities.ItemPrendaEntity;
-import entities.ItemPrendaId;
-import entities.PedidoEntity;
 import entities.PrendaEntity;
 import entities.UbicacionEntity;
 import hbt.HibernateUtil;
-import negocio.ItemBulto;
 import negocio.ItemBultoPrenda;
 import negocio.ItemPedido;
 import negocio.Ubicacion;
-import utils.PrendaToDTO;
 
 public class AlmacenDAO {
 	private static AlmacenDAO instancia;
@@ -53,11 +48,11 @@ public class AlmacenDAO {
 			session.beginTransaction();
 			UbicacionEntity ub=new UbicacionEntity();
 			ItemBultoPrenda ib=(ItemBultoPrenda) ubicacion.getBulto();
-			ItemBultoPrendaEntity ibpre=new ItemBultoPrendaEntity();
+			ItemBultoPrendaEntity ibpre = new ItemBultoPrendaEntity();
 			Query query = session.createQuery("From PrendaEntity where IdPrenda = :idPedi");
-			PrendaEntity p = (PrendaEntity) query.setParameter("idPedi", ib.getItemPrenda().getPrenda().getCodigo()).uniqueResult();
+			PrendaEntity p = (PrendaEntity) query.setParameter("idPedi", ib.getPrenda().getCodigo()).uniqueResult();
 			for(ItemPrendaEntity ip:p.getIp()){
-				
+					ibpre.setItemPrenda(ip);
 			}
 			ibpre.setCantidad(ib.getCantidad());
 			ibpre.setCantidadReservada(ib.getCantidadReservada());

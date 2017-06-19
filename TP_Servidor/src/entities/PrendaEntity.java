@@ -26,10 +26,9 @@ public class PrendaEntity implements Serializable{
 	private Integer IdPrenda;
 	private String descripcion;
 
-	//@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER,mappedBy="itemPrendaId.prenda")
+//	@OneToMany(fetch=FetchType.EAGER,mappedBy="itemPrendaId.prenda",cascade={CascadeType.ALL})
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="IdPrenda")
-	@Fetch(value=FetchMode.SELECT)
 	private List<ItemPrendaEntity> ip;
 	
 	private Boolean vigente;
@@ -37,6 +36,7 @@ public class PrendaEntity implements Serializable{
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@Fetch(value=FetchMode.SELECT)
 	private List<AreaProduccionInvolucradaEntity> areasInvolucradas;
+	
 	public Integer getIdPrenda() {
 		return IdPrenda;
 	}

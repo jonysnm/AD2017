@@ -21,6 +21,7 @@ import entities.PedidoEntity;
 import entities.PrendaEntity;
 import entities.SucursalEntity;
 import entities.TalleEntity;
+import estados.EstadoAprobacionPedidoCliente;
 import hbt.HibernateUtil;
 import negocio.ItemFaltantePedido;
 import negocio.ItemPedido;
@@ -58,8 +59,14 @@ public class PedidoDAO {
 				itemPedidoEntity.setCantidad(i.getCantidad());
 				itemPedidoEntity.setImporte(i.getImporte());
 				
-		
-				PrendaEntity prendaEntity = (PrendaEntity)session.get(PrendaEntity.class, i.getPrenda().getCodigo());
+				String hql = "FROM PrendaEntity P " + "WHERE P.IdPrenda = :id";
+
+				Query query = session.createQuery(hql);
+				query.setParameter("id", i.getPrenda().getCodigo());
+				query.setMaxResults(1);
+				
+				PrendaEntity prendaEntity = (PrendaEntity) query.uniqueResult();
+				
 				
 				ItemPedidoId id2 = new ItemPedidoId();
 				id2.setPrenda(prendaEntity);
@@ -118,10 +125,11 @@ public class PedidoDAO {
 			Session session = sf.openSession();
 			
 			String hql = "FROM PedidoEntity P " +
-						 "WHERE P.id = :id and P.estado='AprobadoenSucursal'";
+						 "WHERE P.id = :id ";
 			
 			Query query = session.createQuery(hql);
 			query.setParameter("id", idpedido);
+//			query.setParameter("state", EstadoAprobacionPedidoCliente.AprobadoenSucursal);
 			query.setMaxResults(1);
 			
 			if(query.uniqueResult() != null){
@@ -138,25 +146,25 @@ public class PedidoDAO {
 		}
 		return new Pedido(pedido);
 	}
-	public void AltaPrenda(Prenda Prenda){
+	public void AltaPrenda(Prenda prenda){
 			Session session=sf.openSession();
 			session.beginTransaction();		
 			PrendaEntity pe=new PrendaEntity();
-			pe.setDescripcion(Prenda.getDescripcion());
-			pe.setVigente(Prenda.isVigente());
+			pe.setDescripcion(prenda.getDescripcion());
+			pe.setVigente(prenda.isVigente());
 			List<ItemPrendaEntity> ip=new ArrayList<ItemPrendaEntity>();
-			for(ItemPrenda ipp:Prenda.getItemPrendas()){
+			for(ItemPrenda ipp:prenda.getItemPrendas()){
 				ItemPrendaEntity it=new ItemPrendaEntity();
 				ItemPrendaId id=new ItemPrendaId();
-				id.setPrenda(pe);
 				id.setColor((ColorEntity)session.get(ColorEntity.class,ipp.getColor().getIdcolor()));
 				id.setTalle((TalleEntity)session.get(TalleEntity.class, ipp.getTalle().getIdTalle()));
+				id.setPrenda(pe);
 				it.setItemPrendaId(id);
 				ip.add(it);
 			}
 			pe.setIp(ip);
-			session.getTransaction().commit();
 			session.save(pe);
+			session.getTransaction().commit();
 			session.flush();
 			session.close();
 	}	
