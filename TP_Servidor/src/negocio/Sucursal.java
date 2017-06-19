@@ -100,16 +100,16 @@ public class Sucursal {
 	public Sucursal(SucursalEntity sucursal){
 		this.codigoPostal=sucursal.getCodigoPostal();
 		this.direccion=sucursal.getDireccion();
-		this.empleados=new HashSet<Empleado>();
-		for (EmpleadoEntity empleadoEntity : sucursal.getEmpleados()) {
-			this.empleados.add(new Empleado(empleadoEntity));
-		}
-		this.gerente=new Empleado(sucursal.getGerente());
+//		this.empleados=new HashSet<Empleado>();
+//		for (EmpleadoEntity empleadoEntity : sucursal.getEmpleados()) {
+//			this.empleados.add(new Empleado(empleadoEntity));
+//		}
+//		this.gerente=new Empleado(sucursal.getGerente());
 		this.id=sucursal.getId();
 		this.localidad=sucursal.getLocalidad();
 		this.nombre=sucursal.getNombre();
 		this.provincia=sucursal.getProvincia();
-		this.recepcionPedidos=new Empleado(sucursal.getRecepcionPedidos());
+//		this.recepcionPedidos=new Empleado(sucursal.getRecepcionPedidos());
 	}
 	public void save(){
 		AdministracionDAO.getInstancia().altaSucursal(this);

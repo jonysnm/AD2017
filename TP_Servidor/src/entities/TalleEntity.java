@@ -8,8 +8,9 @@ import javax.persistence.*;
 public class TalleEntity implements Serializable{
 	private static final long serialVersionUID = -6479446838679069821L;
 
-	@Id
+	@Id	
 	@GeneratedValue
+	@Column(name="idTalle")
 	private int idTalle;
 	private String descripcion;
 	public TalleEntity(){}

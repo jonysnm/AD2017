@@ -4,6 +4,7 @@ import entities.*;
 
 public class ItemFaltantePedido {
 	private int id;
+	Pedido pedido;
 	private float cantidadFaltante;
 	private Prenda prenda;	
 	private Talle talle;
@@ -75,4 +76,10 @@ public class ItemFaltantePedido {
 		
 	}
 	//FIN Jonathan Methods --> CONSULTAR ANTES DE MODIFICAR
+	public Pedido getPedido() {
+		return pedido;
+	}
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
 }

@@ -17,24 +17,22 @@ import org.hibernate.annotations.ForeignKey;
 @Table(name="Items_Faltantes_Pedido")
 public class ItemFaltantePedidoEntity implements Serializable {
 
-	public ItemFaltantePedidoEntity(ItemFaltantePedidoEntity itemFaltante) {
-	
-	}
-
 	public ItemFaltantePedidoEntity() {
-		// TODO Auto-generated constructor stub
 	}
 
 	private static final long serialVersionUID = 1L;
-//	private int cantidadFaltante;
-//	private Prenda prenda;	
-//	private Color color;
-//	private Talle talle;
+
 
 	@Id
 	@GeneratedValue
 	private Integer idItemFaltantePedido;
 
+	@ManyToOne
+	@JoinColumn(name="IdPedido")
+	@ForeignKey(name="FK_Pedi_ID")
+	private PedidoEntity pedido;
+	
+	
 	@ManyToOne
 	@JoinColumn(name="IdPrenda")
 	@ForeignKey(name="FK_PREN_ID")

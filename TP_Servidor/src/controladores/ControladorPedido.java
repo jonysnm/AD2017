@@ -14,6 +14,7 @@ import dto.PedidoDTO;
 import dto.PedidosPendientesAprobacionDTO;
 import dto.TalleDTO;
 import estados.EstadoAprobacionPedidoCliente;
+import estados.EstadoPedido;
 import negocio.Cliente;
 import negocio.Color;
 import negocio.ItemFaltantePedido;
@@ -69,14 +70,15 @@ public class ControladorPedido {
 		return;
 	}
 
+	   		   			   
+//Jonathan Methods--> CONSULTAR ANTES DE MODIFICAR
+	
 	public void cambiarEstadoPedido(Integer idPedido,EstadoAprobacionPedidoCliente estado){
 		Pedido p=PedidoDAO.getInstancia().getPedido(idPedido);
 					p.setEstado(estado);
 					p.update();
 	}
-
-		   		   			   
-//Jonathan Methods--> CONSULTAR ANTES DE MODIFICAR
+	
 	public void IniciarProcesamientoPedidoAprobado(Integer idPedido)
 	{   
 		List<ItemFaltantePedido> lstItemsFaltantesPedido = new ArrayList<ItemFaltantePedido>();
@@ -88,11 +90,13 @@ public class ControladorPedido {
 			for (ItemPedido itemPedido : p.getItems()) 
 			{
 				float cantidadFaltante = itemPedido.getCantidad() - itemPedido.getPrenda().ObtenerDisponible(itemPedido);
+				ReservarPrendaenStock(itemPedido,p.getId());
 				if(cantidadFaltante < 0) //significa que hay faltante
 				{
 					// * 2- voy cargando la lista de items faltantes que al final de recorer todas las prendas del pedido 
 					//me va a dejar decidir si reservo o no reservo las prendas
 					itemFaltantePedido = new ItemFaltantePedido();
+					itemFaltantePedido.setPedido(p);
 					itemFaltantePedido.setPrenda(itemPedido.getPrenda());
 					itemFaltantePedido.setCantidadFaltante(cantidadFaltante);
 					itemFaltantePedido.setColor(itemPedido.getColor());
@@ -101,7 +105,7 @@ public class ControladorPedido {
 				}
 			}
 			// *3- cuando termino de armar la lista de faltantes, me fijo como quedo la lista para decidir puedo marcarlo como
-			// "Completo" o si tengo que emitir orden de produccion
+			// "Completo" o si tengo que emitir orden de produccion  -> en cualquier caso las prendas quedan reservadas
 			
 			if (lstItemsFaltantesPedido.size()==0)
 			{
@@ -110,12 +114,17 @@ public class ControladorPedido {
 			}
 			else
 			{
+				this.cambiarEstadoPedido(idPedido, EstadoAprobacionPedidoCliente.EnEsperaFinalizacionOrdendeProduccion);
 				DefiniryCrearTipoOrdenProduccion(lstItemsFaltantesPedido);
 				GuardarItemsFaltantePedido(lstItemsFaltantesPedido);
 			}						
 		}
 	}
 			   
+	private void ReservarPrendaenStock(ItemPedido itemPedido, int id) {
+		// TODO: este metodo se encargar de marcar la prenda como reservada y decrementar el stock disponible
+		
+	}
 	private void GuardarItemsFaltantePedido(List<ItemFaltantePedido> lstItemsFaltantesPedido) {		
 		PedidoDAO pedidoDao = PedidoDAO.getInstancia();
 		for (ItemFaltantePedido itemFaltantePedido : lstItemsFaltantesPedido) {

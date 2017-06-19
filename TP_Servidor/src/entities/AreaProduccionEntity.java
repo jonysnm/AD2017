@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +23,7 @@ public class AreaProduccionEntity implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int codigo;
 	private String nombreArea;
-	@OneToMany (cascade=CascadeType.ALL)
+	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	@JoinColumn(name="idAreaProduccion")
 	private List<LineaProduccionEntity> lineas;
 	public int getCodigo() {

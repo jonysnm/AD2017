@@ -230,9 +230,8 @@ public class PedidoDAO {
 		return pe;
 	}
 	public int NuevoItemFaltantePedido(ItemFaltantePedido itemFaltante) {
-		// TODO Auto-generated method stub
 		ItemFaltantePedidoEntity ifp = itemFaltante.ToEntity();
-		
+	
 		Session session=sf.openSession();
 		session.beginTransaction();
 		Integer idItemFaltantePedido = (Integer) session.save(ifp);

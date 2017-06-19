@@ -251,35 +251,30 @@ public class AdministracionDAO {
 			Session session = sf.openSession();
 
 			@SuppressWarnings("unchecked")
-			List<PedidoEntity> lista = session.createQuery("from PedidoEntity where estado='En Verificacion' AND sucursal.id=:idsuc").setInteger("idsuc", idSucursal).list();
+			List<PedidoEntity> lista = session.createQuery("from PedidoEntity where estado='PendienteAprobarSucursal' AND sucursal.id=:idsuc").setInteger("idsuc", idSucursal).list();
 			session.close();			
-			
-			//TODO: Harcodeando para testear en lugar de traer de la base	
-//			PedidoEntity pedidoEntity = new PedidoEntity();
-//			pedidoEntity.setEstado(EstadoAprobacionPedidoCliente.PendienteAprobarSucursal);
-//			pedidoEntity.setFechaCreacion(new Date(2017, 01, 01));
-//			pedidoEntity.setId(1);
-//			pedidoEntity.setCliente(new ClienteEntity("Jonathan", "10101010", "Cash", 2000));
-//			
-//			ItemPedidoEntity itemPedido1 = new ItemPedidoEntity();
-//			itemPedido1.setCantidad(100);
-//			itemPedido1.setColor(new ColorEntity());
-//			itemPedido1.setTalle(new TalleEntity());
-//			
-//			ItemPedidoEntity itemPedido2 = new ItemPedidoEntity();
-//			itemPedido2.setCantidad(100);
-//			itemPedido2.setColor(new ColorEntity());
-//			itemPedido2.setTalle(new TalleEntity());
-//									
-//			pedidoEntity.setItems(items);
-			
-			//FIN: Harcodeando para testear en lugar de traer de la base
 			
 			List<Pedido> pedidos = new ArrayList<Pedido>();
 			for (PedidoEntity pedidoEntity : lista) {
 				pedidos.add(new Pedido(pedidoEntity));
 			}			
 			return pedidos;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("ErrorDAO: AdministracionDAO: Listar Pedidos pendientes de validacion");
+		}
+		return null;
+	}
+	
+	public List<PedidoEntity> obtenerPedidosCompletosPendientesDespachar() {
+		try {
+			Session session = sf.openSession();
+
+			@SuppressWarnings("unchecked")
+			List<PedidoEntity> lista = session.createQuery("from PedidoEntity where estado='Completo'").list();
+			session.close();			
+			
+			return lista;
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("ErrorDAO: AdministracionDAO: Listar Pedidos pendientes de validacion");

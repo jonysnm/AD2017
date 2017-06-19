@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import businessDelegate.BusinessDelegate;
+import dto.PedidosCompletosPendientesDespacharDTO;
 import dto.PedidosPendientesAprobacionDTO;
 import dto.TalleDTO;
 import estados.EstadoAprobacionPedidoCliente;
@@ -85,7 +86,23 @@ public class ControladorWeb extends HttpServlet {
 			request.setAttribute("Mensaje", mensaje);
 			jspPage = "/Confirmaciones.jsp";
 			break;
-
+		case "mostrar_pedidos_pendientes_despachar":
+			List<PedidosCompletosPendientesDespacharDTO> lstPedidosCompletosPendientesDespacharDTO = BusinessDelegate.getInstancia().ObtenerListaPedidosCompletosPendientesDespachar();
+			request.setAttribute("lstPedidosCompletosPendientesDespacharDTO", lstPedidosCompletosPendientesDespacharDTO);
+						
+			if(lstPedidosCompletosPendientesDespacharDTO.size()==0)
+			{
+				mensaje="No registra pedidos pendientes de despachar";
+				request.setAttribute("Mensaje",mensaje);
+				jspPage = "/Confirmaciones.jsp";
+			}
+			else
+			{
+				request.setAttribute("lstPedidosPendientesAprobacionDTO",lstPedidosCompletosPendientesDespacharDTO);
+				jspPage = "/MostrarListosDespachar.jsp";
+			}			
+			
+			break;
 		case "altaTalle":
 			try {
 				TalleDTO talleDTO = new TalleDTO();

@@ -80,7 +80,7 @@ public class ControladorAlmacen {
 //			iBulto.setIpr(ip);
 			itemsbulto.add(iBulto);
 		}
-		ub.setBulto(itemsbulto);
+		//ub.setBulto(itemsbulto);
 		AlmacenDAO.getInstancia().nuevaUbicacion(ub);		
 	}
 	//	public void iniciarProcesamientoPedido(Pedido pedido) {

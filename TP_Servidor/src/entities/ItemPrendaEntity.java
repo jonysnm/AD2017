@@ -31,7 +31,7 @@ public class ItemPrendaEntity implements Serializable {
 	private int cantidadEnOPC;
 
 	// FIXME ver aca esto es dudoso(chequearlo)
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@Fetch(value = FetchMode.SELECT)
 	@JoinColumns({@JoinColumn(name="idTalle"),@JoinColumn(name="idColor"),@JoinColumn(name="IdPrenda")})
 	private List<ItemMaterialPrendaEntity> itemMaterialPrenda;

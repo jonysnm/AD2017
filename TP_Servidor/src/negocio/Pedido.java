@@ -6,6 +6,7 @@ import java.util.List;
 
 import dao.AdministracionDAO;
 import dao.PedidoDAO;
+import dto.PedidosCompletosPendientesDespacharDTO;
 import dto.PedidosPendientesAprobacionDTO;
 import entities.ItemPedidoEntity;
 import entities.PedidoEntity;
@@ -133,7 +134,7 @@ public Pedido(){}
 //	}
   	
   	
-  	//Jonathan Methods
+  	//Jonathan Methods Revisar si esta duplicado
   	public void AgregarItemFaltante(Pedido pedido, ItemPedido itemPedido, int cantidadFaltante)
   	{
 //  		ItemFaltantePedido itemFaltante = new ItemFaltantePedido(pedido, itemPedido, cantidadFaltante);
@@ -170,8 +171,32 @@ public Pedido(){}
 	
 	
 	//Jonathan Methods
+	
+	
+	public List<PedidosCompletosPendientesDespacharDTO> PedidosCompletosPendientesDespachar() {
+		
+		List<PedidoEntity> pedidos = AdministracionDAO.getInstancia().obtenerPedidosCompletosPendientesDespachar();
+		List<PedidosCompletosPendientesDespacharDTO> pedidosVista = new ArrayList<PedidosCompletosPendientesDespacharDTO>();
+		
+		for (PedidoEntity pedidoEntity : pedidos) {
+			pedidosVista.add(new Pedido(pedidoEntity).ToPedidosCompletosPendientesDespacharDTO());
+		}		
+		return pedidosVista;
+	}
+	
+	
+	private PedidosCompletosPendientesDespacharDTO ToPedidosCompletosPendientesDespacharDTO() {
+		PedidosCompletosPendientesDespacharDTO pedidosCompletosPendientesDespacharDTO = new PedidosCompletosPendientesDespacharDTO();
+		pedidosCompletosPendientesDespacharDTO.setFechaCreacion(this.getFechaCreacion());
+		pedidosCompletosPendientesDespacharDTO.setFechaProbableDespacho(this.getFechaprobableDespacho());
+		pedidosCompletosPendientesDespacharDTO.setIdCliente(this.getCliente().getId());
+		pedidosCompletosPendientesDespacharDTO.setIdSucursal(this.getSucursal().getId());
+		pedidosCompletosPendientesDespacharDTO.setNombreCliente(this.getCliente().getNombre());
+				
+		return pedidosCompletosPendientesDespacharDTO;
+	}
 	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal) {
-
+		
 		List<Pedido> pedidos = AdministracionDAO.getInstancia().obtenerPedidosPendientesdeAprobacion( idSucursal);
 		List<PedidosPendientesAprobacionDTO> pedidosVista = new ArrayList<PedidosPendientesAprobacionDTO>();
 		for (Pedido pedido : pedidos) {
@@ -182,14 +207,18 @@ public Pedido(){}
 	
 	public PedidosPendientesAprobacionDTO ToPedidosPendientesAprobacionDTO(){
 		PedidosPendientesAprobacionDTO peddto = new PedidosPendientesAprobacionDTO();
+		peddto.setId(this.getId());
 		peddto.setCuit(this.getCliente().getCuit());
 		peddto.setFechaCreacion(this.getFechaCreacion());
 		peddto.setNombreCliente(this.getCliente().getNombre());
 		peddto.setTipoFacturacion(this.getCliente().getTipoFacturacion());
 		peddto.setLimiteCredito(this.getCliente().getLimiteCredito());
-		peddto.setSaldoCtaCte(this.getCliente().getCtacte().getSaldo());
-		peddto.setTotal(this.TotalPedido2());			
-		peddto.setContieneDiscontinuosyHaystock(this.TengoDiscontinuossinStock());
+		//TODO:peddto.setSaldoCtaCte(this.getCliente().getCtacte().getSaldo());Harcodeado para testing
+		peddto.setSaldoCtaCte(80000);
+		//TODO: peddto.setTotal(this.TotalPedido2());Harcodeado para testing
+		peddto.setTotal(1000);
+		//TODO: peddto.setContieneDiscontinuosyHaystock(this.TengoDiscontinuossinStock()); Harcodeado para testing
+		peddto.setContieneDiscontinuosyHaystock(false);
 		return peddto;
 	}
 	

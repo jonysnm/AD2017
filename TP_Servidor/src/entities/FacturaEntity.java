@@ -25,7 +25,7 @@ public class FacturaEntity implements Serializable {
 	@OneToOne
 	@JoinColumn(name="cliente_id")
 	private ClienteEntity cliente;
-	@OneToMany (cascade=CascadeType.ALL)
+	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	@JoinColumn(name="itemfactura")
 	private List<ItemFacturaEntity> itemsFactura;
 	private Float total;

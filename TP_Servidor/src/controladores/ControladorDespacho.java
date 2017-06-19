@@ -14,6 +14,7 @@ import dao.DespachoDAO;
 import dao.PedidoDAO;
 import dto.OrdenDespachoDTO;
 import dto.PedidoDTO;
+import dto.PedidosCompletosPendientesDespacharDTO;
 import dto.UbicacionDTO;
 
 public class ControladorDespacho {
@@ -72,5 +73,12 @@ public class ControladorDespacho {
 	public Date calcularFechaEstimadaEntrega(int idPedido) {
 		return DespachoDAO.getInstancia().calcularFechaEstimadaEntrega(idPedido);
 		
-	}	
+	}
+
+//Metodos Jonathan --> Consultar antes de modificar
+	public List<PedidosCompletosPendientesDespacharDTO> ObtenerListaPedidosCompletosPendientesDespachar() {
+		return new Pedido().PedidosCompletosPendientesDespachar(); 
+		
+	}
+//FIN Metodos Jonathan --> Consultar antes de modificar
 }

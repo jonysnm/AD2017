@@ -31,6 +31,8 @@
 		<br>
     </div>
     <br>
-     	<a href="ControladorWeb?action=aprobar_rechazar_pedidos" target="_self">Verificación Pedidos en Sucursal</a>    	
+     	<a href="ControladorWeb?action=aprobar_rechazar_pedidos" target="_self">Verificación Pedidos en Sucursal</a>
+      <br>
+     	<a href="ControladorWeb?action=mostrar_pedidos_pendientes_despachar" target="_self">Ver Pedidos listos para Despachar</a>    	
 </body>
 </html>

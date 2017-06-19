@@ -53,9 +53,9 @@ public class Cliente {
 		this.limiteCredito=c.getLimiteCredito();
 		this.nombre=c.getNombre();
 		this.tipoFacturacion=c.getTipofacturacion();
-		CuentaCorrienteEntity ctaEntity = c.getCtacte();
-		CuentaCorriente cn = new CuentaCorriente(ctaEntity);
-		this.ctacte=cn;
+//		CuentaCorrienteEntity ctaEntity = c.getCtacte();
+//		CuentaCorriente cn = new CuentaCorriente(ctaEntity);
+//		this.ctacte=cn;
 	}
 	public String getCuit() {
 		return cuit;

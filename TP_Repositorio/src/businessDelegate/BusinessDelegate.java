@@ -10,6 +10,7 @@ import java.util.List;
 import dto.ClienteDTO;
 import dto.EmpleadoDTO;
 import dto.PedidoDTO;
+import dto.PedidosCompletosPendientesDespacharDTO;
 import dto.PedidosPendientesAprobacionDTO;
 import dto.SucursalDTO;
 import dto.TalleDTO;
@@ -100,8 +101,11 @@ public class BusinessDelegate {
 		return interfazRemotaPuntoVenta.obtenerPedidosPendientesdeAprobacion(idSucursal);
 
 	}	
-	/*Jona*/
+	//Methods Jonathan --> Pregutar antes de modificar
 	public void cambiarEstadoPedido(Integer idPedido, EstadoAprobacionPedidoCliente estado) throws RemoteException{
 		interfazRemotaPuntoVenta.cambiarEstadoPedido(idPedido, estado);
+	}
+	public List<PedidosCompletosPendientesDespacharDTO> ObtenerListaPedidosCompletosPendientesDespachar() throws RemoteException{
+		return interfazRemotaDespacho.ObtenerListaPedidosCompletosPendientesDespachar();
 	}
 }

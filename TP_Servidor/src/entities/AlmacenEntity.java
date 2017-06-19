@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,13 +22,13 @@ public class AlmacenEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	@OneToMany (cascade=CascadeType.ALL)
+	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	@JoinColumn(name="idAlmacen")
 	private List<UbicacionEntity> ubicacion;
-	@OneToMany (cascade=CascadeType.ALL)
+	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	@JoinColumn(name="idAlmacen")
 	private List<ItemMovimientoStockEntity> stock;
-	@OneToMany (cascade=CascadeType.ALL)
+	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	@JoinColumn(name="idAlmacen")
 	private List<ItemBultoEntity> scrap;
 	public int getId() {
