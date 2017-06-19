@@ -1,37 +1,22 @@
 package negocio;
 
 public class ItemBultoPrenda  extends ItemBulto {
+   
+	private static final long serialVersionUID = 528717692888974825L;
+
 	
-	private Prenda prenda;
 	private ItemPrenda itemPrenda;
-	private int cantidad;
-	private int cantidadReservada;
+	private Prenda prenda;
 	private OrdenProduccion op;
-	
-	
-	public Prenda getPrenda() {
-		return prenda;
+	public ItemBultoPrenda() {
+		super();
 	}
-	public void setPrenda(Prenda prenda) {
-		this.prenda = prenda;
-	}
+	
 	public ItemPrenda getItemPrenda() {
 		return itemPrenda;
 	}
 	public void setItemPrenda(ItemPrenda itemPrenda) {
 		this.itemPrenda = itemPrenda;
-	}
-	public int getCantidad() {
-		return cantidad;
-	}
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
-	}
-	public int getCantidadReservada() {
-		return cantidadReservada;
-	}
-	public void setCantidadReservada(int cantidadReservada) {
-		this.cantidadReservada = cantidadReservada;
 	}
 	public OrdenProduccion getOp() {
 		return op;
@@ -39,33 +24,12 @@ public class ItemBultoPrenda  extends ItemBulto {
 	public void setOp(OrdenProduccion op) {
 		this.op = op;
 	}
-	
 
-	
-	public int getCantidadDisponible(){
-		return this.cantidad-this.cantidadReservada;
-		
+	public Prenda getPrenda() {
+		return prenda;
 	}
-	public ItemBultoPrenda(int id, Prenda prenda, ItemPrenda itemPrenda, int cantidad, int cantidadReservada,
-			OrdenProduccion op) {
-		super(id);
+
+	public void setPrenda(Prenda prenda) {
 		this.prenda = prenda;
-		this.itemPrenda = itemPrenda;
-		this.cantidad = cantidad;
-		this.cantidadReservada = cantidadReservada;
-		this.op = op;
 	}
-	public ItemBultoPrenda() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public ItemBultoPrenda(int id) {
-		super(id);
-		// TODO Auto-generated constructor stub
-	}
-
-	
-	
-
 }
-	

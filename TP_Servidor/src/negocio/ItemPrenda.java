@@ -3,21 +3,21 @@ package negocio;
 import java.util.List;
 
 public class ItemPrenda {
-
-
 	private List<ItemMaterialPrenda> itemMaterialPrenda;
 	private int cantidadEnOPC;
 
 	private Color color;
 	private Talle talle;
+//	private Prenda prenda;
+
 
 	private float costoProduccionActual;
 	private float porcentajeGanancia;
-	
-	
 
-	
-	
+
+
+
+
 	public int getCantidadEnOPC() {
 		return cantidadEnOPC;
 	}
@@ -28,7 +28,7 @@ public class ItemPrenda {
 	public Color getColor() {
 		return color;
 	}
-	
+
 	public void setColor(Color color) {
 		this.color = color;
 	}
@@ -58,7 +58,13 @@ public class ItemPrenda {
 	public void setPorcentajeGanancia(float porcentajeGanancia) {
 		this.porcentajeGanancia = porcentajeGanancia;
 	}
-	
-	
-	
+//	public Prenda getPrenda() {
+//		return prenda;
+//	}
+//	public void setPrenda(Prenda prenda) {
+//		this.prenda = prenda;
+//	}
+//    
+
+
 }

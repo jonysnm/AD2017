@@ -35,6 +35,7 @@ import entities.PedidoEntity;
 import entities.PrendaEntity;
 import entities.ProveedorEntity;
 import entities.RemitoEntity;
+import entities.ReservasEntity;
 import entities.SucursalEntity;
 import entities.TalleEntity;
 import entities.UbicacionEntity;
@@ -80,6 +81,8 @@ public class HibernateUtil {
 			config.addAnnotatedClass(RemitoEntity.class);
 			config.addAnnotatedClass(ItemBultoPrendaEntity.class);
 			config.addAnnotatedClass(ItemBultoMPEntity.class);
+			config.addAnnotatedClass(ReservasEntity.class);
+
 			
 			
 			sessionFactory=config.buildSessionFactory();

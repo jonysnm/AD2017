@@ -83,9 +83,9 @@ public class BusinessDelegate {
 	public void confirmarPedido(Integer IdPedido) throws RemoteException{
 		interfazRemotaPuntoVenta.confirmarPedido(IdPedido);
 	}
-	public List<PedidoDTO> listarPedidosPendientesDeValidacion() throws RemoteException{
-		return interfazRemotaPuntoVenta.listarPedidosPendientesDeValidacion();
-	}
+//	public List<PedidoDTO> listarPedidosPendientesDeValidacion() throws RemoteException{
+//		return interfazRemotaPuntoVenta.listarPedidosPendientesDeValidacion();
+//	}
 	public void altaTalle(TalleDTO talleDTO) throws RemoteException{
 		interfazRemotaPuntoVenta.altaTalle(talleDTO);
 	}

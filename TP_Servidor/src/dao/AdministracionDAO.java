@@ -1,6 +1,8 @@
 package dao;
 
+import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
@@ -10,16 +12,22 @@ import org.hibernate.classic.Session;
 
 import dto.PedidosPendientesAprobacionDTO;
 import dto.TalleDTO;
+import entities.ClienteEntity;
+import entities.ColorEntity;
 import entities.EmpleadoEntity;
+import entities.ItemPedidoEntity;
 import entities.PedidoEntity;
 import entities.SucursalEntity;
 import entities.TalleEntity;
+import estados.EstadoAprobacionPedidoCliente;
 import exceptions.PedidoException;
 import exceptions.SucursalException;
 import hbt.HibernateUtil;
 import negocio.Empleado;
+import negocio.ItemPedido;
 import negocio.Pedido;
 import negocio.Sucursal;
+import net.sourceforge.jtds.jdbc.DateTime;
 
 public class AdministracionDAO {
 	private static AdministracionDAO instancia;
@@ -237,6 +245,7 @@ public class AdministracionDAO {
 	}
 
 //Jonathan Methods	
+	@SuppressWarnings("deprecation")
 	public List<Pedido> obtenerPedidosPendientesdeAprobacion(int idSucursal) {
 		try {
 			Session session = sf.openSession();
@@ -244,6 +253,28 @@ public class AdministracionDAO {
 			@SuppressWarnings("unchecked")
 			List<PedidoEntity> lista = session.createQuery("from PedidoEntity where estado='En Verificacion' AND sucursal.id=:idsuc").setInteger("idsuc", idSucursal).list();
 			session.close();			
+			
+			//TODO: Harcodeando para testear en lugar de traer de la base	
+//			PedidoEntity pedidoEntity = new PedidoEntity();
+//			pedidoEntity.setEstado(EstadoAprobacionPedidoCliente.PendienteAprobarSucursal);
+//			pedidoEntity.setFechaCreacion(new Date(2017, 01, 01));
+//			pedidoEntity.setId(1);
+//			pedidoEntity.setCliente(new ClienteEntity("Jonathan", "10101010", "Cash", 2000));
+//			
+//			ItemPedidoEntity itemPedido1 = new ItemPedidoEntity();
+//			itemPedido1.setCantidad(100);
+//			itemPedido1.setColor(new ColorEntity());
+//			itemPedido1.setTalle(new TalleEntity());
+//			
+//			ItemPedidoEntity itemPedido2 = new ItemPedidoEntity();
+//			itemPedido2.setCantidad(100);
+//			itemPedido2.setColor(new ColorEntity());
+//			itemPedido2.setTalle(new TalleEntity());
+//									
+//			pedidoEntity.setItems(items);
+			
+			//FIN: Harcodeando para testear en lugar de traer de la base
+			
 			List<Pedido> pedidos = new ArrayList<Pedido>();
 			for (PedidoEntity pedidoEntity : lista) {
 				pedidos.add(new Pedido(pedidoEntity));
@@ -263,11 +294,11 @@ public class AdministracionDAO {
 		SucursalEntity se = new SucursalEntity();
 		se.setCodigoPostal(s.getCodigoPostal());
 		se.setDireccion(s.getDireccion());
-//		se.setGerente(EmpleadoToEntity(s.getGerente()));
+		se.setGerente(EmpleadoToEntity(s.getGerente()));
 		se.setLocalidad(s.getLocalidad());
 		se.setNombre(s.getNombre());
 		se.setProvincia(s.getProvincia());
-//		se.setRecepcionPedidos(EmpleadoToEntity(s.getRecepcionPedidos()));
+		se.setRecepcionPedidos(EmpleadoToEntity(s.getRecepcionPedidos()));
 		se.setTelefono(s.getTelefono());
 		return se;
 	}

@@ -26,17 +26,17 @@ public class PrendaEntity implements Serializable{
 	private Integer IdPrenda;
 	private String descripcion;
 
+//	@OneToMany(fetch=FetchType.EAGER,mappedBy="itemPrendaId.prenda",cascade={CascadeType.ALL})
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="IdPrenda")
-	@Fetch(value=FetchMode.SELECT)
 	private List<ItemPrendaEntity> ip;
 	
 	private Boolean vigente;
 	
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-	@JoinColumn(name="IdPrenda")
 	@Fetch(value=FetchMode.SELECT)
 	private List<AreaProduccionInvolucradaEntity> areasInvolucradas;
+	
 	public Integer getIdPrenda() {
 		return IdPrenda;
 	}

@@ -3,9 +3,8 @@ package negocio;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.AlmacenDAO;
 import dao.PedidoDAO;
-import entities.AreaProduccionInvolucradaEntity;
-import entities.ItemMaterialPrendaEntity;
 import entities.PrendaEntity;
 
 public class Prenda {
@@ -59,7 +58,7 @@ public class Prenda {
 	public Prenda(PrendaEntity pr){
 		this.codigo=pr.getIdPrenda();
 		this.descripcion=pr.getDescripcion();
-		//this.vigente=pr.isVigente();
+		this.vigente=pr.isVigente();
 		List<ItemPrenda> itemsPrenda = new ArrayList<ItemPrenda>();
 		for (int i=0 ;i<pr.getIp().size(); i++) {
 			ItemPrenda ip = new ItemPrenda();
@@ -100,4 +99,30 @@ public class Prenda {
 		this.itemPrendas = itemPrendas;
 	}
 
+//Jonathan Methods --> CONSULTAR ANTES DE MODIFICAR
+	public boolean HayStockSuficiente(float cantidad, Color color, Talle talle) {
+		ItemPedido ip = new ItemPedido();
+		ip.setCantidad(cantidad);
+		ip.setColor(color);
+		ip.setTalle(talle);
+		float cantidadDisponible = ObtenerDisponible(ip);
+				
+		return cantidadDisponible>=cantidad;
+	}	
+	
+	public float ObtenerDisponible(ItemPedido ip){
+		return AlmacenDAO.getInstancia().obtenerDisponiblePorPrenda(ip);
+	}
+
+
+	public PrendaEntity ToEntity() {
+		PrendaEntity prendaEntity = new PrendaEntity();
+		//prendaEntity.setAreasInvolucradas(this.getAreasInvolucradas());
+		prendaEntity.setDescripcion(this.getDescripcion());
+		prendaEntity.setIdPrenda(this.getCodigo());
+		//prendaEntity.setIp(ip);
+		prendaEntity.setVigente(this.isVigente());
+		return prendaEntity;
+	}
+//FIN Jonathan Methods
 }

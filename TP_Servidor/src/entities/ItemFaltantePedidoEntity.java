@@ -12,8 +12,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
 
-import negocio.ItemFaltantePedido;
-
 
 @Entity
 @Table(name="Items_Faltantes_Pedido")
@@ -51,7 +49,7 @@ public class ItemFaltantePedidoEntity implements Serializable {
 	private ColorEntity color;
 	
 	@Column(name="cantidadFaltante", nullable=false)
-	private int cantidadFaltante;
+	private float cantidadFaltante;
 	
 
 	public Integer getIdItemFaltantePedido() {
@@ -86,11 +84,11 @@ public class ItemFaltantePedidoEntity implements Serializable {
 		this.color = color;
 	}
 
-	public int getCantidadFaltante() {
+	public float getCantidadFaltante() {
 		return cantidadFaltante;
 	}
 
-	public void setCantidadFaltante(int cantidadFaltante) {
+	public void setCantidadFaltante(float cantidadFaltante) {
 		this.cantidadFaltante = cantidadFaltante;
 	}
 	

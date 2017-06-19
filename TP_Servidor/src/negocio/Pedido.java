@@ -83,7 +83,7 @@ public Pedido(){}
     public int TotalPedido(Pedido p){
 		int total=0;
 		for (ItemPedido itemPedido : p.getItems()) {
-			total=(itemPedido.getCantidad()*itemPedido.getImporte())+total;
+			total=(int) ((itemPedido.getCantidad()*itemPedido.getImporte())+total);
 		}
 		System.out.printf("TOTAL:%d",total);
 		return total;
@@ -189,13 +189,25 @@ public Pedido(){}
 		peddto.setLimiteCredito(this.getCliente().getLimiteCredito());
 		peddto.setSaldoCtaCte(this.getCliente().getCtacte().getSaldo());
 		peddto.setTotal(this.TotalPedido2());			
-		peddto.setContieneDiscontinuosyHaystock(TengoDiscontinuossinStock());
+		peddto.setContieneDiscontinuosyHaystock(this.TengoDiscontinuossinStock());
 		return peddto;
 	}
 	
-	private boolean TengoDiscontinuossinStock() {
-		//TODO: Agregar verificacion de Prendas discountinuas sin stock
-		return false;
+	private boolean TengoDiscontinuossinStock() {		
+		boolean contieneItemsDiscountinuosSinStock = false;
+		int cantidadItemsPedido = this.getItems().size();
+		int index = 0;
+		ItemPedido itemPedido = null;
+		while(!contieneItemsDiscountinuosSinStock & index < cantidadItemsPedido)
+		{
+			itemPedido = this.getItems().get(index);
+			if(!itemPedido.getPrenda().isVigente() && !itemPedido.getPrenda().HayStockSuficiente(itemPedido.getCantidad(),itemPedido.getColor(), itemPedido.getTalle()))
+			{
+				contieneItemsDiscountinuosSinStock=true;
+			}
+			index++;
+		}					
+		return contieneItemsDiscountinuosSinStock;
 	}
 	//Fin Jonathan Methods
 

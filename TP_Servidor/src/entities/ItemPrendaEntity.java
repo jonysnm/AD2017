@@ -23,30 +23,18 @@ public class ItemPrendaEntity implements Serializable {
 
 	
 	@EmbeddedId
-	private ItemPrendaId itemPrendaId;
-	
+	private	ItemPrendaId itemPrendaId;
 	
 	private Float costoProduccionActual;
 	private Float porcentajeGanancia;
 
-	
 	private int cantidadEnOPC;
-	
-	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-	@Fetch(value=FetchMode.SELECT)
-	@JoinColumns({
-        @JoinColumn(name="idTalle"),
-        @JoinColumn(name="idColor")
-    })
+
+	// FIXME ver aca esto es dudoso(chequearlo)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Fetch(value = FetchMode.SELECT)
+	@JoinColumns({@JoinColumn(name="idTalle"),@JoinColumn(name="idColor"),@JoinColumn(name="IdPrenda")})
 	private List<ItemMaterialPrendaEntity> itemMaterialPrenda;
-
-	public ItemPrendaId getItemPrendaId() {
-		return itemPrendaId;
-	}
-
-	public void setItemPrendaId(ItemPrendaId itemPrendaId) {
-		this.itemPrendaId = itemPrendaId;
-	}
 
 	public Float getCostoProduccionActual() {
 		return costoProduccionActual;
@@ -84,21 +72,18 @@ public class ItemPrendaEntity implements Serializable {
 		return serialVersionUID;
 	}
 
-	public ItemPrendaEntity(ItemPrendaId itemPrendaId, Float costoProduccionActual, Float porcentajeGanancia,
-			int cantidadEnOPC, List<ItemMaterialPrendaEntity> itemMaterialPrenda) {
-		super();
-		this.itemPrendaId = itemPrendaId;
-		this.costoProduccionActual = costoProduccionActual;
-		this.porcentajeGanancia = porcentajeGanancia;
-		this.cantidadEnOPC = cantidadEnOPC;
-		this.itemMaterialPrenda = itemMaterialPrenda;
-	}
-
 	public ItemPrendaEntity() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
 
-	
+	public ItemPrendaId getItemPrendaId() {
+		return itemPrendaId;
+	}
+
+	public void setItemPrendaId(ItemPrendaId itemPrendaId) {
+		this.itemPrendaId = itemPrendaId;
+	}
+
+
 }
