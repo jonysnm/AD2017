@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -18,10 +20,23 @@ public class ItemPrendaEntity implements Serializable {
 
 	private static final long serialVersionUID = 3013620458553400990L;
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)	
+	private	Integer IdItemPrenda;
+
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name = "idTalle",insertable=false,updatable=false,nullable=false)
+	private TalleEntity talle;
+
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name = "idColor",insertable=false,updatable=false,nullable=false)
+	private ColorEntity color;
 	
-	@EmbeddedId
-	private	ItemPrendaId itemPrendaId;
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="IdPrenda")
+	private PrendaEntity prenda;
 	
+
 	private Float costoProduccionActual;
 	private Float porcentajeGanancia;
 
@@ -29,8 +44,43 @@ public class ItemPrendaEntity implements Serializable {
 
 	// FIXME ver aca esto es dudoso(chequearlo)
 	@OneToMany(fetch=FetchType.EAGER)
-	@JoinColumns({@JoinColumn(name="idTalle"),@JoinColumn(name="idColor"),@JoinColumn(name="IdPrenda")})
+	@JoinColumn(name="itemPrendaId")
 	private List<ItemMaterialPrendaEntity> itemMaterialPrenda = new ArrayList<ItemMaterialPrendaEntity>();
+
+	public ItemPrendaEntity() {
+		super();
+	}
+
+
+
+	public Integer getIdItemPrenda() {
+		return IdItemPrenda;
+	}
+
+
+
+	public void setIdItemPrenda(Integer idItemPrenda) {
+		IdItemPrenda = idItemPrenda;
+	}
+
+
+
+	public TalleEntity getTalle() {
+		return talle;
+	}
+
+	public void setTalle(TalleEntity talle) {
+		this.talle = talle;
+	}
+
+	public ColorEntity getColor() {
+		return color;
+	}
+
+	public void setColor(ColorEntity color) {
+		this.color = color;
+	}
+
 
 	public Float getCostoProduccionActual() {
 		return costoProduccionActual;
@@ -65,13 +115,16 @@ public class ItemPrendaEntity implements Serializable {
 	}
 
 
-	public ItemPrendaId getItemPrendaId() {
-		return itemPrendaId;
-	}
 
-	public void setItemPrendaId(ItemPrendaId itemPrendaId) {
-		this.itemPrendaId = itemPrendaId;
+	public PrendaEntity getPrenda() {
+		return prenda;
 	}
 
 
+
+	public void setPrenda(PrendaEntity prenda) {
+		this.prenda = prenda;
+	}
+	
+	
 }

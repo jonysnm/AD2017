@@ -95,7 +95,7 @@ public class PedidoDAO {
 	public Pedido getPedido(Integer idpedido){
 		PedidoEntity pedido = null;
 		try {
-			Session session = sf.openSession();
+			Session session = sf.getCurrentSession();
 			
 			String hql = "FROM PedidoEntity P " +
 						 "WHERE P.id = :id";
@@ -151,14 +151,13 @@ public class PedidoDAO {
 			PrendaEntity pe=new PrendaEntity();
 			pe.setDescripcion(prenda.getDescripcion());
 			pe.setVigente(prenda.isVigente());
+			//pe.setIdPrenda(prenda.getCodigo());
 			List<ItemPrendaEntity> ip=new ArrayList<ItemPrendaEntity>();
 			for(ItemPrenda ipp:prenda.getItemPrendas()){
 				ItemPrendaEntity it=new ItemPrendaEntity();
-				ItemPrendaId id=new ItemPrendaId();
-				id.setColor((ColorEntity)session.get(ColorEntity.class,ipp.getColor().getIdcolor()));
-				id.setTalle((TalleEntity)session.get(TalleEntity.class, ipp.getTalle().getIdTalle()));
-				id.setPrenda(pe);
-				it.setItemPrendaId(id);
+				it.setColor((ColorEntity)session.get(ColorEntity.class,ipp.getColor().getIdcolor()));
+				it.setTalle((TalleEntity)session.get(TalleEntity.class, ipp.getTalle().getIdTalle()));
+				it.setPrenda(pe);				
 				ip.add(it);
 			}
 			pe.setIp(ip);

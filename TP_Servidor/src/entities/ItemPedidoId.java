@@ -6,20 +6,24 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@Embeddable
+//@Embeddable
 public class ItemPedidoId implements Serializable {
+	/*
 	/**
 	 * 
 	 */
+	/*
 	private static final long serialVersionUID = 1L;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="IdPedido",insertable=false,updatable=false,nullable=false)
-	private PedidoEntity pedido;
+	//@ManyToOne(fetch=FetchType.EAGER)
+	//@JoinColumn(name="IdPedido",insertable=false,updatable=false,nullable=false)
+	//private PedidoEntity pedido;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="IdPrenda",insertable=false,updatable=false,nullable=false)
-	private PrendaEntity prenda;
+	//@ManyToOne
+	//@JoinColumn(name="IdPrenda",insertable=false,updatable=false,nullable=false)
+	//private PrendaEntity prenda;
+	
+	
 
 	public PedidoEntity getPedido() {
 		return pedido;
@@ -68,5 +72,5 @@ public class ItemPedidoId implements Serializable {
 		return true;
 	}
 	
-	
+*/
 }

@@ -2,25 +2,26 @@ package entities;
 
 import java.io.Serializable;
 
-import javax.persistence.Embeddable;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-@Embeddable
+//@Embeddable
 public class ItemPrendaId implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+}
+/*
 	private static final long serialVersionUID = -5011475684276958059L;
-
-	@ManyToOne(fetch=FetchType.LAZY)
+/*
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "idTalle",insertable=false,updatable=false,nullable=false)
 	private TalleEntity talle;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "idColor",insertable=false,updatable=false,nullable=false)
 	private ColorEntity color;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "IdPrenda",insertable=false,updatable=false,nullable=false)
 	private PrendaEntity prenda;
 
@@ -49,3 +50,4 @@ public class ItemPrendaId implements Serializable {
 	}
 
 }
+*/

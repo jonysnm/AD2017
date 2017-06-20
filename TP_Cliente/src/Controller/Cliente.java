@@ -29,13 +29,13 @@ public class Cliente {
 	public Cliente() {
 		try {
 			businessDelegate = BusinessDelegate.getInstancia();
-			nuevoCliente();
-			nuevaSucursal();
+			//nuevoCliente();
+			//nuevaSucursal();
 			Integer id=nuevoPedido();
 			//nuevaubicacion();
-//			System.out.println(("IDPedido: " + id));
-			businessDelegate.confirmarPedido(1);
-			businessDelegate.IniciarProcesamientoPedidoAprobado(1);
+	System.out.println(("IDPedido: " + id));
+			//businessDelegate.confirmarPedido(1);
+			//businessDelegate.IniciarProcesamientoPedidoAprobado(1);
       	} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -107,7 +107,7 @@ public class Cliente {
 		talleDTO.setIdTalle(1);
     	ip.setTalle(talleDTO);;
     	PrendaDTO prendaDTO = new PrendaDTO();
-		prendaDTO.setCodigo(3);
+		prendaDTO.setCodigo(1);
 		
 		item.setIpr(ip);		
 		List<ItemBultoDTO> itemsbultos = new ArrayList<ItemBultoDTO>();
