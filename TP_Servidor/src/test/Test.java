@@ -3,7 +3,7 @@ package test;
 
 import dao.PedidoDAO;
 import hbt.HibernateUtil;
-import negocio.Prenda;
+import negocio.Pedido;
 
 public class Test {
 	private static Test instancia;
