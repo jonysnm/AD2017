@@ -12,16 +12,16 @@ public class ItemPrendaId implements Serializable {
 
 	private static final long serialVersionUID = -5011475684276958059L;
 
-	@ManyToOne
-	@JoinColumn(name = "idTalle", nullable = false)
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "idTalle",insertable=false,updatable=false,nullable=false)
 	private TalleEntity talle;
 
-	@ManyToOne
-	@JoinColumn(name = "idColor", nullable = false)
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "idColor",insertable=false,updatable=false,nullable=false)
 	private ColorEntity color;
 
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name = "IdPrenda", nullable = false)
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "IdPrenda",insertable=false,updatable=false,nullable=false)
 	private PrendaEntity prenda;
 
 	public TalleEntity getTalle() {

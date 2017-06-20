@@ -1,7 +1,9 @@
 package test;
 
 
+import dao.PedidoDAO;
 import hbt.HibernateUtil;
+import negocio.Prenda;
 
 public class Test {
 	private static Test instancia;
@@ -16,6 +18,10 @@ public class Test {
 		Test.getInstancia();
 		
 		new HibernateUtil();
-        AgregarDatos.guardarInfo();
+//        AgregarDatos.guardarInfo();
+		Pedido ped = PedidoDAO.getInstancia().getPedidoAprobado(1);	
+//		Prenda ped = PedidoDAO.getInstancia().getPrenda(1);
+		
+		System.out.println(ped);
 	}
 }

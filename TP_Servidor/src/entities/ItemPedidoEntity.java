@@ -14,7 +14,6 @@ public class ItemPedidoEntity implements Serializable{
 	 */
 	private static final long serialVersionUID = 6161471348651036527L;
 	@EmbeddedId
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	private ItemPedidoId IdItemPedido;
 	
 	@OneToOne
@@ -27,6 +26,7 @@ public class ItemPedidoEntity implements Serializable{
 	
 	private int importe;
 	private float cantidad;	
+	
 	public ItemPedidoEntity(){}
 	
 	public ItemPedidoId getIdItemPedido() {
@@ -59,4 +59,5 @@ public class ItemPedidoEntity implements Serializable{
 	public void setCantidad(float cantidad) {
 		this.cantidad = cantidad;
 	}
+
 }

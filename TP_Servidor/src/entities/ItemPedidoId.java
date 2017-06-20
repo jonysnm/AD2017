@@ -13,27 +13,30 @@ public class ItemPedidoId implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="IdPedido",nullable=false)
+	@JoinColumn(name="IdPedido",insertable=false,updatable=false,nullable=false)
 	private PedidoEntity pedido;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="IdPrenda",nullable=false)
+	@JoinColumn(name="IdPrenda",insertable=false,updatable=false,nullable=false)
 	private PrendaEntity prenda;
-	
+
 	public PedidoEntity getPedido() {
 		return pedido;
 	}
+
 	public void setPedido(PedidoEntity pedido) {
 		this.pedido = pedido;
 	}
+
 	public PrendaEntity getPrenda() {
 		return prenda;
 	}
+
 	public void setPrenda(PrendaEntity prenda) {
 		this.prenda = prenda;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -42,6 +45,7 @@ public class ItemPedidoId implements Serializable {
 		result = prime * result + ((prenda == null) ? 0 : prenda.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -63,5 +67,6 @@ public class ItemPedidoId implements Serializable {
 			return false;
 		return true;
 	}
+	
 	
 }

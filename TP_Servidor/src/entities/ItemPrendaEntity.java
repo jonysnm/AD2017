@@ -1,9 +1,9 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,9 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "Items_Prenda")
@@ -31,10 +28,9 @@ public class ItemPrendaEntity implements Serializable {
 	private int cantidadEnOPC;
 
 	// FIXME ver aca esto es dudoso(chequearlo)
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@Fetch(value = FetchMode.SELECT)
+	@OneToMany(fetch=FetchType.EAGER)
 	@JoinColumns({@JoinColumn(name="idTalle"),@JoinColumn(name="idColor"),@JoinColumn(name="IdPrenda")})
-	private List<ItemMaterialPrendaEntity> itemMaterialPrenda;
+	private List<ItemMaterialPrendaEntity> itemMaterialPrenda = new ArrayList<ItemMaterialPrendaEntity>();
 
 	public Float getCostoProduccionActual() {
 		return costoProduccionActual;
@@ -68,14 +64,6 @@ public class ItemPrendaEntity implements Serializable {
 		this.itemMaterialPrenda = itemMaterialPrenda;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public ItemPrendaEntity() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 	public ItemPrendaId getItemPrendaId() {
 		return itemPrendaId;

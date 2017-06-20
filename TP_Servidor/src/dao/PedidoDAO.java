@@ -21,7 +21,6 @@ import entities.PedidoEntity;
 import entities.PrendaEntity;
 import entities.SucursalEntity;
 import entities.TalleEntity;
-import estados.EstadoAprobacionPedidoCliente;
 import hbt.HibernateUtil;
 import negocio.ItemFaltantePedido;
 import negocio.ItemPedido;
@@ -69,8 +68,8 @@ public class PedidoDAO {
 				
 				
 				ItemPedidoId id2 = new ItemPedidoId();
-				id2.setPrenda(prendaEntity);
 				id2.setPedido(pe);
+				id2.setPrenda(prendaEntity);
 				itemPedidoEntity.setIdItemPedido(id2);
 				List<ItemPrendaEntity> itemsPrenda=prendaEntity.getIp();
 				for(ItemPrendaEntity ip:itemsPrenda){
