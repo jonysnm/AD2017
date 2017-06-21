@@ -37,9 +37,9 @@ public class AlmacenDAO {
 		String consulta="select ipp.cantidad from UbicacionEntity u join u.bulto ub "+
 		"join ub.ipr ipp where IdPrenda = :idPrenda and idTalle = :idTalle and idColor = :idColor";
 	     Query query=s.createQuery(consulta);
-//	     query.setParameter("idPrenda", ip.getPrenda().getCodigo());
-//	     query.setParameter("idTalle", ip.getTalle().getIdTalle());
-//	     query.setParameter("idColor",ip.getColor().getIdcolor());
+	     query.setParameter("idPrenda", ip.getPrenda().getCodigo());
+	     query.setParameter("idTalle", ip.getTalle().getIdTalle());
+	     query.setParameter("idColor",ip.getColor().getIdcolor());
 	     return (float) query.uniqueResult();
 	}
 	public void nuevaUbicacion(Ubicacion ubicacion){

@@ -68,7 +68,7 @@ public class ItemFaltantePedido {
 	public ItemFaltantePedidoEntity ToEntity() {
 			
 		ItemFaltantePedidoEntity entity = new ItemFaltantePedidoEntity();
-		//entity.setColor(new ColorEntity(this.getColor().getDescripcion()));
+		entity.setColor(new ColorEntity(this.getColor().getDescripcion()));
 		entity.setTalle(this.getTalle().ToEntity());
 		entity.setPrenda(this.getPrenda().ToEntity());
 		entity.setCantidadFaltante(this.getCantidadFaltante());

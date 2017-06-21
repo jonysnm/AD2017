@@ -62,26 +62,20 @@ public class PedidoDAO {
 				String hql = "FROM PrendaEntity P " + "WHERE P.IdPrenda = :id";
 
 				Query query = session.createQuery(hql);
-//				query.setParameter("id", i.getPrenda().getCodigo());
+				query.setParameter("id", i.getPrenda().getCodigo());
 				query.setMaxResults(1);
 				
 				PrendaEntity prendaEntity = (PrendaEntity) query.uniqueResult();
 				
 				
 				ItemPedidoId id2 = new ItemPedidoId();
-<<<<<<< HEAD
 				id2.setPrenda(prendaEntity);
 				id2.setPedido(pe);
 				itemPedidoEntity.setIdItemPedido(id2);
-=======
-//				id2.setPedido(pe);
-//				id2.setPrenda(prendaEntity);
-//				itemPedidoEntity.setIdItemPedido(id2);
->>>>>>> Jona_Recuperar_Commit_Nueva_Estructura
 				List<ItemPrendaEntity> itemsPrenda=prendaEntity.getIp();
 				for(ItemPrendaEntity ip:itemsPrenda){
-//					itemPedidoEntity.setColor(ip.getItemPrendaId().getColor());
-//					itemPedidoEntity.setTalle(ip.getItemPrendaId().getTalle());
+					itemPedidoEntity.setColor(ip.getItemPrendaId().getColor());
+					itemPedidoEntity.setTalle(ip.getItemPrendaId().getTalle());
 				}
 				itemPedidoEntities.add(itemPedidoEntity);			
 			}

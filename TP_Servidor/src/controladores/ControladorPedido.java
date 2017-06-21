@@ -90,7 +90,7 @@ public class ControladorPedido {
 		// * 1- verificar si tengo stock disponible de las prendas del pedido			   
 			for (ItemPedido itemPedido : p.getItems()) 
 			{
-				float cantidadFaltante = 0;//TODO: revisar itemPedido.getCantidad() - itemPedido.getPrenda().ObtenerDisponible(itemPedido);
+				float cantidadFaltante = itemPedido.getCantidad() - itemPedido.getPrenda().ObtenerDisponible(itemPedido);
 				ReservarPrendaenStock(itemPedido,p.getId());
 				if(cantidadFaltante < 0) //significa que hay faltante
 				{
@@ -98,10 +98,10 @@ public class ControladorPedido {
 					//me va a dejar decidir si reservo o no reservo las prendas
 					itemFaltantePedido = new ItemFaltantePedido();
 					itemFaltantePedido.setPedido(p);
-//					itemFaltantePedido.setPrenda(itemPedido.getPrenda());
+					itemFaltantePedido.setPrenda(itemPedido.getPrenda());
 					itemFaltantePedido.setCantidadFaltante(cantidadFaltante);
-//					itemFaltantePedido.setColor(itemPedido.getColor());
-//					itemFaltantePedido.setTalle(itemPedido.getTalle());
+					itemFaltantePedido.setColor(itemPedido.getColor());
+					itemFaltantePedido.setTalle(itemPedido.getTalle());
 					lstItemsFaltantesPedido.add(itemFaltantePedido);
 				}
 			}
