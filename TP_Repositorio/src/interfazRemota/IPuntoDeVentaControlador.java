@@ -24,10 +24,23 @@ public interface IPuntoDeVentaControlador extends Remote{
 	public List<FacturaDTO> getFacturas()throws RemoteException;	
 	public void generarFactura(PedidoDTO p)throws RemoteException;
 	//public List<PedidoDTO> listarPedidosPendientesDeValidacion() throws RemoteException;
-	public void altaTalle(TalleDTO talleDTO) throws RemoteException;
+
+	
 	public void IniciarProcesamientoPedidoAprobado(Integer Idpedido)throws RemoteException;
 	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal)throws RemoteException;
 
 	/*JONA */
 	public void cambiarEstadoPedido(Integer idPedido,EstadoAprobacionPedidoCliente estado) throws RemoteException;
+	
+	// Talle
+	public void altaTalle(TalleDTO talleDTO) throws RemoteException;
+	public void bajaTalle(TalleDTO talleDTO)throws RemoteException;
+	public void modificarTalle(TalleDTO talleDTO)throws RemoteException;
+	public List<TalleDTO> getallTalle()throws RemoteException;
+	//  Color
+	public void altaColor(ColorDTO colorDTO) throws RemoteException;
+	public void bajaColor(ColorDTO colorDTO) throws RemoteException;
+	public void modificarColor(ColorDTO colorDTO)throws RemoteException;
+	public List<ColorDTO> getallColor()throws RemoteException;
+	
 }
