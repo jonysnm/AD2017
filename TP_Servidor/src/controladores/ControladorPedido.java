@@ -48,11 +48,8 @@ public class ControladorPedido {
 			iPedido.setCantidad(itemPedido.getCantidad());
 			iPedido.setImporte(itemPedido.getImporte());
 			Prenda prenda=PedidoDAO.getInstancia().getPrenda(itemPedido.getPrenda().getCodigo());
-			iPedido.setPrenda(prenda);
-			List<ItemPrenda> itemsPrenda=prenda.getItemPrendas();
-			for(ItemPrenda ip:itemsPrenda){
-				iPedido.setColor(ip.getColor());
-				iPedido.setTalle(ip.getTalle());
+			for(ItemPrenda ip:prenda.getItemPrendas()){
+				iPedido.setItemprenda(ip);
 			}
 			itemsPedidos.add(iPedido);
 		}

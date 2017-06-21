@@ -19,7 +19,7 @@ public class ItemBultoPrendaEntity extends ItemBultoEntity implements Serializab
 	private static final long serialVersionUID = 528717692888974825L;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumns({@JoinColumn(name="idTalle"),@JoinColumn(name="idColor"),@JoinColumn(name="IdPrenda")})
+	@JoinColumns({@JoinColumn(name="itemPrendaId")})
 	private ItemPrendaEntity itemPrenda;
 
 	
@@ -27,7 +27,7 @@ public class ItemBultoPrendaEntity extends ItemBultoEntity implements Serializab
 	@JoinColumn(name="idOrdenProduccion")
 	private OrdenProduccionEntity op;
 
-
+    
 	public ItemBultoPrendaEntity() {
 		super();
 	}
@@ -51,7 +51,5 @@ public class ItemBultoPrendaEntity extends ItemBultoEntity implements Serializab
 	public void setOp(OrdenProduccionEntity op) {
 		this.op = op;
 	}
-	
-
-
 }
+

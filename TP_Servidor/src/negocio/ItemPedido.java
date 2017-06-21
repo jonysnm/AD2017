@@ -4,57 +4,69 @@ import dao.AlmacenDAO;
 import entities.ItemPedidoEntity;
 
 public class ItemPedido {
+	private Integer IdItemPedido;
 	private float cantidad;
-	private Prenda prenda;
+	private ItemPrenda itemprenda;
 	private int importe;
-	private Color color;
-	private Talle talle;
-	
+
 	public ItemPedido(){}
+	
+
+
+	public Integer getIdItemPedido() {
+		return IdItemPedido;
+	}
+
+
+
+	public void setIdItemPedido(Integer idItemPedido) {
+		IdItemPedido = idItemPedido;
+	}
+
+
+
 	public float getCantidad() {
 		return cantidad;
 	}
-	
+
+
+
 	public void setCantidad(float cantidad) {
 		this.cantidad = cantidad;
 	}
-	public Prenda getPrenda() {
-		return prenda;
+
+
+
+	public ItemPrenda getItemprenda() {
+		return itemprenda;
 	}
-	public void setPrenda(Prenda prenda) {
-		this.prenda = prenda;
+
+
+
+	public void setItemprenda(ItemPrenda itemprenda) {
+		this.itemprenda = itemprenda;
 	}
+
+
+
 	public int getImporte() {
 		return importe;
 	}
+
+
+
 	public void setImporte(int importe) {
 		this.importe = importe;
 	}
-	public Color getColor() {
-		return color;
-	}
-	public void setColor(Color color) {
-		this.color = color;
-	}
-	public Talle getTalle() {
-		return talle;
-	}
-	public void setTalle(Talle talle) {
-		this.talle = talle;
-	}
+
+
+
 	public ItemPedido(ItemPedidoEntity ipe){
-		this.cantidad=ipe.getCantidad();
+		this.IdItemPedido=ipe.getIdItemPedido();
 		this.importe=ipe.getImporte();
-		Color color = new Color();
-		color.setDescripcion(ipe.getColor().getDescripcion());
-		color.setIdcolor(ipe.getColor().getIdcolor());
-		this.color=color;
-		Talle talle = new Talle();
-		talle.setDescripcion(ipe.getTalle().getDescripcion());
-		talle.setIdTalle(ipe.getTalle().getidTalle());
-		this.talle=talle;
-	}
-	
+		this.itemprenda=new ItemPrenda(ipe.getIprenda());	
+		this.cantidad=ipe.getCantidad();
+	}	
 	public boolean obtenervigencia(Prenda p){
 		if(p.SoslaPrenda(p.getCodigo())){
 			return p.estoyVigente(p.getCodigo());
@@ -63,17 +75,17 @@ public class ItemPedido {
 		}
 	}
 	public boolean obtenervigencia2() {
-		
-		return this.getPrenda().estoyVigente2();
-	
-}
-	
-public boolean ObtenerDisponibilidadStock(ItemPedido it) {
-	    float cantidadstock=AlmacenDAO.getInstancia().obtenerDisponiblePorPrenda(it);
-	    if(cantidadstock>=this.cantidad){
-	    	return true;
-	    }
-	    return false;
+
+		return this.getItemprenda().getPrenda().estoyVigente2();
+
+	}
+
+	public boolean ObtenerDisponibilidadStock(ItemPedido it) {
+		float cantidadstock=AlmacenDAO.getInstancia().obtenerDisponiblePorPrenda(it);
+		if(cantidadstock>=this.cantidad){
+			return true;
+		}
+		return false;
 	}
 
 

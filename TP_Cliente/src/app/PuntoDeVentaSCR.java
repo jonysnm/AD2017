@@ -2,18 +2,12 @@ package app;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.rmi.RemoteException;
-import java.util.List;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 import javax.swing.SwingUtilities;
-
-import businessDelegate.BusinessDelegate;
-import dto.ItemPedidoDTO;
-import dto.PedidoDTO;
 
 
 /**
@@ -163,6 +157,7 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 						jSeparator1 = new JSeparator();
 						jMenu4.add(jSeparator1);
 					}
+					/*
 					{
 						listPedidoMenuItem = new JMenuItem();
 						jMenu4.add(listPedidoMenuItem);
@@ -183,7 +178,7 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 							}
 						});
 						
-					}
+					}*/
 				}
 				{
 					jMenu5 = new JMenu();
