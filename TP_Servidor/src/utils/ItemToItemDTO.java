@@ -9,7 +9,7 @@ public class ItemToItemDTO {
 	ItemPedidoDTO i = new ItemPedidoDTO();
 //	i.setCantidad(itPedido.getCantidad());
 	i.setImporte(itPedido.getImporte());
-	i.setPrenda(PrendaToDTO.toDTO(itPedido.getPrenda()));
+	//i.setPrenda(PrendaToDTO.toDTO(itPedido.getPrenda()));
 	return i;
 	}
 	
