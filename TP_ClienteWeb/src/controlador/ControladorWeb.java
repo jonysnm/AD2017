@@ -104,7 +104,7 @@ public class ControladorWeb extends HttpServlet {
 			}			
 			
 			break;
-		case "mostrar_detalles_pedidos_a_despachar":
+		case "mostrar_detalles_pedidos_a_despachar_POST":
 			int idPedidoaDespachar = Integer.parseInt(request.getParameter("hdnIdPedidoaDetallar"));
 			PedidoDTO pedidoDTO = BusinessDelegate.getInstancia().obtenerPedido(idPedidoaDespachar);
 			request.setAttribute("pedidoDTO",pedidoDTO);
