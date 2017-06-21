@@ -69,6 +69,10 @@ public class PedidoDAO {
 				
 				
 				ItemPedidoId id2 = new ItemPedidoId();
+<<<<<<< HEAD
+=======
+				id2.setPrenda(prendaEntity);
+>>>>>>> parent of 400d5ff... recuperado desde branch anterior
 				id2.setPedido(pe);
 				id2.setPrenda(prendaEntity);
 				itemPedidoEntity.setIdItemPedido(id2);
