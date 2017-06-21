@@ -171,7 +171,7 @@ public Pedido(){}
 	
 	
 	//Jonathan Methods
-	
+
 	
 	public List<PedidosCompletosPendientesDespacharDTO> PedidosCompletosPendientesDespachar() {
 		
@@ -187,6 +187,7 @@ public Pedido(){}
 	
 	private PedidosCompletosPendientesDespacharDTO ToPedidosCompletosPendientesDespacharDTO() {
 		PedidosCompletosPendientesDespacharDTO pedidosCompletosPendientesDespacharDTO = new PedidosCompletosPendientesDespacharDTO();
+		pedidosCompletosPendientesDespacharDTO.setId(this.getId());
 		pedidosCompletosPendientesDespacharDTO.setFechaCreacion(this.getFechaCreacion());
 		pedidosCompletosPendientesDespacharDTO.setFechaProbableDespacho(this.getFechaprobableDespacho());
 		pedidosCompletosPendientesDespacharDTO.setIdCliente(this.getCliente().getId());
