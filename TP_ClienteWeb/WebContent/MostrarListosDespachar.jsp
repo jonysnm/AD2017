@@ -20,7 +20,7 @@
 	<h2>Pedidos Completos Pendientes de Despachar</h2>
 
 	<form action="ControladorWeb?action=VerDetallePedidoPost" method="post">
-	<input type="hidden" name="hdnIdPedido" value="" />
+	<input type="hidden" name="hdnIdPedidoaDetallar" value="" />
 	<input type="hidden" name="hdnOperacion" value="" />
 
 	<table>	

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import businessDelegate.BusinessDelegate;
+import dto.PedidoDTO;
 import dto.PedidosCompletosPendientesDespacharDTO;
 import dto.PedidosPendientesAprobacionDTO;
 import dto.TalleDTO;
@@ -101,6 +102,13 @@ public class ControladorWeb extends HttpServlet {
 				request.setAttribute("lstPedidosPendientesAprobacionDTO",lstPedidosCompletosPendientesDespacharDTO);
 				jspPage = "/MostrarListosDespachar.jsp";
 			}			
+			
+			break;
+		case "mostrar_detalles_pedidos_a_despachar":
+			int idPedidoaDespachar = Integer.parseInt(request.getParameter("hdnIdPedidoaDetallar"));
+			PedidoDTO pedidoDTO = BusinessDelegate.getInstancia().obtenerPedido(idPedidoaDespachar);
+			request.setAttribute("pedidoDTO",pedidoDTO);
+			jspPage = "/DetallePedidoADespachar.jsp";
 			
 			break;
 		case "altaTalle":
