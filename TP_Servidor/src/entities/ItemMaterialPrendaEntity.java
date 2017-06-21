@@ -19,7 +19,7 @@ public class ItemMaterialPrendaEntity implements Serializable {
 	private int cantidadutilizada;
 	private float despedicio;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="codigo",nullable=false)
 	private MateriaPrimaEntity materiaprima;
 

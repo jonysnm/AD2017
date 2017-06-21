@@ -1,18 +1,19 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumns;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "Items_Prenda")
@@ -20,67 +21,20 @@ public class ItemPrendaEntity implements Serializable {
 
 	private static final long serialVersionUID = 3013620458553400990L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)	
-	private	Integer IdItemPrenda;
-
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name = "idTalle",insertable=false,updatable=false,nullable=false)
-	private TalleEntity talle;
-
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name = "idColor",insertable=false,updatable=false,nullable=false)
-	private ColorEntity color;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="IdPrenda")
-	private PrendaEntity prenda;
+	@EmbeddedId
+	private	ItemPrendaId itemPrendaId;
 	
-
 	private Float costoProduccionActual;
 	private Float porcentajeGanancia;
 
 	private int cantidadEnOPC;
 
 	// FIXME ver aca esto es dudoso(chequearlo)
-	@OneToMany(fetch=FetchType.EAGER)
-	@JoinColumn(name="itemPrendaId")
-	private List<ItemMaterialPrendaEntity> itemMaterialPrenda = new ArrayList<ItemMaterialPrendaEntity>();
-
-	public ItemPrendaEntity() {
-		super();
-	}
-
-
-
-	public Integer getIdItemPrenda() {
-		return IdItemPrenda;
-	}
-
-
-
-	public void setIdItemPrenda(Integer idItemPrenda) {
-		IdItemPrenda = idItemPrenda;
-	}
-
-
-
-	public TalleEntity getTalle() {
-		return talle;
-	}
-
-	public void setTalle(TalleEntity talle) {
-		this.talle = talle;
-	}
-
-	public ColorEntity getColor() {
-		return color;
-	}
-
-	public void setColor(ColorEntity color) {
-		this.color = color;
-	}
-
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@Fetch(value = FetchMode.SELECT)
+	@JoinColumns({@JoinColumn(name="idTalle"),@JoinColumn(name="idColor"),@JoinColumn(name="IdPrenda")})
+	private List<ItemMaterialPrendaEntity> itemMaterialPrenda;
 
 	public Float getCostoProduccionActual() {
 		return costoProduccionActual;
@@ -114,17 +68,22 @@ public class ItemPrendaEntity implements Serializable {
 		this.itemMaterialPrenda = itemMaterialPrenda;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
+	public ItemPrendaEntity() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-	public PrendaEntity getPrenda() {
-		return prenda;
+	public ItemPrendaId getItemPrendaId() {
+		return itemPrendaId;
+	}
+
+	public void setItemPrendaId(ItemPrendaId itemPrendaId) {
+		this.itemPrendaId = itemPrendaId;
 	}
 
 
-
-	public void setPrenda(PrendaEntity prenda) {
-		this.prenda = prenda;
-	}
-	
-	
 }

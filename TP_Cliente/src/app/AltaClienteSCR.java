@@ -99,7 +99,7 @@ public class AltaClienteSCR extends javax.swing.JFrame {
 						float lim = Float.parseFloat(jTextFieldlimitecredito.getText());
 					
 						ClienteDTO clienteDTO = new ClienteDTO();
-						clienteDTO.setId(1);
+						//clienteDTO.setId(1);
 						clienteDTO.setCuit(cu);
 						clienteDTO.setLimiteCredito(lim);
 						clienteDTO.setNombre(nam);

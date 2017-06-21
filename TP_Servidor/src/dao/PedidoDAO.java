@@ -21,6 +21,7 @@ import entities.PedidoEntity;
 import entities.PrendaEntity;
 import entities.SucursalEntity;
 import entities.TalleEntity;
+import estados.EstadoAprobacionPedidoCliente;
 import hbt.HibernateUtil;
 import negocio.ItemFaltantePedido;
 import negocio.ItemPedido;
@@ -68,8 +69,8 @@ public class PedidoDAO {
 				
 				
 				ItemPedidoId id2 = new ItemPedidoId();
-				id2.setPedido(pe);
 				id2.setPrenda(prendaEntity);
+				id2.setPedido(pe);
 				itemPedidoEntity.setIdItemPedido(id2);
 				List<ItemPrendaEntity> itemsPrenda=prendaEntity.getIp();
 				for(ItemPrendaEntity ip:itemsPrenda){
@@ -95,7 +96,7 @@ public class PedidoDAO {
 	public Pedido getPedido(Integer idpedido){
 		PedidoEntity pedido = null;
 		try {
-			Session session = sf.getCurrentSession();
+			Session session = sf.openSession();
 			
 			String hql = "FROM PedidoEntity P " +
 						 "WHERE P.id = :id";
@@ -151,13 +152,14 @@ public class PedidoDAO {
 			PrendaEntity pe=new PrendaEntity();
 			pe.setDescripcion(prenda.getDescripcion());
 			pe.setVigente(prenda.isVigente());
-			//pe.setIdPrenda(prenda.getCodigo());
 			List<ItemPrendaEntity> ip=new ArrayList<ItemPrendaEntity>();
 			for(ItemPrenda ipp:prenda.getItemPrendas()){
 				ItemPrendaEntity it=new ItemPrendaEntity();
-				it.setColor((ColorEntity)session.get(ColorEntity.class,ipp.getColor().getIdcolor()));
-				it.setTalle((TalleEntity)session.get(TalleEntity.class, ipp.getTalle().getIdTalle()));
-				it.setPrenda(pe);				
+				ItemPrendaId id=new ItemPrendaId();
+				id.setColor((ColorEntity)session.get(ColorEntity.class,ipp.getColor().getIdcolor()));
+				id.setTalle((TalleEntity)session.get(TalleEntity.class, ipp.getTalle().getIdTalle()));
+				id.setPrenda(pe);
+				it.setItemPrendaId(id);
 				ip.add(it);
 			}
 			pe.setIp(ip);

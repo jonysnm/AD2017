@@ -23,9 +23,7 @@
 <title align="center">Seleccion Opción</title>
 </head>
 <body>
-	<div>
-		<a href="ControladorWeb?action=default" target="_self"><b>Home</b></a>
-	</div>
+	
 	<div>
 		<h1 align="center">Bienvenido al Sistema</h1>	
 		<br>

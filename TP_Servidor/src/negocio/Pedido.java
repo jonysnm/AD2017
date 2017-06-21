@@ -30,18 +30,20 @@ public Pedido(){}
 		this.fechaprobableDespacho=pedido.getFechaprobableDespacho();
 		this.fecharealDespacho=pedido.getFecharealDespacho();
 		this.sucursal=new Sucursal(pedido.getSucursal());
-		this.estado=pedido.getEstado();
-		List<ItemPedido> items=new ArrayList<ItemPedido>();
-		for(ItemPedidoEntity ip:pedido.getItems()){
-			ItemPedido item=new ItemPedido();
-			item.setCantidad(ip.getCantidad());
-			item.setImporte(ip.getImporte());
-			item.setItemprenda(new ItemPrenda(ip.getIprenda()));
-			items.add(item);
+		this.estado=pedido.getEstado();	
+		for ( ItemPedidoEntity itemPedidoEntity : pedido.getItems()) {
+			ItemPedido itemPedido = new ItemPedido();
+			itemPedido.setCantidad(itemPedidoEntity.getCantidad());
+			itemPedido.setColor(new Color(itemPedidoEntity.getColor()));
+			itemPedido.setImporte(itemPedidoEntity.getImporte());
+			Prenda p = new Prenda(itemPedidoEntity.getIdItemPedido().getPrenda());
+			itemPedido.setPrenda(p);
+			itemPedido.setTalle(new Talle(itemPedidoEntity.getTalle()));
+			items.add(itemPedido);
 		}
 		this.setItems(items);
-			
-	}			
+		
+	}
 	public int getId() {
 		return id;
 	}
@@ -99,7 +101,7 @@ public Pedido(){}
   	public boolean ObtenerVigenciaporPrenda(Pedido p) {
 		List<ItemPedido> it=p.getItems();
 		for(ItemPedido ip:it){
-			if(ip.obtenervigencia(ip.getItemprenda().getPrenda())){
+			if(ip.obtenervigencia(ip.getPrenda())){
 				;
 			}else{
 				return false;
@@ -229,7 +231,7 @@ public Pedido(){}
 		while(!contieneItemsDiscountinuosSinStock & index < cantidadItemsPedido)
 		{
 			itemPedido = this.getItems().get(index);
-			if(!itemPedido.getItemprenda().getPrenda().isVigente() && !itemPedido.getItemprenda().getPrenda().HayStockSuficiente(itemPedido.getCantidad(),itemPedido.getItemprenda().getColor(), itemPedido.getItemprenda().getTalle()))
+			if(!itemPedido.getPrenda().isVigente() && !itemPedido.getPrenda().HayStockSuficiente(itemPedido.getCantidad(),itemPedido.getColor(), itemPedido.getTalle()))
 			{
 				contieneItemsDiscountinuosSinStock=true;
 			}

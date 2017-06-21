@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dto.ClienteDTO;
+import dto.ColorDTO;
 import dto.EmpleadoDTO;
 import dto.PedidoDTO;
 import dto.PedidosCompletosPendientesDespacharDTO;
@@ -87,9 +88,7 @@ public class BusinessDelegate {
 //	public List<PedidoDTO> listarPedidosPendientesDeValidacion() throws RemoteException{
 //		return interfazRemotaPuntoVenta.listarPedidosPendientesDeValidacion();
 //	}
-	public void altaTalle(TalleDTO talleDTO) throws RemoteException{
-		interfazRemotaPuntoVenta.altaTalle(talleDTO);
-	}
+	
 
 	public void altaUbicacion(UbicacionDTO ubicacion) throws RemoteException{
 		interfazRemotaDespacho.altaUbicacion(ubicacion);
@@ -108,4 +107,44 @@ public class BusinessDelegate {
 	public List<PedidosCompletosPendientesDespacharDTO> ObtenerListaPedidosCompletosPendientesDespachar() throws RemoteException{
 		return interfazRemotaDespacho.ObtenerListaPedidosCompletosPendientesDespachar();
 	}
+	
+	
+	//-------Colores-----------------
+	public void altaColor(ColorDTO colorDTO) throws RemoteException{
+		interfazRemotaPuntoVenta.altaColor(colorDTO);
+	}
+	
+	public void bajaColor(ColorDTO colorDTO) throws RemoteException{
+		interfazRemotaPuntoVenta.bajaColor(colorDTO);
+	}
+	
+	public void modificarColor(ColorDTO colorDTO) throws RemoteException{
+		interfazRemotaPuntoVenta.modificarColor(colorDTO);
+	}
+	
+	public List<ColorDTO> getAllColor() throws RemoteException{
+		return interfazRemotaPuntoVenta.getallColor();
+	}
+	
+	
+	
+	//-------Talles------------------
+	
+	public void altaTalle(TalleDTO talleDTO) throws RemoteException{
+		interfazRemotaPuntoVenta.altaTalle(talleDTO);
+	}
+	
+	public void bajaTalle(TalleDTO talleDTO) throws RemoteException{
+		interfazRemotaPuntoVenta.bajaTalle(talleDTO);
+	}
+	
+	public void modificarTalle(TalleDTO talleDTO) throws RemoteException{
+		interfazRemotaPuntoVenta.modificarTalle(talleDTO);
+	}
+	
+	public List<TalleDTO> getAllTalle() throws RemoteException{
+		return interfazRemotaPuntoVenta.getallTalle();
+	}
+	
+	
 }

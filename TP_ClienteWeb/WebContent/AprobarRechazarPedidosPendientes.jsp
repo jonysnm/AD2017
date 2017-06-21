@@ -9,9 +9,7 @@
 <title>Estos son los pedidos de los clientes pendientes de aprobacion en la sucursal</title>
 </head>
 <body>
-	<div>
-		<a href="ControladorWeb?action=default" target="_self"><b>Home</b></a>
-	</div>
+
 	<%
 	List<PedidosPendientesAprobacionDTO> lstPedidosPendientesAprobacionDTO  = (List<PedidosPendientesAprobacionDTO>)request.getAttribute("lstPedidosPendientesAprobacionDTO");	
 	%>

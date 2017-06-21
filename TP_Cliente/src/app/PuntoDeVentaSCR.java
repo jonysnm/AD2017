@@ -2,12 +2,19 @@ package app;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
+import java.util.List;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 import javax.swing.SwingUtilities;
+
+import businessDelegate.BusinessDelegate;
+import dto.ItemPedidoDTO;
+import dto.PedidoDTO;
+import dto.PedidosPendientesAprobacionDTO;
 
 
 /**
@@ -38,6 +45,22 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 	private JMenu jMenu4;
 	
 	private JSeparator jSeparator2;
+	private JMenuItem jMenuItemBajaColor;
+	private JMenuItem jMenuItemModifColor;
+	private JMenuItem jMenuItemAltaColor;
+	private JMenuItem jMenuItemBajaInsumo;
+	private JMenuItem jMenuItemModifInsumo;
+	private JMenuItem jMenuItemAltaInsumo;
+	private JMenu jMenuInsumos;
+	private JMenuItem jMenuItemBajaTalle;
+	private JMenuItem jMenuItemModifTalle;
+	private JMenuItem jMenuItemAltaTalle;
+	private JSeparator jSeparatorTalles;
+	private JSeparator jSeparatorColores;
+	private JMenuItem jMenuItemBajaPrenda;
+	private JMenuItem jMenuItemModifPrenda;
+	private JMenuItem jMenuItemAltaPrenda;
+	private JMenu jMenuPrenda;
 	private JMenuItem exitMenuItem;
 	private JMenuItem delClienteMenuItem;
 	private JMenuItem editClienteMenuItem;
@@ -73,7 +96,7 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 				{
 					jMenu3 = new JMenu();
 					jMenuBar1.add(jMenu3);
-					jMenu3.setText("Clientes");
+					jMenu3.setText("Clientes  ");
 					{
 						newClienteMenuItem = new JMenuItem();
 						jMenu3.add(newClienteMenuItem);
@@ -104,6 +127,7 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 						delClienteMenuItem.addActionListener(new ActionListener() {
 							
 							public void actionPerformed(ActionEvent e) {
+								
 								BajaClienteSCR.getInstancia().setVisible(true);
 							}
 						});
@@ -157,28 +181,154 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 						jSeparator1 = new JSeparator();
 						jMenu4.add(jSeparator1);
 					}
-					/*
 					{
 						listPedidoMenuItem = new JMenuItem();
 						jMenu4.add(listPedidoMenuItem);
 						listPedidoMenuItem.setText("Listar");
-						listPedidoMenuItem.addActionListener(new ActionListener() {
+//						listPedidoMenuItem.addActionListener(new ActionListener() {
+//							
+//							public void actionPerformed(ActionEvent e) {
+//								try {
+//							List<PedidosPendientesAprobacionDTO> pedidos = BusinessDelegate.getInstancia().obtenerPedidosPendientesdeAprobacion(1);
+//							for (PedidosPendientesAprobacionDTO pedidoDTO : pedidos) {
+//								for (ItemPedidoDTO iPedidoDTO : pedidoDTO.getItems()) {
+//									System.out.println(pedidoDTO.getId() +" "+ pedidoDTO.getTotal() +" "+ 	iPedidoDTO.getTalle() +" "+  iPedidoDTO.getColor() +" "+  iPedidoDTO.getPrenda() +" "+  iPedidoDTO.getImporte());
+//								}
+//							}
+//								} catch (RemoteException e1) {
+//									e1.printStackTrace();
+//								}
+//							}
+//						});
+						
+					}
+				}
+
+				{
+					jMenuPrenda = new JMenu();
+					jMenuBar1.add(jMenuPrenda);
+					jMenuPrenda.setText("Prendas");
+					{
+						jMenuItemAltaPrenda = new JMenuItem();
+						jMenuPrenda.add(jMenuItemAltaPrenda);
+						jMenuItemAltaPrenda.setText("Nueva Prenda");
+					}
+					{
+						jMenuItemModifPrenda = new JMenuItem();
+						jMenuPrenda.add(jMenuItemModifPrenda);
+						jMenuItemModifPrenda.setText("Modificar Prenda");
+					}
+					{
+						jMenuItemBajaPrenda = new JMenuItem();
+						jMenuPrenda.add(jMenuItemBajaPrenda);
+						jMenuItemBajaPrenda.setText("Eliminar Prenda");
+					}
+					{
+						jSeparatorColores = new JSeparator();
+						jMenuPrenda.add(jSeparatorColores);
+					}
+					{
+						jMenuItemAltaColor = new JMenuItem();
+						jMenuPrenda.add(jMenuItemAltaColor);
+						jMenuItemAltaColor.setText("Nuevo Color");
+							jMenuItemAltaColor.addActionListener(new ActionListener() {
+								
+								public void actionPerformed(ActionEvent e) {
+									AltaColorSCR tv = new AltaColorSCR();
+									tv.setVisible(true);
+//									AltaColorSCR.getInstancia().setVisible(true);
+								}
+							});
+					}
+					{
+						jMenuItemModifColor = new JMenuItem();
+						jMenuPrenda.add(jMenuItemModifColor);
+						jMenuItemModifColor.setText("Modificar Color");
+						jMenuItemModifColor.addActionListener(new ActionListener() {
 							
 							public void actionPerformed(ActionEvent e) {
-								try {
-							List<PedidoDTO> pedidos = BusinessDelegate.getInstancia().listarPedidosPendientesDeValidacion();
-							for (PedidoDTO pedidoDTO : pedidos) {
-								for (ItemPedidoDTO iPedidoDTO : pedidoDTO.getItems()) {
-									System.out.println(pedidoDTO.getId() +" "+ pedidoDTO.getTotal() +" "+ 	iPedidoDTO.getTalle() +" "+  iPedidoDTO.getColor() +" "+  iPedidoDTO.getPrenda() +" "+  iPedidoDTO.getImporte());
-								}
-							}
-								} catch (RemoteException e1) {
-									e1.printStackTrace();
-								}
+								ModificarColorSCR tv = new ModificarColorSCR();
+								tv.setVisible(true);
+//								ModificarColorSCR.getInstancia().setVisible(true);
 							}
 						});
-						
-					}*/
+					}
+					{
+						jMenuItemBajaColor = new JMenuItem();
+						jMenuPrenda.add(jMenuItemBajaColor);
+						jMenuItemBajaColor.setText("Eliminar Color");
+						jMenuItemBajaColor.addActionListener(new ActionListener() {
+							
+							public void actionPerformed(ActionEvent e) {
+								BajaColorSCR tv = new BajaColorSCR();
+								tv.setVisible(true);
+//								BajaColorSCR.getInstancia().setVisible(true);
+							}
+						});
+					}
+					{
+						jSeparatorTalles = new JSeparator();
+						jMenuPrenda.add(jSeparatorTalles);
+					}
+					{
+						jMenuItemAltaTalle = new JMenuItem();
+						jMenuPrenda.add(jMenuItemAltaTalle);
+						jMenuItemAltaTalle.setText("Nuevo Talle");
+						jMenuItemAltaTalle.addActionListener(new ActionListener() {
+							
+							public void actionPerformed(ActionEvent e) {
+								AltaTalleSCR tv = new AltaTalleSCR();
+								tv.setVisible(true);
+//								AltaTalleSCR.getInstancia().setVisible(true);
+							}
+						});
+					}
+					{
+						jMenuItemModifTalle = new JMenuItem();
+						jMenuPrenda.add(jMenuItemModifTalle);
+						jMenuItemModifTalle.setText("Modificar Talle");
+						jMenuItemModifTalle.addActionListener(new ActionListener() {
+							
+							public void actionPerformed(ActionEvent e) {
+								ModificarTalleSCR tv = new ModificarTalleSCR();
+								tv.setVisible(true);
+//								ModificarTalleSCR.getInstancia().setVisible(true);
+							}
+						});
+					}
+					{
+						jMenuItemBajaTalle = new JMenuItem();
+						jMenuPrenda.add(jMenuItemBajaTalle);
+						jMenuItemBajaTalle.setText("Eliminar Talle");
+						jMenuItemBajaTalle.addActionListener(new ActionListener() {
+							
+							public void actionPerformed(ActionEvent e) {
+								BajaTalleSCR tv = new BajaTalleSCR();
+								tv.setVisible(true);
+//								BajaTalleSCR.getInstancia().setVisible(true);
+							}
+						});
+					}
+				}
+				{
+					jMenuInsumos = new JMenu();
+					jMenuBar1.add(jMenuInsumos);
+					jMenuInsumos.setText("Insumos");
+					{
+						jMenuItemAltaInsumo = new JMenuItem();
+						jMenuInsumos.add(jMenuItemAltaInsumo);
+						jMenuItemAltaInsumo.setText("Nuevo");
+					}
+					{
+						jMenuItemModifInsumo = new JMenuItem();
+						jMenuInsumos.add(jMenuItemModifInsumo);
+						jMenuItemModifInsumo.setText("Modificar");
+					}
+					{
+						jMenuItemBajaInsumo = new JMenuItem();
+						jMenuInsumos.add(jMenuItemBajaInsumo);
+						jMenuItemBajaInsumo.setText("Eliminar");
+					}
 				}
 				{
 					jMenu5 = new JMenu();
@@ -195,7 +345,6 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 						});
 					}
 				}
-				
 				{
 					jMenu6 = new JMenu();
 					jMenuBar1.add(jMenu6);
@@ -213,7 +362,7 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 					
 					
 				}
-				
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
