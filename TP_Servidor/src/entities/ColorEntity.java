@@ -16,10 +16,7 @@ public class ColorEntity implements Serializable{
 	private int idColor;
 	private String descripcion;
 	
-	public ColorEntity(Color c) {
-		this.idColor =c.getIdcolor();
-		this.descripcion = c.getDescripcion();
-	}
+	public ColorEntity(){}
 	public int getIdcolor() {
 		return idColor;
 	}
@@ -65,13 +62,6 @@ public class ColorEntity implements Serializable{
 		this.idColor = idColor;
 		this.descripcion = descripcion;
 	}
-	public ColorEntity() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public ColorEntity(String descripcion) {
-		super();
-		this.descripcion = descripcion;
-	}
+
 
 }

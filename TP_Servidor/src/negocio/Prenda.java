@@ -5,6 +5,9 @@ import java.util.List;
 
 import dao.AlmacenDAO;
 import dao.PedidoDAO;
+import entities.ItemMaterialPrendaEntity;
+import entities.ItemPedidoEntity;
+import entities.ItemPrendaEntity;
 import entities.PrendaEntity;
 
 public class Prenda {
@@ -60,30 +63,24 @@ public class Prenda {
 		this.descripcion=pr.getDescripcion();
 		this.vigente=pr.isVigente();
 		List<ItemPrenda> itemsPrenda = new ArrayList<ItemPrenda>();
-		for (int i=0 ;i<pr.getIp().size(); i++) {
-			ItemPrenda ip = new ItemPrenda();
-			ip.setColor(new Color(pr.getIp().get(i).getItemPrendaId().getColor()));
-			ip.setTalle(new Talle(pr.getIp().get(i).getItemPrendaId().getTalle()));
-			//ip.setCantidadEnOPC(pr.getIp().get(i).getCantidadEnOPC());
-			//ip.setCostoProduccionActual(pr.getIp().get(i).getCostoProduccionActual());
-			//ip.setPorcentajeGanancia(pr.getIp().get(i).getPorcentajeGanancia());
-			//List<ItemMaterialPrenda> itemMaterialPrendas = new ArrayList<ItemMaterialPrenda>();
-			//for(ItemMaterialPrendaEntity imp : pr.getIp().get(i).getItemMaterialPrenda()){
-				//ItemMaterialPrenda impt2 = new ItemMaterialPrenda(imp);
-				//itemMaterialPrendas.add(impt2);
-			//}
-
-			//ip.setItemMaterialPrenda(itemMaterialPrendas);
-
-
-			itemsPrenda.add(ip);
+		/*
+		 * List<ItemPedido> items=new ArrayList<ItemPedido>();
+		for(ItemPedidoEntity ip:pedido.getItems()){
+			ItemPedido item=new ItemPedido();
+			item.setCantidad(ip.getCantidad());
+			item.setImporte(ip.getImporte());
+			item.setItemprenda(new ItemPrenda(ip.getIprenda()));
+			items.add(item);
+		}
+		this.setItems(items);
+			
+		 */
+		for (ItemPrendaEntity ipe:pr.getIp()){
+			ItemPrenda itempr=new ItemPrenda(ipe);
+			itemsPrenda.add(itempr);
 		}
 		this.setItemPrendas(itemsPrenda);
-		//List<AreaProduccionInvolucrada> areasinv = new ArrayList<AreaProduccionInvolucrada>();
-		//for(AreaProduccionInvolucradaEntity area : pr.getAreasInvolucradas()){
-			//areasinv.add(new AreaProduccionInvolucrada(area));
-		//}
-
+		
 	}
 	public boolean SoslaPrenda(int codigo){
 		return(this.getCodigo()==codigo);		
@@ -103,8 +100,8 @@ public class Prenda {
 	public boolean HayStockSuficiente(float cantidad, Color color, Talle talle) {
 		ItemPedido ip = new ItemPedido();
 		ip.setCantidad(cantidad);
-		ip.setColor(color);
-		ip.setTalle(talle);
+		//ip.setColor(color);
+		//ip.setTalle(talle);
 		float cantidadDisponible = ObtenerDisponible(ip);
 				
 		return cantidadDisponible>=cantidad;
