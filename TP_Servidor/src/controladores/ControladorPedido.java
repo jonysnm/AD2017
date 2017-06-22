@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.hibernate.mapping.Array;
-
 import dao.AdministracionDAO;
 import dao.ClienteDAO;
 import dao.PedidoDAO;
+import dao.TallesyColoresDAO;
+import dto.ColorDTO;
 import dto.ItemPedidoDTO;
 import dto.PedidoDTO;
 import dto.PedidosPendientesAprobacionDTO;
@@ -19,7 +19,6 @@ import negocio.ItemFaltantePedido;
 import negocio.ItemPedido;
 import negocio.ItemPrenda;
 import negocio.Pedido;
-import negocio.Prenda;
 import negocio.Sucursal;
 import utils.PedidoToDTO;
 
@@ -148,8 +147,40 @@ public class ControladorPedido {
 		return pedidoDTO;
 	}
 		
+
+	//Talle
 	public void altaTalle(TalleDTO talleDTO) {
-		AdministracionDAO.getInstancia().altaTalle(talleDTO);
+		TallesyColoresDAO.getInstancia().altaTalle(talleDTO);
+	}
+	public void bajaTalle(TalleDTO talleDTO) {
+		TallesyColoresDAO.getInstancia().bajaTalle(talleDTO);
+		
+	}
+	public void modificarTalle(TalleDTO talleDTO) {
+		TallesyColoresDAO.getInstancia().modificarTalle(talleDTO);
+		
+	}
+	public List<TalleDTO> getallTalle() {
+		return TallesyColoresDAO.getInstancia().getallTalle();
+	}
+	public void altaColor(ColorDTO colorDTO) {
+		TallesyColoresDAO.getInstancia().altaColor(colorDTO);
+		
+	}
+	public void bajaColor(ColorDTO colorDTO) {
+		TallesyColoresDAO.getInstancia().bajaColor(colorDTO);
+		
+	}
+	public void modificarColor(ColorDTO colorDTO) {
+		TallesyColoresDAO.getInstancia().modificarColor(colorDTO);
+		
+	}
+	public List<ColorDTO> getallColor() {
+		return TallesyColoresDAO.getInstancia().getallColor();
+	}
+//	ver que onda esto
+	public List<PedidoDTO> listarPedidosPendientesDeValidacion() {
+		return null;
 	}
 
 }

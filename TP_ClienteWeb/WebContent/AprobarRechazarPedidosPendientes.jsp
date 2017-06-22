@@ -9,14 +9,13 @@
 <title>Estos son los pedidos de los clientes pendientes de aprobacion en la sucursal</title>
 </head>
 <body>
-	<div>
-		<a href="ControladorWeb?action=default" target="_self"><b>Home</b></a>
-	</div>
+
 	<%
 	List<PedidosPendientesAprobacionDTO> lstPedidosPendientesAprobacionDTO  = (List<PedidosPendientesAprobacionDTO>)request.getAttribute("lstPedidosPendientesAprobacionDTO");	
 	%>
 
 	<h2>Pedidos Pendientes Aprobacion</h2>
+	<h3>este pedido una vez aprobado se enviara al cliente para que lo acepte o lo rechace</h3>
 	<form action="ControladorWeb?action=AprobarRechazarPedidoPost" method="post">
 	<input type="hidden" name="hdnIdPedido" value="" />
 	<input type="hidden" name="hdnOperacion" value="" />

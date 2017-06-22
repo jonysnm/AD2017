@@ -58,6 +58,7 @@ public class PedidoDAO {
 				ItemPrenda iPrenda = i.getItemprenda();
 				ItemPrendaEntity ip =  (ItemPrendaEntity) session.get(ItemPrendaEntity.class, iPrenda.getIditemPrenda());
 				itemPedidoEntity.setIprenda(ip);
+
 				itemPedidoEntities.add(itemPedidoEntity);			
 			}
 			pe.setCliente((ClienteEntity)session.get(ClienteEntity.class, (pedido.getCliente().getId())));

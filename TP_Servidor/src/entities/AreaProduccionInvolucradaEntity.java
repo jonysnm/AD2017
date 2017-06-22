@@ -23,7 +23,7 @@ public class AreaProduccionInvolucradaEntity implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int codigo;
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="codigoAreaProduccion")
 	private AreaProduccionEntity area;
 	private int tiempoEnSegundos;

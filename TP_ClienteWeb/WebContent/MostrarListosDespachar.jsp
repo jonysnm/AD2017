@@ -10,17 +10,15 @@
 <h2>Se muestran los pedidos que estan listos para que el personal de despacho arme el paquete y arregle en envio</h2>
 </head>
 <body>
-	<div>
-		<a href="ControladorWeb?action=default" target="_self"><b>Home</b></a>
-	</div>
+
 	<%
 	List<PedidosCompletosPendientesDespacharDTO> lstPedidosCompletosPendientesDespacharDTO  = (List<PedidosCompletosPendientesDespacharDTO>)request.getAttribute("lstPedidosCompletosPendientesDespacharDTO");	
 	%>
 
 	<h2>Pedidos Completos Pendientes de Despachar</h2>
 
-	<form action="ControladorWeb?action=VerDetallePedidoPost" method="post">
-	<input type="hidden" name="hdnIdPedido" value="" />
+	<form action="ControladorWeb?action=mostrar_detalles_pedidos_a_despachar_POST" method="post">
+	<input type="hidden" name="hdnIdPedidoaDetallar" value="" />
 	<input type="hidden" name="hdnOperacion" value="" />
 
 	<table>	
@@ -42,7 +40,7 @@
 				<td><%=ec.getIdCliente()%></td>
 				<td><%=ec.getNombreCliente()%></td>							
 				<td>
-					<input type="submit" name="<%=ec.getId() %>" value="Detalle" onclick="this.form.hdnIdPedido.value=this.name;this.form.hdnOperacion.value=this.value;this.form.submit();" />									 									
+					<input type="submit" name="<%=ec.getId() %>" value="Detalle" onclick="this.form.hdnIdPedidoaDetallar.value=this.name;this.form.hdnOperacion.value=this.value;this.form.submit();" />									 									
 				<td>
 			</tr>
 	<%} %>			

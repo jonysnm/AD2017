@@ -7,9 +7,6 @@
 <title>Operacion Confirmada</title>
 </head>
 <body>
-	<div>
-		<a href="ControladorWeb?action=default" target="_self"><b>Home</b></a>
-	</div>
 <%
 		Object mensaje = request.getAttribute("Mensaje");	
 	if(mensaje!=null){

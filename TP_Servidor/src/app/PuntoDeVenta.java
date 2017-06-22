@@ -5,6 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 import controladores.ControladorPedido;
+import dto.ColorDTO;
 import dto.FacturaDTO;
 import dto.PedidoDTO;
 import dto.PedidosPendientesAprobacionDTO;
@@ -73,20 +74,68 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 				throw new RemoteException("Error al obtener el pedido: "+e.getMessage());
 			}
 	}
-//	public List<PedidoDTO> listarPedidosPendientesDeValidacion() throws RemoteException {
-//		return ControladorPedido.getInstancia().listarPedidosPendientesDeValidacion();
-//	}
-	public void altaTalle(TalleDTO talleDTO) throws RemoteException {
-		ControladorPedido.getInstancia().altaTalle(talleDTO);
+	public List<PedidoDTO> listarPedidosPendientesDeValidacion() throws RemoteException {
+		return ControladorPedido.getInstancia().listarPedidosPendientesDeValidacion();
 	}
-	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal) throws RemoteException {
-		return ControladorPedido.getInstancia().obtenerPedidosPendientesdeAprobacion( idSucursal);
-	}
+	
 	
 	// Jonathan Methods --> PREGUNTAR ANTES DE MODIFICAR
 	@Override
 	public void cambiarEstadoPedido(Integer idPedido, EstadoAprobacionPedidoCliente estado) throws RemoteException {
 		ControladorPedido.getInstancia().cambiarEstadoPedido(idPedido, estado);
 	}
+	
+	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal) throws RemoteException {
+		return ControladorPedido.getInstancia().obtenerPedidosPendientesdeAprobacion( idSucursal);
+	}
+	
+	@Override
+	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacionPorCliente(int idCliente)
+			throws RemoteException {
+		return ControladorPedido.getInstancia().obtenerPedidosPendientesdeAprobacion( idCliente);
+	}
 	// FIN Jonathan Methods
+	
+	
+	//Talle
+	public void altaTalle(TalleDTO talleDTO) throws RemoteException {
+		ControladorPedido.getInstancia().altaTalle(talleDTO);
+	}
+	
+	
+	public void bajaTalle(TalleDTO talleDTO) throws RemoteException {
+		ControladorPedido.getInstancia().bajaTalle(talleDTO);
+		
+	}
+	
+	public void modificarTalle(TalleDTO talleDTO) throws RemoteException {
+		ControladorPedido.getInstancia().modificarTalle(talleDTO);
+		
+	}
+
+	public List<TalleDTO> getallTalle() throws RemoteException {
+		return ControladorPedido.getInstancia().getallTalle();
+	}
+	
+	//Color
+	
+	public void altaColor(ColorDTO colorDTO) throws RemoteException {
+		ControladorPedido.getInstancia().altaColor(colorDTO);
+		
+	}
+	
+	public void bajaColor(ColorDTO colorDTO) throws RemoteException {
+		ControladorPedido.getInstancia().bajaColor(colorDTO);
+		
+	}
+	
+	public void modificarColor(ColorDTO colorDTO) throws RemoteException {
+		ControladorPedido.getInstancia().modificarColor(colorDTO);
+		
+	}
+	
+	public List<ColorDTO> getallColor() throws RemoteException {
+		return 	ControladorPedido.getInstancia().getallColor();
+	}
+
 }

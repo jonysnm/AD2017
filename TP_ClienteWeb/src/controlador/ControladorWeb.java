@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import businessDelegate.BusinessDelegate;
+import dto.PedidoDTO;
 import dto.PedidosCompletosPendientesDespacharDTO;
 import dto.PedidosPendientesAprobacionDTO;
 import dto.TalleDTO;
@@ -67,6 +68,24 @@ public class ControladorWeb extends HttpServlet {
 				jspPage = "/AprobarRechazarPedidosPendientes.jsp";
 			}
 			break;
+		case "Aceptacion_pedidos_por_Cliente":
+			//TODO: falta armar logica login para obtener el cliente y traer los pedidos exclusivos del cliente
+			List<PedidosPendientesAprobacionDTO> lstPedidosPendientesAprobacionporCliente = BusinessDelegate.getInstancia().obtenerPedidosPendientesdeAprobacionPorCliente(1);
+			request.setAttribute("lstPedidosPendientesAprobacionporCliente", lstPedidosPendientesAprobacionporCliente);
+			
+			mensaje="";	
+			if(lstPedidosPendientesAprobacionporCliente.size()==0)
+			{
+				mensaje="No registra pedidos pendientes de aprobacion";
+				request.setAttribute("Mensaje",mensaje);
+				jspPage = "/Confirmaciones.jsp";
+			}
+			else
+			{
+				request.setAttribute("lstPedidosPendientesAprobacionporCliente",lstPedidosPendientesAprobacionporCliente);
+				jspPage = "/AprobarRechazarPedidosPendientesPorCliente.jsp";
+			}
+			break;
 		case "AprobarRechazarPedidoPost":
 			int idPedido = Integer.parseInt(request.getParameter("hdnIdPedido"));
 			String operacion = request.getParameter("hdnOperacion");
@@ -101,6 +120,13 @@ public class ControladorWeb extends HttpServlet {
 				request.setAttribute("lstPedidosPendientesAprobacionDTO",lstPedidosCompletosPendientesDespacharDTO);
 				jspPage = "/MostrarListosDespachar.jsp";
 			}			
+			
+			break;
+		case "mostrar_detalles_pedidos_a_despachar_POST":
+			int idPedidoaDespachar = Integer.parseInt(request.getParameter("hdnIdPedidoaDetallar"));
+			PedidoDTO pedidoDTO = BusinessDelegate.getInstancia().obtenerPedido(idPedidoaDespachar);
+			request.setAttribute("pedidoDTO",pedidoDTO);
+			jspPage = "/DetallePedidoADespachar.jsp";
 			
 			break;
 		case "altaTalle":

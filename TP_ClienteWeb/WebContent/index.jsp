@@ -23,9 +23,7 @@
 <title align="center">Seleccion Opción</title>
 </head>
 <body>
-	<div>
-		<a href="ControladorWeb?action=default" target="_self"><b>Home</b></a>
-	</div>
+	
 	<div>
 		<h1 align="center">Bienvenido al Sistema</h1>	
 		<br>
@@ -34,6 +32,8 @@
     </div>
     <br>
      	<a href="ControladorWeb?action=aprobar_rechazar_pedidos" target="_self">Verificación Pedidos en Sucursal</a>
+      <br>
+           	<a href="ControladorWeb?action=Aceptacion_pedidos_por_Cliente" target="_self">Aceptar-Rechazar Pedidos por parte del cliente</a>
       <br>
      	<a href="ControladorWeb?action=mostrar_pedidos_pendientes_despachar" target="_self">Ver Pedidos listos para Despachar</a>    	
 </body>

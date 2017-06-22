@@ -24,7 +24,7 @@ public class PedidoToDTO {
 			ItemPedidoDTO itemPedidoDTO = new ItemPedidoDTO();
 //			itemPedidoDTO.setCantidad(itemPedido.getCantidad());
 			itemPedidoDTO.setImporte(itemPedido.getImporte());
-			itemPedidoDTO.setPrenda(PrendaToDTO.toDTO(itemPedido.getPrenda()));
+//			itemPedidoDTO.setItemPrendaDTO(itemPedido.getItemprenda());
 			itemsDTO.add(itemPedidoDTO);
 		}
 		pedidoDTO.setItems(itemsDTO);
