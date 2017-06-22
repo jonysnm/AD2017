@@ -14,6 +14,7 @@ public class ItemMaterialPrendaEntity implements Serializable {
 	private static final long serialVersionUID = 592441283341549459L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer item_materialprenda;
 	
 	private int cantidadutilizada;

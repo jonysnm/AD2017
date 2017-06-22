@@ -23,7 +23,6 @@ public class ItemPrendaEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)	
-	
 	private	Integer IdItemPrenda;
 
 	@ManyToOne(fetch=FetchType.EAGER)
@@ -46,7 +45,7 @@ public class ItemPrendaEntity implements Serializable {
 
 	// FIXME ver aca esto es dudoso(chequearlo)
 	@OneToMany(fetch=FetchType.EAGER)
-	@JoinColumn(name="IdItemPrenda")
+	@JoinColumn(name="item_materialprenda")
 	private List<ItemMaterialPrendaEntity> itemMaterialPrenda = new ArrayList<ItemMaterialPrendaEntity>();
 
 	public ItemPrendaEntity() {
