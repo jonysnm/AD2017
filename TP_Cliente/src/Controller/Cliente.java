@@ -46,9 +46,12 @@ public class Cliente {
 			//System.out.println(cliente.getNombre());
 			List<ClienteDTO> clientesDTO=businessDelegate.obtenerClientes();
 			for (ClienteDTO cli : clientesDTO) {
-		     	System.out.println(cli.getNombre());	
+		     	int cantidad = 0;
+				System.out.printf("\nCLIENTE: %d - %s",cantidad++,cli.getNombre());	
 			}
-			
+			nuevoCliente();
+			ClienteDTO c=businessDelegate.buscarCliente("27111111117");
+			System.out.printf("\nCLIENTE:%s",c.getNombre());
     	}catch (RemoteException e){
     		e.printStackTrace();
     	}
@@ -56,10 +59,10 @@ public class Cliente {
 
 	private void nuevoCliente() throws RemoteException {
 		ClienteDTO clienteDTO = new ClienteDTO();
-		clienteDTO.setCuit("27111111111");
+		clienteDTO.setCuit("27111111117");
 		clienteDTO.setLimiteCredito(12333);
-		clienteDTO.setNombre("Jose Gonzales");
-		clienteDTO.setTipoFacturacion("2");
+		clienteDTO.setNombre("JORGISTA");
+		clienteDTO.setTipoFacturacion("4");
 		Integer nroCliente = BusinessDelegate.getInstancia().altaCliente(clienteDTO);
 		System.out.println("Se dio de alta el Cliente nro: " + nroCliente);
 	}

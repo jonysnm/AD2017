@@ -107,10 +107,11 @@ public class ModifClienteSCR extends javax.swing.JFrame {
 						clienteDTO.setLimiteCredito(lim);
 						clienteDTO.setNombre(nam);
 						clienteDTO.setTipoFacturacion(tip);
-						Integer nroCliente;
+						//Integer nroCliente;
 						try {
-							nroCliente = BusinessDelegate.getInstancia().altaCliente(clienteDTO);
-							jLabelmensaje.setText("Se dio de alta el Cliente nro: "+nroCliente.toString());
+							ClienteDTO c=BusinessDelegate.getInstancia().buscarCliente(cu);
+							BusinessDelegate.getInstancia().modificarCliente(c);
+							jLabelmensaje.setText("Se Modifico el Cliente nro: "+c.getCuit().toString());
 						} catch (RemoteException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();

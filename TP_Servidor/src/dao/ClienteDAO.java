@@ -156,4 +156,33 @@ public class ClienteDAO {
 		cce.setItems(itemMovCCEntities);
 		return cce;
 	}
+	// BUSCAR
+		public Cliente buscarCliente (String cuit){
+			ClienteEntity cliente = null;
+			try {
+				Session session = sf.openSession();
+				
+				String hql = "FROM ClienteEntity C " +
+							 "WHERE C.cuit = :id";
+				
+				Query query = session.createQuery(hql);
+				query.setParameter("id", cuit);
+				query.setMaxResults(1);
+				
+				if(query.uniqueResult() != null){
+					cliente = (ClienteEntity) query.uniqueResult();
+		        	session.close();
+		        }else{
+		        	session.close();
+		        }
+				
+			}catch (QuerySyntaxException q){
+				JOptionPane.showMessageDialog(null, q, "Error", JOptionPane.ERROR_MESSAGE);
+				System.out.println("Exception de sintaxis en ClienteDAO: buscarCliente");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return new Cliente(cliente);
+		}
+		
 }

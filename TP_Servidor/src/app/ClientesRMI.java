@@ -33,5 +33,8 @@ public class ClientesRMI extends UnicastRemoteObject implements IClienteControla
 	public List<ClienteDTO> obtenerClientes() throws RemoteException {
 		return ControladorClientes.getInstancia().obtenerClientes();
 	}
+	public ClienteDTO buscarCliente(String cuit)throws RemoteException{
+		return ControladorClientes.getInstancia().buscarCliente(cuit);
+	}
 }
 

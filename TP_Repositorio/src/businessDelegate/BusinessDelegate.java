@@ -61,6 +61,9 @@ public class BusinessDelegate {
 	public ClienteDTO buscarCliente(Integer id) throws RemoteException{
 		return interfazRemotaClientes.buscarCliente(id);
 	}
+	public ClienteDTO buscarCliente(String cuit)throws RemoteException{
+	    return interfazRemotaClientes.buscarCliente(cuit);
+	}
 	public List<ClienteDTO> obtenerClientes() throws RemoteException{
 		return interfazRemotaClientes.obtenerClientes();
 	}	

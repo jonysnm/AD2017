@@ -20,8 +20,7 @@ public class ControladorClientes {
 			instancia = new ControladorClientes();
 		return instancia;
 	}
-
-	public Integer nuevaCliente(ClienteDTO cDTO){
+    public Integer nuevaCliente(ClienteDTO cDTO){
 		Cliente cli = ClienteDTOToNegocio(cDTO);
 		return ClienteDAO.getInstancia().altaCliente(cli);	
 	}
@@ -38,6 +37,10 @@ public class ControladorClientes {
 	public ClienteDTO buscarCliente(Integer id) throws RemoteException {
          Cliente c=ClienteDAO.getInstancia().getCliente(id);
          return ClienteToClienteDTO.toDTO(c);
+	}
+	public ClienteDTO buscarCliente(String cuit)throws RemoteException{
+		Cliente c=ClienteDAO.getInstancia().buscarCliente(cuit);
+        return ClienteToClienteDTO.toDTO(c);
 	}
 	public List<ClienteDTO> obtenerClientes() throws RemoteException {
 		List<Cliente> clientes = ClienteDAO.getInstancia().buscarClientes();
