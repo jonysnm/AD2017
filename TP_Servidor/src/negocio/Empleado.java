@@ -11,7 +11,8 @@ public class Empleado {
 	private String apellido;
 	private Date fechaIngreso;
 	private Date fechaEgreso;
-	private Sucursal sucursal;
+	//private Sucursal sucursal;
+	private String telefono;
 	public Empleado(){}
 	public Integer getId() {
 		return id;
@@ -43,20 +44,21 @@ public class Empleado {
 	public void setFechaEgreso(Date fechaEgreso) {
 		this.fechaEgreso = fechaEgreso;
 	}
-	public Sucursal getSucursal() {
-		return sucursal;
-	}
-	public void setSucursal(Sucursal sucursal) {
-		this.sucursal = sucursal;
-	}
+//	public Sucursal getSucursal() {
+//		return sucursal;
+//	}
+//	public void setSucursal(Sucursal sucursal) {
+//		this.sucursal = sucursal;
+//	}
 	public Empleado(EmpleadoEntity empleado) {
 		this.apellido=empleado.getApellido();
 		this.fechaEgreso=empleado.getFechaEgreso();
 		this.fechaIngreso=empleado.getFechaIngreso();
 		this.id=empleado.getId();
 		this.nombre=empleado.getNombre();
-		if(empleado.getSucursal()!=null)
-		this.sucursal=new Sucursal(empleado.getSucursal());
+		this.telefono=empleado.getTelefono();
+		//if(empleado.getSucursal()!=null)
+		//this.sucursal=new Sucursal(empleado.getSucursal());
 	}
 	public void save(){
 		AdministracionDAO.getInstancia().altaEmpleado(this);
@@ -64,4 +66,12 @@ public class Empleado {
 	public void editar(){
 		AdministracionDAO.getInstancia().modificarEmpleado(this);
 	}
+	public String getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+	
+	
 }

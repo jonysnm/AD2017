@@ -310,11 +310,11 @@ public class AdministracionDAO {
 		SucursalEntity se = new SucursalEntity();
 		se.setCodigoPostal(s.getCodigoPostal());
 		se.setDireccion(s.getDireccion());
-		se.setGerente(EmpleadoToEntity(s.getGerente()));
+		if(se.getGerente() != null) se.setGerente(EmpleadoToEntity(s.getGerente()));
 		se.setLocalidad(s.getLocalidad());
 		se.setNombre(s.getNombre());
 		se.setProvincia(s.getProvincia());
-		se.setRecepcionPedidos(EmpleadoToEntity(s.getRecepcionPedidos()));
+		if(se.getRecepcionPedidos() != null) se.setRecepcionPedidos(EmpleadoToEntity(s.getRecepcionPedidos()));
 		se.setTelefono(s.getTelefono());
 		return se;
 	}
@@ -325,9 +325,9 @@ public class AdministracionDAO {
 		ee.setFechaEgreso(e.getFechaEgreso());
 		ee.setFechaIngreso(e.getFechaIngreso());
 		ee.setNombre(e.getNombre());
-		if(e.getSucursal()!=null){
-		ee.setSucursal(SucursalToEntity(e.getSucursal()));
-		}
+//		if(e.getSucursal()!=null){
+//		ee.setSucursal(SucursalToEntity(e.getSucursal()));
+//		}
 		return ee;
 	}
 

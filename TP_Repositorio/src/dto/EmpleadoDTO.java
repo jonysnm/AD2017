@@ -13,7 +13,8 @@ public class EmpleadoDTO implements Serializable {
 	private String apellido;
 	private Date fechaIngreso;
 	private Date fechaEgreso;
-	private Integer IdSucursal;
+	private String telefono;
+//	private Integer IdSucursal;
 	public EmpleadoDTO(){}
 	public Integer getId() {
 		return id;
@@ -45,11 +46,20 @@ public class EmpleadoDTO implements Serializable {
 	public void setFechaEgreso(Date fechaEgreso) {
 		this.fechaEgreso = fechaEgreso;
 	}
-	public Integer getIdSucursal() {
-		return IdSucursal;
+//	public Integer getIdSucursal() {
+//		return IdSucursal;
+//	}
+//	public void setIdSucursal(Integer idSucursal) {
+//		IdSucursal = idSucursal;
+//	}
+	public String getTelefono() {
+		return telefono;
 	}
-	public void setIdSucursal(Integer idSucursal) {
-		IdSucursal = idSucursal;
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 
