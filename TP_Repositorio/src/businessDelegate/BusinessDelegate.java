@@ -154,4 +154,11 @@ public class BusinessDelegate {
 	}
 	
 	
+	//------Empleado-------------------
+	public void altaEmpleado(EmpleadoDTO empleadoDTO) throws RemoteException{
+		interfazRemotaSucursales.crearEmpleado(empleadoDTO);
+	}
+	
+	
+	
 }

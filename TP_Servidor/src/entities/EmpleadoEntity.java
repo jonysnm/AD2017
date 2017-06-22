@@ -19,9 +19,11 @@ public class EmpleadoEntity implements Serializable{
 	private String apellido;
 	private Date fechaIngreso;
 	private Date fechaEgreso;
-	@OneToOne(optional=true)
-	@JoinColumn(name="idSucursal",nullable=true)
-	private SucursalEntity sucursal;
+	private String telefono;
+	
+//	@OneToOne(optional=true)
+//	@JoinColumn(name="idSucursal",nullable=true)
+//	private SucursalEntity sucursal;
 	
 	public Integer getId() {
 		return id;
@@ -53,12 +55,23 @@ public class EmpleadoEntity implements Serializable{
 	public void setFechaEgreso(Date fechaEgreso) {
 		this.fechaEgreso = fechaEgreso;
 	}
-	public SucursalEntity getSucursal() {
-		return sucursal;
+//	public SucursalEntity getSucursal() {
+//		return sucursal;
+//	}
+//	public void setSucursal(SucursalEntity sucursal) {
+//		this.sucursal = sucursal;
+//	}
+	public String getTelefono() {
+		return telefono;
 	}
-	public void setSucursal(SucursalEntity sucursal) {
-		this.sucursal = sucursal;
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
 
 
 }

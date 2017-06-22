@@ -38,7 +38,9 @@ public class SucursalEntity implements Serializable{
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="idRecepcionPed")
 	private EmpleadoEntity recepcionPedidos;
-	@OneToMany(mappedBy="sucursal",fetch=FetchType.EAGER)
+//	@OneToMany(mappedBy="sucursal",fetch=FetchType.EAGER)
+	@OneToMany (cascade=CascadeType.ALL)
+	@JoinColumn(name="idSucursal")
 	private List<EmpleadoEntity> empleados=new ArrayList<EmpleadoEntity>();
 	
 	

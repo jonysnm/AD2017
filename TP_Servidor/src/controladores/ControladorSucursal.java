@@ -69,21 +69,27 @@ public class ControladorSucursal {
 		e.setApellido(empleado.getApellido());
 		e.setFechaEgreso(empleado.getFechaEgreso());
 		e.setFechaIngreso(empleado.getFechaIngreso());
-		if (empleado.getIdSucursal() != null) {
-			try {
-				Sucursal suc = AdministracionDAO.getInstancia().getSucursal(empleado.getIdSucursal());
-				e.setSucursal(suc);
-			} catch (SucursalException s) {
-				s.printStackTrace();
-			}
-		}
+		e.setTelefono(empleado.getTelefono());
+//		if (empleado.getIdSucursal() != null) {
+//			try {
+//				Sucursal suc = AdministracionDAO.getInstancia().getSucursal(empleado.getIdSucursal());
+//				e.setSucursal(suc);
+//			} catch (SucursalException s) {
+//				s.printStackTrace();
+//			}
+//		}
 		e.setNombre(empleado.getNombre());
 		return e;
 	}
 
 	public Sucursal SucursalDTO2Negocio(SucursalDTO s) {
-		Empleado gerente = AdministracionDAO.getInstancia().getEmpleado(s.getIdGerente());
-		Empleado recepcionPedidos = AdministracionDAO.getInstancia().getEmpleado(s.getIdRecepcionPedidos());
+		Empleado gerente = null;
+		if(s.getIdGerente() != null){
+		 gerente = AdministracionDAO.getInstancia().getEmpleado(s.getIdGerente());}
+		
+		Empleado recepcionPedidos = null;
+		if(s.getIdGerente() != null){
+				recepcionPedidos= 	AdministracionDAO.getInstancia().getEmpleado(s.getIdRecepcionPedidos());}
 		Sucursal suc = new Sucursal();
 		suc.setCodigoPostal(s.getCodigoPostal());
 		suc.setDireccion(s.getDireccion());
