@@ -6,7 +6,7 @@ public class ItemBultoPrenda  extends ItemBulto {
 
 	
 	private ItemPrenda itemPrenda;
-	private Prenda prenda;
+	//private Prenda prenda;
 	private OrdenProduccion op;
 	public ItemBultoPrenda() {
 		super();
@@ -25,11 +25,11 @@ public class ItemBultoPrenda  extends ItemBulto {
 		this.op = op;
 	}
 
-	public Prenda getPrenda() {
-		return prenda;
-	}
+	//public Prenda getPrenda() {
+		//return prenda;
+	//}
 
-	public void setPrenda(Prenda prenda) {
-		this.prenda = prenda;
-	}
+	//public void setPrenda(Prenda prenda) {
+//		this.prenda = prenda;
+	//}
 }

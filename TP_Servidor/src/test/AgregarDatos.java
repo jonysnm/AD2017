@@ -14,7 +14,7 @@ import negocio.Talle;
 import negocio.Ubicacion;
 public class AgregarDatos {
 	public static void guardarInfo(){
-    
+    /*
 	Color c1 = new Color("Rojo");
 	TallesyColoresDAO.getInstancia().altaColor(c1);
 	Color c2 = new Color("Negro");
@@ -43,6 +43,7 @@ public class AgregarDatos {
     p1.setDescripcion("BUFARRETA");
     p1.setVigente(true);
     
+    
 	List<ItemPrenda> ip=new ArrayList<ItemPrenda>();
 	ItemPrenda ipp=new ItemPrenda();
 	Talle talle=TallesyColoresDAO.getInstancia().getTalle(1);
@@ -51,19 +52,21 @@ public class AgregarDatos {
 	ipp.setPrenda(p1);
 	ipp.setColor(color);
 	ipp.setTalle(talle);
+	ipp.setCostoProduccionActual(100);
+	ipp.setCantidadEnOPC(2);
+	ipp.setPorcentajeGanancia(200);
 	ip.add(ipp);
 	p1.setItemPrendas(ip);
 	PedidoDAO.getInstancia().AltaPrenda(p1);
-	/*
+	*/
 	Ubicacion u=new Ubicacion();
 	ItemBultoPrenda ibpr=new ItemBultoPrenda();
 	ibpr.setCantidad(40);
 	ibpr.setCantidadReservada(10);
 	ibpr.setTipo("IBPRENDA");
-	ibpr.setItemPrenda(PedidoDAO.getInstancia().getPrenda(1).getItemPrendas().get(0));
-	ibpr.setPrenda(PedidoDAO.getInstancia().getPrenda(1));
+	ibpr.setItemPrenda(PedidoDAO.getInstancia().getItemPrenda(1));
+	//ibpr.setPrenda(PedidoDAO.getInstancia());
 	u.setBulto(ibpr);
 	AlmacenDAO.getInstancia().nuevaUbicacion(u);
-	*/
 	}
 }

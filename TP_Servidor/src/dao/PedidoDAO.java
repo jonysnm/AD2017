@@ -140,6 +140,9 @@ public class PedidoDAO {
 				it.setColor((ColorEntity)session.get(ColorEntity.class,ipp.getColor().getIdcolor()));
 				it.setTalle((TalleEntity)session.get(TalleEntity.class, ipp.getTalle().getIdTalle()));
 				it.setPrenda(pe);
+				it.setCantidadEnOPC(ipp.getCantidadEnOPC());
+				it.setCostoProduccionActual(ipp.getCostoProduccionActual());
+				it.setPorcentajeGanancia(ipp.getPorcentajeGanancia());
 				ip.add(it);
 			}
 			pe.setIp(ip);

@@ -14,7 +14,7 @@ public class UbicacionDTO implements Serializable{
 	private int estante;
 	private int posicion;
 	private boolean ocupado;
-	private List<ItemBultoDTO> bulto;
+	private ItemBultoPrendaDTO bulto;
 	public int getId() {
 		return id;
 	}
@@ -45,10 +45,10 @@ public class UbicacionDTO implements Serializable{
 	public void setOcupado(boolean ocupado) {
 		this.ocupado = ocupado;
 	}
-	public List<ItemBultoDTO> getBulto() {
+	public ItemBultoPrendaDTO getBulto() {
 		return bulto;
 	}
-	public void setBulto(List<ItemBultoDTO> bulto) {
+	public void setBulto(ItemBultoPrendaDTO bulto) {
 		this.bulto = bulto;
 	}
 	

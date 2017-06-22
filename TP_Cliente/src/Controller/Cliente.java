@@ -9,7 +9,7 @@ import businessDelegate.BusinessDelegate;
 import dto.ClienteDTO;
 import dto.ColorDTO;
 import dto.EmpleadoDTO;
-import dto.ItemBultoDTO;
+import dto.ItemBultoPrendaDTO;
 import dto.ItemPedidoDTO;
 import dto.ItemPrendaDTO;
 import dto.PedidoDTO;
@@ -32,10 +32,10 @@ public class Cliente {
 			nuevoCliente();
 			nuevaSucursal();
 			Integer id=nuevoPedido();
-			//nuevaubicacion();
-//			System.out.println(("IDPedido: " + id));
-			businessDelegate.confirmarPedido(1);
-			businessDelegate.IniciarProcesamientoPedidoAprobado(1);
+			nuevaubicacion();
+			System.out.println(("IDPedido: " + id));
+			//businessDelegate.confirmarPedido(1);
+			//businessDelegate.IniciarProcesamientoPedidoAprobado(1);
       	} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -96,8 +96,9 @@ public class Cliente {
 	}
     private void nuevaubicacion()throws RemoteException {
     	UbicacionDTO ubicacionDTO=new UbicacionDTO();
-    	ItemBultoDTO item=new ItemBultoDTO();
+    	ItemBultoPrendaDTO item=new ItemBultoPrendaDTO();
     	ItemPrendaDTO ip=new ItemPrendaDTO();
+    	ip.setIditemPrenda(1);
     	ip.setCantidad(5);
     	ip.setCantidadReservada(2);
     	ColorDTO colorDTO = new ColorDTO();
@@ -108,11 +109,9 @@ public class Cliente {
     	ip.setTalle(talleDTO);;
     	PrendaDTO prendaDTO = new PrendaDTO();
 		prendaDTO.setCodigo(3);
-		
+		ip.setPrendaDTO(prendaDTO);
 		item.setIpr(ip);		
-		List<ItemBultoDTO> itemsbultos = new ArrayList<ItemBultoDTO>();
-		itemsbultos.add(item);
-		ubicacionDTO.setBulto(itemsbultos);		
+		ubicacionDTO.setBulto(item);		
 		businessDelegate.altaUbicacion(ubicacionDTO);
     }
 	/* Nuevo Pedido */
@@ -139,18 +138,20 @@ public class Cliente {
 		item.setImporte(500);
 		ItemPrendaDTO itemPrendaDTO = new ItemPrendaDTO();
 		ColorDTO colorDTO = new ColorDTO();
-		colorDTO.setIdColor(1);
-		colorDTO.setDescripcion("Rojo");
+		colorDTO.setIdColor(6);
+		colorDTO.setDescripcion("Amarrillo");
 		itemPrendaDTO.setColor(colorDTO);
+		//SIEMPRE HAY QUE PASARLE EL ID ITEM PRENDA
 		itemPrendaDTO.setIditemPrenda(1);
 		TalleDTO talleDTO = new TalleDTO();
-		talleDTO.setDescripcion("S");
+		talleDTO.setDescripcion("M");
 		talleDTO.setIdTalle(1);
 		itemPrendaDTO.setTalle(talleDTO);
 		item.setItemPrendaDTO(itemPrendaDTO );
 		ip.add(itemPrendaDTO);
 	    PrendaDTO prendaDTO = new PrendaDTO();
 		prendaDTO.setCodigo(1);
+		
 		prendaDTO.setItemPrenda(ip);		
 		item.setItemPrendaDTO(itemPrendaDTO);
 		itemsPedido.add(item);

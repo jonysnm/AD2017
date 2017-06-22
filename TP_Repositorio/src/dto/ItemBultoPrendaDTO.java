@@ -2,7 +2,7 @@ package dto;
 
 import java.io.Serializable;
 
-public class ItemBultoDTO implements Serializable{
+public class ItemBultoPrendaDTO implements Serializable{
 	/**
 	 * 
 	 */
@@ -10,6 +10,8 @@ public class ItemBultoDTO implements Serializable{
 	private int id;
 	private MateriaPrimaDTO mp;
 	private ItemPrendaDTO ipr;
+	private float cantidad;
+	private float cantidadReservada;
 	public int getId() {
 		return id;
 	}
@@ -28,4 +30,17 @@ public class ItemBultoDTO implements Serializable{
 	public void setIpr(ItemPrendaDTO ipr) {
 		this.ipr = ipr;
 	}
+	public float getCantidad() {
+		return cantidad;
+	}
+	public void setCantidad(float cantidad) {
+		this.cantidad = cantidad;
+	}
+	public float getCantidadReservada() {
+		return cantidadReservada;
+	}
+	public void setCantidadReservada(float cantidadReservada) {
+		this.cantidadReservada = cantidadReservada;
+	}
+	
 }

@@ -1,17 +1,14 @@
 package controladores;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import dao.AlmacenDAO;
-import dto.ItemBultoDTO;
+import dao.PedidoDAO;
+import dto.ItemBultoPrendaDTO;
 import dto.UbicacionDTO;
-import negocio.Color;
-import negocio.ItemBulto;
+import negocio.ItemBultoPrenda;
 import negocio.ItemPrenda;
 import negocio.MateriaPrima;
-import negocio.Prenda;
-import negocio.Talle;
 import negocio.Ubicacion;
 
 public class ControladorAlmacen {
@@ -62,25 +59,14 @@ public class ControladorAlmacen {
 	}
 	public void altaUbicacion(UbicacionDTO ubicacion){
 		Ubicacion ub=new Ubicacion();
-		List<ItemBulto> itemsbulto=new ArrayList<ItemBulto>();
-		for(ItemBultoDTO ib: ubicacion.getBulto()){
-			ItemBulto iBulto=new ItemBulto();
-			ItemPrenda ip=new ItemPrenda();
-//			ip.setCantidad(ib.getIpr().getCantidad());
-//			ip.setCantidadReservada(ib.getIpr().getCantidadReservada()); //usar itemstockprenda
-			Prenda p=new Prenda();
-//			p.setCodigo(ib.getIpr().getPrenda().getCodigo());
-//			ip.setPrenda(p);
-			Color c=new Color();
-			c.setIdcolor(ib.getIpr().getColor().getIdColor());
-			Talle t=new Talle();
-			t.setIdTalle(ib.getIpr().getTalle().getIdTalle());
-			ip.setColor(c);
-			ip.setTalle(t);
-//			iBulto.setIpr(ip);
-			itemsbulto.add(iBulto);
-		}
-		//ub.setBulto(itemsbulto);
+		ItemBultoPrendaDTO ib=ubicacion.getBulto();
+		ItemBultoPrenda ibpr=new ItemBultoPrenda();
+		ibpr.setCantidad(ib.getCantidad());
+		ibpr.setCantidadReservada(ib.getCantidadReservada());
+		ibpr.setTipo(ib.getClass().getName());
+		ItemPrenda itemPrenda = PedidoDAO.getInstancia().getItemPrenda(ib.getIpr().getIditemPrenda());
+		ibpr.setItemPrenda(itemPrenda);
+		ub.setBulto(ibpr);
 		AlmacenDAO.getInstancia().nuevaUbicacion(ub);		
 	}
 	//	public void iniciarProcesamientoPedido(Pedido pedido) {
