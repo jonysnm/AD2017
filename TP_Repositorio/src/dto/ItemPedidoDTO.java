@@ -8,11 +8,10 @@ public class ItemPedidoDTO implements Serializable {
 
 	private static final long serialVersionUID = 8291630079669964572L;
 
+	private int IdItemPedido;
 	private int cantidad;
-	private PrendaDTO prenda;
+	private ItemPrendaDTO itemPrendaDTO;
 	private int importe;
-	private ColorDTO color;
-	private TalleDTO talle;
 	public ItemPedidoDTO(){}
 	public int getCantidad() {
 		return cantidad;
@@ -20,29 +19,23 @@ public class ItemPedidoDTO implements Serializable {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
-	public PrendaDTO getPrenda() {
-		return prenda;
-	}
-	public void setPrenda(PrendaDTO prenda) {
-		this.prenda = prenda;
-	}
 	public int getImporte() {
 		return importe;
 	}
 	public void setImporte(int importe) {
 		this.importe = importe;
 	}
-	public ColorDTO getColor() {
-		return color;
+	public ItemPrendaDTO getItemPrendaDTO() {
+		return itemPrendaDTO;
 	}
-	public void setColor(ColorDTO color) {
-		this.color = color;
+	public void setItemPrendaDTO(ItemPrendaDTO itemPrendaDTO) {
+		this.itemPrendaDTO = itemPrendaDTO;
 	}
-	public TalleDTO getTalle() {
-		return talle;
+	public int getIdItemPedido() {
+		return IdItemPedido;
 	}
-	public void setTalle(TalleDTO talle) {
-		this.talle = talle;
+	public void setIdItemPedido(int idItemPedido) {
+		IdItemPedido = idItemPedido;
 	}
 	
 }

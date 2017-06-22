@@ -5,8 +5,6 @@ import java.util.List;
 
 import dao.AlmacenDAO;
 import dao.PedidoDAO;
-import entities.ItemMaterialPrendaEntity;
-import entities.ItemPedidoEntity;
 import entities.ItemPrendaEntity;
 import entities.PrendaEntity;
 
@@ -63,6 +61,13 @@ public class Prenda {
 		this.descripcion=pr.getDescripcion();
 		this.vigente=pr.isVigente();
 		List<ItemPrenda> itemsPrenda = new ArrayList<ItemPrenda>();
+		for (ItemPrendaEntity ipe:pr.getIp()){
+			ItemPrenda itempr=new ItemPrenda(ipe);
+			itempr.setColor(new Color(ipe.getColor()));
+			itempr.setTalle(new Talle(ipe.getTalle()));
+			itemsPrenda.add(itempr);
+		}
+		this.setItemPrendas(itemsPrenda);
 		/*
 		 * List<ItemPedido> items=new ArrayList<ItemPedido>();
 		for(ItemPedidoEntity ip:pedido.getItems()){
@@ -75,11 +80,7 @@ public class Prenda {
 		this.setItems(items);
 			
 		 */
-		for (ItemPrendaEntity ipe:pr.getIp()){
-			ItemPrenda itempr=new ItemPrenda(ipe);
-			itemsPrenda.add(itempr);
-		}
-		this.setItemPrendas(itemsPrenda);
+	
 		
 	}
 	public boolean SoslaPrenda(int codigo){

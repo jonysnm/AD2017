@@ -58,10 +58,10 @@ public class ItemPrenda {
 		super();
 	}
 	public ItemPrenda(ItemPrendaEntity ipe){
-		//this.IditemPrenda=ipe.getIdItemPrenda();
+		this.IditemPrenda=ipe.getIdItemPrenda();
+//		this.prenda=new Prenda(ipe.getPrenda());
 		this.color=new Color(ipe.getColor());
 		this.talle=new Talle(ipe.getTalle());
-		this.prenda=new Prenda(ipe.getPrenda());
 		this.cantidadEnOPC=ipe.getCantidadEnOPC();
 		this.porcentajeGanancia=ipe.getPorcentajeGanancia();
 		this.costoProduccionActual=ipe.getCostoProduccionActual();		

@@ -14,9 +14,7 @@ import entities.ClienteEntity;
 import entities.ColorEntity;
 import entities.ItemFaltantePedidoEntity;
 import entities.ItemPedidoEntity;
-import entities.ItemPedidoId;
 import entities.ItemPrendaEntity;
-import entities.ItemPrendaId;
 import entities.PedidoEntity;
 import entities.PrendaEntity;
 import entities.SucursalEntity;
@@ -52,30 +50,14 @@ public class PedidoDAO {
 			
 			List<ItemPedidoEntity> itemPedidoEntities = new ArrayList<ItemPedidoEntity>();
 			
-			
 			for (ItemPedido i: pedido.getItems()) {
 				ItemPedidoEntity itemPedidoEntity = new ItemPedidoEntity();
 				itemPedidoEntity.setCantidad(i.getCantidad());
 				itemPedidoEntity.setImporte(i.getImporte());
 				
-				String hql = "FROM PrendaEntity P " + "WHERE P.IdPrenda = :id";
-
-				Query query = session.createQuery(hql);
-				query.setParameter("id", i.getPrenda().getCodigo());
-				query.setMaxResults(1);
-				
-				PrendaEntity prendaEntity = (PrendaEntity) query.uniqueResult();
-				
-				
-				ItemPedidoId id2 = new ItemPedidoId();
-				id2.setPedido(pe);
-				id2.setPrenda(prendaEntity);
-				itemPedidoEntity.setIdItemPedido(id2);
-				List<ItemPrendaEntity> itemsPrenda=prendaEntity.getIp();
-				for(ItemPrendaEntity ip:itemsPrenda){
-					itemPedidoEntity.setColor(ip.getItemPrendaId().getColor());
-					itemPedidoEntity.setTalle(ip.getItemPrendaId().getTalle());
-				}
+				ItemPrenda iPrenda = i.getItemprenda();
+				ItemPrendaEntity ip =  (ItemPrendaEntity) session.get(ItemPrendaEntity.class, iPrenda.getIditemPrenda());
+				itemPedidoEntity.setIprenda(ip);
 				itemPedidoEntities.add(itemPedidoEntity);			
 			}
 			pe.setCliente((ClienteEntity)session.get(ClienteEntity.class, (pedido.getCliente().getId())));
@@ -95,7 +77,7 @@ public class PedidoDAO {
 	public Pedido getPedido(Integer idpedido){
 		PedidoEntity pedido = null;
 		try {
-			Session session = sf.getCurrentSession();
+			Session session = sf.openSession();
 			
 			String hql = "FROM PedidoEntity P " +
 						 "WHERE P.id = :id";
@@ -151,13 +133,12 @@ public class PedidoDAO {
 			PrendaEntity pe=new PrendaEntity();
 			pe.setDescripcion(prenda.getDescripcion());
 			pe.setVigente(prenda.isVigente());
-			//pe.setIdPrenda(prenda.getCodigo());
 			List<ItemPrendaEntity> ip=new ArrayList<ItemPrendaEntity>();
 			for(ItemPrenda ipp:prenda.getItemPrendas()){
 				ItemPrendaEntity it=new ItemPrendaEntity();
 				it.setColor((ColorEntity)session.get(ColorEntity.class,ipp.getColor().getIdcolor()));
 				it.setTalle((TalleEntity)session.get(TalleEntity.class, ipp.getTalle().getIdTalle()));
-				it.setPrenda(pe);				
+				it.setPrenda(pe);
 				ip.add(it);
 			}
 			pe.setIp(ip);
@@ -245,6 +226,16 @@ public class PedidoDAO {
 		session.flush();
 		session.close();
 		return idItemFaltantePedido;
+	}
+	public ItemPrenda getItemPrenda(Integer iditemPrenda) {
+		Session session=sf.openSession();
+		session.beginTransaction();
+		ItemPrendaEntity itemPrendaEntity = (ItemPrendaEntity) session.get(ItemPrendaEntity.class, iditemPrenda);
+		session.beginTransaction().commit();
+		session.flush();
+		session.close();
+		ItemPrenda itemPrenda = new ItemPrenda(itemPrendaEntity);
+		return itemPrenda;
 	}
 	
 	

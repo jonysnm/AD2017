@@ -25,11 +25,11 @@ public class ItemPrendaEntity implements Serializable {
 	private	Integer IdItemPrenda;
 
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name = "idTalle",insertable=false,updatable=false,nullable=false)
+	@JoinColumn(name = "idTalle")
 	private TalleEntity talle;
 
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name = "idColor",insertable=false,updatable=false,nullable=false)
+	@JoinColumn(name = "idColor")
 	private ColorEntity color;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
@@ -44,7 +44,7 @@ public class ItemPrendaEntity implements Serializable {
 
 	// FIXME ver aca esto es dudoso(chequearlo)
 	@OneToMany(fetch=FetchType.EAGER)
-	@JoinColumn(name="itemPrendaId")
+	@JoinColumn(name="IdItemPrenda")
 	private List<ItemMaterialPrendaEntity> itemMaterialPrenda = new ArrayList<ItemMaterialPrendaEntity>();
 
 	public ItemPrendaEntity() {

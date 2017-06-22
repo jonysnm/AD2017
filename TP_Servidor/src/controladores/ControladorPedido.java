@@ -4,26 +4,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.mapping.Array;
+
 import dao.AdministracionDAO;
 import dao.ClienteDAO;
 import dao.PedidoDAO;
-import dao.TallesyColoresDAO;
 import dto.ItemPedidoDTO;
-import dto.ItemPrendaDTO;
 import dto.PedidoDTO;
 import dto.PedidosPendientesAprobacionDTO;
 import dto.TalleDTO;
 import estados.EstadoAprobacionPedidoCliente;
-import estados.EstadoPedido;
 import negocio.Cliente;
-import negocio.Color;
 import negocio.ItemFaltantePedido;
 import negocio.ItemPedido;
 import negocio.ItemPrenda;
 import negocio.Pedido;
 import negocio.Prenda;
 import negocio.Sucursal;
-import negocio.Talle;
 import utils.PedidoToDTO;
 
 
@@ -47,10 +44,8 @@ public class ControladorPedido {
 			ItemPedido iPedido = new ItemPedido();
 			iPedido.setCantidad(itemPedido.getCantidad());
 			iPedido.setImporte(itemPedido.getImporte());
-			Prenda prenda=PedidoDAO.getInstancia().getPrenda(itemPedido.getPrenda().getCodigo());
-			for(ItemPrenda ip:prenda.getItemPrendas()){
-				iPedido.setItemprenda(ip);
-			}
+			ItemPrenda itemPrenda = PedidoDAO.getInstancia().getItemPrenda(itemPedido.getItemPrendaDTO().getIditemPrenda());
+			iPedido.setItemprenda(itemPrenda);
 			itemsPedidos.add(iPedido);
 		}
 		p.setItems(itemsPedidos);
@@ -86,7 +81,7 @@ public class ControladorPedido {
 		// * 1- verificar si tengo stock disponible de las prendas del pedido			   
 			for (ItemPedido itemPedido : p.getItems()) 
 			{
-				float cantidadFaltante = itemPedido.getCantidad() - itemPedido.getPrenda().ObtenerDisponible(itemPedido);
+				float cantidadFaltante = itemPedido.getCantidad() - itemPedido.getItemprenda().getPrenda().ObtenerDisponible(itemPedido);
 				ReservarPrendaenStock(itemPedido,p.getId());
 				if(cantidadFaltante < 0) //significa que hay faltante
 				{
@@ -94,10 +89,10 @@ public class ControladorPedido {
 					//me va a dejar decidir si reservo o no reservo las prendas
 					itemFaltantePedido = new ItemFaltantePedido();
 					itemFaltantePedido.setPedido(p);
-					itemFaltantePedido.setPrenda(itemPedido.getPrenda());
+					itemFaltantePedido.setPrenda(itemPedido.getItemprenda().getPrenda());
 					itemFaltantePedido.setCantidadFaltante(cantidadFaltante);
-					itemFaltantePedido.setColor(itemPedido.getColor());
-					itemFaltantePedido.setTalle(itemPedido.getTalle());
+					itemFaltantePedido.setColor(itemPedido.getItemprenda().getColor());
+					itemFaltantePedido.setTalle(itemPedido.getItemprenda().getTalle());
 					lstItemsFaltantesPedido.add(itemFaltantePedido);
 				}
 			}

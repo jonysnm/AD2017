@@ -29,8 +29,8 @@ public class Cliente {
 	public Cliente() {
 		try {
 			businessDelegate = BusinessDelegate.getInstancia();
-			//nuevoCliente();
-			//nuevaSucursal();
+			nuevoCliente();
+			nuevaSucursal();
 			Integer id=nuevoPedido();
 			//nuevaubicacion();
 	System.out.println(("IDPedido: " + id));
@@ -131,28 +131,28 @@ public class Cliente {
 	    
 
 		ItemPedidoDTO item = new ItemPedidoDTO();
-		ItemPrendaDTO ipd=new ItemPrendaDTO();
 		
 		List<ItemPedidoDTO> itemsPedido = new ArrayList<ItemPedidoDTO>();
 		List<ItemPrendaDTO> ip=new ArrayList<ItemPrendaDTO>();
 		
 		item.setCantidad(1);
 		item.setImporte(500);
+		ItemPrendaDTO itemPrendaDTO = new ItemPrendaDTO();
 		ColorDTO colorDTO = new ColorDTO();
 		colorDTO.setIdColor(1);
 		colorDTO.setDescripcion("Rojo");
-		item.setColor(colorDTO);
+		itemPrendaDTO.setColor(colorDTO);
+		itemPrendaDTO.setIditemPrenda(1);
 		TalleDTO talleDTO = new TalleDTO();
 		talleDTO.setDescripcion("S");
 		talleDTO.setIdTalle(1);
-		item.setTalle(talleDTO);
-		ipd.setColor(colorDTO);
-		ipd.setTalle(talleDTO);
-		ip.add(ipd);
+		itemPrendaDTO.setTalle(talleDTO);
+		item.setItemPrendaDTO(itemPrendaDTO );
+		ip.add(itemPrendaDTO);
 	    PrendaDTO prendaDTO = new PrendaDTO();
 		prendaDTO.setCodigo(1);
 		prendaDTO.setItemPrenda(ip);		
-		item.setPrenda(prendaDTO);
+		item.setItemPrendaDTO(itemPrendaDTO);
 		itemsPedido.add(item);
 		pedidoDTO.setItems(itemsPedido);
 

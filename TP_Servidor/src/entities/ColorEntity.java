@@ -12,7 +12,7 @@ public class ColorEntity implements Serializable{
 	private static final long serialVersionUID = 9221850306316543012L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idColor;
 	private String descripcion;
 	

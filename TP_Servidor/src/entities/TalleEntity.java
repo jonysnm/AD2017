@@ -9,7 +9,7 @@ public class TalleEntity implements Serializable{
 	private static final long serialVersionUID = -6479446838679069821L;
 
 	@Id	
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="idTalle")
 	private int idTalle;
 	private String descripcion;
