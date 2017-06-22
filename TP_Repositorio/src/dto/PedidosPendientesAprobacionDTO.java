@@ -18,6 +18,8 @@ public class PedidosPendientesAprobacionDTO  implements Serializable{
 	private float limiteCredito;
 	private float saldoCtaCte;
 	private boolean contieneDiscontinuosyHaystock;
+	private float costoTotalPedido;
+	private Date fechaEntregaEstimada;
 	
 	private float total;
 
@@ -96,6 +98,22 @@ public class PedidosPendientesAprobacionDTO  implements Serializable{
 
 	public void setSaldoCtaCte(float saldoCtaCte) {
 		this.saldoCtaCte = saldoCtaCte;
+	}
+
+	public float getCostoTotalPedido() {
+		return costoTotalPedido;
+	}
+
+	public void setCostoTotalPedido(float costoTotalPedido) {
+		this.costoTotalPedido = costoTotalPedido;
+	}
+
+	public Date getFechaEntregaEstimada() {
+		return fechaEntregaEstimada;
+	}
+
+	public void setFechaEntregaEstimada(Date fechaEntregaEstimada) {
+		this.fechaEntregaEstimada = fechaEntregaEstimada;
 	}
 	
 	

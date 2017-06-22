@@ -266,6 +266,27 @@ public class AdministracionDAO {
 		return null;
 	}
 	
+	public List<Pedido> obtenerPedidosPendientesdeAprobacionPorCliente(int idCliente) {
+		try {
+			Session session = sf.openSession();
+
+			@SuppressWarnings("unchecked")
+			List<PedidoEntity> lista = session.createQuery("from PedidoEntity where estado='PendienteAprobarSucursal' AND cliente.id=:idCliente").setInteger("idCliente", idCliente).list();
+			session.close();			
+			
+			List<Pedido> pedidos = new ArrayList<Pedido>();
+			for (PedidoEntity pedidoEntity : lista) {
+				pedidos.add(new Pedido(pedidoEntity));
+			}			
+			return pedidos;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("ErrorDAO: AdministracionDAO: Listar Pedidos pendientes de validacion");
+		}
+		return null;
+	}
+	
+	
 	public List<PedidoEntity> obtenerPedidosCompletosPendientesDespachar() {
 		try {
 			Session session = sf.openSession();
@@ -318,4 +339,5 @@ public class AdministracionDAO {
 		session.save(talleEntity);
 		session.getTransaction().commit();
 	}
+
 }

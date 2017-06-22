@@ -100,7 +100,15 @@ public class BusinessDelegate {
 		return interfazRemotaPuntoVenta.obtenerPedidosPendientesdeAprobacion(idSucursal);
 
 	}	
+	
+	
 	//Methods Jonathan --> Pregutar antes de modificar
+	
+	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacionPorCliente(int idCliente)throws RemoteException {
+		return interfazRemotaPuntoVenta.obtenerPedidosPendientesdeAprobacionPorCliente(idCliente);
+
+	}	
+	
 	public void cambiarEstadoPedido(Integer idPedido, EstadoAprobacionPedidoCliente estado) throws RemoteException{
 		interfazRemotaPuntoVenta.cambiarEstadoPedido(idPedido, estado);
 	}

@@ -68,6 +68,24 @@ public class ControladorWeb extends HttpServlet {
 				jspPage = "/AprobarRechazarPedidosPendientes.jsp";
 			}
 			break;
+		case "Aceptacion_pedidos_por_Cliente":
+			//TODO: falta armar logica login para obtener el cliente y traer los pedidos exclusivos del cliente
+			List<PedidosPendientesAprobacionDTO> lstPedidosPendientesAprobacionporCliente = BusinessDelegate.getInstancia().obtenerPedidosPendientesdeAprobacionPorCliente(1);
+			request.setAttribute("lstPedidosPendientesAprobacionporCliente", lstPedidosPendientesAprobacionporCliente);
+			
+			mensaje="";	
+			if(lstPedidosPendientesAprobacionporCliente.size()==0)
+			{
+				mensaje="No registra pedidos pendientes de aprobacion";
+				request.setAttribute("Mensaje",mensaje);
+				jspPage = "/Confirmaciones.jsp";
+			}
+			else
+			{
+				request.setAttribute("lstPedidosPendientesAprobacionporCliente",lstPedidosPendientesAprobacionporCliente);
+				jspPage = "/AprobarRechazarPedidosPendientesPorCliente.jsp";
+			}
+			break;
 		case "AprobarRechazarPedidoPost":
 			int idPedido = Integer.parseInt(request.getParameter("hdnIdPedido"));
 			String operacion = request.getParameter("hdnOperacion");

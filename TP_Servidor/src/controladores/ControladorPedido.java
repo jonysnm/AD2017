@@ -87,7 +87,7 @@ public class ControladorPedido {
 		// * 1- verificar si tengo stock disponible de las prendas del pedido			   
 			for (ItemPedido itemPedido : p.getItems()) 
 			{
-				float cantidadFaltante = itemPedido.getCantidad() - itemPedido.getPrenda().ObtenerDisponible(itemPedido);
+				float cantidadFaltante = 0; //itemPedido.getCantidad() - itemPedido.getPrenda().ObtenerDisponible(itemPedido);
 				ReservarPrendaenStock(itemPedido,p.getId());
 				if(cantidadFaltante < 0) //significa que hay faltante
 				{
@@ -95,10 +95,10 @@ public class ControladorPedido {
 					//me va a dejar decidir si reservo o no reservo las prendas
 					itemFaltantePedido = new ItemFaltantePedido();
 					itemFaltantePedido.setPedido(p);
-					itemFaltantePedido.setPrenda(itemPedido.getPrenda());
+//					itemFaltantePedido.setPrenda(itemPedido.getPrenda());
 					itemFaltantePedido.setCantidadFaltante(cantidadFaltante);
-					itemFaltantePedido.setColor(itemPedido.getColor());
-					itemFaltantePedido.setTalle(itemPedido.getTalle());
+//					itemFaltantePedido.setColor(itemPedido.getColor());
+//					itemFaltantePedido.setTalle(itemPedido.getTalle());
 					lstItemsFaltantesPedido.add(itemFaltantePedido);
 				}
 			}
@@ -137,6 +137,11 @@ public class ControladorPedido {
 	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal) {
 		Pedido pedidoNegocio = new Pedido();
 		return pedidoNegocio.obtenerPedidosPendientesdeAprobacion( idSucursal);		
+	}
+	
+	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacionPorCliente(int idCliente) {
+		Pedido pedidoNegocio = new Pedido();
+		return pedidoNegocio.obtenerPedidosPendientesdeAprobacionPorCliente( idCliente);
 	}
 	
 //FIN Jonathan Methods--> CONSULTAR ANTES DE MODIFICAR
@@ -185,7 +190,7 @@ public class ControladorPedido {
 	public List<ColorDTO> getallColor() {
 		return TallesyColoresDAO.getInstancia().getallColor();
 	}
-	
+
 	
 	//Color
 

@@ -78,14 +78,21 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 //		return ControladorPedido.getInstancia().listarPedidosPendientesDeValidacion();
 //	}
 	
-	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal) throws RemoteException {
-		return ControladorPedido.getInstancia().obtenerPedidosPendientesdeAprobacion( idSucursal);
-	}
 	
 	// Jonathan Methods --> PREGUNTAR ANTES DE MODIFICAR
 	@Override
 	public void cambiarEstadoPedido(Integer idPedido, EstadoAprobacionPedidoCliente estado) throws RemoteException {
 		ControladorPedido.getInstancia().cambiarEstadoPedido(idPedido, estado);
+	}
+	
+	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal) throws RemoteException {
+		return ControladorPedido.getInstancia().obtenerPedidosPendientesdeAprobacion( idSucursal);
+	}
+	
+	@Override
+	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacionPorCliente(int idCliente)
+			throws RemoteException {
+		return ControladorPedido.getInstancia().obtenerPedidosPendientesdeAprobacionPorCliente( idCliente);
 	}
 	// FIN Jonathan Methods
 	
@@ -130,4 +137,5 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 	public List<ColorDTO> getallColor() throws RemoteException {
 		return 	ControladorPedido.getInstancia().getallColor();
 	}
+
 }

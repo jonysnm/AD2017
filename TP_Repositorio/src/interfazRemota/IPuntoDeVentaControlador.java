@@ -31,6 +31,7 @@ public interface IPuntoDeVentaControlador extends Remote{
 
 	/*JONA */
 	public void cambiarEstadoPedido(Integer idPedido,EstadoAprobacionPedidoCliente estado) throws RemoteException;
+	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacionPorCliente(int idCliente)throws RemoteException;
 	
 	// Talle
 	public void altaTalle(TalleDTO talleDTO) throws RemoteException;

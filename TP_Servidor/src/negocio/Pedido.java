@@ -31,15 +31,15 @@ public Pedido(){}
 		this.fecharealDespacho=pedido.getFecharealDespacho();
 		this.sucursal=new Sucursal(pedido.getSucursal());
 		this.estado=pedido.getEstado();
-		List<ItemPedido> items=new ArrayList<ItemPedido>();
-		for(ItemPedidoEntity ip:pedido.getItems()){
-			ItemPedido item=new ItemPedido();
-			item.setCantidad(ip.getCantidad());
-			item.setImporte(ip.getImporte());
-			item.setItemprenda(new ItemPrenda(ip.getIprenda()));
-			items.add(item);
-		}
-		this.setItems(items);
+//		List<ItemPedido> items=new ArrayList<ItemPedido>();
+//		for(ItemPedidoEntity ip:pedido.getItems()){
+//			ItemPedido item=new ItemPedido();
+//			item.setCantidad(ip.getCantidad());
+//			item.setImporte(ip.getImporte());
+//			item.setItemprenda(new ItemPrenda(ip.getIprenda()));
+//			items.add(item);
+//		}
+//		this.setItems(items);
 			
 	}			
 	public int getId() {
@@ -185,6 +185,7 @@ public Pedido(){}
 	
 	private PedidosCompletosPendientesDespacharDTO ToPedidosCompletosPendientesDespacharDTO() {
 		PedidosCompletosPendientesDespacharDTO pedidosCompletosPendientesDespacharDTO = new PedidosCompletosPendientesDespacharDTO();
+		pedidosCompletosPendientesDespacharDTO.setId(this.getId());
 		pedidosCompletosPendientesDespacharDTO.setFechaCreacion(this.getFechaCreacion());
 		pedidosCompletosPendientesDespacharDTO.setFechaProbableDespacho(this.getFechaprobableDespacho());
 		pedidosCompletosPendientesDespacharDTO.setIdCliente(this.getCliente().getId());
@@ -196,6 +197,15 @@ public Pedido(){}
 	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal) {
 		
 		List<Pedido> pedidos = AdministracionDAO.getInstancia().obtenerPedidosPendientesdeAprobacion( idSucursal);
+		List<PedidosPendientesAprobacionDTO> pedidosVista = new ArrayList<PedidosPendientesAprobacionDTO>();
+		for (Pedido pedido : pedidos) {
+			pedidosVista.add(pedido.ToPedidosPendientesAprobacionDTO());		
+			}
+		return pedidosVista;
+	}
+	
+	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacionPorCliente(int idCliente) {
+		List<Pedido> pedidos = AdministracionDAO.getInstancia().obtenerPedidosPendientesdeAprobacionPorCliente( idCliente);
 		List<PedidosPendientesAprobacionDTO> pedidosVista = new ArrayList<PedidosPendientesAprobacionDTO>();
 		for (Pedido pedido : pedidos) {
 			pedidosVista.add(pedido.ToPedidosPendientesAprobacionDTO());		
@@ -237,5 +247,6 @@ public Pedido(){}
 		return contieneItemsDiscountinuosSinStock;
 	}
 	//Fin Jonathan Methods
+
 
 }
