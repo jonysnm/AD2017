@@ -25,7 +25,7 @@ public class ItemPedidoEntity implements Serializable{
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="idPedido")
-	private Pedido pedido;
+	private PedidoEntity pedido;
 	
 	
 
@@ -66,11 +66,11 @@ public class ItemPedidoEntity implements Serializable{
 		this.cantidad = cantidad;
 	}
 
-	public Pedido getPedido() {
+	public PedidoEntity getPedido() {
 		return pedido;
 	}
 
-	public void setPedido(Pedido pedido) {
+	public void setPedido(PedidoEntity pedido) {
 		this.pedido = pedido;
 	}
 	
