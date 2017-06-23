@@ -19,9 +19,9 @@ public class Test {
 		
 		new HibernateUtil();
 //        AgregarDatos.guardarInfo();
-		Pedido ped = PedidoDAO.getInstancia().getPedidoAprobado(1);	
+//		Pedido ped = PedidoDAO.getInstancia().getPedidoAprobado(1);	
 //		Prenda ped = PedidoDAO.getInstancia().getPrenda(1);
 		
-		System.out.println(ped);
+//		System.out.println(ped);
 	}
 }

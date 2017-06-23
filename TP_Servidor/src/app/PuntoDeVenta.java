@@ -92,7 +92,7 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 	@Override
 	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacionPorCliente(int idCliente)
 			throws RemoteException {
-		return ControladorPedido.getInstancia().obtenerPedidosPendientesdeAprobacion( idCliente);
+		return ControladorPedido.getInstancia().obtenerPedidosPendientesdeAprobacionPorCliente( idCliente);
 	}
 	// FIN Jonathan Methods
 	

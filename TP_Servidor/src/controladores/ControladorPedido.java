@@ -144,6 +144,13 @@ public class ControladorPedido {
 		return pedidoNegocio.obtenerPedidosPendientesdeAprobacion( idSucursal);		
 	}
 	
+	
+	
+	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacionPorCliente(int idCliente) {
+		Pedido pedidoNegocio = new Pedido();
+		return pedidoNegocio.obtenerPedidosPendientesdeAprobacionPorCliente( idCliente);		
+	}
+	
 //FIN Jonathan Methods--> CONSULTAR ANTES DE MODIFICAR
 	
 

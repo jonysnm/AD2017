@@ -49,7 +49,7 @@ public class ControladorWeb extends HttpServlet {
 		case "default":
 			jspPage = "/index.jsp";
 			break;
-		case "aprobar_rechazar_pedidos":
+		case "aprobar_rechazar_pedidos": //1-obtengo los pedidos pendientes de aprobar por el gerente de la sucursal
 			
 			//TODO: falta armar logica login para obtener sucursal de la session
 			List<PedidosPendientesAprobacionDTO> lstPedidosPendientesAprobacionDTO = BusinessDelegate.getInstancia().obtenerPedidosPendientesdeAprobacion(1);
@@ -68,7 +68,7 @@ public class ControladorWeb extends HttpServlet {
 				jspPage = "/AprobarRechazarPedidosPendientes.jsp";
 			}
 			break;
-		case "Aceptacion_pedidos_por_Cliente":
+		case "Aceptacion_pedidos_por_Cliente"://3-obtengo los pedidos que fueron aprobados por el gerente de la sucursal para que el cliente de la aceptacion final
 			//TODO: falta armar logica login para obtener el cliente y traer los pedidos exclusivos del cliente
 			List<PedidosPendientesAprobacionDTO> lstPedidosPendientesAprobacionporCliente = BusinessDelegate.getInstancia().obtenerPedidosPendientesdeAprobacionPorCliente(1);
 			request.setAttribute("lstPedidosPendientesAprobacionporCliente", lstPedidosPendientesAprobacionporCliente);
@@ -86,14 +86,33 @@ public class ControladorWeb extends HttpServlet {
 				jspPage = "/AprobarRechazarPedidosPendientesPorCliente.jsp";
 			}
 			break;
-		case "AprobarRechazarPedidoPost":
+		case "AceptarRechazarPedidoPorCliente": //4-Cambio el estado del pedido para decir si el CLIENTE acepo o rechazo
+			int idPedidoCliente = Integer.parseInt(request.getParameter("hdnIdPedidoCliente"));
+			String operacionCliente = request.getParameter("hdnOperacion");
+
+			mensaje="";
+			if(operacionCliente.equals("Aceptar"))
+			{				
+				BusinessDelegate.getInstancia().cambiarEstadoPedido(idPedidoCliente, EstadoAprobacionPedidoCliente.AceptadoCliente);
+				mensaje="El pedido nro: "+ Integer.toString(idPedidoCliente) + "ha sido Aceptado - Se iniciara el procesamiento";
+			}
+			else
+			{
+				BusinessDelegate.getInstancia().cambiarEstadoPedido(idPedidoCliente, EstadoAprobacionPedidoCliente.RechazadoenSucursal);
+				mensaje="El pedido nro: "+ Integer.toString(idPedidoCliente) + "ha sido rechazado";				
+			}
+
+			request.setAttribute("Mensaje", mensaje);
+			jspPage = "/Confirmaciones.jsp";
+			break;			
+		case "AprobarRechazarPedidoPost": //3-Cambio el estado del pedido para decir si el gerente lo acepto o lo rechazo
 			int idPedido = Integer.parseInt(request.getParameter("hdnIdPedido"));
 			String operacion = request.getParameter("hdnOperacion");
 
 			mensaje="";
 			if(operacion.equals("Aprobar"))
 			{				
-				BusinessDelegate.getInstancia().cambiarEstadoPedido(idPedido, EstadoAprobacionPedidoCliente.AprobadoenSucursal);
+				BusinessDelegate.getInstancia().cambiarEstadoPedido(idPedido, EstadoAprobacionPedidoCliente.PendienteAceptacionCliente);
 				mensaje="El pedido nro: "+ Integer.toString(idPedido) + "ha sido aprobado";
 			}
 			else
@@ -105,7 +124,7 @@ public class ControladorWeb extends HttpServlet {
 			request.setAttribute("Mensaje", mensaje);
 			jspPage = "/Confirmaciones.jsp";
 			break;
-		case "mostrar_pedidos_pendientes_despachar":
+		case "mostrar_pedidos_pendientes_despachar"://8-obtengo los pedidos completos que ya estan listos para despachar
 			List<PedidosCompletosPendientesDespacharDTO> lstPedidosCompletosPendientesDespacharDTO = BusinessDelegate.getInstancia().ObtenerListaPedidosCompletosPendientesDespachar();
 			request.setAttribute("lstPedidosCompletosPendientesDespacharDTO", lstPedidosCompletosPendientesDespacharDTO);
 						

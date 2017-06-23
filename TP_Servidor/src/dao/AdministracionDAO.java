@@ -271,7 +271,7 @@ public class AdministracionDAO {
 			Session session = sf.openSession();
 
 			@SuppressWarnings("unchecked")
-			List<PedidoEntity> lista = session.createQuery("from PedidoEntity where estado='PendienteAprobarSucursal' AND cliente.id=:idCliente").setInteger("idCliente", idCliente).list();
+			List<PedidoEntity> lista = session.createQuery("from PedidoEntity where estado='PendienteAceptacionCliente' AND cliente.id=:idCliente").setInteger("idCliente", idCliente).list();
 			session.close();			
 			
 			List<Pedido> pedidos = new ArrayList<Pedido>();
