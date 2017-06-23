@@ -5,15 +5,18 @@ import java.util.List;
 import entities.ItemPrendaEntity;
 
 public class ItemPrenda {
-    private Integer IditemPrenda;
+	private Integer IditemPrenda;
 	private List<ItemMaterialPrenda> itemMaterialPrenda;
 	private int cantidadEnOPC;
-    private Prenda prenda;
+	private Prenda prenda;
 	private Color color;
 	private Talle talle;
 	private float costoProduccionActual;
 	private float porcentajeGanancia;
-
+	public ItemPrenda(){
+		super();
+		setPrenda(prenda);
+	}
 	public int getCantidadEnOPC() {
 		return cantidadEnOPC;
 	}
@@ -54,25 +57,19 @@ public class ItemPrenda {
 	public void setPorcentajeGanancia(float porcentajeGanancia) {
 		this.porcentajeGanancia = porcentajeGanancia;
 	}
-	public ItemPrenda(){
-		super();
-	}
 	
-	public ItemPrenda(Prenda prenda){
-		for (ItemPrenda itemPrenda : prenda.getItemPrendas()) {
-			
-		}
-	}
-	
+
 	public ItemPrenda(ItemPrendaEntity ipe){
 		this.IditemPrenda=ipe.getIdItemPrenda();
-//		this.prenda=new Prenda(ipe.getPrenda());
+		//		this.prenda=new Prenda(ipe.getPrenda());
 		this.color=new Color(ipe.getColor());
 		this.talle=new Talle(ipe.getTalle());
 		this.cantidadEnOPC=ipe.getCantidadEnOPC();
 		this.porcentajeGanancia=ipe.getPorcentajeGanancia();
 		this.costoProduccionActual=ipe.getCostoProduccionActual();		
-	}	
+	}
+
+
 	public Prenda getPrenda() {
 		return prenda;
 	}
@@ -85,5 +82,5 @@ public class ItemPrenda {
 	public void setIditemPrenda(Integer iditemPrenda) {
 		IditemPrenda = iditemPrenda;
 	}
-	
+
 }

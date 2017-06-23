@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -29,7 +30,7 @@ public class PrendaEntity implements Serializable{
     @OneToMany(fetch=FetchType.EAGER,mappedBy="prenda",cascade={CascadeType.ALL})
 //    @OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 //	@JoinColumn(name="IdPrenda")
-	private List<ItemPrendaEntity> ip;
+	private List<ItemPrendaEntity> ip=new ArrayList<ItemPrendaEntity>();
 	
 	private Boolean vigente;
 	
@@ -37,6 +38,10 @@ public class PrendaEntity implements Serializable{
 	@Fetch(value=FetchMode.SELECT)
 	private List<AreaProduccionInvolucradaEntity> areasInvolucradas;
 	public PrendaEntity(){}
+	public PrendaEntity(ItemPrendaEntity items){
+		ip.add(items);
+		items.setPrenda(this);
+	}
 	public Integer getIdPrenda() {
 		return IdPrenda;
 	}

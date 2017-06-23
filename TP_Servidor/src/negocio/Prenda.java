@@ -12,9 +12,13 @@ public class Prenda {
 	private String descripcion;
 	private boolean vigente;	
 	private List<AreaProduccionInvolucrada> areasInvolucradas;
-	private List<ItemPrenda> itemPrendas;
-
-
+	private List<ItemPrenda> itemPrendas=new ArrayList<ItemPrenda>();
+	/*PROBAR*/
+	public Prenda(){}
+	public Prenda(ItemPrenda p){
+		itemPrendas.add(p);
+		p.setPrenda(this);
+	}
 	public Integer getCodigo() {
 		return codigo;
 	}
@@ -52,17 +56,6 @@ public class Prenda {
 		Prenda p=PedidoDAO.getInstancia().getPrenda(codigo);
 		return p.isVigente();
 	}
-	public Prenda(ItemPrenda i){
-		this.codigo=i.getPrenda().getCodigo();
-		this.descripcion=i.getPrenda().getDescripcion();
-		this.vigente=i.getPrenda().vigente;
-		this.itemPrendas=i.getPrenda().getItemPrendas();
-		this.areasInvolucradas=i.getPrenda().getAreasInvolucradas();
-	}
-	
-	public Prenda(){
-	}
-	
 	public Prenda(PrendaEntity pr){
 		this.codigo=pr.getIdPrenda();
 		this.descripcion=pr.getDescripcion();
@@ -75,21 +68,8 @@ public class Prenda {
 			itemsPrenda.add(itempr);
 		}
 		this.setItemPrendas(itemsPrenda);
-		/*
-		 * List<ItemPedido> items=new ArrayList<ItemPedido>();
-		for(ItemPedidoEntity ip:pedido.getItems()){
-			ItemPedido item=new ItemPedido();
-			item.setCantidad(ip.getCantidad());
-			item.setImporte(ip.getImporte());
-			item.setItemprenda(new ItemPrenda(ip.getIprenda()));
-			items.add(item);
-		}
-		this.setItems(items);
-			
-		 */
-	
-		
 	}
+
 	public boolean SoslaPrenda(int codigo){
 		return(this.getCodigo()==codigo);		
 	}
@@ -103,7 +83,7 @@ public class Prenda {
 	public void setItemPrendas(List<ItemPrenda> itemPrendas) {
 		this.itemPrendas = itemPrendas;
 	}
-
+ 
 
 
 	public PrendaEntity ToEntity() {
@@ -115,5 +95,5 @@ public class Prenda {
 		prendaEntity.setVigente(this.isVigente());
 		return prendaEntity;
 	}
-//FIN Jonathan Methods
+	//FIN Jonathan Methods
 }
