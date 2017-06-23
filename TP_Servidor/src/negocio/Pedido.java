@@ -22,6 +22,7 @@ public class Pedido {
 	private Sucursal sucursal;
 	private EstadoAprobacionPedidoCliente estado;
 	private List<ItemFaltantePedido> lstItemsFaltantesPedidos = new ArrayList<ItemFaltantePedido>();
+	
 public Pedido(){}
 	public Pedido(PedidoEntity pedido){
 		this.id=pedido.getId();

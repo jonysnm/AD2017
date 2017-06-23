@@ -11,7 +11,6 @@ public class ItemToItemDTO {
 //	i.setCantidad(itPedido.getCantidad());
 	i.setImporte(itPedido.getImporte());
 	ItemPrendaDTO itemPrendaDTO = new ItemPrendaDTO();
-	itemPrendaDTO.setCantidad(itPedido.getItemprenda().getCantidadEnOPC());
 	itemPrendaDTO.setIditemPrenda(itPedido.getItemprenda().getIditemPrenda());
 	itemPrendaDTO.setColor(ColoresToDTO.toDTO(itPedido.getItemprenda().getColor()));
 	itemPrendaDTO.setTalle(TalleToDTO.toDTO(itPedido.getItemprenda().getTalle()));

@@ -102,8 +102,8 @@ public class Cliente {
     	ItemBultoPrendaDTO item=new ItemBultoPrendaDTO();
     	ItemPrendaDTO ip=new ItemPrendaDTO();
     	ip.setIditemPrenda(1);
-    	ip.setCantidad(5);
-    	ip.setCantidadReservada(2);
+    	item.setCantidad(5);
+    	item.setCantidadReservada(2);
     	ColorDTO colorDTO = new ColorDTO();
 		colorDTO.setIdColor(1);
 		ip.setColor(colorDTO);
