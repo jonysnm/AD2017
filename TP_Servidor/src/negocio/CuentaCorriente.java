@@ -77,6 +77,14 @@ public class CuentaCorriente {
 		float sumaCredito = (float) this.getItems().stream().filter(o -> o.getTipo().toString().equals("CREDITO")).mapToDouble(o -> o.getImporte()).sum();
 		return (sumaCredito - sumaDebito);
 	}
+
+	public CuentaCorrienteEntity toEntity() {
+		CuentaCorrienteEntity ctaEntity = new CuentaCorrienteEntity();
+		ctaEntity.setIdCuenta(this.getIdCuenta());
+		//TODO: verificar JonathanctaEntity.setItems(this.getItems().toEntity());
+				
+		return ctaEntity;
+	}
 	
 	
 

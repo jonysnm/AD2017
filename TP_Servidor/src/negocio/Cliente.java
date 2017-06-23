@@ -80,7 +80,21 @@ public class Cliente {
 		this.tipoFacturacion = tipoFacturacion;
 		this.limiteCredito = limiteCredito;
 	}
-
+	
+	
+	//Methods Jonathan
+	public ClienteEntity ToEntity() {
+		ClienteEntity clienteEntity = new ClienteEntity();
+		clienteEntity.setId(this.getId());
+		clienteEntity.setCuit(this.getCuit());
+		clienteEntity.setLimiteCredito(this.getLimiteCredito());
+		clienteEntity.setNombre(this.getNombre());		
+		clienteEntity.setTipofacturacion(this.getTipoFacturacion());
+		clienteEntity.setCtacte(this.getCtacte().toEntity());
+		
+		return clienteEntity;
+	}
+	//	FIN methods jonathan
 	
 }
 

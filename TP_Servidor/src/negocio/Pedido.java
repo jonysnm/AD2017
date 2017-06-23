@@ -247,6 +247,30 @@ public Pedido(){}
 		}					
 		return contieneItemsDiscountinuosSinStock;
 	}
+	public PedidoEntity toEntity() {
+		
+		PedidoEntity pedidoEntity = new PedidoEntity();
+		pedidoEntity.setId(this.getId());
+		pedidoEntity.setEstado(this.getEstado());
+		pedidoEntity.setFechaCreacion(this.getFechaCreacion());
+		pedidoEntity.setFechaprobableDespacho(this.getFechaprobableDespacho());
+		pedidoEntity.setFecharealDespacho(this.getFecharealDespacho());
+		pedidoEntity.setCliente(this.getCliente().ToEntity());
+		pedidoEntity.setItems(ConvertiraListItemPedidoEntity(this.getItems()));
+		pedidoEntity.setSucursal(this.getSucursal().toEntity());
+		
+		return null;
+	}
+	private List<ItemPedidoEntity> ConvertiraListItemPedidoEntity(List<ItemPedido> itemsToConvert) {
+		
+		List<ItemPedidoEntity> lstReturn = new ArrayList<ItemPedidoEntity>();
+		ItemPedidoEntity itemEntity = null;
+		for (ItemPedido itemPedido : this.getItems()) {
+			itemEntity = itemPedido.Toentity();			
+			lstReturn.add(itemEntity);
+		}			
+		return lstReturn;
+	}
 	
 	
 	

@@ -15,6 +15,7 @@ import dto.PedidoDTO;
 import dto.PedidosPendientesAprobacionDTO;
 import dto.TalleDTO;
 import estados.EstadoAprobacionPedidoCliente;
+import negocio.Almacen;
 import negocio.Cliente;
 import negocio.ItemBulto;
 import negocio.ItemBultoPrenda;
@@ -73,6 +74,7 @@ public class ControladorPedido {
 					p.update();
 	}
 	
+	//a este metodo lo va a llamar el observer que va a elegir los pedidos en estado "AceptadoCliente" y va a pasarle el IdPedido
 	public void IniciarProcesamientoPedidoAprobado(Integer idPedido)
 	{   
 		List<ItemFaltantePedido> lstItemsFaltantesPedido = new ArrayList<ItemFaltantePedido>();
@@ -82,10 +84,17 @@ public class ControladorPedido {
 		{
 		// * 1- verificar si tengo stock disponible de las prendas del pedido			   
 			for (ItemPedido itemPedido : p.getItems()) 
-			{
-				float cantidadFaltante = itemPedido.getCantidad() - itemPedido.ObtenerDisponible(itemPedido);
-				ReservarPrendaenStock(itemPedido,p.getId());
-				if(cantidadFaltante < 0) //significa que hay faltante
+			{								
+					//obtener bultos donde estan esas prendas
+				List<ItemBultoPrenda> lstItemBultoPrenda = Almacen.getInstancia().ObtenerItemBultoPrenda(itemPedido.getItemprenda());
+					//calcular el disponible en esos bultos
+				float cantidadFaltante = itemPedido.getCantidad() - Almacen.getInstancia().CalcularDisponibleEn(lstItemBultoPrenda);				
+								
+				//hacer un metodo que reciba una lista de bultos, y cantidad - y en base a eso vaya insertando en la tabla de 					
+				//Reservas que bultos tiene reservado que cantidad y para que pedido en particular				
+				Almacen.getInstancia().ReservarItemsPrendas(lstItemBultoPrenda, itemPedido.getCantidad(), itemPedido);																	
+				
+				if(cantidadFaltante > 0) //significa que hay faltante
 				{
 					// * 2- voy cargando la lista de items faltantes que al final de recorer todas las prendas del pedido 
 					//me va a dejar decidir si reservo o no reservo las prendas
@@ -95,8 +104,9 @@ public class ControladorPedido {
 					itemFaltantePedido.setCantidadFaltante(cantidadFaltante);
 					itemFaltantePedido.setColor(itemPedido.getItemprenda().getColor());
 					itemFaltantePedido.setTalle(itemPedido.getItemprenda().getTalle());
-					lstItemsFaltantesPedido.add(itemFaltantePedido);
+					lstItemsFaltantesPedido.add(itemFaltantePedido);									
 				}
+				
 			}
 			// *3- cuando termino de armar la lista de faltantes, me fijo como quedo la lista para decidir puedo marcarlo como
 			// "Completo" o si tengo que emitir orden de produccion  -> en cualquier caso las prendas quedan reservadas

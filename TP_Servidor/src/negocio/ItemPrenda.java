@@ -1,7 +1,9 @@
 package negocio;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import entities.ItemMaterialPrendaEntity;
 import entities.ItemPrendaEntity;
 
 public class ItemPrenda {
@@ -81,6 +83,36 @@ public class ItemPrenda {
 	}
 	public void setIditemPrenda(Integer iditemPrenda) {
 		IditemPrenda = iditemPrenda;
+	}
+	public ItemPrendaEntity ToEntity() {
+		ItemPrendaEntity itemReturn = new ItemPrendaEntity();
+		itemReturn.setCantidadEnOPC(this.getCantidadEnOPC());
+		itemReturn.setColor(this.getColor().ToEntity());
+		itemReturn.setCostoProduccionActual(this.getCostoProduccionActual());
+		itemReturn.setIdItemPrenda(this.getIditemPrenda());
+		itemReturn.setItemMaterialPrenda(CreateListItemMaterialPrendaEntity(this.getItemMaterialPrenda()));
+		itemReturn.setPorcentajeGanancia(this.getPorcentajeGanancia());
+		itemReturn.setPrenda(this.getPrenda().ToEntity());
+		itemReturn.setTalle(this.getTalle().ToEntity());
+		return null;
+	}
+	private List<ItemMaterialPrendaEntity> CreateListItemMaterialPrendaEntity(
+			List<ItemMaterialPrenda> itemMaterialPrendaAConvertir) {
+
+		List<ItemMaterialPrendaEntity> lstReturn = new ArrayList<ItemMaterialPrendaEntity>();
+		ItemMaterialPrendaEntity itemMaterialPrendaEntity =null;
+		
+		for (ItemMaterialPrenda itemMaterialPrenda : itemMaterialPrendaAConvertir) {
+			itemMaterialPrendaEntity= new ItemMaterialPrendaEntity();
+			itemMaterialPrendaEntity.setCantidadutilizada(itemMaterialPrenda.getCantidadutilizada());
+			itemMaterialPrendaEntity.setDespedicio(itemMaterialPrenda.getDespedicio());
+			//TODO:REvisar Jonathan
+			//itemMaterialPrendaEntity.setItem_materialprenda();
+			//itemMaterialPrendaEntity.setMateriaprima(itemMaterialPrenda.toEntity());
+		}
+		
+		
+		return lstReturn;
 	}
 
 }

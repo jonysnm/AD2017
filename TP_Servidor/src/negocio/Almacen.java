@@ -1,12 +1,25 @@
 package negocio;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import dao.AlmacenDAO;
+import dao.PedidoDAO;
+import entities.ItemBultoPrendaEntity;
+import entities.ReservasEntity;
 
 public class Almacen {
 	private int id;
 	private List<Ubicacion> ubicacion;
 	private List<ItemMovimientoStock> stock;
 	private List<ItemBulto> scrap;
+	private static Almacen instancia;
+	
+	public static Almacen getInstancia(){
+		if(instancia==null)
+			instancia = new Almacen();
+		return instancia;		
+	}
 	
 //	public void 2_ObtenerDisponiblePorPrenda(Object idPrenda) {
 //	
@@ -84,8 +97,78 @@ public class Almacen {
 	}
 	
 
+	//Jonathan Methods ---> Consultar antes de modificar
+	
+	public void ReservarItemsPrendas(List<ItemBultoPrenda> lstItemBultoPrenda, float cantidadTotalaReservar, ItemPedido itemPedido)//reserva la cantidad enviada como parametro en esta lista de items
+	{
+		float cantidadAux = cantidadTotalaReservar;
+		ItemBultoPrenda itemActual = null;
+		float cantidadDisponibleenBulto = 0;
+		int i = 0;
+		
+		while(cantidadAux > 0)
+		{
+			itemActual = lstItemBultoPrenda.get(i);			
+			cantidadDisponibleenBulto = itemActual.getCantidad() - itemActual.getCantidadReservada();
+			if(cantidadDisponibleenBulto >= cantidadAux)
+			{
+				//reservar cantidadAux				
+				ReservasEntity reserva = new ReservasEntity();
+				reserva.setCantidad(cantidadAux);
+				reserva.setItemBultoEntity(itemActual.toEntity());
+				reserva.setItemPedidoEntity(itemPedido.Toentity());
+				SaveOrUpdateReserva(reserva);
+				//TODO: faltaria actualizar la cantidad reservada en el itemBulto
+				
+				cantidadAux = 0;
+			}
+			if(cantidadDisponibleenBulto < cantidadAux)
+			{
+				//reservar cantidadDisponibleenBulto
+				ReservasEntity reserva = new ReservasEntity();
+				reserva.setCantidad(cantidadDisponibleenBulto);
+				reserva.setItemBultoEntity(itemActual.toEntity());
+				reserva.setItemPedidoEntity(itemPedido.Toentity());
+				SaveOrUpdateReserva(reserva);															
+				//TODO: faltaria actualizar la cantidad reservada en el itemBulto
+				cantidadAux= cantidadAux-cantidadDisponibleenBulto;
+			}
+			
+			i++;
+		}				
+	}
 	
 	
+	public float CalcularDisponibleEn(List<ItemBultoPrenda> lstItemBultoPrenda)//para una lista de bultos previamente filtrada me dice cuanto hay disponible
+	{
+		float cantidad = 0;
+		for (ItemBultoPrenda ib : lstItemBultoPrenda) {
+			cantidad = cantidad + (ib.getCantidad() - ib.getCantidadReservada());
+		}
+		return cantidad;	
+	}
 	
+	public List<ItemBultoPrenda> ObtenerItemBultoPrenda(ItemPrenda itemPrenda)//devuelvo todos los bultos donde se encuentra el itemPrenda que estoy bucando
+	{			
+		List<ItemBultoPrendaEntity> lstEntity = AlmacenDAO.getInstancia().ObtenerItemBultoPrenda(itemPrenda);
+		List<ItemBultoPrenda>lstItemBultoPrenda = new ArrayList<ItemBultoPrenda>();
+		ItemBultoPrenda itemBultoPrenda = null;
+		for (ItemBultoPrendaEntity itemBultoPrendaEntity : lstEntity) {
+			itemBultoPrenda = new ItemBultoPrenda();
+			itemBultoPrenda.setCantidad(itemBultoPrendaEntity.getCantidad());
+			itemBultoPrenda.setCantidadReservada(itemBultoPrendaEntity.getCantidadReservada());
+			itemBultoPrenda.setIdBulto(itemBultoPrendaEntity.getId());
+			lstItemBultoPrenda.add(itemBultoPrenda);
+		}
+		
+		return lstItemBultoPrenda;
+	}
+	
+	private void SaveOrUpdateReserva(ReservasEntity reserva){
+		//TODO: Verificar Jonathan
+		AlmacenDAO.getInstancia().NuevaReserva(reserva);	 				
+	}
+	
+	//Fin Jonathan Methods
 	
 }

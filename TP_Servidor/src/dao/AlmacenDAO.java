@@ -3,15 +3,23 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import entities.ColorEntity;
 import entities.ItemBultoPrendaEntity;
 import entities.ItemPrendaEntity;
+import entities.PedidoEntity;
+import entities.PrendaEntity;
+import entities.ReservasEntity;
+import entities.TalleEntity;
 import entities.UbicacionEntity;
 import hbt.HibernateUtil;
 import negocio.ItemBultoPrenda;
 import negocio.ItemPedido;
+import negocio.ItemPrenda;
+import negocio.Pedido;
 import negocio.Ubicacion;
 
 public class AlmacenDAO {
@@ -82,4 +90,27 @@ public class AlmacenDAO {
 		}
 		return;
 	}
+	
+	//Jonathan Methods --> Consultar antes de modificar
+	public List<ItemBultoPrendaEntity> ObtenerItemBultoPrenda(ItemPrenda ip)
+	{
+		Session s = sf.openSession();
+		String consulta = "from ItemBultoPrendaEntity ib where ib.itemPrenda.IdItemPrenda= :id";		
+		@SuppressWarnings("unchecked")
+		ArrayList<ItemBultoPrendaEntity> lista = (ArrayList<ItemBultoPrendaEntity>) s.createQuery(consulta)
+				.setParameter("id", ip.getIditemPrenda()).list();
+		return lista;	
+	}
+	
+	
+	public void NuevaReserva(ReservasEntity reserva){
+		Session session=sf.openSession();
+		session.beginTransaction();				
+		session.save(reserva);
+		session.getTransaction().commit();
+		session.flush();
+		session.close();						
+	}
+	
+	//Fin Jonathan Methods
 }

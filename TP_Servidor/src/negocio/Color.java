@@ -43,6 +43,12 @@ public class Color {
 		return "Color [idcolor=" + idcolor + ", descripcion=" + descripcion
 				+ "]";
 	}
+	public ColorEntity ToEntity() {
+		ColorEntity colorEntityReturn = new ColorEntity();
+		colorEntityReturn.setDescripcion(this.getDescripcion());
+		colorEntityReturn.setIdcolor(this.getIdcolor());
+		return colorEntityReturn;
+	}
 
 	
 

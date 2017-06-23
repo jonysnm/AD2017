@@ -30,7 +30,7 @@ public class ReservasEntity implements Serializable {
 	@JoinColumn(name = "idBulto")
 	private ItemBultoEntity itemBultoEntity;
 
-	private int cantidad;
+	private float cantidad;
 
 	public int getIdReserva() {
 		return idReserva;
@@ -56,11 +56,11 @@ public class ReservasEntity implements Serializable {
 		this.itemBultoEntity = itemBultoEntity;
 	}
 
-	public int getCantidad() {
+	public float getCantidad() {
 		return cantidad;
 	}
 
-	public void setCantidad(int cantidad) {
+	public void setCantidad(float cantidad) {
 		this.cantidad = cantidad;
 	}
 	

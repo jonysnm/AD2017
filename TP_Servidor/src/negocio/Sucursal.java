@@ -117,4 +117,19 @@ public class Sucursal {
 	public void editar() {
 		AdministracionDAO.getInstancia().modificarSucusal(this);
 	}
+	public SucursalEntity toEntity() {
+		//TODO: Revisar Jonathan
+		SucursalEntity sucursalEntity = new SucursalEntity();
+		sucursalEntity.setId(this.getId());
+		sucursalEntity.setCodigoPostal(this.getCodigoPostal());
+		sucursalEntity.setDireccion(this.getDireccion());
+//		sucursalEntity.setEmpleados(this.getEmpleados().ToEntity());
+//		sucursalEntity.setGerente(this.getGerente().ToEntity());
+		sucursalEntity.setLocalidad(this.getLocalidad());
+		sucursalEntity.setNombre(this.getNombre());
+		sucursalEntity.setProvincia(this.getProvincia());
+//		sucursalEntity.setRecepcionPedidos(this.getRecepcionPedidos().ToEntity());
+		sucursalEntity.setTelefono(this.getTelefono());
+		return sucursalEntity;
+	}
 }
