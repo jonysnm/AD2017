@@ -31,15 +31,15 @@ public Pedido(){}
 		this.fecharealDespacho=pedido.getFecharealDespacho();
 		this.sucursal=new Sucursal(pedido.getSucursal());
 		this.estado=pedido.getEstado();
-//		List<ItemPedido> items=new ArrayList<ItemPedido>();
-//		for(ItemPedidoEntity ip:pedido.getItems()){
-//			ItemPedido item=new ItemPedido();
-//			item.setCantidad(ip.getCantidad());
-//			item.setImporte(ip.getImporte());
-//			item.setItemprenda(new ItemPrenda(ip.getIprenda()));
-//			items.add(item);
-//		}
-//		this.setItems(items);
+		List<ItemPedido> items=new ArrayList<ItemPedido>();
+		for(ItemPedidoEntity ip:pedido.getItems()){
+			ItemPedido item=new ItemPedido();
+			item.setCantidad(ip.getCantidad());
+			item.setImporte(ip.getImporte());
+			item.setItemprenda(new ItemPrenda(ip.getIprenda()));
+			items.add(item);
+		}
+		this.setItems(items);
 			
 	}			
 	public int getId() {

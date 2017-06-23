@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.ArrayList;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -34,13 +36,14 @@ public class AlmacenDAO {
 	}
 	public float obtenerDisponiblePorPrenda(ItemPedido ip) {
 		Session s=sf.openSession();
-		String consulta="select ipp.cantidad from UbicacionEntity u join u.bulto ub "+
-		"join ub.ipr ipp where IdPrenda = :idPrenda and idTalle = :idTalle and idColor = :idColor";
-	     Query query=s.createQuery(consulta);
-//	     query.setParameter("idPrenda", ip.getPrenda().getCodigo());
-//	     query.setParameter("idTalle", ip.getTalle().getIdTalle());
-//	     query.setParameter("idColor",ip.getColor().getIdcolor());
-	     return (float) query.uniqueResult();
+		String consulta="from ItemBultoPrendaEntity ib where ib.itemPrenda.IdItemPrenda= :id"; 
+	    float cantidad = 0;
+		@SuppressWarnings("unchecked")
+		ArrayList<ItemBultoPrendaEntity> lista=(ArrayList<ItemBultoPrendaEntity>) s.createQuery(consulta).setParameter("id",ip.getItemprenda().getIditemPrenda()).list();
+	    for(ItemBultoPrendaEntity ib:lista){
+	    	cantidad=ib.getCantidad()-ib.getCantidadReservada();
+	    } 
+        return cantidad;
 	}
 	public void nuevaUbicacion(Ubicacion ubicacion){
 		try{

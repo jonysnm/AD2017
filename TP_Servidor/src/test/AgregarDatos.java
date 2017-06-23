@@ -8,7 +8,9 @@ import dao.PedidoDAO;
 import dao.TallesyColoresDAO;
 import negocio.Color;
 import negocio.ItemBultoPrenda;
+import negocio.ItemPedido;
 import negocio.ItemPrenda;
+import negocio.Pedido;
 import negocio.Prenda;
 import negocio.Talle;
 import negocio.Ubicacion;
@@ -58,7 +60,7 @@ public class AgregarDatos {
 	ip.add(ipp);
 	p1.setItemPrendas(ip);
 	PedidoDAO.getInstancia().AltaPrenda(p1);
-	*/
+	
 	Ubicacion u=new Ubicacion();
 	ItemBultoPrenda ibpr=new ItemBultoPrenda();
 	ibpr.setCantidad(40);
@@ -67,6 +69,13 @@ public class AgregarDatos {
 	ibpr.setItemPrenda(PedidoDAO.getInstancia().getItemPrenda(1));
 	//ibpr.setPrenda(PedidoDAO.getInstancia());
 	u.setBulto(ibpr);
-	AlmacenDAO.getInstancia().nuevaUbicacion(u);
+	AlmacenDAO.getInstancia().nuevaUbicacion(u);*/
+	Pedido p=PedidoDAO.getInstancia().getPedido(1);
+	float pp=0;
+	for(ItemPedido it:p.getItems()){
+		pp=AlmacenDAO.getInstancia().obtenerDisponiblePorPrenda(it);
+		System.out.printf("Cantidad:%f", pp);
+	}	
+		
 	}
 }
