@@ -239,7 +239,7 @@ public Pedido(){}
 		while(!contieneItemsDiscountinuosSinStock & index < cantidadItemsPedido)
 		{
 			itemPedido = this.getItems().get(index);
-			if(!itemPedido.getItemprenda().getPrenda().isVigente() && !itemPedido.getItemprenda().getPrenda().HayStockSuficiente(itemPedido.getCantidad(),itemPedido.getItemprenda().getColor(), itemPedido.getItemprenda().getTalle()))
+			if(!itemPedido.getItemprenda().getPrenda().isVigente() && !itemPedido.HayStockSuficiente())
 			{
 				contieneItemsDiscountinuosSinStock=true;
 			}
@@ -247,6 +247,9 @@ public Pedido(){}
 		}					
 		return contieneItemsDiscountinuosSinStock;
 	}
+	
+	
+	
 	//Fin Jonathan Methods
 
 

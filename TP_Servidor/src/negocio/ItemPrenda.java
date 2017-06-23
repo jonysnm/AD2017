@@ -57,6 +57,13 @@ public class ItemPrenda {
 	public ItemPrenda(){
 		super();
 	}
+	
+	public ItemPrenda(Prenda prenda){
+		for (ItemPrenda itemPrenda : prenda.getItemPrendas()) {
+			
+		}
+	}
+	
 	public ItemPrenda(ItemPrendaEntity ipe){
 		this.IditemPrenda=ipe.getIdItemPrenda();
 //		this.prenda=new Prenda(ipe.getPrenda());

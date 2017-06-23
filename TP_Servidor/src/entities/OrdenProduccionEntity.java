@@ -19,9 +19,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import estados.EstadoOrdenProduccion;
-import negocio.OCMP;
-import negocio.Pedido;
-import negocio.Prenda;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -48,5 +45,54 @@ public class OrdenProduccionEntity implements Serializable {
 	private List<OCMPEntity> ocmps;
 	private Date fechaEntrega;
 	private float costoProduccion;
+	
+	public int getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+	public PedidoEntity getPedido() {
+		return pedido;
+	}
+	public void setPedido(PedidoEntity pedido) {
+		this.pedido = pedido;
+	}
+	public PrendaEntity getPrenda() {
+		return prenda;
+	}
+	public void setPrenda(PrendaEntity prenda) {
+		this.prenda = prenda;
+	}
+	public Date getFecha() {
+		return fecha;
+	}
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+	public EstadoOrdenProduccion getEstado() {
+		return estado;
+	}
+	public void setEstado(EstadoOrdenProduccion estado) {
+		this.estado = estado;
+	}
+	public List<OCMPEntity> getOcmps() {
+		return ocmps;
+	}
+	public void setOcmps(List<OCMPEntity> ocmps) {
+		this.ocmps = ocmps;
+	}
+	public Date getFechaEntrega() {
+		return fechaEntrega;
+	}
+	public void setFechaEntrega(Date fechaEntrega) {
+		this.fechaEntrega = fechaEntrega;
+	}
+	public float getCostoProduccion() {
+		return costoProduccion;
+	}
+	public void setCostoProduccion(float costoProduccion) {
+		this.costoProduccion = costoProduccion;
+	}
 
 }

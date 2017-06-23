@@ -7,6 +7,7 @@ public class ItemPedido {
 	private Integer IdItemPedido;
 	private float cantidad;
 	private ItemPrenda itemprenda;
+	private Pedido pedido;
 	private int importe;
 
 	public ItemPedido(){}
@@ -87,6 +88,29 @@ public class ItemPedido {
 		}
 		return false;
 	}
+	
+	//Jonathan Methods --> CONSULTAR ANTES DE MODIFICAR
+		public boolean HayStockSuficiente() {
+			float cantidadDisponible = ObtenerDisponible(this);
+			return cantidadDisponible>=cantidad;
+		}	
+		
+		public float ObtenerDisponible(ItemPedido ip){
+			return AlmacenDAO.getInstancia().obtenerDisponiblePorPrenda(ip);
+		}
 
 
+
+		public Pedido getPedido() {
+			return pedido;
+		}
+
+
+
+		public void setPedido(Pedido pedido) {
+			this.pedido = pedido;
+		}
+
+
+		
 }

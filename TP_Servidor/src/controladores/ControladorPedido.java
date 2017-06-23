@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import dao.AdministracionDAO;
+import dao.AlmacenDAO;
 import dao.ClienteDAO;
 import dao.PedidoDAO;
 import dao.TallesyColoresDAO;
@@ -15,6 +16,8 @@ import dto.PedidosPendientesAprobacionDTO;
 import dto.TalleDTO;
 import estados.EstadoAprobacionPedidoCliente;
 import negocio.Cliente;
+import negocio.ItemBulto;
+import negocio.ItemBultoPrenda;
 import negocio.ItemFaltantePedido;
 import negocio.ItemPedido;
 import negocio.ItemPrenda;
@@ -80,7 +83,7 @@ public class ControladorPedido {
 		// * 1- verificar si tengo stock disponible de las prendas del pedido			   
 			for (ItemPedido itemPedido : p.getItems()) 
 			{
-				float cantidadFaltante = itemPedido.getCantidad() - itemPedido.getItemprenda().getPrenda().ObtenerDisponible(itemPedido);
+				float cantidadFaltante = itemPedido.getCantidad() - itemPedido.ObtenerDisponible(itemPedido);
 				ReservarPrendaenStock(itemPedido,p.getId());
 				if(cantidadFaltante < 0) //significa que hay faltante
 				{
@@ -112,9 +115,17 @@ public class ControladorPedido {
 		}
 	}
 			   
-	private void ReservarPrendaenStock(ItemPedido itemPedido, int id) {
+	private void ReservarPrendaenStock(ItemPedido itemPedido, int i) {
 		// TODO: este metodo se encargar de marcar la prenda como reservada y decrementar el stock disponible
-		
+			List<ItemBultoPrenda> list = AlmacenDAO.getInstancia().reservarStockPrenda(itemPedido);
+			for (ItemBultoPrenda itemBulto : list) {
+				//40 - 10 = Total 30            quiero 13 
+				
+				if((itemBulto.getCantidad() - itemBulto.getCantidadReservada()) > itemPedido.getCantidad()){
+					itemBulto.setCantidadReservada(itemBulto.getCantidadReservada()+itemPedido.getCantidad());
+//					AlmacenDAO.getInstancia().gestionarReserva(itemPedido,itemBulto);
+				}
+			}
 	}
 	private void GuardarItemsFaltantePedido(List<ItemFaltantePedido> lstItemsFaltantesPedido) {		
 		PedidoDAO pedidoDao = PedidoDAO.getInstancia();

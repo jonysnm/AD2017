@@ -3,7 +3,16 @@ package negocio;
 import java.util.ArrayList;
 import java.util.List;
 
+import entities.OrdenProduccionEntity;
+
 public class OrdenProduccionParcial extends OrdenProduccion {
+	
+	
+	public OrdenProduccionParcial(OrdenProduccionEntity ordenProduccionEntity) {
+		super(ordenProduccionEntity);
+		// TODO Auto-generated constructor stub
+	}
+
 	private ItemFaltantePedido ip1;
 	private ItemFaltantePedido ip2;
 	private ItemFaltantePedido ip3;

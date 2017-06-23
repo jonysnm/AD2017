@@ -3,7 +3,6 @@ package negocio;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.AlmacenDAO;
 import dao.PedidoDAO;
 import entities.ItemPrendaEntity;
 import entities.PrendaEntity;
@@ -15,9 +14,6 @@ public class Prenda {
 	private List<AreaProduccionInvolucrada> areasInvolucradas;
 	private List<ItemPrenda> itemPrendas;
 
-
-	public Prenda(){}
-	
 
 	public Integer getCodigo() {
 		return codigo;
@@ -56,6 +52,17 @@ public class Prenda {
 		Prenda p=PedidoDAO.getInstancia().getPrenda(codigo);
 		return p.isVigente();
 	}
+	public Prenda(ItemPrenda i){
+		this.codigo=i.getPrenda().getCodigo();
+		this.descripcion=i.getPrenda().getDescripcion();
+		this.vigente=i.getPrenda().vigente;
+		this.itemPrendas=i.getPrenda().getItemPrendas();
+		this.areasInvolucradas=i.getPrenda().getAreasInvolucradas();
+	}
+	
+	public Prenda(){
+	}
+	
 	public Prenda(PrendaEntity pr){
 		this.codigo=pr.getIdPrenda();
 		this.descripcion=pr.getDescripcion();
@@ -97,20 +104,6 @@ public class Prenda {
 		this.itemPrendas = itemPrendas;
 	}
 
-//Jonathan Methods --> CONSULTAR ANTES DE MODIFICAR
-	public boolean HayStockSuficiente(float cantidad, Color color, Talle talle) {
-		ItemPedido ip = new ItemPedido();
-		ip.setCantidad(cantidad);
-		//ip.setColor(color);
-		//ip.setTalle(talle);
-		float cantidadDisponible = ObtenerDisponible(ip);
-				
-		return cantidadDisponible>=cantidad;
-	}	
-	
-	public float ObtenerDisponible(ItemPedido ip){
-		return AlmacenDAO.getInstancia().obtenerDisponiblePorPrenda(ip);
-	}
 
 
 	public PrendaEntity ToEntity() {

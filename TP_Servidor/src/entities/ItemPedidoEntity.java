@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import negocio.Pedido;
+
 
 
 @Entity
@@ -20,7 +22,12 @@ public class ItemPedidoEntity implements Serializable{
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="ItemPrenda")
 	private ItemPrendaEntity iprenda;
-
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="idPedido")
+	private Pedido pedido;
+	
+	
 
 	private int importe;
 	private float cantidad;	
@@ -57,6 +64,14 @@ public class ItemPedidoEntity implements Serializable{
 
 	public void setCantidad(float cantidad) {
 		this.cantidad = cantidad;
+	}
+
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
 	}
 	
 }

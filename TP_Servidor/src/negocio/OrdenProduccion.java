@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import entities.OrdenProduccionEntity;
 import estados.EstadoOrdenProduccion;
 
 public class OrdenProduccion {
@@ -15,6 +16,11 @@ public class OrdenProduccion {
 	private List<OCMP> ocmps;
 	private Date fechaEntrega;
 	private float costoProduccion;
+	
+	
+	public OrdenProduccion(OrdenProduccionEntity ordenProduccionEntity) {
+		this.codigo=ordenProduccionEntity.getCodigo();
+	}
 
 	
 	public List<ItemFaltantePedido> obtenerListaCantidades() {
