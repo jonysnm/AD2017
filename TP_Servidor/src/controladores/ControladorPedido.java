@@ -123,6 +123,7 @@ public class ControladorPedido {
 				
 				if((itemBulto.getCantidad() - itemBulto.getCantidadReservada()) > itemPedido.getCantidad()){
 					itemBulto.setCantidadReservada(itemBulto.getCantidadReservada()+itemPedido.getCantidad());
+//					falta QUE EL ITEMPEDIDO CONOZCA SU PEDIDO PARA PODER RESERVAR NECESITAMOS CONOCER ESTO ADEMAS DEL ITEMBULTO
 //					AlmacenDAO.getInstancia().gestionarReserva(itemPedido,itemBulto);
 				}
 			}
