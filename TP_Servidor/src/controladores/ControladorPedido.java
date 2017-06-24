@@ -1,5 +1,6 @@
 package controladores;
 
+import java.rmi.RemoteException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,10 +12,12 @@ import dao.AlmacenDAO;
 import dao.ClienteDAO;
 import dao.PedidoDAO;
 import dao.TallesyColoresDAO;
+import dto.ClienteDTO;
 import dto.ColorDTO;
 import dto.ItemPedidoDTO;
 import dto.PedidoDTO;
 import dto.PedidosPendientesAprobacionDTO;
+import dto.PrendaDTO;
 import dto.TalleDTO;
 import estados.EstadoAprobacionPedidoCliente;
 import negocio.Almacen;
@@ -25,8 +28,11 @@ import negocio.ItemFaltantePedido;
 import negocio.ItemPedido;
 import negocio.ItemPrenda;
 import negocio.Pedido;
+import negocio.Prenda;
 import negocio.Sucursal;
+import utils.ClienteToClienteDTO;
 import utils.PedidoToDTO;
+import utils.PrendaToDTO;
 
 
 public class ControladorPedido {
@@ -231,6 +237,14 @@ public class ControladorPedido {
 //	ver que onda esto
 	public List<PedidoDTO> listarPedidosPendientesDeValidacion() {
 		return null;
+	}
+	public List<PrendaDTO> obtenerPrendas() throws RemoteException {
+		List<Prenda> prendas = PedidoDAO.getInstancia().buscarPrendas();
+		List<PrendaDTO> prendasDTO = new ArrayList<PrendaDTO>();
+		for (Prenda pr : prendas) {
+			prendasDTO.add(PrendaToDTO.toDTO(pr));
+		}
+		return prendasDTO;
 	}
 
 }
