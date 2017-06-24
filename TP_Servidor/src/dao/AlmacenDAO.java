@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import entities.ColorEntity;
+import entities.ItemBultoEntity;
 import entities.ItemBultoPrendaEntity;
 import entities.ItemPrendaEntity;
 import entities.PedidoEntity;
@@ -16,6 +17,7 @@ import entities.ReservasEntity;
 import entities.TalleEntity;
 import entities.UbicacionEntity;
 import hbt.HibernateUtil;
+import negocio.ItemBulto;
 import negocio.ItemBultoPrenda;
 import negocio.ItemPedido;
 import negocio.ItemPrenda;
@@ -110,6 +112,25 @@ public class AlmacenDAO {
 		session.getTransaction().commit();
 		session.flush();
 		session.close();						
+	}
+	
+	
+	public void ActualizarReservadoyDisponible(ItemBulto itemBulto){
+		try{
+			Session session=sf.openSession();
+			session.beginTransaction();
+			Query query = session.createQuery("From ItemBultoEntity where id = :idItemBulto");
+			ItemBultoEntity p = (ItemBultoEntity) query.setParameter("idItemBulto", itemBulto.getIdBulto()).uniqueResult();
+			
+			p.setCantidad(itemBulto.getCantidad());
+			p.setCantidadReservada(itemBulto.getCantidadReservada());
+			session.update(p);
+			session.getTransaction().commit();
+			session.close();
+		}catch(Exception e){
+			e.printStackTrace();
+			System.out.println("Error Modificar ItemBulto");
+		}
 	}
 	
 	//Fin Jonathan Methods

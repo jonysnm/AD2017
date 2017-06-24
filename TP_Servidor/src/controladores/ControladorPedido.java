@@ -92,7 +92,7 @@ public class ControladorPedido {
 								
 				//hacer un metodo que reciba una lista de bultos, y cantidad - y en base a eso vaya insertando en la tabla de 					
 				//Reservas que bultos tiene reservado que cantidad y para que pedido en particular				
-				Almacen.getInstancia().ReservarItemsPrendas(lstItemBultoPrenda, itemPedido.getCantidad(), itemPedido);																	
+				Almacen.getInstancia().ReservarItemsPrendas(lstItemBultoPrenda, itemPedido.getCantidad(), p);																	
 				
 				if(cantidadFaltante > 0) //significa que hay faltante
 				{

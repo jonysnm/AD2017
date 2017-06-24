@@ -51,6 +51,12 @@ public class PedidoEntity implements Serializable{
 	@ForeignKey(name="FK_ITEMS_PEDIDO_ID")
 	private List<ItemPedidoEntity> items;
 	
+//	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+//	@JoinColumn(name="IdPedido")
+//	@ForeignKey(name="FK_Reservas_ID")
+//	private List<ReservasEntity> reservas;
+	
+	
 	@ManyToOne
 	@JoinColumn(name="sucursal_id")
 	@ForeignKey(name="FK_SUCURSAL_ID")
@@ -115,6 +121,12 @@ public class PedidoEntity implements Serializable{
 	public void setEstado(EstadoAprobacionPedidoCliente estado) {
 		this.estado = estado;
 	}
+//	public List<ReservasEntity> getReservas() {
+//		return reservas;
+//	}
+//	public void setReservas(List<ReservasEntity> reservas) {
+//		this.reservas = reservas;
+//	}
 	
 	
 }

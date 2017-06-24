@@ -90,12 +90,13 @@ public class ItemPrenda {
 		itemReturn.setColor(this.getColor().ToEntity());
 		itemReturn.setCostoProduccionActual(this.getCostoProduccionActual());
 		itemReturn.setIdItemPrenda(this.getIditemPrenda());
-		itemReturn.setItemMaterialPrenda(CreateListItemMaterialPrendaEntity(this.getItemMaterialPrenda()));
+		//TODO:Revisar Jonathan itemReturn.setItemMaterialPrenda(CreateListItemMaterialPrendaEntity(this.getItemMaterialPrenda()));
 		itemReturn.setPorcentajeGanancia(this.getPorcentajeGanancia());
-		itemReturn.setPrenda(this.getPrenda().ToEntity());
+		//itemReturn.setPrenda(this.getPrenda().ToEntity());
 		itemReturn.setTalle(this.getTalle().ToEntity());
-		return null;
+		return itemReturn;
 	}
+	@SuppressWarnings("unused")
 	private List<ItemMaterialPrendaEntity> CreateListItemMaterialPrendaEntity(
 			List<ItemMaterialPrenda> itemMaterialPrendaAConvertir) {
 

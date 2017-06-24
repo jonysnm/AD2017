@@ -108,11 +108,11 @@ public class PedidoDAO {
 			Session session = sf.openSession();
 			
 			String hql = "FROM PedidoEntity P " +
-						 "WHERE P.id = :id and P.estado = :estado";
+						 "WHERE P.id = :id";// and P.estado = :estado";
 			
 			Query query = session.createQuery(hql);
 			query.setParameter("id", idpedido);
-			query.setParameter("estado", EstadoAprobacionPedidoCliente.AprobadoenSucursal);
+			//query.setParameter("estado", EstadoAprobacionPedidoCliente.AprobadoenSucursal);
 			query.setMaxResults(1);
 			
 			if(query.uniqueResult() != null){

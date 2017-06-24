@@ -255,11 +255,11 @@ public Pedido(){}
 		pedidoEntity.setFechaCreacion(this.getFechaCreacion());
 		pedidoEntity.setFechaprobableDespacho(this.getFechaprobableDespacho());
 		pedidoEntity.setFecharealDespacho(this.getFecharealDespacho());
-		pedidoEntity.setCliente(this.getCliente().ToEntity());
+		//TODO:verificar Jonathan pedidoEntity.setCliente(this.getCliente().ToEntity());
 		pedidoEntity.setItems(ConvertiraListItemPedidoEntity(this.getItems()));
 		pedidoEntity.setSucursal(this.getSucursal().toEntity());
 		
-		return null;
+		return pedidoEntity;
 	}
 	private List<ItemPedidoEntity> ConvertiraListItemPedidoEntity(List<ItemPedido> itemsToConvert) {
 		

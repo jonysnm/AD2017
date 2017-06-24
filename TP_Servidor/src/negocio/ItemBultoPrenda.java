@@ -32,7 +32,7 @@ public class ItemBultoPrenda  extends ItemBulto {
 		itemReturn.setCantidad(this.getCantidad());
 		itemReturn.setCantidadReservada(this.getCantidadReservada());
 		itemReturn.setId(this.getIdBulto());
-		return null;
+		return itemReturn;
 	}
 
 	//public Prenda getPrenda() {

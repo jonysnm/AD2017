@@ -99,14 +99,14 @@ public class Almacen {
 
 	//Jonathan Methods ---> Consultar antes de modificar
 	
-	public void ReservarItemsPrendas(List<ItemBultoPrenda> lstItemBultoPrenda, float cantidadTotalaReservar, ItemPedido itemPedido)//reserva la cantidad enviada como parametro en esta lista de items
+	public void ReservarItemsPrendas(List<ItemBultoPrenda> lstItemBultoPrenda, float cantidadTotalaReservar, Pedido pedido)//reserva la cantidad enviada como parametro en esta lista de items
 	{
 		float cantidadAux = cantidadTotalaReservar;
 		ItemBultoPrenda itemActual = null;
 		float cantidadDisponibleenBulto = 0;
 		int i = 0;
 		
-		while(cantidadAux > 0)
+		while(cantidadAux > 0 && i < lstItemBultoPrenda.size())
 		{
 			itemActual = lstItemBultoPrenda.get(i);			
 			cantidadDisponibleenBulto = itemActual.getCantidad() - itemActual.getCantidadReservada();
@@ -116,10 +116,14 @@ public class Almacen {
 				ReservasEntity reserva = new ReservasEntity();
 				reserva.setCantidad(cantidadAux);
 				reserva.setItemBultoEntity(itemActual.toEntity());
-				reserva.setItemPedidoEntity(itemPedido.Toentity());
+				reserva.setPedido(pedido.toEntity());
 				SaveOrUpdateReserva(reserva);
-				//TODO: faltaria actualizar la cantidad reservada en el itemBulto
+														
+				float cantidadReservadaActualizada = itemActual.getCantidadReservada()+cantidadAux;							
+				itemActual.setCantidadReservada(cantidadReservadaActualizada);
 				
+				AlmacenDAO.getInstancia().ActualizarReservadoyDisponible(itemActual);
+								
 				cantidadAux = 0;
 			}
 			if(cantidadDisponibleenBulto < cantidadAux)
@@ -128,9 +132,16 @@ public class Almacen {
 				ReservasEntity reserva = new ReservasEntity();
 				reserva.setCantidad(cantidadDisponibleenBulto);
 				reserva.setItemBultoEntity(itemActual.toEntity());
-				reserva.setItemPedidoEntity(itemPedido.Toentity());
+				reserva.setPedido(pedido.toEntity());
 				SaveOrUpdateReserva(reserva);															
-				//TODO: faltaria actualizar la cantidad reservada en el itemBulto
+				
+				
+				//Actualizar Reserba Bulto----Se puede sacar a un metodo
+															
+				itemActual.setCantidadReservada(itemActual.getCantidad());
+				AlmacenDAO.getInstancia().ActualizarReservadoyDisponible(itemActual);
+				//----Fin se puede sacar a un metodo
+				
 				cantidadAux= cantidadAux-cantidadDisponibleenBulto;
 			}
 			
@@ -158,6 +169,7 @@ public class Almacen {
 			itemBultoPrenda.setCantidad(itemBultoPrendaEntity.getCantidad());
 			itemBultoPrenda.setCantidadReservada(itemBultoPrendaEntity.getCantidadReservada());
 			itemBultoPrenda.setIdBulto(itemBultoPrendaEntity.getId());
+			itemBultoPrenda.setItemPrenda(new ItemPrenda(itemBultoPrendaEntity.getItemPrenda()));
 			lstItemBultoPrenda.add(itemBultoPrenda);
 		}
 		

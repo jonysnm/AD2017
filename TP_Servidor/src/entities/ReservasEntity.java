@@ -4,11 +4,13 @@ import java.io.Serializable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -22,9 +24,14 @@ public class ReservasEntity implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idReserva;
 
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumns({@JoinColumn(name="itemPrendaId")})	
-	private ItemPedidoEntity itemPedidoEntity;
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="idPedido")
+	private PedidoEntity pedido;
+	
+	
+//	@OneToOne(cascade=CascadeType.ALL)
+//	@JoinColumns({@JoinColumn(name="itemPrendaId")})	
+//	private ItemPedidoEntity itemPedidoEntity;
 
 	@OneToOne
 	@JoinColumn(name = "idBulto")
@@ -40,13 +47,13 @@ public class ReservasEntity implements Serializable {
 		this.idReserva = idReserva;
 	}
 
-	public ItemPedidoEntity getItemPedidoEntity() {
-		return itemPedidoEntity;
-	}
-
-	public void setItemPedidoEntity(ItemPedidoEntity itemPedidoEntity) {
-		this.itemPedidoEntity = itemPedidoEntity;
-	}
+//	public ItemPedidoEntity getItemPedidoEntity() {
+//		return itemPedidoEntity;
+//	}
+//
+//	public void setItemPedidoEntity(ItemPedidoEntity itemPedidoEntity) {
+//		this.itemPedidoEntity = itemPedidoEntity;
+//	}
 
 	public ItemBultoEntity getItemBultoEntity() {
 		return itemBultoEntity;
@@ -62,6 +69,14 @@ public class ReservasEntity implements Serializable {
 
 	public void setCantidad(float cantidad) {
 		this.cantidad = cantidad;
+	}
+
+	public PedidoEntity getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(PedidoEntity pedido) {
+		this.pedido = pedido;
 	}
 	
 
