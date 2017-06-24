@@ -49,6 +49,25 @@ public class ControladorWeb extends HttpServlet {
 		case "default":
 			jspPage = "/index.jsp";
 			break;
+		case "crear_pedido":	
+		jspPage = "/CrearPedido.jsp";
+		break;	
+		case "altaPedido":	
+		String[] variasPrendas = request.getParameterValues("prenda");
+		String[] variosTalles = request.getParameterValues("talle");
+		String[] varioscolores = request.getParameterValues("color");
+		String cliente = request.getParameter("cliente");
+		String sucursal = request.getParameter("sucursal");
+		
+//		BusinessDelegate.getInstancia().obtenerSucursal(idSuc);
+		
+		PedidoDTO pedDTO = new PedidoDTO();
+		
+		
+//		BusinessDelegate.getInstancia().nuevoPedido(pedidoDTO, 1)
+			break;	
+		
+		
 		case "aprobar_rechazar_pedidos": //1-obtengo los pedidos pendientes de aprobar por el gerente de la sucursal
 			
 			//TODO: falta armar logica login para obtener sucursal de la session

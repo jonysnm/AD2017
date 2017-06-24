@@ -76,6 +76,14 @@ public class BusinessDelegate {
 	public void crearEmpleado(EmpleadoDTO e)throws RemoteException{
 		interfazRemotaSucursales.crearEmpleado(e);
 	}
+	/* MAU */
+	public List<SucursalDTO> obtenerSucursales() throws RemoteException{
+		return interfazRemotaSucursales.listarSucursales();
+	}
+	public SucursalDTO obtenerSucursal(int idSuc) throws RemoteException{
+		return interfazRemotaSucursales.obtenerSucursal(idSuc);
+	}
+	
 	/*PEDIDO*/
 	public int nuevoPedido(PedidoDTO pedidoDTO,int idSucursal) throws RemoteException{
 		return interfazRemotaPuntoVenta.nuevoPedido(pedidoDTO,idSucursal);

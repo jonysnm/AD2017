@@ -165,7 +165,7 @@ public class AdministracionDAO {
 		List<Sucursal> sucursales = new ArrayList<Sucursal>();
 		try {
 			Session session = sf.openSession();
-			HashSet<SucursalEntity> lista = (HashSet<SucursalEntity>) session.createQuery("from Sucursal").list();
+			List<SucursalEntity> lista = (ArrayList<SucursalEntity>) session.createQuery("from SucursalEntity").list();
 			session.close();
 			for (SucursalEntity sucursalEntity : lista) {
 				sucursales.add(new Sucursal(sucursalEntity));

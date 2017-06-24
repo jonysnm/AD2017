@@ -2,6 +2,7 @@ package app;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.List;
 
 import controladores.ControladorSucursal;
@@ -9,6 +10,7 @@ import dao.AdministracionDAO;
 import dto.EmpleadoDTO;
 import dto.SucursalDTO;
 import interfazRemota.IAdmSucursalesControlador;
+import negocio.Sucursal;
 
 public class Sucursales extends UnicastRemoteObject implements IAdmSucursalesControlador {
 
@@ -66,8 +68,14 @@ public class Sucursales extends UnicastRemoteObject implements IAdmSucursalesCon
 		return null;
 	}
 	public List<SucursalDTO> listarSucursales()throws RemoteException {
-		AdministracionDAO.getInstancia().listarSucursales();
-		return null;
+		List<SucursalDTO> sucursalDTOs = new ArrayList<SucursalDTO>();
+		for (Sucursal suc : AdministracionDAO.getInstancia().listarSucursales()) {
+			SucursalDTO sucursalDTO = new SucursalDTO();
+			sucursalDTO.setNombre(suc.getNombre());
+			sucursalDTOs.add(sucursalDTO);
+		}
+		
+		return sucursalDTOs;
 	}
 	public List<EmpleadoDTO> listarEmpleados(int idSucursal)throws RemoteException {
 		// TODO Auto-generated method stub
