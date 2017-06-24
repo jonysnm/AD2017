@@ -11,6 +11,7 @@ import dto.ColorDTO;
 import dto.FacturaDTO;
 import dto.PedidoDTO;
 import dto.PedidosPendientesAprobacionDTO;
+import dto.PrendaDTO;
 import dto.SucursalDTO;
 import dto.TalleDTO;
 import estados.EstadoAprobacionPedidoCliente;
@@ -149,6 +150,9 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 	
 	public List<ColorDTO> getallColor() throws RemoteException {
 		return 	ControladorPedido.getInstancia().getallColor();
+	}
+	public List<PrendaDTO> obtenerPrendas() throws RemoteException{
+		return ControladorPedido.getInstancia().obtenerPrendas();
 	}
 
 }

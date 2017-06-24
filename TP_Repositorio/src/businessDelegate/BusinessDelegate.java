@@ -14,6 +14,7 @@ import dto.PedidoDTO;
 import dto.PedidoaDespacharDTO;
 import dto.PedidosCompletosPendientesDespacharDTO;
 import dto.PedidosPendientesAprobacionDTO;
+import dto.PrendaDTO;
 import dto.SucursalDTO;
 import dto.TalleDTO;
 import dto.UbicacionDTO;
@@ -180,6 +181,9 @@ public class BusinessDelegate {
 	public void altaEmpleado(EmpleadoDTO empleadoDTO) throws RemoteException{
 		interfazRemotaSucursales.crearEmpleado(empleadoDTO);
 	}
-	
+	//---Prendas----
+	public List<PrendaDTO> obtenerPrendas() throws RemoteException{
+		return interfazRemotaPuntoVenta.obtenerPrendas();
+	}
 	
 }
