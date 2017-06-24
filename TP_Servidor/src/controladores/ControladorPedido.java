@@ -103,6 +103,7 @@ public class ControladorPedido {
 					itemFaltantePedido = new ItemFaltantePedido();
 					itemFaltantePedido.setPedido(p);
 					itemFaltantePedido.setPrenda(itemPedido.getItemprenda().getPrenda());
+					itemFaltantePedido.setItemPrenda(itemPedido.getItemprenda());
 					itemFaltantePedido.setCantidadFaltante(cantidadFaltante);
 					itemFaltantePedido.setColor(itemPedido.getItemprenda().getColor());
 					itemFaltantePedido.setTalle(itemPedido.getItemprenda().getTalle());
@@ -146,8 +147,12 @@ public class ControladorPedido {
 			pedidoDao.NuevoItemFaltantePedido(itemFaltantePedido);
 		}		
 	}
+//	FIXME HACER ESTO
 	private void DefiniryCrearTipoOrdenProduccion(List<ItemFaltantePedido> lstItemsFaltantesPedido) {
-		// TODO Auto-generated method stub
+		// SI SON MAYORES A O SI ES PARCIAL
+		for (ItemFaltantePedido itemFaltantePedido : lstItemsFaltantesPedido) {
+			itemFaltantePedido.getItemPrenda();
+		}
 		
 	}
 	

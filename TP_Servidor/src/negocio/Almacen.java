@@ -99,7 +99,7 @@ public class Almacen {
 	
 
 	//Jonathan Methods ---> Consultar antes de modificar
-	
+//	FIXME VER CON JONA
 	public void ReservarItemsPrendas(List<ItemBultoPrenda> lstItemBultoPrenda, float cantidadTotalaReservar, Pedido pedido, ItemPedido itemPedido)//reserva la cantidad enviada como parametro en esta lista de items
 	{
 		float cantidadAux = cantidadTotalaReservar;

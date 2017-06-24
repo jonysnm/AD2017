@@ -60,12 +60,17 @@ public class ControladorWeb extends HttpServlet {
 		String[] variasPrendas = request.getParameterValues("prenda");
 		String[] variosTalles = request.getParameterValues("talle");
 		String[] varioscolores = request.getParameterValues("color");
+		String[] varioscantidad = request.getParameterValues("cantidad");
+		
 		String cliente = request.getParameter("cliente");
 		String sucursal = request.getParameter("sucursal");
 		
-//		BusinessDelegate.getInstancia().obtenerSucursal(idSuc);
 		
-		PedidoDTO pedDTO = new PedidoDTO();
+//		BusinessDelegate.getInstancia().obtenerSucursal(idSuc);
+		List<ItemPedidoDTO> itemPedidoDTOs = new ArrayList<ItemPedidoDTO>();
+		ItemPedidoDTO itemPedidoDTO = new ItemPedidoDTO();
+//		itemPedidoDTO.set
+//		PedidoDTO pedDTO = new PedidoDTO();
 		
 		
 //		BusinessDelegate.getInstancia().nuevoPedido(pedidoDTO, 1)

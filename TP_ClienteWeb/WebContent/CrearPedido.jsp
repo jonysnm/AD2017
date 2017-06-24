@@ -14,14 +14,11 @@
 <body>
 	<h1>Crear Pedido</h1>
 
-
-
 	<div>
 		<form action="ControladorWeb?action=altaPedido" method="post">
 			<table id="pedidos" cellpadding="1" cellspacing="1" border="1"
 				width="70%">
 				<tr>
-
 					<button value="Agregar ItemPedido" type="button"
 						onclick="agregarItemPedido()">Agregar ItemsPedido</button>
 						&nbsp;&nbsp;
@@ -34,7 +31,7 @@
 					<br>
 					<br>
 					<th>Pedido:</th>
-					<td><b>Cliente</b> <select name="cliente"><option>Seleccione
+					<td><b>Cliente</b> <select id="selectCliente" name="cliente" onchange="obtenerClienteSeleccionado()"><option>Seleccione
 								una opcion</option>
 							<%
 								List<ClienteDTO> clientesDTO = BusinessDelegate.getInstancia().obtenerClientes();
@@ -44,12 +41,11 @@
 							%>
 							<option value="<%=cli.getNombre()%>"><%=cli.getNombre()%></option>
 							<%
-							
-// 							request.setAttribute(cliente., arg1)
 								}
 							%>
 					</select></td>
-					<td><b>Sucursal</b> <select id="suc" name="sucursal"><option>Seleccione
+					<td><b>Sucursal</b> 
+					<select id="suc" name="sucursal"><option>Seleccione
 								una opcion</option>
 							<%
 								List<SucursalDTO> sucursalesDTO = BusinessDelegate.getInstancia().obtenerSucursales();
@@ -71,11 +67,24 @@
 					<td><input type="text" name="talle"></td>
 					<td><b>Color</b></td>
 					<td><input type="text" name="color"></td>
+					<td><b>Cantidad</b></td>
+					<td><input type="text" name="cantidad"></td>
 				</tr>
 			</table>
 		</form>
 
 	</div>
+	<script type="text/javascript">
+	function obtenerClienteSeleccionado(){
+		var x= document.getElementById("selectCliente").selectedIndex;
+	    var y = document.getElementById("selectCliente").options;
+	    alert("Index: " + y[x].index + " is " + y[x].text);
+//			request.setAttribute(cliente., arg1)
+	    
+	}
+	
+	</script>
+	
 	
 	<script type="text/javascript">
 	function seleccionado(){
