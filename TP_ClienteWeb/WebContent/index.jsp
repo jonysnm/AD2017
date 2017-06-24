@@ -31,6 +31,8 @@
 		<br>
     </div>
     <br>
+    <a href="ControladorWeb?action=crear_pedido" target="_self">Crear Pedido</a>
+    <br>
      	<a href="ControladorWeb?action=aprobar_rechazar_pedidos" target="_self">Verificación Pedidos en Sucursal</a>
       <br>
            	<a href="ControladorWeb?action=Aceptacion_pedidos_por_Cliente" target="_self">Aceptar-Rechazar Pedidos por parte del cliente</a>
