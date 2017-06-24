@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.Date;
 import java.util.List;
 
 import dto.ClienteDTO;
@@ -118,6 +119,11 @@ public class BusinessDelegate {
 		return interfazRemotaDespacho.ObtenerListaPedidosCompletosPendientesDespachar();
 	}
 	
+	public void ActualizarFechaProbableDespacho(String fechaDeseadaEntrega, int idPedido) throws RemoteException{
+		interfazRemotaPuntoVenta.ActualizarFechaProbableDespacho(fechaDeseadaEntrega, idPedido);
+		
+	}
+	
 	
 	//-------Colores-----------------
 	public void altaColor(ColorDTO colorDTO) throws RemoteException{
@@ -161,7 +167,6 @@ public class BusinessDelegate {
 	public void altaEmpleado(EmpleadoDTO empleadoDTO) throws RemoteException{
 		interfazRemotaSucursales.crearEmpleado(empleadoDTO);
 	}
-	
 	
 	
 }

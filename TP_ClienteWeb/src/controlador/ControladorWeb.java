@@ -2,7 +2,11 @@ package controlador;
 
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -105,13 +109,16 @@ public class ControladorWeb extends HttpServlet {
 			request.setAttribute("Mensaje", mensaje);
 			jspPage = "/Confirmaciones.jsp";
 			break;			
-		case "AprobarRechazarPedidoPost": //3-Cambio el estado del pedido para decir si el gerente lo acepto o lo rechazo
+		case "AprobarRechazarPedidoPost": //3-Cambio el estado del pedido para decir si el GERENTE lo acepto o lo rechazo
+
 			int idPedido = Integer.parseInt(request.getParameter("hdnIdPedido"));
+			String fechaDeseadaEntrega = request.getParameter("txtFechaDeseadaEntrega");								
 			String operacion = request.getParameter("hdnOperacion");
 
 			mensaje="";
 			if(operacion.equals("Aprobar"))
 			{				
+				BusinessDelegate.getInstancia().ActualizarFechaProbableDespacho(fechaDeseadaEntrega,idPedido);
 				BusinessDelegate.getInstancia().cambiarEstadoPedido(idPedido, EstadoAprobacionPedidoCliente.PendienteAceptacionCliente);
 				mensaje="El pedido nro: "+ Integer.toString(idPedido) + "ha sido aprobado";
 			}

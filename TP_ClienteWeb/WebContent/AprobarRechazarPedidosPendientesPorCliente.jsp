@@ -6,6 +6,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<link rel="stylesheet" type="text/css" href="css/site.css">
 <title>Estos son los pedidos pendientes de confirmar</title>
 </head>
 <body>
@@ -20,11 +22,11 @@
 	<input type="hidden" name="hdnOperacion" value="" />
 		<table>	
 			<tr>
-				<td>Id Pedido</td>
-				<td>Fecha Creacion</td>				
-				<td>Costo Total Pedido</td>
-				<td>Fecha Entrega Estimada</td>
-				<td>Accion</td>
+				<th>Id Pedido</th>
+				<th>Fecha Creacion</th>				
+				<th>Costo Total Pedido</th>
+				<th>Fecha Entrega Estimada</th>
+				<th>Accion</th>
 			</tr>
 	<%for (PedidosPendientesAprobacionDTO ec : lstPedidosPendientesAprobacionporCliente){ %>
 			<tr>

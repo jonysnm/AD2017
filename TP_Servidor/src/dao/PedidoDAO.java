@@ -185,8 +185,10 @@ public class PedidoDAO {
 			Query query = session.createQuery("From PedidoEntity where id = :idPedi");
 			PedidoEntity p = (PedidoEntity) query.setParameter("idPedi", pedido.getId()).uniqueResult();
 			p.setEstado(pedido.getEstado());
+			p.setFechaprobableDespacho(pedido.getFechaprobableDespacho());
 			session.update(p);
 			session.getTransaction().commit();
+			
 			session.close();
 		}catch(Exception e){
 			e.printStackTrace();

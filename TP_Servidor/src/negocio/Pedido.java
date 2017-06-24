@@ -94,7 +94,7 @@ public Pedido(){}
 		for (ItemPedido itemPedido : this.getItems()) {
 			total+=(itemPedido.getCantidad()*itemPedido.getImporte());
 		}
-		System.out.printf("TOTAL:%d",total);
+	
 		return total;
 	}
   	public boolean ObtenerVigenciaporPrenda(Pedido p) {
@@ -221,13 +221,16 @@ public Pedido(){}
 		peddto.setFechaCreacion(this.getFechaCreacion());
 		peddto.setNombreCliente(this.getCliente().getNombre());
 		peddto.setTipoFacturacion(this.getCliente().getTipoFacturacion());
-		peddto.setLimiteCredito(this.getCliente().getLimiteCredito());
+		peddto.setLimiteCredito(this.getCliente().getLimiteCredito());			
+		peddto.setTotal(this.TotalPedido2());
+		peddto.setCostoTotalPedido(this.TotalPedido2());
+		peddto.setFechaEntregaEstimada(this.getFechaprobableDespacho());
+		
+		
+		//TODO: peddto.setContieneDiscontinuosyHaystock(this.TengoDiscontinuossinStock()); Harcodeado para testing
+		peddto.setContieneDiscontinuosyHaystock(false);		
 		//TODO:peddto.setSaldoCtaCte(this.getCliente().getCtacte().getSaldo());Harcodeado para testing
 		peddto.setSaldoCtaCte(80000);
-		//TODO: peddto.setTotal(this.TotalPedido2());Harcodeado para testing
-		peddto.setTotal(1000);
-		//TODO: peddto.setContieneDiscontinuosyHaystock(this.TengoDiscontinuossinStock()); Harcodeado para testing
-		peddto.setContieneDiscontinuosyHaystock(false);
 		return peddto;
 	}
 	

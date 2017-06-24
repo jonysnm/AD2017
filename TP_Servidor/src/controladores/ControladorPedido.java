@@ -1,5 +1,7 @@
 package controladores;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -159,6 +161,18 @@ public class ControladorPedido {
 	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacionPorCliente(int idCliente) {
 		Pedido pedidoNegocio = new Pedido();
 		return pedidoNegocio.obtenerPedidosPendientesdeAprobacionPorCliente( idCliente);		
+	}
+	
+	
+	public void ActualizarFechaProbableDespacho(String fechaDeseadaEntrega, int idPedido) throws ParseException {		
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date parsed =  format.parse(fechaDeseadaEntrega);
+		
+		
+		Pedido p=PedidoDAO.getInstancia().getPedido(idPedido);
+			p.setFechaprobableDespacho(parsed);
+			p.update();				
 	}
 	
 //FIN Jonathan Methods--> CONSULTAR ANTES DE MODIFICAR

@@ -2,6 +2,7 @@ package interfazRemota;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.Date;
 import java.util.List;
 
 import dto.*;
@@ -32,6 +33,7 @@ public interface IPuntoDeVentaControlador extends Remote{
 	/*JONA */
 	public void cambiarEstadoPedido(Integer idPedido,EstadoAprobacionPedidoCliente estado) throws RemoteException;
 	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacionPorCliente(int idCliente)throws RemoteException;
+	public void ActualizarFechaProbableDespacho(String fechaDeseadaEntrega, int idPedido)throws RemoteException;
 	
 	// Talle
 	public void altaTalle(TalleDTO talleDTO) throws RemoteException;
@@ -42,6 +44,6 @@ public interface IPuntoDeVentaControlador extends Remote{
 	public void altaColor(ColorDTO colorDTO) throws RemoteException;
 	public void bajaColor(ColorDTO colorDTO) throws RemoteException;
 	public void modificarColor(ColorDTO colorDTO)throws RemoteException;
-	public List<ColorDTO> getallColor()throws RemoteException;
+	public List<ColorDTO> getallColor()throws RemoteException;	
 	
 }

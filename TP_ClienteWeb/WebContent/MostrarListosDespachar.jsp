@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Estos son los peidos Completos listos para despachar</title>
+<link rel="stylesheet" type="text/css" href="css/site.css">
 <h2>Se muestran los pedidos que estan listos para que el personal de despacho arme el paquete y arregle en envio</h2>
 </head>
 <body>
@@ -23,13 +24,13 @@
 
 	<table>	
 			<tr>
-				<td>Id Pedido</td>
-				<td>Fecha Creacion</td>
-				<td>Fecha Probable Despacho</td>
-				<td>ID Sucursal	</td>
-				<td>ID Cliente</td>
-				<td>Nombre Cliente</td>				
-				<td>Accion</td>
+				<th>Id Pedido</th>
+				<th>Fecha Creacion</th>
+				<th>Fecha Probable Despacho</th>
+				<th>ID Sucursal	</th>
+				<th>ID Cliente</th>
+				<th>Nombre Cliente</th>				
+				<th>Accion</th>
 			</tr>
 	<%for (PedidosCompletosPendientesDespacharDTO ec : lstPedidosCompletosPendientesDespacharDTO){ %>
 			<tr>

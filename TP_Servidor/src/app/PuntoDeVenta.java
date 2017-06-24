@@ -2,6 +2,8 @@ package app;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 import controladores.ControladorPedido;
@@ -93,6 +95,17 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacionPorCliente(int idCliente)
 			throws RemoteException {
 		return ControladorPedido.getInstancia().obtenerPedidosPendientesdeAprobacionPorCliente( idCliente);
+	}
+	
+	@Override
+	public void ActualizarFechaProbableDespacho(String fechaDeseadaEntrega, int idPedido) throws RemoteException {
+		try {
+			ControladorPedido.getInstancia().ActualizarFechaProbableDespacho( fechaDeseadaEntrega,idPedido);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	// FIN Jonathan Methods
 	

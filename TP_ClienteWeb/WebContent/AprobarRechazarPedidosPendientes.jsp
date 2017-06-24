@@ -6,6 +6,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<link rel="stylesheet" type="text/css" href="css/site.css">
 <title>Estos son los pedidos de los clientes pendientes de aprobacion en la sucursal</title>
 </head>
 <body>
@@ -22,15 +24,16 @@
 
 	<table>	
 			<tr>
-				<td>Id Pedido</td>
-				<td>Fecha Aprobacion</td>
-				<td>Cliente</td>
-				<td>CUIT</td>
-				<td>Tipo Facturacion</td>
-				<td>Limite Credito</td>
-				<td>Saldo en Cuenta Corriente</td>
-				<td>Tiene Discontinuos</td>
-				<td>Accion</td>
+				<th>Id Pedido</th>
+				<th>Fecha Aprobacion</th>
+				<th>Cliente</th>
+				<th>CUIT</th>
+				<th>Tipo Facturacion</th>
+				<th>Limite Credito</th>
+				<th>Saldo en Cuenta Corriente</th>
+				<th>Tiene Discontinuos</th>
+				<th>Fecha Deseada Despacho</th>
+				<th>Accion</th>
 			</tr>
 	<%for (PedidosPendientesAprobacionDTO ec : lstPedidosPendientesAprobacionDTO){ %>
 			<tr>
@@ -42,6 +45,7 @@
 				<td><%=ec.getLimiteCredito()%></td>
 				<td><%=ec.getSaldoCtaCte()%></td>
 				<td><%=ec.isContieneDiscontinuosyHaystock()%></td>
+				<td><input type="date" name="txtFechaDeseadaEntrega"></td>
 				<td>
 				<input type="submit" name="<%=ec.getId() %>" value="Aprobar" onclick="this.form.hdnIdPedido.value=this.name;this.form.hdnOperacion.value=this.value;this.form.submit();" />
 				<input type="submit" name="<%=ec.getId() %>" value="Rechazar" onclick="this.form.hdnIdPedido.value=this.name;this.form.hdnOperacion.value=this.value;this.form.submit();" />					 									
