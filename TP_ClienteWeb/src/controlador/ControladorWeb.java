@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import businessDelegate.BusinessDelegate;
 import dto.PedidoDTO;
-import dto.PedidosCompletosPendientesDespacharDTO;
+import dto.*;
 import dto.PedidosPendientesAprobacionDTO;
 import dto.TalleDTO;
 import estados.EstadoAprobacionPedidoCliente;
@@ -169,8 +169,8 @@ public class ControladorWeb extends HttpServlet {
 			break;
 		case "mostrar_detalles_pedidos_a_despachar_POST":
 			int idPedidoaDespachar = Integer.parseInt(request.getParameter("hdnIdPedidoaDetallar"));
-			PedidoDTO pedidoDTO = BusinessDelegate.getInstancia().obtenerPedido(idPedidoaDespachar);
-			request.setAttribute("pedidoDTO",pedidoDTO);
+			PedidoaDespacharDTO pedidoaDespacharDTO = BusinessDelegate.getInstancia().obtenerPedidoaDespachar(idPedidoaDespachar);
+			request.setAttribute("pedidoaDespacharDTO",pedidoaDespacharDTO);
 			jspPage = "/DetallePedidoADespachar.jsp";
 			
 			break;

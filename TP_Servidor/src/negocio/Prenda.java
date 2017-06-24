@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.PedidoDAO;
+import dto.PrendaDTO;
 import entities.ItemPrendaEntity;
 import entities.PrendaEntity;
 
@@ -95,5 +96,15 @@ public class Prenda {
 		prendaEntity.setVigente(this.isVigente());
 		return prendaEntity;
 	}
+	
+	public PrendaDTO toDTO() {
+		PrendaDTO prendaDTO = new PrendaDTO();
+		prendaDTO.setCodigo(this.getCodigo());
+		prendaDTO.setDescripcion(this.getDescripcion());
+		prendaDTO.setVigente(this.isVigente());
+		return prendaDTO;
+	}
+	
 	//FIN Jonathan Methods
+
 }

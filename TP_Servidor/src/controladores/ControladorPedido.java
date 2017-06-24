@@ -94,7 +94,7 @@ public class ControladorPedido {
 								
 				//hacer un metodo que reciba una lista de bultos, y cantidad - y en base a eso vaya insertando en la tabla de 					
 				//Reservas que bultos tiene reservado que cantidad y para que pedido en particular				
-				Almacen.getInstancia().ReservarItemsPrendas(lstItemBultoPrenda, itemPedido.getCantidad(), p);																	
+				Almacen.getInstancia().ReservarItemsPrendas(lstItemBultoPrenda, itemPedido.getCantidad(), p, itemPedido);																	
 				
 				if(cantidadFaltante > 0) //significa que hay faltante
 				{
@@ -186,7 +186,9 @@ public class ControladorPedido {
 	
 	public PedidoDTO obtenerPedido(int idPedido) throws Exception {
 		Pedido p = AdministracionDAO.getInstancia().obtenerPedido(idPedido);
-		PedidoDTO pedidoDTO = PedidoToDTO.toDTO(p);
+		
+		
+		PedidoDTO pedidoDTO = p.toDTO();//PedidoToDTO.toDTO(p);
 		return pedidoDTO;
 	}
 		

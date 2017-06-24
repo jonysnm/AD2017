@@ -26,6 +26,8 @@ public class ItemBultoEntity implements Serializable{
 	private float cantidad;
 	private float cantidadReservada;
 
+	private String codigoUbicacion;
+	
 	public ItemBultoEntity() {
 		super();
 	}
@@ -69,6 +71,14 @@ public class ItemBultoEntity implements Serializable{
 
 	public void setCantidadReservada(float cantidadReservada) {
 		this.cantidadReservada = cantidadReservada;
+	}
+
+	public String getCodigoUbicacion() {
+		return codigoUbicacion;
+	}
+
+	public void setCodigoUbicacion(String codigoUbicacion) {
+		this.codigoUbicacion = codigoUbicacion;
 	}
 
 

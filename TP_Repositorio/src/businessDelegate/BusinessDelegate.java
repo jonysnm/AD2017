@@ -11,6 +11,7 @@ import dto.ClienteDTO;
 import dto.ColorDTO;
 import dto.EmpleadoDTO;
 import dto.PedidoDTO;
+import dto.PedidoaDespacharDTO;
 import dto.PedidosCompletosPendientesDespacharDTO;
 import dto.PedidosPendientesAprobacionDTO;
 import dto.SucursalDTO;
@@ -130,6 +131,10 @@ public class BusinessDelegate {
 	public void ActualizarFechaProbableDespacho(String fechaDeseadaEntrega, int idPedido) throws RemoteException{
 		interfazRemotaPuntoVenta.ActualizarFechaProbableDespacho(fechaDeseadaEntrega, idPedido);
 		
+	}
+	
+	public PedidoaDespacharDTO obtenerPedidoaDespachar(int idPedidoaDespachar) throws RemoteException{
+		return interfazRemotaDespacho.obtenerPedidoaDespachar(idPedidoaDespachar);
 	}
 	
 	

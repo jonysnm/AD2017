@@ -1,5 +1,6 @@
 package negocio;
 
+import dto.ColorDTO;
 import entities.ColorEntity;
 
 public class Color {
@@ -48,6 +49,12 @@ public class Color {
 		colorEntityReturn.setDescripcion(this.getDescripcion());
 		colorEntityReturn.setIdcolor(this.getIdcolor());
 		return colorEntityReturn;
+	}
+	public ColorDTO toDTO() {
+		ColorDTO colorDTO = new ColorDTO();
+		colorDTO.setDescripcion(this.getDescripcion());
+		colorDTO.setIdColor(this.getIdcolor());
+		return colorDTO;
 	}
 
 	

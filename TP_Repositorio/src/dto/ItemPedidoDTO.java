@@ -9,14 +9,14 @@ public class ItemPedidoDTO implements Serializable {
 	private static final long serialVersionUID = 8291630079669964572L;
 
 	private int IdItemPedido;
-	private int cantidad;
+	private float cantidad;
 	private ItemPrendaDTO itemPrendaDTO;
 	private int importe;
 	public ItemPedidoDTO(){}
-	public int getCantidad() {
+	public float getCantidad() {
 		return cantidad;
 	}
-	public void setCantidad(int cantidad) {
+	public void setCantidad(float cantidad) {
 		this.cantidad = cantidad;
 	}
 	public int getImporte() {

@@ -6,6 +6,7 @@ import java.util.List;
 
 import controladores.ControladorAlmacen;
 import controladores.ControladorDespacho;
+import dto.PedidoaDespacharDTO;
 import dto.PedidosCompletosPendientesDespacharDTO;
 import dto.UbicacionDTO;
 import interfazRemota.ILogistica;
@@ -37,8 +38,12 @@ public class Logistica extends UnicastRemoteObject implements ILogistica{
 			throw new RemoteException("Error al crear nuevo pedido: "+e.getMessage());
 		}
 		
-	}
+	}	
+	
+	@Override
+	public PedidoaDespacharDTO obtenerPedidoaDespachar(int idPedidoaDespachar) throws RemoteException {
 		
-
+		return ControladorDespacho.getInstancia().obtenerPedidoaDespachar(idPedidoaDespachar);
+	}
 
 }

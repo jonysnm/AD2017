@@ -14,6 +14,7 @@ import dao.DespachoDAO;
 import dao.PedidoDAO;
 import dto.OrdenDespachoDTO;
 import dto.PedidoDTO;
+import dto.PedidoaDespacharDTO;
 import dto.PedidosCompletosPendientesDespacharDTO;
 import dto.UbicacionDTO;
 
@@ -80,5 +81,11 @@ public class ControladorDespacho {
 		return new Pedido().PedidosCompletosPendientesDespachar(); 
 		
 	}
+	
+	public PedidoaDespacharDTO obtenerPedidoaDespachar(int idPedidoaDespachar) {
+		return new Pedido().obtenerPedidoaDespachar(idPedidoaDespachar);
+	}
 //FIN Metodos Jonathan --> Consultar antes de modificar
+
+
 }

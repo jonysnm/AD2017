@@ -3,9 +3,12 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.hql.ast.QuerySyntaxException;
 
 import entities.ColorEntity;
 import entities.ItemBultoEntity;
@@ -104,6 +107,15 @@ public class AlmacenDAO {
 		return lista;	
 	}
 	
+	public List<ReservasEntity> obtenerReservas(Integer idItemPedido)
+	{
+		Session s = sf.openSession();
+		String consulta = "from ReservasEntity ib where ib.ItemPedidoEntity.IdItemPedido= :id";		
+		@SuppressWarnings("unchecked")
+		ArrayList<ReservasEntity> lista = (ArrayList<ReservasEntity>) s.createQuery(consulta)
+				.setParameter("id", idItemPedido).list();
+		return lista;
+	}
 	
 	public void NuevaReserva(ReservasEntity reserva){
 		Session session=sf.openSession();
@@ -131,6 +143,34 @@ public class AlmacenDAO {
 			e.printStackTrace();
 			System.out.println("Error Modificar ItemBulto");
 		}
+	}
+
+	public ItemBultoEntity ObtenerItemBulto(int id) {
+	
+		ItemBultoEntity itemBulto = null;
+		try {
+			Session session = sf.openSession();
+			
+			String hql = "FROM ItemBultoEntity P " +
+						 "WHERE P.id = :id";
+			
+			Query query = session.createQuery(hql);
+			query.setParameter("id", id);
+			query.setMaxResults(1);
+			
+			if(query.uniqueResult() != null){
+				itemBulto = (ItemBultoEntity) query.uniqueResult();
+	        	session.close();
+	        }else{
+	        	session.close();
+	        }
+		}catch (QuerySyntaxException q){
+			JOptionPane.showMessageDialog(null, q, "Error", JOptionPane.ERROR_MESSAGE);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+				
+		return itemBulto;
 	}
 	
 	//Fin Jonathan Methods

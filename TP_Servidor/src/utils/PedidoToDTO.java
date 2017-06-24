@@ -16,7 +16,7 @@ public class PedidoToDTO {
 		pedidoDTO.setFechaCreacion(p.getFechaCreacion());
 		pedidoDTO.setFechaprobableDespacho(p.getFechaprobableDespacho());
 		pedidoDTO.setFecharealDespacho(p.getFecharealDespacho());
-		pedidoDTO.setEstado(p.getEstado().name());
+		pedidoDTO.setEstado(p.getEstado());
 		pedidoDTO.setId(p.getId());
 		List<ItemPedido> items = p.getItems();
 		List<ItemPedidoDTO> itemsDTO = new ArrayList<ItemPedidoDTO>();

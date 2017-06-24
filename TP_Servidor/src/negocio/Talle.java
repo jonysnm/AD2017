@@ -1,5 +1,6 @@
 package negocio;
 
+import dto.TalleDTO;
 import entities.TalleEntity;
 
 public class Talle {
@@ -49,6 +50,12 @@ public class Talle {
 		talleEntity.setDescripcion(this.getDescripcion());
 		talleEntity.setidTalle(this.getIdTalle());
 		return talleEntity;
+	}
+	public TalleDTO toDTO() {
+		TalleDTO talleDTO = new TalleDTO();
+		talleDTO.setDescripcion(this.getDescripcion());
+		talleDTO.setIdTalle(this.getIdTalle());
+		return talleDTO;
 	}
 	
 	//FINJonathan Methods  --> CONSULTAR ANTES DE MODIFICAR

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import estados.EstadoAprobacionPedidoCliente;
+
 
 public class PedidoDTO implements Serializable{
 	
@@ -17,7 +19,7 @@ public class PedidoDTO implements Serializable{
 	private Date fecharealDespacho;
 	private List<ItemPedidoDTO> items;
 	private float total;
-	private String estado;
+	private EstadoAprobacionPedidoCliente estado;
 	
 	public PedidoDTO(){
 		setItems(new ArrayList<ItemPedidoDTO>());
@@ -64,10 +66,10 @@ public class PedidoDTO implements Serializable{
 	public void setItems(List<ItemPedidoDTO> items) {
 		this.items = items;
 	}
-	public String getEstado() {
+	public EstadoAprobacionPedidoCliente getEstado() {
 		return estado;
 	}
-	public void setEstado(String estado) {
+	public void setEstado(EstadoAprobacionPedidoCliente estado) {
 		this.estado = estado;
 	}
 }

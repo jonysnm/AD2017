@@ -24,10 +24,13 @@ public class ReservasEntity implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idReserva;
 
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="idPedido")
-	private PedidoEntity pedido;
+//	@ManyToOne(fetch=FetchType.EAGER)
+//	@JoinColumn(name="idPedido")
+//	private PedidoEntity pedido;
 	
+	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+    @JoinColumn(name="IdItemPedido")	
+	private ItemPedidoEntity itemPedidoEntity;
 	
 //	@OneToOne(cascade=CascadeType.ALL)
 //	@JoinColumns({@JoinColumn(name="itemPrendaId")})	
@@ -71,13 +74,21 @@ public class ReservasEntity implements Serializable {
 		this.cantidad = cantidad;
 	}
 
-	public PedidoEntity getPedido() {
-		return pedido;
+	public ItemPedidoEntity getItemPedidoEntity() {
+		return itemPedidoEntity;
 	}
 
-	public void setPedido(PedidoEntity pedido) {
-		this.pedido = pedido;
+	public void setItemPedidoEntity(ItemPedidoEntity itemPedidoEntity) {
+		this.itemPedidoEntity = itemPedidoEntity;
 	}
+
+//	public PedidoEntity getPedido() {
+//		return pedido;
+//	}
+//
+//	public void setPedido(PedidoEntity pedido) {
+//		this.pedido = pedido;
+//	}
 	
 
 

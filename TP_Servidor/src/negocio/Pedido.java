@@ -5,11 +5,17 @@ import java.util.Date;
 import java.util.List;
 
 import dao.AdministracionDAO;
+import dao.AlmacenDAO;
 import dao.PedidoDAO;
+import dto.ItemPedidoDTO;
+import dto.PedidoDTO;
+import dto.*;
 import dto.PedidosCompletosPendientesDespacharDTO;
 import dto.PedidosPendientesAprobacionDTO;
+import entities.ItemBultoEntity;
 import entities.ItemPedidoEntity;
 import entities.PedidoEntity;
+import entities.ReservasEntity;
 import estados.EstadoAprobacionPedidoCliente;
 
 public class Pedido {
@@ -35,6 +41,7 @@ public Pedido(){}
 		List<ItemPedido> items=new ArrayList<ItemPedido>();
 		for(ItemPedidoEntity ip:pedido.getItems()){
 			ItemPedido item=new ItemPedido();
+			item.setIdItemPedido(ip.getIdItemPedido());
 			item.setCantidad(ip.getCantidad());
 			item.setImporte(ip.getImporte());
 			item.setItemprenda(new ItemPrenda(ip.getIprenda()));
@@ -273,6 +280,75 @@ public Pedido(){}
 			lstReturn.add(itemEntity);
 		}			
 		return lstReturn;
+	}
+	
+	
+	
+	public PedidoDTO toDTO() {
+
+		PedidoDTO pedidoDTO = new PedidoDTO();
+		pedidoDTO.setId(this.getId());
+		pedidoDTO.setEstado(this.getEstado());
+		pedidoDTO.setFechaCreacion(this.getFechaCreacion());
+		pedidoDTO.setFechaprobableDespacho(this.getFechaprobableDespacho());
+		pedidoDTO.setFecharealDespacho(this.getFecharealDespacho());
+
+		pedidoDTO.setCliente(this.getCliente().toDTO());
+		pedidoDTO.setItems(ConvertiraDTO(this.getItems()));
+		return pedidoDTO;
+	}
+	
+	private List<ItemPedidoDTO> ConvertiraDTO(List<ItemPedido> lstItemsPedido) {		
+		 List<ItemPedidoDTO> lstReturn = new ArrayList<ItemPedidoDTO>();
+		 ItemPedidoDTO itemPedidoDTO = null;
+		
+		 for (ItemPedido itemPedido : lstItemsPedido) {
+			 itemPedidoDTO = new ItemPedidoDTO();
+			 itemPedidoDTO.setIdItemPedido(itemPedido.getIdItemPedido());
+			 itemPedidoDTO.setCantidad(itemPedido.getCantidad());
+			 itemPedidoDTO.setImporte(itemPedido.getImporte());
+			 itemPedidoDTO.setItemPrendaDTO(itemPedido.getItemprenda().toDTO());
+		}
+		 
+		 return lstReturn;
+	}
+	public PedidoaDespacharDTO obtenerPedidoaDespachar(int idPedidoaDespachar) {
+
+		PedidoaDespacharDTO pedidoReturn = new PedidoaDespacharDTO();
+		
+		
+		Pedido pedido = PedidoDAO.getInstancia().getPedido(idPedidoaDespachar);		
+		
+		pedidoReturn.setId(pedido.getId());
+		pedidoReturn.setCuit(pedido.getCliente().getCuit());
+		pedidoReturn.setFechaProbableDespacho(pedido.getFechaprobableDespacho());
+		pedidoReturn.setNombreCliente(pedido.getCliente().getNombre());
+		
+		ItemPedidoaDespacharDTO itemReturn = null;
+		List<ItemPedidoaDespacharDTO> lstReturn = new ArrayList<ItemPedidoaDespacharDTO>();
+		
+		for (ItemPedido itemPedido : pedido.getItems()) {
+			itemReturn = new ItemPedidoaDespacharDTO();
+			itemReturn.setCantidad(itemPedido.getCantidad());
+			itemReturn.setColor(itemPedido.getItemprenda().getColor().getDescripcion());
+			itemReturn.setPrenda("Pantalon");//TODO: Revisar Jona
+			itemReturn.setTalle(itemPedido.getItemprenda().getTalle().getDescripcion());
+			itemReturn.setUbicacion(ObtenerListCodigoUbicacion(itemPedido.getIdItemPedido()));
+			lstReturn.add(itemReturn);
+		}
+		pedidoReturn.setLstItemPedidoaDespacharDTO(lstReturn);
+		return pedidoReturn;
+	}
+	
+	private List<String> ObtenerListCodigoUbicacion(Integer idItemPedido) {		
+		List<String> lstUbicaciones = new ArrayList<String>();
+		List<ReservasEntity> lstReservas = AlmacenDAO.getInstancia().obtenerReservas(idItemPedido);
+		for (ReservasEntity reservasEntity : lstReservas) {
+			ItemBultoEntity itemBulto = AlmacenDAO.getInstancia().ObtenerItemBulto(reservasEntity.getItemBultoEntity().getId());
+			lstUbicaciones.add(itemBulto.getCodigoUbicacion());
+		}
+				
+		return lstUbicaciones;
 	}
 	
 	

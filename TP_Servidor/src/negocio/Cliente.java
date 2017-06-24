@@ -2,6 +2,7 @@ package negocio;
 
 
 import dao.ClienteDAO;
+import dto.ClienteDTO;
 import entities.ClienteEntity;
 import entities.CuentaCorrienteEntity;
 
@@ -94,7 +95,19 @@ public class Cliente {
 		
 		return clienteEntity;
 	}
+	
+	public ClienteDTO toDTO() {
+		ClienteDTO clienteDTO = new ClienteDTO();
+		clienteDTO.setId(this.getId());
+		clienteDTO.setCuit(this.getCuit());
+		clienteDTO.setLimiteCredito(this.getLimiteCredito());
+		clienteDTO.setNombre(this.getNombre());
+		clienteDTO.setTipoFacturacion(this.getTipoFacturacion());		
+		return clienteDTO;
+	}
+	
 	//	FIN methods jonathan
+
 	
 }
 

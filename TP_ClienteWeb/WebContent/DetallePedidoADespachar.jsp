@@ -1,4 +1,5 @@
-<%@page import="dto.ItemPedidoDTO"%>
+<%@page import="dto.ItemPedidoaDespacharDTO"%>
+<%@page import="dto.PedidoaDespacharDTO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="dto.PedidoDTO"%>    
@@ -12,7 +13,7 @@
 </head>
 <body>
 	<%
-	PedidoDTO pedidoDTO  = (PedidoDTO)request.getAttribute("pedidoDTO");	
+	PedidoaDespacharDTO pedidoDTO  = (PedidoaDespacharDTO)request.getAttribute("pedidoaDespacharDTO");	
 	%>
 	
 	<form action="ControladorWeb?action=XXX" method="post">
@@ -22,17 +23,17 @@
 <h1>Datos Del Pedido</h1>
 	<table>	
 			<tr>
-				<td>Id Pedido</td>
-				<td>Fecha Creacion</td>
-				<td>Cliente</td>
-				<td>CUIT</td>
-				<td>Accion</td>
+				<th>Id Pedido</th>
+				<th>Fecha Probable Despacho</th>
+				<th>Cliente</th>
+				<th>CUIT</th>
+				<th>Accion</th>
 			</tr>
 			<tr>
 				<td><%=pedidoDTO.getId()%></td>
-				<td><%=pedidoDTO.getFechaCreacion()%></td>
-				<td><%=pedidoDTO.getCliente().getNombre()%></td>
-				<td><%=pedidoDTO.getCliente().getCuit()%></td>
+				<td><%=pedidoDTO.getFechaProbableDespacho()%></td>
+				<td><%=pedidoDTO.getNombreCliente() %></td>
+				<td><%=pedidoDTO.getCuit() %></td>
 				<td>
 					<input type="submit" name="<%=pedidoDTO.getId() %>" value="AprobarXXX" onclick="this.form.hdnIdPedido.value=this.name;this.form.hdnOperacion.value=this.value;this.form.submit();" />
 					<input type="submit" name="<%=pedidoDTO.getId() %>" value="RechazarXXX" onclick="this.form.hdnIdPedido.value=this.name;this.form.hdnOperacion.value=this.value;this.form.submit();" />					 									
@@ -42,20 +43,24 @@
 			
 	<h2>Items del Peido</h2>		
 	<table>			
-	<tr>
-		<td>Codigo</td>
-		<td>Prenda</td>
-		<td>Cantidad</td>
-		<td>Color</td>
-		<td>Talle</td>
+	<tr>				
+		<th>Prenda</th>
+		<th>Color</th>
+		<th>Talle</th>
+		<th>Cantidad</th>
+		<th>Ubicaciones</th>
 	</tr>
-	<%for (ItemPedidoDTO ec : pedidoDTO.getItems()){ %>
+	
+	<% for (ItemPedidoaDespacharDTO it : pedidoDTO.getLstItemPedidoaDespacharDTO()) {%>
+	
 			<tr>
-				<td><%=ec.getItemPrendaDTO().getPrendaDTO().getCodigo() %></td>
-				<td><%=ec.getItemPrendaDTO().getPrendaDTO().getDescripcion() %></td>
-				<td><%=ec.getCantidad() %></td>
-				<td><%=ec.getItemPrendaDTO().getColor().getDescripcion() %></td>
-				<td><%=ec.getItemPrendaDTO().getTalle().getDescripcion() %></td>				
+				<td><%=it.getPrenda() %></td>
+				<td><%=it.getColor() %></td>
+				<td><%=it.getTalle() %></td>
+				<td><%=it.getCantidad() %></td>
+				<% for (String ub: it.getUbicacion()){ %>
+					<td><%=ub %></td>
+				<%} %>				
 			</tr>
 	<%} %>			
 	</table>

@@ -6,6 +6,7 @@ import java.util.List;
 import dao.AlmacenDAO;
 import dao.PedidoDAO;
 import entities.ItemBultoPrendaEntity;
+import entities.ItemPedidoEntity;
 import entities.ReservasEntity;
 
 public class Almacen {
@@ -99,7 +100,7 @@ public class Almacen {
 
 	//Jonathan Methods ---> Consultar antes de modificar
 	
-	public void ReservarItemsPrendas(List<ItemBultoPrenda> lstItemBultoPrenda, float cantidadTotalaReservar, Pedido pedido)//reserva la cantidad enviada como parametro en esta lista de items
+	public void ReservarItemsPrendas(List<ItemBultoPrenda> lstItemBultoPrenda, float cantidadTotalaReservar, Pedido pedido, ItemPedido itemPedido)//reserva la cantidad enviada como parametro en esta lista de items
 	{
 		float cantidadAux = cantidadTotalaReservar;
 		ItemBultoPrenda itemActual = null;
@@ -116,7 +117,7 @@ public class Almacen {
 				ReservasEntity reserva = new ReservasEntity();
 				reserva.setCantidad(cantidadAux);
 				reserva.setItemBultoEntity(itemActual.toEntity());
-				reserva.setPedido(pedido.toEntity());
+				reserva.setItemPedidoEntity(itemPedido.Toentity());
 				SaveOrUpdateReserva(reserva);
 														
 				float cantidadReservadaActualizada = itemActual.getCantidadReservada()+cantidadAux;							
@@ -132,7 +133,7 @@ public class Almacen {
 				ReservasEntity reserva = new ReservasEntity();
 				reserva.setCantidad(cantidadDisponibleenBulto);
 				reserva.setItemBultoEntity(itemActual.toEntity());
-				reserva.setPedido(pedido.toEntity());
+				reserva.setItemPedidoEntity(itemPedido.Toentity());
 				SaveOrUpdateReserva(reserva);															
 				
 				

@@ -3,6 +3,7 @@ package negocio;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.ItemPrendaDTO;
 import entities.ItemMaterialPrendaEntity;
 import entities.ItemPrendaEntity;
 
@@ -114,6 +115,14 @@ public class ItemPrenda {
 		
 		
 		return lstReturn;
+	}
+	public ItemPrendaDTO toDTO() {
+		ItemPrendaDTO itemReturn = new ItemPrendaDTO();
+		itemReturn.setIditemPrenda(this.getIditemPrenda());
+		itemReturn.setColor(this.getColor().toDTO());
+		itemReturn.setPrendaDTO(this.getPrenda().toDTO());
+		itemReturn.setTalle(this.getTalle().toDTO());				
+		return itemReturn;
 	}
 
 }
