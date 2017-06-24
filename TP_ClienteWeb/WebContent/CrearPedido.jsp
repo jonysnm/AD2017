@@ -1,3 +1,6 @@
+<%@page import="dto.ColorDTO"%>
+<%@page import="dto.TalleDTO"%>
+<%@page import="dto.PrendaDTO"%>
 <%@page import="dto.SucursalDTO"%>
 <%@page import="businessDelegate.BusinessDelegate"%>
 <%@page import="dto.ClienteDTO"%>
@@ -62,11 +65,50 @@
 				<tr id="itemPedido">
 					<th>ItemPedido:</th>
 					<td><b>Prenda</b></td>
-					<td><input type="text" name="prenda"></td>
+					<select  name="prenda"><option>Seleccione
+								una opcion</option>
+							<%
+// 								List<PrendaDTO> prendasDTOs = BusinessDelegate.getInstancia().obtenerPrendas());
+							%>
+							<%
+// 								for (PrendaDTO prendaDTO : prendasDTOs) {
+							%>
+							<option value="dasasd">lalal</option>
+<%-- 							<option value="<%=prendaDTO.getCodigo()%>"><%=prendaDTO.getCodigo()%></option> --%>
+							<%
+// 								}
+							%>
+					</select></td>
 					<td><b>Talle</b></td>
-					<td><input type="text" name="talle"></td>
+					<select  name="talle"><option>Seleccione
+								una opcion</option>
+							<%
+// 								List<TalleDTO> TallesDTOs = BusinessDelegate.getInstancia().obtenerTalles());
+							%>
+							<%
+// 								for (TalleDTO talleDTO : TallesDTOs) {
+							%>
+							<option value="adsads">lalal</option>
+<%-- 							<option value="<%=talleDTO.getDescripcion()%>"><%=talleDTO.getDescripcion()%></option> --%>
+							<%
+// 								}
+							%>
+					</select></td>
 					<td><b>Color</b></td>
-					<td><input type="text" name="color"></td>
+						<select  name="color"><option>Seleccione
+								una opcion</option>
+							<%
+// 								List<ColorDTO> coloresDTOs = BusinessDelegate.getInstancia().obtenerColoresDTOS());
+							%>
+							<%
+// 								for (ColorDTO colorDTO : coloresDTOs) {
+							%>
+							<option value="asddas">asddas</option>
+<%-- 							<option value="<%=colorDTO.getDescripcion()%>"><%=colorDTO.getDescripcion()%></option> --%>
+							<%
+// 								}
+							%>
+					</select></td>
 					<td><b>Cantidad</b></td>
 					<td><input type="text" name="cantidad"></td>
 				</tr>

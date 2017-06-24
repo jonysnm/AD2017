@@ -68,8 +68,14 @@ public class ControladorWeb extends HttpServlet {
 		
 //		BusinessDelegate.getInstancia().obtenerSucursal(idSuc);
 		List<ItemPedidoDTO> itemPedidoDTOs = new ArrayList<ItemPedidoDTO>();
-		ItemPedidoDTO itemPedidoDTO = new ItemPedidoDTO();
-//		itemPedidoDTO.set
+		for(int i=0; i<variasPrendas.length;i++){
+			ItemPedidoDTO itemPedidoDTO = new ItemPedidoDTO();
+			itemPedidoDTO.setCantidad(new Float(varioscantidad[i]));
+			ItemPrendaDTO itemPrendaDTO = new ItemPrendaDTO();
+			itemPedidoDTO.setItemPrendaDTO(itemPrendaDTO);
+			
+		}
+//		itemPedidoDTO.setCantidad(cantidad);
 //		PedidoDTO pedDTO = new PedidoDTO();
 		
 		
