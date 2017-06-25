@@ -1,10 +1,11 @@
 package dto;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 
-public class PedidoaDespacharDTO {
+public class PedidoaDespacharDTO implements Serializable {
 
 	private int id;
 	private Date fechaProbableDespacho;

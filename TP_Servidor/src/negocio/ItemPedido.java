@@ -119,7 +119,7 @@ public class ItemPedido {
 			itemPedidoReturn.setIdItemPedido(this.getIdItemPedido());
 			itemPedidoReturn.setImporte(this.getImporte());
 			itemPedidoReturn.setIprenda(this.getItemprenda().ToEntity());
-			//itemPedidoReturn.setPedido(this.getPedido().toEntity());
+			itemPedidoReturn.setPedido(this.getPedido().toEntity());
 			
 			return itemPedidoReturn;
 		}

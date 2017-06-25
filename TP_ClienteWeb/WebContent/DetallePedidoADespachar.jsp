@@ -16,28 +16,33 @@
 	PedidoaDespacharDTO pedidoDTO  = (PedidoaDespacharDTO)request.getAttribute("pedidoaDespacharDTO");	
 	%>
 	
-	<form action="ControladorWeb?action=XXX" method="post">
-	<input type="hidden" name="hdnIdPedidoXXX" value="" />
-	<input type="hidden" name="hdnOperacionXXX" value="" />
+	<form action="ControladorWeb?action=Marcar_Pedido_Despachado" method="post">
+	<input type="hidden" name="hdnIdPedidoDespachado" value="" />
+	<input type="hidden" name="hdnOperacionDespacho" value="" />
 
-<h1>Datos Del Pedido</h1>
+<h1>Detalles del Pedido:&nbsp; <%=pedidoDTO.getId()%> </h1>
+
+<table style="margin-bottom: 10px">
+	<tr>
+		<th>
+			Indicar Fecha Confirmada Delivery:
+			<input type="date" name="txtFechaConfirmada">			
+		</th>
+	</tr>
+</table>			
+
 	<table>	
 			<tr>
 				<th>Id Pedido</th>
 				<th>Fecha Probable Despacho</th>
 				<th>Cliente</th>
-				<th>CUIT</th>
-				<th>Accion</th>
+				<th>CUIT</th>				
 			</tr>
 			<tr>
 				<td><%=pedidoDTO.getId()%></td>
 				<td><%=pedidoDTO.getFechaProbableDespacho()%></td>
 				<td><%=pedidoDTO.getNombreCliente() %></td>
 				<td><%=pedidoDTO.getCuit() %></td>
-				<td>
-					<input type="submit" name="<%=pedidoDTO.getId() %>" value="AprobarXXX" onclick="this.form.hdnIdPedido.value=this.name;this.form.hdnOperacion.value=this.value;this.form.submit();" />
-					<input type="submit" name="<%=pedidoDTO.getId() %>" value="RechazarXXX" onclick="this.form.hdnIdPedido.value=this.name;this.form.hdnOperacion.value=this.value;this.form.submit();" />					 									
-				</td>
 			</tr>
 	</table>
 			
@@ -58,12 +63,26 @@
 				<td><%=it.getColor() %></td>
 				<td><%=it.getTalle() %></td>
 				<td><%=it.getCantidad() %></td>
-				<% for (String ub: it.getUbicacion()){ %>
-					<td><%=ub %></td>
-				<%} %>				
+				<td>
+					<% for (String ub: it.getUbicacion()){ %>
+						<%=ub %>
+						<% if(it.getUbicacion().size()>1) {%> 
+							&nbsp;
+						<%} %>
+					<%} %>		
+				</td>	
 			</tr>
 	<%} %>			
 	</table>
+	
+	<table style="margin-top: 10px">
+	<tr>
+		<th style="text-align:center">			
+			<input type="submit" name="<%=pedidoDTO.getId() %>" value="Marcar Como Despachado" onclick="this.form.hdnIdPedidoDespachado.value=this.name;this.form.hdnOperacionDespacho.value=this.value;this.form.submit();" />
+		</th>
+	</tr>
+</table>			
+		
 	</form>
 	
 	

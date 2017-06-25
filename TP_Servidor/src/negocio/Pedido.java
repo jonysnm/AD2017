@@ -45,6 +45,7 @@ public Pedido(){}
 			item.setCantidad(ip.getCantidad());
 			item.setImporte(ip.getImporte());
 			item.setItemprenda(new ItemPrenda(ip.getIprenda()));
+			item.setPedido(this);
 			items.add(item);
 		}
 		this.setItems(items);
@@ -265,24 +266,23 @@ public Pedido(){}
 		pedidoEntity.setFechaCreacion(this.getFechaCreacion());
 		pedidoEntity.setFechaprobableDespacho(this.getFechaprobableDespacho());
 		pedidoEntity.setFecharealDespacho(this.getFecharealDespacho());
-		//TODO:verificar Jonathan pedidoEntity.setCliente(this.getCliente().ToEntity());
-		pedidoEntity.setItems(ConvertiraListItemPedidoEntity(this.getItems()));
+		pedidoEntity.setCliente(this.getCliente().ToEntity());		
 		pedidoEntity.setSucursal(this.getSucursal().toEntity());
+		
+		ItemPedidoEntity itemPedidoAux= null;
+		for (ItemPedido itemPedido : this.getItems()) {
+			itemPedidoAux = new ItemPedidoEntity();
+			itemPedidoAux.setCantidad(itemPedido.getCantidad());
+			itemPedidoAux.setIdItemPedido(itemPedido.getIdItemPedido());
+			itemPedidoAux.setImporte(itemPedido.getImporte());
+			itemPedidoAux.setIprenda(itemPedido.getItemprenda().ToEntity());
+			itemPedidoAux.setPedido(pedidoEntity);
+			pedidoEntity.agregarItem(itemPedidoAux);
+		}
 		
 		return pedidoEntity;
 	}
-	private List<ItemPedidoEntity> ConvertiraListItemPedidoEntity(List<ItemPedido> itemsToConvert) {
-		
-		List<ItemPedidoEntity> lstReturn = new ArrayList<ItemPedidoEntity>();
-		ItemPedidoEntity itemEntity = null;
-		for (ItemPedido itemPedido : this.getItems()) {
-			itemEntity = itemPedido.Toentity();			
-			lstReturn.add(itemEntity);
-		}			
-		return lstReturn;
-	}
-	
-	
+
 	
 	public PedidoDTO toDTO() {
 

@@ -188,6 +188,18 @@ public class ControladorPedido {
 			p.update();				
 	}
 	
+	public void ActualizarFechaDespachado(String fechaConfirmadaDespacho, int idPedidoDespachado) throws ParseException {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date parsed =  format.parse(fechaConfirmadaDespacho);
+		
+		
+		Pedido p=PedidoDAO.getInstancia().getPedido(idPedidoDespachado);
+			p.setFecharealDespacho(parsed);
+			p.update();	
+		
+	}	
+	
+	
 //FIN Jonathan Methods--> CONSULTAR ANTES DE MODIFICAR
 	
 
@@ -256,7 +268,7 @@ public class ControladorPedido {
 		}
 		return itemsPrendasDTO;
 	}
-	
+
 	
 
 }

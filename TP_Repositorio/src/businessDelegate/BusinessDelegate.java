@@ -139,6 +139,11 @@ public class BusinessDelegate {
 		return interfazRemotaDespacho.obtenerPedidoaDespachar(idPedidoaDespachar);
 	}
 	
+	public void ActualizarFechaDespachado(String fechaConfirmadaDespacho, int idPedidoDespachado) throws RemoteException{
+		interfazRemotaPuntoVenta.ActualizarFechaDespachado(fechaConfirmadaDespacho, idPedidoDespachado);
+		
+	}
+	
 	
 	//-------Colores-----------------
 	public void altaColor(ColorDTO colorDTO) throws RemoteException{
@@ -189,6 +194,5 @@ public class BusinessDelegate {
 	public List<ItemPrendaDTO> obtenerItemPrenda() throws RemoteException{
 		return interfazRemotaPuntoVenta.obtenerItemPrenda();
 	}
-	
-	
+			
 }

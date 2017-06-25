@@ -91,7 +91,7 @@ public class Cliente {
 		clienteEntity.setLimiteCredito(this.getLimiteCredito());
 		clienteEntity.setNombre(this.getNombre());		
 		clienteEntity.setTipofacturacion(this.getTipoFacturacion());
-		clienteEntity.setCtacte(this.getCtacte().toEntity());
+		//clienteEntity.setCtacte(this.getCtacte().toEntity());
 		
 		return clienteEntity;
 	}

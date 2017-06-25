@@ -36,6 +36,7 @@ public interface IPuntoDeVentaControlador extends Remote{
 	public void cambiarEstadoPedido(Integer idPedido,EstadoAprobacionPedidoCliente estado) throws RemoteException;
 	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacionPorCliente(int idCliente)throws RemoteException;
 	public void ActualizarFechaProbableDespacho(String fechaDeseadaEntrega, int idPedido)throws RemoteException;
+	public void ActualizarFechaDespachado(String fechaConfirmadaDespacho, int idPedidoDespachado)throws RemoteException;
 	
 	// Talle
 	public void altaTalle(TalleDTO talleDTO) throws RemoteException;

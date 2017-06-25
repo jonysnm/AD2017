@@ -1,6 +1,7 @@
 package test;
 
 
+import controladores.ControladorPedido;
 import hbt.HibernateUtil;
 
 public class Test {
@@ -16,9 +17,9 @@ public class Test {
 		Test.getInstancia();
 		
 		new HibernateUtil();
+        AgregarDatos.guardarInfo();
 		
 //ControladorPedido.getInstancia().IniciarProcesamientoPedidoAprobado(1);
-        AgregarDatos.guardarInfo();
 //		Pedido ped = PedidoDAO.getInstancia().getPedidoAprobado(1);	
 //		Prenda ped = PedidoDAO.getInstancia().getPrenda(1);
 		

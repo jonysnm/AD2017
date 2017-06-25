@@ -110,7 +110,7 @@ public class AlmacenDAO {
 	public List<ReservasEntity> obtenerReservas(Integer idItemPedido)
 	{
 		Session s = sf.openSession();
-		String consulta = "from ReservasEntity ib where ib.ItemPedidoEntity.IdItemPedido= :id";		
+		String consulta = "from ReservasEntity ib where ib.itemPedidoEntity.IdItemPedido= :id";		
 		@SuppressWarnings("unchecked")
 		ArrayList<ReservasEntity> lista = (ArrayList<ReservasEntity>) s.createQuery(consulta)
 				.setParameter("id", idItemPedido).list();

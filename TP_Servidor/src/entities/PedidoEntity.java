@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -128,5 +129,13 @@ public class PedidoEntity implements Serializable{
 //		this.reservas = reservas;
 //	}
 	
+	//methods Jonathan--> consultar antes de modificar
+	public void agregarItem(ItemPedidoEntity nuevoItem){
+		if(this.getItems()==null)
+			this.setItems(new ArrayList<ItemPedidoEntity>());
+		this.items.add(nuevoItem);
+	}
+	
+	//fin methods JOnathan
 	
 }

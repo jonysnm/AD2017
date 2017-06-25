@@ -1,8 +1,9 @@
 package dto;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ItemPedidoaDespacharDTO {
+public class ItemPedidoaDespacharDTO implements Serializable {
 
 	private List<String> ubicacion;
 	private String prenda;

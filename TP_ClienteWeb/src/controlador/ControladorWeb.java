@@ -225,6 +225,42 @@ public class ControladorWeb extends HttpServlet {
 			jspPage = "/DetallePedidoADespachar.jsp";
 			
 			break;
+
+		case "Marcar_Pedido_Despachado"://En Este paso el personal de despacho pone la fecha de delivery confirmada con el flete y lo marca como Despachado para que se inicie el proceso de facturacion
+			
+			
+			
+			
+			int idPedidoDespachado = Integer.parseInt(request.getParameter("hdnIdPedidoDespachado"));
+			String fechaConfirmadaDespacho = request.getParameter("txtFechaConfirmada");								
+			String operacionDespacho = request.getParameter("hdnOperacionDespacho");
+
+			mensaje="";
+						
+			BusinessDelegate.getInstancia().ActualizarFechaDespachado(fechaConfirmadaDespacho,idPedidoDespachado);
+			BusinessDelegate.getInstancia().cambiarEstadoPedido(idPedidoDespachado, EstadoAprobacionPedidoCliente.Despachado);
+			mensaje="El pedido nro: "+ Integer.toString(idPedidoDespachado) + "ha sido despachado - Se iniciará el proceso de facturación";
+			
+//			else
+//			{
+//				BusinessDelegate.getInstancia().cambiarEstadoPedido(idPedido, EstadoAprobacionPedidoCliente.RechazadoenSucursal);
+//				mensaje="El pedido nro: "+ Integer.toString(idPedido) + "ha sido rechazado";				
+//			}
+
+			request.setAttribute("Mensaje", mensaje);
+			jspPage = "/Confirmaciones.jsp";
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			break;			
 		case "altaTalle":
 			try {
 				TalleDTO talleDTO = new TalleDTO();

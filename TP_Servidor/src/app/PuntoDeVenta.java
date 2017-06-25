@@ -109,6 +109,17 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 		}
 		
 	}
+	
+	@Override
+	public void ActualizarFechaDespachado(String fechaConfirmadaDespacho, int idPedidoDespachado)
+			throws RemoteException {
+		try {
+			ControladorPedido.getInstancia().ActualizarFechaDespachado( fechaConfirmadaDespacho,idPedidoDespachado);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}				
+	}	
+	
 	// FIN Jonathan Methods
 	
 	
@@ -158,6 +169,6 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 	public List<ItemPrendaDTO> obtenerItemPrenda() throws RemoteException{
 		return ControladorPedido.getInstancia().obtenerItemPrenda();
 	}
-	
+
 
 }
