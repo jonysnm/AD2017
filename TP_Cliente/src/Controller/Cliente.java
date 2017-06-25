@@ -32,30 +32,30 @@ public class Cliente {
 			nuevoCliente();
 			nuevaSucursal();
 			Integer id=nuevoPedido();
-			
-		
+//			
+//		
 			//nuevaubicacion();
 			System.out.println(("IDPedido: " + id));
 			Integer id2=businessDelegate.grabarFactura(id);
 			System.out.println(("IDFactura: " + id2));
-			//businessDelegate.confirmarPedido(1);
-			//businessDelegate.IniciarProcesamientoPedidoAprobado(1);
+			businessDelegate.confirmarPedido(1);
+			businessDelegate.IniciarProcesamientoPedidoAprobado(1);
       	} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 		try{
 			businessDelegate=BusinessDelegate.getInstancia();
-			//nuevoCliente();
-			//cliente=businessDelegate.buscarCliente(1);
-			//System.out.println(cliente.getNombre());
-			List<ClienteDTO> clientesDTO=businessDelegate.obtenerClientes();
-			for (ClienteDTO cli : clientesDTO) {
-		     	int cantidad = 0;
-				System.out.printf("\nCLIENTE: %d - %s",cantidad++,cli.getNombre());	
-			}
 			nuevoCliente();
-			ClienteDTO c=businessDelegate.buscarCliente("27111111117");
-			System.out.printf("\nCLIENTE:%s",c.getNombre());
+//			//cliente=businessDelegate.buscarCliente(1);
+//			//System.out.println(cliente.getNombre());
+//			List<ClienteDTO> clientesDTO=businessDelegate.obtenerClientes();
+//			for (ClienteDTO cli : clientesDTO) {
+//		     	int cantidad = 0;
+//				System.out.printf("\nCLIENTE: %d - %s",cantidad++,cli.getNombre());	
+//			}
+//			nuevoCliente();
+//			ClienteDTO c=businessDelegate.buscarCliente("27111111117");
+//			System.out.printf("\nCLIENTE:%s",c.getNombre());
     	}catch (RemoteException e){
     		e.printStackTrace();
     	}
