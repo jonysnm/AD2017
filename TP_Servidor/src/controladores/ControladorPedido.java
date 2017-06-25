@@ -155,11 +155,54 @@ public class ControladorPedido {
 			pedidoDao.NuevoItemFaltantePedido(itemFaltantePedido);
 		}		
 	}
-//	FIXME HACER ESTO
+//--> Jonathan Method : consultar antes de modificar
 	private void DefiniryCrearTipoOrdenProduccion(List<ItemFaltantePedido> lstItemsFaltantesPedido) {
 		// SI SON MAYORES A O SI ES PARCIAL
+		
+		int idPrenda=0, idColor=0, idTalle=0;
+		int contadorFaltanteColorporPrenda=0;
+		int contadorFaltanteTalleporPrenda=0;
+		List<Integer> lstIDsPrendasYaGeneradas = new ArrayList<Integer>();
+		
 		for (ItemFaltantePedido itemFaltantePedido : lstItemsFaltantesPedido) {
-			itemFaltantePedido.getItemPrenda();
+			boolean seGeneroOPCparaEstaPrenda = false;
+			idPrenda = itemFaltantePedido.getItemPrenda().getPrenda().getCodigo();
+			idColor = itemFaltantePedido.getItemPrenda().getColor().getIdcolor();
+			idTalle = itemFaltantePedido.getItemPrenda().getTalle().getIdTalle();
+			
+			for (ItemFaltantePedido itemFaltantePedidoAux : lstItemsFaltantesPedido) {
+				if(idPrenda == itemFaltantePedidoAux.getItemPrenda().getPrenda().getCodigo()
+						&& idColor == itemFaltantePedidoAux.getItemPrenda().getColor().getIdcolor()	)
+				{
+					contadorFaltanteColorporPrenda++;
+				}
+
+				if(idPrenda == itemFaltantePedidoAux.getItemPrenda().getPrenda().getCodigo()
+						&& idTalle == itemFaltantePedidoAux.getItemPrenda().getTalle().getIdTalle())
+				{
+					contadorFaltanteTalleporPrenda++;
+				}
+				
+				if(contadorFaltanteColorporPrenda>=3 || contadorFaltanteTalleporPrenda>=3)
+				{
+					
+					if(!lstIDsPrendasYaGeneradas.contains(idPrenda))
+					{					
+						seGeneroOPCparaEstaPrenda = true;
+						lstIDsPrendasYaGeneradas.add(idPrenda);
+						//TODO: generar OPC para esta prenda idPrenda					
+					}
+				}
+			}
+			 if(!seGeneroOPCparaEstaPrenda)
+			 {
+				if(!lstIDsPrendasYaGeneradas.contains(idPrenda))
+				{							
+					 lstIDsPrendasYaGeneradas.add(idPrenda);
+					 //TODO: Generar OPP para esta prenda idPrenda
+				}
+			 }
+			
 		}
 		
 	}
