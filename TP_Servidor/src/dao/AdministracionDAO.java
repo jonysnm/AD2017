@@ -70,7 +70,7 @@ public class AdministracionDAO {
 			SucursalEntity se = SucursalToEntity(s);
 			session.update(se);
 			session.getTransaction().commit();
-			session.close();
+			//session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("ERROR en el AdministraciónDAO MODIFICAR SUCURSAL");
@@ -85,7 +85,7 @@ public class AdministracionDAO {
 			session.delete(se);
 			session.flush();
 			session.getTransaction().commit();
-			session.close();
+//			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("ERROR en el AdministraciónDAO Eliminar SUCURSAL");
@@ -322,6 +322,7 @@ public class AdministracionDAO {
 		se.setProvincia(s.getProvincia());
 		if(se.getRecepcionPedidos() != null) se.setRecepcionPedidos(EmpleadoToEntity(s.getRecepcionPedidos()));
 		se.setTelefono(s.getTelefono());
+		se.setId(s.getId());
 		return se;
 	}
 
@@ -403,7 +404,15 @@ public class AdministracionDAO {
 				tdto.setNombre(tl.getNombre());
 				tdto.setDireccion(tl.getDireccion());
 				tdto.setCodigoPostal(tl.getCodigoPostal());
-				//completar
+				tdto.setProvincia(tl.getProvincia());
+				tdto.setLocalidad(tl.getLocalidad());
+				tdto.setTelefono(tl.getTelefono());
+				if(tl.getGerente() != null)
+				tdto.setIdGerente(tl.getGerente().getId());
+				if(tl.getRecepcionPedidos() != null)
+				tdto.setIdRecepcionPedidos(tl.getRecepcionPedidos().getId());
+				
+	
 				
 				listatdto.add(tdto);
 			}

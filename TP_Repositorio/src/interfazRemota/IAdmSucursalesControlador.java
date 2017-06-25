@@ -31,5 +31,7 @@ public interface IAdmSucursalesControlador extends Remote{
 
 	public void modificarEmpleado(EmpleadoDTO e)throws RemoteException;
 
+	public void bajaSucursal(SucursalDTO e)throws RemoteException;
+
 
 }

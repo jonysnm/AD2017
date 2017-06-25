@@ -210,6 +210,16 @@ public class BusinessDelegate {
 	public void modificarEmpleado(EmpleadoDTO e)throws RemoteException{
 		interfazRemotaSucursales.modificarEmpleado(e);
 	}
-
-			
+	public List<SucursalDTO> getallSucursales()throws RemoteException {
+		return interfazRemotaSucursales.getallSucursales();
+	}
+	public void modificarSucursal(SucursalDTO e)throws RemoteException{
+		interfazRemotaSucursales.editarSucursal(e);
+		
+	}
+	public void bajaSucursal(SucursalDTO e)throws RemoteException{
+		interfazRemotaSucursales.bajaSucursal(e);
+		
+	}	
+	
 }

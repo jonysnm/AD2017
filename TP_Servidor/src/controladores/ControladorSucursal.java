@@ -38,6 +38,11 @@ public class ControladorSucursal {
 		Sucursal sucursal = SucursalDTO2Negocio(s);
 		sucursal.editar();
 	}
+	
+	public void bajaSucursal(SucursalDTO s) {
+		Sucursal sucursal = SucursalDTO2Negocio(s);
+		sucursal.elminar();
+	}
 
 	public SucursalDTO obtenerSucursal(int idSuc) throws Exception {
 		return AdministracionDAO.getInstancia().getSucursal(idSuc).toDTO();
@@ -109,6 +114,7 @@ public class ControladorSucursal {
 		suc.setProvincia(s.getProvincia());
 		suc.setRecepcionPedidos(recepcionPedidos);
 		suc.setTelefono(s.getTelefono());
+		suc.setId(s.getId());
 		return suc;
 	}
 
@@ -126,6 +132,8 @@ public class ControladorSucursal {
 		em.editar();
 		
 	}
+
+	
 
 	
 }
