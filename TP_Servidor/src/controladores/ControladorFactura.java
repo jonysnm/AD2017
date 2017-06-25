@@ -24,11 +24,11 @@ public class ControladorFactura {
 		}
 		return instancia;
 	}
-	public int grabarFactura (PedidoDTO pedido){
-		Pedido p=PedidoDAO.getInstancia().getPedido(1);
+	public int grabarFactura (Integer idPedido){
+		Pedido p=PedidoDAO.getInstancia().getPedido(idPedido);
 		if (p != null){
 			Factura factura = new Factura();
-			Cliente cliente =ClienteDAO.getInstancia().getCliente(pedido.getCliente().getId());
+			Cliente cliente =ClienteDAO.getInstancia().getCliente(p.getCliente().getId());
 			if (cliente != null){
 				factura.setCliente(cliente);
 			}else{
@@ -51,7 +51,7 @@ public class ControladorFactura {
 		    factura.setItemsFactura(itemsFactura);
 			float total = factura.calcularTotal();
 			factura.setTotal(total);
-			Integer id=FacturaDAO.getInstancia().grabarFactura(factura);;
+			Integer id=FacturaDAO.getInstancia().grabarFactura(factura);
 			System.out.println("La factura se grabó con éxito");
 			return id;
 		}

@@ -18,9 +18,9 @@ public class Facturacion extends UnicastRemoteObject implements IFactura{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public int grabarFactura (PedidoDTO pedido) throws RemoteException{
+	public int grabarFactura (Integer idPedido) throws RemoteException{
 		try {
-			return ControladorFactura.getInstancia().grabarFactura(pedido);
+			return ControladorFactura.getInstancia().grabarFactura(idPedido);
 			
 		} catch (Exception e) {
 			throw new RemoteException("Error al crear nueva FACTURA: "+e.getMessage());

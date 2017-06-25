@@ -4,13 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.IO;
-
 import entities.FacturaEntity;
 import entities.ItemFacturaEntity;
-import entities.ItemPedidoEntity;
 import estados.EstadoFactura;
-import sun.security.x509.IPAddressName;
 
 public class Factura {
 
@@ -70,18 +66,6 @@ public class Factura {
 
 	public void setPago(Boolean pago) {
 		this.pago = pago;
-	}
-	public Factura(int nro, Date fechaEmision, Date fechaVencimiento,
-			Cliente cliente, List<ItemFactura> itemsFactura, float total,
-			EstadoFactura estado) {
-		super();
-		this.nro = nro;
-		this.fechaEmision = fechaEmision;
-		this.fechaVencimiento = fechaVencimiento;
-		this.cliente = cliente;
-		this.itemsFactura = itemsFactura;
-		this.total = total;
-		this.estado = estado;
 	}
 	public Factura() {
 		super();

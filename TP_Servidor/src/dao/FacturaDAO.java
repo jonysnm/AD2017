@@ -32,7 +32,7 @@ public class FacturaDAO {
 	// ALTAS
 	public Integer grabarFactura(Factura factura){
 		Session session = sf.openSession();
-		session.getTransaction().begin();
+		session.beginTransaction();
 		FacturaEntity f=new FacturaEntity();
 		f.setCliente((ClienteEntity)session.get(ClienteEntity.class, (factura.getCliente().getId())));
 		//f.setEstado(factura.getEstado());

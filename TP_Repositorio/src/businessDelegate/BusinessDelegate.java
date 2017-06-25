@@ -215,8 +215,8 @@ public class BusinessDelegate {
 		interfazRemotaSucursales.modificarEmpleado(e);
 	}
 
-	public int grabarFactura (PedidoDTO pedido) throws RemoteException{
-		return interfazRemotaFacturacion.grabarFactura(pedido);
+	public int grabarFactura (Integer idPedido) throws RemoteException{
+		return interfazRemotaFacturacion.grabarFactura(idPedido);
 
 	}
 	public List<SucursalDTO> getallSucursales()throws RemoteException {

@@ -29,13 +29,15 @@ public class Cliente {
 	public Cliente() {
 		try {
 			businessDelegate = BusinessDelegate.getInstancia();
-			//nuevoCliente();
-			//nuevaSucursal();
+			nuevoCliente();
+			nuevaSucursal();
 			Integer id=nuevoPedido();
 			
 		
 			//nuevaubicacion();
 			System.out.println(("IDPedido: " + id));
+			Integer id2=businessDelegate.grabarFactura(id);
+			System.out.println(("IDFactura: " + id2));
 			//businessDelegate.confirmarPedido(1);
 			//businessDelegate.IniciarProcesamientoPedidoAprobado(1);
       	} catch (RemoteException e) {
@@ -165,8 +167,7 @@ public class Cliente {
 		
 
 		Integer id1=businessDelegate.nuevoPedido(pedidoDTO, 1);
-		Integer id=businessDelegate.grabarFactura(pedidoDTO);
-		System.out.println(("IDFactura: " + id));
+		
 		return id1;
 		}
 
