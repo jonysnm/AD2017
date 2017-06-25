@@ -63,10 +63,10 @@ public class PedidoEntity implements Serializable{
 	@ForeignKey(name="FK_SUCURSAL_ID")
 	private SucursalEntity sucursal;
 	
-	@ManyToOne
-	@JoinColumn(name="factura_id")
-	@ForeignKey(name="FK_FACTURA_ID")
-	private FacturaEntity factura;
+	//@ManyToOne
+	//@JoinColumn(name="factura_id")
+	//@ForeignKey(name="FK_FACTURA_ID")
+	//private FacturaEntity factura;
 	@Enumerated(EnumType.STRING)
 	private EstadoAprobacionPedidoCliente estado;
 

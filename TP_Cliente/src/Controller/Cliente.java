@@ -29,10 +29,12 @@ public class Cliente {
 	public Cliente() {
 		try {
 			businessDelegate = BusinessDelegate.getInstancia();
-			nuevoCliente();
-			nuevaSucursal();
+			//nuevoCliente();
+			//nuevaSucursal();
 			Integer id=nuevoPedido();
-			nuevaubicacion();
+			
+		
+			//nuevaubicacion();
 			System.out.println(("IDPedido: " + id));
 			//businessDelegate.confirmarPedido(1);
 			//businessDelegate.IniciarProcesamientoPedidoAprobado(1);
@@ -159,8 +161,13 @@ public class Cliente {
 		item.setItemPrendaDTO(itemPrendaDTO);
 		itemsPedido.add(item);
 		pedidoDTO.setItems(itemsPedido);
+		
+		
 
-		return businessDelegate.nuevoPedido(pedidoDTO, 1);
-	
+		Integer id1=businessDelegate.nuevoPedido(pedidoDTO, 1);
+		Integer id=businessDelegate.grabarFactura(pedidoDTO);
+		System.out.println(("IDFactura: " + id));
+		return id1;
 		}
+
 }

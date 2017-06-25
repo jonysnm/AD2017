@@ -6,11 +6,13 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 import app.ClientesRMI;
+import app.Facturacion;
 import app.Logistica;
 import app.PuntoDeVenta;
 import app.Sucursales;
 import interfazRemota.IAdmSucursalesControlador;
 import interfazRemota.IClienteControlador;
+import interfazRemota.IFactura;
 import interfazRemota.ILogistica;
 import interfazRemota.IPuntoDeVentaControlador;
 
@@ -43,10 +45,12 @@ public class Server {
 			IAdmSucursalesControlador gestion=new Sucursales();
 			IClienteControlador gestionCliente = new ClientesRMI();
 			ILogistica gestiondespacho=new Logistica();
+			IFactura gestionfacturacion=new Facturacion();
 			Naming.rebind("//localhost/GestionSucursal",gestion);
 			Naming.rebind("//localhost/GestionPuntoVenta",gestionpv);
 			Naming.rebind("//localhost/GestionCliente",gestionCliente);
 			Naming.rebind("//localhost/GestionDespacho", gestiondespacho);
+			Naming.rebind("//localhost/GestionFacturacion",gestionfacturacion);
 			System.out.println("Se fija el SERVIDOR PUNTO DE VENTA");
 			System.out.println("Se fija el SERVIDOR GESTION SUCURSALES");
 			System.out.println("Se fija el SERVIDOR GESTION CLIENTES");

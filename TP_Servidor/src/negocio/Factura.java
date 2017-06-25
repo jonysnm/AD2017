@@ -1,12 +1,19 @@
 package negocio;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.IO;
+
+import entities.FacturaEntity;
+import entities.ItemFacturaEntity;
+import entities.ItemPedidoEntity;
 import estados.EstadoFactura;
+import sun.security.x509.IPAddressName;
 
 public class Factura {
-	
+
 	private int nro;
 	private Date fechaEmision;
 	private Date fechaVencimiento;
@@ -14,6 +21,7 @@ public class Factura {
 	private List<ItemFactura> itemsFactura;
 	private float total;
 	private EstadoFactura estado;
+	private Boolean pago;
 	public int getNro() {
 		return nro;
 	}
@@ -56,6 +64,13 @@ public class Factura {
 	public void setEstado(EstadoFactura estado) {
 		this.estado = estado;
 	}
+	public Boolean isPago() {
+		return pago;
+	}
+
+	public void setPago(Boolean pago) {
+		this.pago = pago;
+	}
 	public Factura(int nro, Date fechaEmision, Date fechaVencimiento,
 			Cliente cliente, List<ItemFactura> itemsFactura, float total,
 			EstadoFactura estado) {
@@ -79,8 +94,31 @@ public class Factura {
 				+ cliente + ", itemsFactura=" + itemsFactura + ", total="
 				+ total + ", estado=" + estado + "]";
 	}
-	
+	public float calcularTotal (){
+		float total = 0F;
 
-	
-	
+		for (ItemFactura item : this.itemsFactura){
+			total = total + item.calcularSubtotal();
+		}
+
+		return total;
+	}
+	public Factura(FacturaEntity f){
+		this.cliente=new Cliente(f.getCliente());
+		this.estado=f.getEstado();
+		this.fechaEmision=f.getFechaEmision();
+		this.fechaVencimiento=f.getFechaVencimiento();
+		List<ItemFactura> items=new ArrayList<ItemFactura>();
+		for(ItemFacturaEntity ip:f.getItemsFactura()){
+			ItemFactura item=new ItemFactura();
+			item.setCantidad(ip.getCantidad());
+			item.setPedido(new Pedido(ip.getPedido()));
+			item.setPrecioUnitario(ip.getPrecioUnitario());
+			items.add(item);
+		}
+		this.setItemsFactura(items);			
+	}			
 }
+
+
+

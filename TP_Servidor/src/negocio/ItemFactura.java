@@ -2,26 +2,30 @@ package negocio;
 
 public class ItemFactura {
 	private int id;
-	private int cantidad;
-	private Prenda prenda;
+	private float cantidad;
+	private Pedido pedido;
 	private float precioUnitario;
+	
+	public ItemFactura() {
+		super();
+	}
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getCantidad() {
+	public float getCantidad() {
 		return cantidad;
 	}
-	public void setCantidad(int cantidad) {
+	public void setCantidad(Float cantidad) {
 		this.cantidad = cantidad;
 	}
-	public Prenda getPrenda() {
-		return prenda;
+	public Pedido getPedido() {
+		return pedido;
 	}
-	public void setPrenda(Prenda prenda) {
-		this.prenda = prenda;
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
 	}
 	public float getPrecioUnitario() {
 		return precioUnitario;
@@ -29,24 +33,14 @@ public class ItemFactura {
 	public void setPrecioUnitario(float precioUnitario) {
 		this.precioUnitario = precioUnitario;
 	}
-	@Override
-	public String toString() {
-		return "ItemFactura [id=" + id + ", cantidad=" + cantidad + ", prenda="
-				+ prenda + ", precioUnitario=" + precioUnitario + "]";
-	}
-	public ItemFactura(int id, int cantidad, Prenda prenda, float precioUnitario) {
-		super();
-		this.id = id;
-		this.cantidad = cantidad;
-		this.prenda = prenda;
-		this.precioUnitario = precioUnitario;
-	}
-	public ItemFactura() {
-		super();
-		// TODO Auto-generated constructor stub
+	public float calcularSubtotal (){
+		float sub = 0;
+		for(ItemPedido i:this.getPedido().getItems()){
+			this.cantidad=i.getCantidad();
+			this.precioUnitario=i.getImporte();
+			sub=sub+(this.cantidad*this.precioUnitario);
+		}
+		return sub;
 	}
 	
-	
-	
-
 }

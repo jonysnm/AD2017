@@ -17,7 +17,8 @@ public class Test {
 		Test.getInstancia();
 		
 		new HibernateUtil();
-        AgregarDatos.guardarInfo();
+		
+       // AgregarDatos.guardarInfo();
 		
 //ControladorPedido.getInstancia().IniciarProcesamientoPedidoAprobado(1);
 //		Pedido ped = PedidoDAO.getInstancia().getPedidoAprobado(1);	

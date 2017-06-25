@@ -13,18 +13,28 @@ public class ItemPedidoDTO implements Serializable {
 	private ItemPrendaDTO itemPrendaDTO;
 	private int importe;
 	public ItemPedidoDTO(){}
+	
+	
 	public float getCantidad() {
 		return cantidad;
 	}
+
+
 	public void setCantidad(float cantidad) {
 		this.cantidad = cantidad;
 	}
+
+
 	public int getImporte() {
 		return importe;
 	}
+
+
 	public void setImporte(int importe) {
 		this.importe = importe;
 	}
+
+
 	public ItemPrendaDTO getItemPrendaDTO() {
 		return itemPrendaDTO;
 	}

@@ -5,7 +5,7 @@ import entities.ItemPedidoEntity;
 
 public class ItemPedido {
 	private Integer IdItemPedido;
-	private float cantidad;
+	private Float cantidad;
 	private ItemPrenda itemprenda;
 	private Pedido pedido;
 	private int importe;

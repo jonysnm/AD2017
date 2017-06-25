@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,12 +26,15 @@ public class FacturaEntity implements Serializable {
 	@OneToOne
 	@JoinColumn(name="cliente_id")
 	private ClienteEntity cliente;
-	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany (cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="itemfactura")
 	private List<ItemFacturaEntity> itemsFactura;
 	private Float total;
 	@Enumerated(EnumType.STRING)
 	private EstadoFactura estado;
+	@Column (name = "Pago")
+	private Boolean pago;
+	public FacturaEntity(){}
 	public Integer getNro() {
 		return nro;
 	}
@@ -73,4 +77,17 @@ public class FacturaEntity implements Serializable {
 	public void setEstado(EstadoFactura estado) {
 		this.estado = estado;
 	}
+	public Boolean isPago() {
+		return pago;
+	}
+
+	public void setPago(Boolean pago) {
+		this.pago = pago;
+	}
+	public void agregarItem(ItemFacturaEntity nuevoItem){
+		if(this.getItemsFactura()==null)
+			this.setItemsFactura(new ArrayList<ItemFacturaEntity>());
+		this.itemsFactura.add(nuevoItem);
+	}
+	
 }

@@ -21,6 +21,7 @@ public class PedidoDTO implements Serializable{
 	private float total;
 	private EstadoAprobacionPedidoCliente estado;
 	
+	
 	public PedidoDTO(){
 		setItems(new ArrayList<ItemPedidoDTO>());
 	}

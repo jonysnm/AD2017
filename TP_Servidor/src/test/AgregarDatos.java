@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.AlmacenDAO;
+import dao.FacturaDAO;
 import dao.PedidoDAO;
 import dao.TallesyColoresDAO;
 import negocio.Color;
@@ -16,7 +17,8 @@ import negocio.Talle;
 import negocio.Ubicacion;
 public class AgregarDatos {
 	public static void guardarInfo(){
-	Color c1 = new Color("Rojo");
+	
+		Color c1 = new Color("Rojo");
 	TallesyColoresDAO.getInstancia().altaColor(c1);
 	Color c2 = new Color("Negro");
 	TallesyColoresDAO.getInstancia().altaColor(c2);
@@ -59,7 +61,7 @@ public class AgregarDatos {
 	ip.add(ipp);
 	p1.setItemPrendas(ip);
 	PedidoDAO.getInstancia().AltaPrenda(p1);
-	
+	/*
 	Ubicacion u=new Ubicacion();
 	ItemBultoPrenda ibpr=new ItemBultoPrenda();
 	ibpr.setCantidad(40);
@@ -75,6 +77,7 @@ public class AgregarDatos {
 		pp=AlmacenDAO.getInstancia().obtenerDisponiblePorPrenda(it);
 		System.out.printf("Cantidad:%f", pp);
 	}	
-		
+		*/
+	
 	}
 }
