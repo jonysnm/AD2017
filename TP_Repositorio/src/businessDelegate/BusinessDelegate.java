@@ -16,6 +16,7 @@ import dto.PedidoaDespacharDTO;
 import dto.PedidosCompletosPendientesDespacharDTO;
 import dto.PedidosPendientesAprobacionDTO;
 import dto.PrendaDTO;
+import dto.StockActualDTO;
 import dto.SucursalDTO;
 import dto.TalleDTO;
 import dto.UbicacionDTO;
@@ -144,6 +145,9 @@ public class BusinessDelegate {
 		
 	}
 	
+	public List<StockActualDTO> obtenerlstStockActualDTO() throws RemoteException{
+		return interfazRemotaPuntoVenta.obtenerlstStockActualDTO();
+	}
 	
 	//-------Colores-----------------
 	public void altaColor(ColorDTO colorDTO) throws RemoteException{

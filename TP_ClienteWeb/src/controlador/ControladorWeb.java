@@ -24,6 +24,7 @@ import dto.PedidoaDespacharDTO;
 import dto.PedidosCompletosPendientesDespacharDTO;
 import dto.PedidosPendientesAprobacionDTO;
 import dto.PrendaDTO;
+import dto.StockActualDTO;
 import dto.SucursalDTO;
 import dto.TalleDTO;
 import estados.EstadoAprobacionPedidoCliente;
@@ -141,6 +142,24 @@ public class ControladorWeb extends HttpServlet {
 				request.setAttribute("lstPedidosPendientesAprobacionDTO",lstPedidosPendientesAprobacionDTO);
 				jspPage = "/AprobarRechazarPedidosPendientes.jsp";
 			}
+			break;
+		case "mostrar_stock"://esta funcionalidad se agrega para poder ver el stock en tiempo real - Solo para control
+									
+			List<StockActualDTO> lstStockActualDTO = BusinessDelegate.getInstancia().obtenerlstStockActualDTO();
+			request.setAttribute("lstStockActualDTO", lstStockActualDTO);
+			
+			mensaje="";	
+			if(lstStockActualDTO.size()==0)
+			{
+				mensaje="Verificar datos DB";
+				request.setAttribute("Mensaje",mensaje);
+				jspPage = "/Confirmaciones.jsp";
+			}
+			else
+			{
+				request.setAttribute("lstStockActualDTO",lstStockActualDTO);
+				jspPage = "/StockActual.jsp";
+			}		
 			break;
 		case "Aceptacion_pedidos_por_Cliente"://3-obtengo los pedidos que fueron aprobados por el gerente de la sucursal para que el cliente de la aceptacion final
 			//TODO: falta armar logica login para obtener el cliente y traer los pedidos exclusivos del cliente

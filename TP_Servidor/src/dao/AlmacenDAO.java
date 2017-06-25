@@ -97,6 +97,18 @@ public class AlmacenDAO {
 	}
 	
 	//Jonathan Methods --> Consultar antes de modificar
+	
+	public List<ItemBultoPrendaEntity> ObtenerTodosItemBultoPrenda()
+	{
+		Session s = sf.openSession();
+		String consulta = "from ItemBultoPrendaEntity";		
+		@SuppressWarnings("unchecked")
+		ArrayList<ItemBultoPrendaEntity> lista = (ArrayList<ItemBultoPrendaEntity>) s.createQuery(consulta)
+				.list();
+		return lista;	
+	}
+	
+	
 	public List<ItemBultoPrendaEntity> ObtenerItemBultoPrenda(ItemPrenda ip)
 	{
 		Session s = sf.openSession();

@@ -1,11 +1,14 @@
 package controladores;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dao.AlmacenDAO;
 import dao.PedidoDAO;
 import dto.ItemBultoPrendaDTO;
+import dto.StockActualDTO;
 import dto.UbicacionDTO;
+import entities.ItemBultoPrendaEntity;
 import negocio.ItemBultoPrenda;
 import negocio.ItemPrenda;
 import negocio.MateriaPrima;
@@ -97,4 +100,25 @@ public class ControladorAlmacen {
 //	public void completarOrdenProduccion(int idPedido) {
 //		//TODO
 //	}
+
+	//Jonathan Methods ---> preguntar antes de modificar
+	public List<StockActualDTO> obtenerlstStockActualDTO() {
+		
+		List<ItemBultoPrendaEntity> lstItemBultoPrendaEntity= AlmacenDAO.getInstancia().ObtenerTodosItemBultoPrenda();
+		List<StockActualDTO> lstReturn = new ArrayList<StockActualDTO>();
+		StockActualDTO stockActualReturn= null;
+		for (ItemBultoPrendaEntity itemBultoPrenda : lstItemBultoPrendaEntity) {
+			stockActualReturn = new StockActualDTO();
+			stockActualReturn.setCantidad(itemBultoPrenda.getCantidad());
+			stockActualReturn.setCantidadReservada(itemBultoPrenda.getCantidadReservada());
+			stockActualReturn.setCodigoUbicacion(itemBultoPrenda.getCodigoUbicacion());
+			stockActualReturn.setDescripcionColor(itemBultoPrenda.getItemPrenda().getColor().getDescripcion());
+			stockActualReturn.setDescripcionTalle(itemBultoPrenda.getItemPrenda().getTalle().getDescripcion());
+			stockActualReturn.setNombrePrenda(itemBultoPrenda.getItemPrenda().getPrenda().getDescripcion());
+			lstReturn.add(stockActualReturn);
+		}
+				
+		return lstReturn;
+	}
+	//FIN Jonathan Methods ---> preguntar antes de modificar
 }

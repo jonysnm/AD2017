@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
+import controladores.ControladorAlmacen;
 import controladores.ControladorPedido;
 import dto.ColorDTO;
 import dto.FacturaDTO;
@@ -13,6 +14,7 @@ import dto.ItemPrendaDTO;
 import dto.PedidoDTO;
 import dto.PedidosPendientesAprobacionDTO;
 import dto.PrendaDTO;
+import dto.StockActualDTO;
 import dto.SucursalDTO;
 import dto.TalleDTO;
 import estados.EstadoAprobacionPedidoCliente;
@@ -119,6 +121,11 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 			e.printStackTrace();
 		}				
 	}	
+	
+	@Override
+	public List<StockActualDTO> obtenerlstStockActualDTO() throws RemoteException {
+		return ControladorAlmacen.getInstancia().obtenerlstStockActualDTO();
+	}
 	
 	// FIN Jonathan Methods
 	
