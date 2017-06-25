@@ -15,6 +15,7 @@ import dao.TallesyColoresDAO;
 import dto.ClienteDTO;
 import dto.ColorDTO;
 import dto.ItemPedidoDTO;
+import dto.ItemPrendaDTO;
 import dto.PedidoDTO;
 import dto.PedidosPendientesAprobacionDTO;
 import dto.PrendaDTO;
@@ -31,6 +32,7 @@ import negocio.Pedido;
 import negocio.Prenda;
 import negocio.Sucursal;
 import utils.ClienteToClienteDTO;
+import utils.ItemPrendaToDTO;
 import utils.PedidoToDTO;
 import utils.PrendaToDTO;
 
@@ -246,5 +248,15 @@ public class ControladorPedido {
 		}
 		return prendasDTO;
 	}
+	public List<ItemPrendaDTO> obtenerItemPrenda() throws RemoteException {
+		List<ItemPrenda> itemPrendas = PedidoDAO.getInstancia().buscarItemPrendas();
+		List<ItemPrendaDTO> itemsPrendasDTO = new ArrayList<ItemPrendaDTO>();
+		for (ItemPrenda itmprenda : itemPrendas) {
+			itemsPrendasDTO.add(ItemPrendaToDTO.toDTO(itmprenda));
+		}
+		return itemsPrendasDTO;
+	}
+	
+	
 
 }

@@ -1,3 +1,4 @@
+<%@page import="dto.ItemPrendaDTO"%>
 <%@page import="dto.ColorDTO"%>
 <%@page import="dto.TalleDTO"%>
 <%@page import="dto.PrendaDTO"%>
@@ -65,48 +66,48 @@
 				<tr id="itemPedido">
 					<th>ItemPedido:</th>
 					<td><b>Prenda</b></td>
+					<td>
 					<select  name="prenda"><option>Seleccione
 								una opcion</option>
 							<%
-// 								List<PrendaDTO> prendasDTOs = BusinessDelegate.getInstancia().obtenerPrendas());
+								List<ItemPrendaDTO> itemsPrendaDTO = BusinessDelegate.getInstancia().obtenerItemPrenda();
 							%>
 							<%
-// 								for (PrendaDTO prendaDTO : prendasDTOs) {
+								for (ItemPrendaDTO itemPrendaDTO : itemsPrendaDTO) {
 							%>
-							<option value="dasasd">lalal</option>
-<%-- 							<option value="<%=prendaDTO.getCodigo()%>"><%=prendaDTO.getCodigo()%></option> --%>
+							<option value="<%=itemPrendaDTO.getPrendaDTO().getDescripcion()%>"><%=itemPrendaDTO.getPrendaDTO().getDescripcion()%></option>
 							<%
-// 								}
+								}
 							%>
 					</select></td>
 					<td><b>Talle</b></td>
+						<td>
 					<select  name="talle"><option>Seleccione
 								una opcion</option>
 							<%
-// 								List<TalleDTO> TallesDTOs = BusinessDelegate.getInstancia().obtenerTalles());
+								List<TalleDTO> TallesDTOs = BusinessDelegate.getInstancia().getAllTalle();
 							%>
 							<%
-// 								for (TalleDTO talleDTO : TallesDTOs) {
+								for (TalleDTO talleDTO : TallesDTOs) {
 							%>
-							<option value="adsads">lalal</option>
-<%-- 							<option value="<%=talleDTO.getDescripcion()%>"><%=talleDTO.getDescripcion()%></option> --%>
+							<option value="<%=talleDTO.getDescripcion()%>"><%=talleDTO.getDescripcion()%></option>
 							<%
-// 								}
+								}
 							%>
 					</select></td>
 					<td><b>Color</b></td>
+						<td>
 						<select  name="color"><option>Seleccione
 								una opcion</option>
 							<%
-// 								List<ColorDTO> coloresDTOs = BusinessDelegate.getInstancia().obtenerColoresDTOS());
+								List<ColorDTO> coloresDTOs = BusinessDelegate.getInstancia().getAllColor();
 							%>
 							<%
-// 								for (ColorDTO colorDTO : coloresDTOs) {
+								for (ColorDTO colorDTO : coloresDTOs) {
 							%>
-							<option value="asddas">asddas</option>
-<%-- 							<option value="<%=colorDTO.getDescripcion()%>"><%=colorDTO.getDescripcion()%></option> --%>
+							<option value="<%=colorDTO.getDescripcion()%>"><%=colorDTO.getDescripcion()%></option>
 							<%
-// 								}
+								}
 							%>
 					</select></td>
 					<td><b>Cantidad</b></td>
@@ -120,7 +121,7 @@
 	function obtenerClienteSeleccionado(){
 		var x= document.getElementById("selectCliente").selectedIndex;
 	    var y = document.getElementById("selectCliente").options;
-	    alert("Index: " + y[x].index + " is " + y[x].text);
+	   
 //			request.setAttribute(cliente., arg1)
 	    
 	}

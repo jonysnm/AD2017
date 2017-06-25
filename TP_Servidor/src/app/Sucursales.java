@@ -72,6 +72,7 @@ public class Sucursales extends UnicastRemoteObject implements IAdmSucursalesCon
 		for (Sucursal suc : AdministracionDAO.getInstancia().listarSucursales()) {
 			SucursalDTO sucursalDTO = new SucursalDTO();
 			sucursalDTO.setNombre(suc.getNombre());
+			sucursalDTO.setId(suc.getId());
 			sucursalDTOs.add(sucursalDTO);
 		}
 		

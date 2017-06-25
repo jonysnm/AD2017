@@ -10,6 +10,7 @@ import java.util.List;
 import dto.ClienteDTO;
 import dto.ColorDTO;
 import dto.EmpleadoDTO;
+import dto.ItemPrendaDTO;
 import dto.PedidoDTO;
 import dto.PedidoaDespacharDTO;
 import dto.PedidosCompletosPendientesDespacharDTO;
@@ -185,5 +186,9 @@ public class BusinessDelegate {
 	public List<PrendaDTO> obtenerPrendas() throws RemoteException{
 		return interfazRemotaPuntoVenta.obtenerPrendas();
 	}
+	public List<ItemPrendaDTO> obtenerItemPrenda() throws RemoteException{
+		return interfazRemotaPuntoVenta.obtenerItemPrenda();
+	}
+	
 	
 }

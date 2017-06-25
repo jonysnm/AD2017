@@ -19,9 +19,7 @@ import entities.PedidoEntity;
 import entities.PrendaEntity;
 import entities.SucursalEntity;
 import entities.TalleEntity;
-import estados.EstadoAprobacionPedidoCliente;
 import hbt.HibernateUtil;
-import negocio.Cliente;
 import negocio.Color;
 import negocio.ItemFaltantePedido;
 import negocio.ItemPedido;
@@ -274,6 +272,38 @@ public class PedidoDAO {
 			session.close();
 		}
 		return prendas;
+	}
+	public List<ItemPrenda> buscarItemPrendas() {
+		Session session = sf.openSession();
+		List<ItemPrenda> itemPrendas=new ArrayList<ItemPrenda>();
+		try {
+
+			String hql = "FROM ItemPrendaEntity ip";
+
+			List<ItemPrendaEntity> query = session.createQuery(hql).list();
+
+
+			for (ItemPrendaEntity pr : query) {
+				ItemPrenda ip = new ItemPrenda();
+				ip.setIditemPrenda(pr.getIdItemPrenda());
+				ip.setColor(new Color(pr.getColor()));
+				ip.setTalle(new Talle(pr.getTalle()));
+				Prenda p=new Prenda();
+				p.setCodigo(pr.getPrenda().getIdPrenda());
+				p.setDescripcion(pr.getPrenda().getDescripcion());
+				p.setVigente(pr.getPrenda().isVigente());
+				ip.setPrenda(p);
+				itemPrendas.add(ip);
+			}				
+		}catch (QuerySyntaxException q){
+			JOptionPane.showMessageDialog(null, q, "Error", JOptionPane.ERROR_MESSAGE);
+			System.out.println("Exception de sintaxis en ClienteDAO: buscarItemsPrendas");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return itemPrendas;
 	}
 	
 	

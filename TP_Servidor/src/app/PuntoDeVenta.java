@@ -9,6 +9,7 @@ import java.util.List;
 import controladores.ControladorPedido;
 import dto.ColorDTO;
 import dto.FacturaDTO;
+import dto.ItemPrendaDTO;
 import dto.PedidoDTO;
 import dto.PedidosPendientesAprobacionDTO;
 import dto.PrendaDTO;
@@ -154,5 +155,9 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 	public List<PrendaDTO> obtenerPrendas() throws RemoteException{
 		return ControladorPedido.getInstancia().obtenerPrendas();
 	}
+	public List<ItemPrendaDTO> obtenerItemPrenda() throws RemoteException{
+		return ControladorPedido.getInstancia().obtenerItemPrenda();
+	}
+	
 
 }

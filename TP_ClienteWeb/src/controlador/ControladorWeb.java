@@ -2,9 +2,7 @@ package controlador;
 
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,9 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import businessDelegate.BusinessDelegate;
+import dto.ClienteDTO;
+import dto.ColorDTO;
+import dto.ItemPedidoDTO;
+import dto.ItemPrendaDTO;
 import dto.PedidoDTO;
-import dto.*;
+import dto.PedidoaDespacharDTO;
+import dto.PedidosCompletosPendientesDespacharDTO;
 import dto.PedidosPendientesAprobacionDTO;
+import dto.PrendaDTO;
+import dto.SucursalDTO;
 import dto.TalleDTO;
 import estados.EstadoAprobacionPedidoCliente;
 
@@ -65,21 +70,56 @@ public class ControladorWeb extends HttpServlet {
 		String cliente = request.getParameter("cliente");
 		String sucursal = request.getParameter("sucursal");
 		
+		int idSucursal = 0;
+		ClienteDTO clienteDTO = null;
+		
 		
 //		BusinessDelegate.getInstancia().obtenerSucursal(idSuc);
+	List<ItemPrendaDTO> itemsPrendas = 	BusinessDelegate.getInstancia().obtenerItemPrenda();
+	List<ClienteDTO> clientes = 	BusinessDelegate.getInstancia().obtenerClientes();
+	List<SucursalDTO> sucursales = 	BusinessDelegate.getInstancia().obtenerSucursales();
+	
+	
+	for (SucursalDTO sucursalDTO : sucursales) {
+		if(sucursalDTO.getNombre().equals(sucursal)){
+			idSucursal = sucursalDTO.getId();
+			break;
+		}
+	}
+	
+	for (ClienteDTO cliDTO : clientes) {
+		if(cliDTO.getNombre().equals(cliente)){
+			clienteDTO = cliDTO;
+			break;
+		}
+	}
+	
 		List<ItemPedidoDTO> itemPedidoDTOs = new ArrayList<ItemPedidoDTO>();
 		for(int i=0; i<variasPrendas.length;i++){
 			ItemPedidoDTO itemPedidoDTO = new ItemPedidoDTO();
 			itemPedidoDTO.setCantidad(new Float(varioscantidad[i]));
+			
 			ItemPrendaDTO itemPrendaDTO = new ItemPrendaDTO();
+			for (ItemPrendaDTO itemDTO : itemsPrendas) {
+				if(itemDTO.getPrendaDTO().getDescripcion().equals(variasPrendas[i])&&itemDTO.getColor().getDescripcion().equals(varioscolores[i])&&itemDTO.getTalle().getDescripcion().equals(variosTalles[i])){
+					itemPrendaDTO = itemDTO;
+				}
+			}
 			itemPedidoDTO.setItemPrendaDTO(itemPrendaDTO);
+			itemPedidoDTOs.add(itemPedidoDTO);
 			
 		}
-//		itemPedidoDTO.setCantidad(cantidad);
-//		PedidoDTO pedDTO = new PedidoDTO();
+		PedidoDTO pedidoDTO = new PedidoDTO();
+		pedidoDTO.setFechaCreacion(new Date());
+		pedidoDTO.setFechaprobableDespacho(new Date());
+		pedidoDTO.setCliente(clienteDTO);
+		pedidoDTO.setItems(itemPedidoDTOs);
 		
-		
-//		BusinessDelegate.getInstancia().nuevoPedido(pedidoDTO, 1)
+		try {
+			BusinessDelegate.getInstancia().nuevoPedido(pedidoDTO, idSucursal);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 			break;	
 		
 		
