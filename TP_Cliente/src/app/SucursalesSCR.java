@@ -147,11 +147,27 @@ public class SucursalesSCR extends javax.swing.JFrame {
 						jMenuItemModificarEmpleado = new JMenuItem();
 						jMenuEmpleados.add(jMenuItemModificarEmpleado);
 						jMenuItemModificarEmpleado.setText("Modificar");
+						jMenuItemModificarEmpleado.addActionListener(new ActionListener() {
+							
+							public void actionPerformed(ActionEvent e) {
+								ModificarEmpleadoSCR tv = new ModificarEmpleadoSCR();
+								tv.setVisible(true);
+//								ModificarEmpleadoSCR.getInstancia().setVisible(true);
+							}
+						});
 					}
 					{
 						jMenuItemElminarEmpleado = new JMenuItem();
 						jMenuEmpleados.add(jMenuItemElminarEmpleado);
 						jMenuItemElminarEmpleado.setText("Eliminar");
+						jMenuItemElminarEmpleado.addActionListener(new ActionListener() {
+							
+							public void actionPerformed(ActionEvent e) {
+								BajaEmpleadoSCR tv = new BajaEmpleadoSCR();
+								tv.setVisible(true);
+//								BajaEmpleadoSCR.getInstancia().setVisible(true);
+							}
+						});
 					}
 				}
 				

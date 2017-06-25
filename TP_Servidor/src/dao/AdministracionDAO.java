@@ -6,11 +6,16 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
+import org.hibernate.hql.ast.QuerySyntaxException;
 
+import dto.EmpleadoDTO;
 import dto.PedidosPendientesAprobacionDTO;
+import dto.SucursalDTO;
 import dto.TalleDTO;
 import entities.ClienteEntity;
 import entities.ColorEntity;
@@ -124,7 +129,8 @@ public class AdministracionDAO {
 			EmpleadoEntity ee = EmpleadoToEntity(empleado);
 			session.update(ee);
 			session.getTransaction().commit();
-			session.close();
+//			session.flush();
+//			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("ERROR en el AdministraciónDAO MODIFICAR EMPLEADO");
@@ -325,6 +331,8 @@ public class AdministracionDAO {
 		ee.setFechaEgreso(e.getFechaEgreso());
 		ee.setFechaIngreso(e.getFechaIngreso());
 		ee.setNombre(e.getNombre());
+		ee.setId(e.getId());
+		ee.setTelefono(e.getTelefono());
 //		if(e.getSucursal()!=null){
 //		ee.setSucursal(SucursalToEntity(e.getSucursal()));
 //		}
@@ -338,6 +346,78 @@ public class AdministracionDAO {
 		talleEntity.setDescripcion(talleDTO.getDescripcion().toUpperCase());
 		session.save(talleEntity);
 		session.getTransaction().commit();
+	}
+
+	public List<EmpleadoDTO> getallEmpleados() {
+
+		Session session = sf.openSession();
+			List<EmpleadoDTO>listatdto=new ArrayList<EmpleadoDTO>();
+		try {
+
+				String hql = "FROM EmpleadoEntity T ";
+
+				@SuppressWarnings("unchecked")
+				List<EmpleadoEntity> query = session.createQuery(hql).list();
+
+
+				for (EmpleadoEntity tl : query) {
+					EmpleadoDTO tdto = new EmpleadoDTO();
+					tdto.setApellido(tl.getApellido());
+					tdto.setFechaIngreso(tl.getFechaIngreso());
+					tdto.setFechaEgreso(tl.getFechaEgreso());
+					tdto.setTelefono(tl.getTelefono());
+					tdto.setId(tl.getId());
+					tdto.setNombre(tl.getNombre());
+					
+					listatdto.add(tdto);
+				}
+		
+		}catch (QuerySyntaxException q){
+			JOptionPane.showMessageDialog(null, q, "Error", JOptionPane.ERROR_MESSAGE);
+			System.out.println("Exception de sintaxis en AdministracionDAO: getallEmpleados");
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				session.close();
+			}
+			return listatdto;
+
+	}
+
+	public List<SucursalDTO> getallSucursales() {
+		Session session = sf.openSession();
+		List<SucursalDTO>listatdto=new ArrayList<SucursalDTO>();
+	try {
+
+			String hql = "FROM SucursalEntity T ";
+
+			@SuppressWarnings("unchecked")
+			List<SucursalEntity> query = session.createQuery(hql).list();
+
+
+			for (SucursalEntity tl : query) {
+				SucursalDTO tdto = new SucursalDTO();
+		
+				tdto.setTelefono(tl.getTelefono());
+				tdto.setId(tl.getId());
+				tdto.setNombre(tl.getNombre());
+				tdto.setDireccion(tl.getDireccion());
+				tdto.setCodigoPostal(tl.getCodigoPostal());
+				//completar
+				
+				listatdto.add(tdto);
+			}
+	
+	}catch (QuerySyntaxException q){
+		JOptionPane.showMessageDialog(null, q, "Error", JOptionPane.ERROR_MESSAGE);
+		System.out.println("Exception de sintaxis en AdministracionDAO: getallSucursales");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return listatdto;
+
 	}
 
 }

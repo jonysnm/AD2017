@@ -20,8 +20,16 @@ public interface IAdmSucursalesControlador extends Remote{
 	public void crearEmpleado(EmpleadoDTO e)throws RemoteException; 
 
 	public void editarEmpleado(EmpleadoDTO e)throws RemoteException;
+	
+	public void elminarEmpleado(EmpleadoDTO e)throws RemoteException;
 
 	public SucursalDTO obtenerSucursal(int idSuc)throws RemoteException;
+
+	public List<EmpleadoDTO> getallEmpleados() throws RemoteException;
+	
+	public List<SucursalDTO> getallSucursales() throws RemoteException;
+
+	public void modificarEmpleado(EmpleadoDTO e)throws RemoteException;
 
 
 }

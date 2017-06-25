@@ -79,8 +79,31 @@ public class Sucursales extends UnicastRemoteObject implements IAdmSucursalesCon
 		return sucursalDTOs;
 	}
 	public List<EmpleadoDTO> listarEmpleados(int idSucursal)throws RemoteException {
-		// TODO Auto-generated method stub
+		AdministracionDAO.getInstancia().listarEmpleados(idSucursal);
+		
 		return null;
+	}
+	
+	public List<EmpleadoDTO> getallEmpleados()throws RemoteException {
+		return AdministracionDAO.getInstancia().getallEmpleados();
+		
+		
+	}
+
+	
+	public void elminarEmpleado(EmpleadoDTO e) throws RemoteException {
+		ControladorSucursal.getInstancia().eliminarEmpleado(e);
+		
+	}
+
+	public List<SucursalDTO> getallSucursales() throws RemoteException {
+		return AdministracionDAO.getInstancia().getallSucursales();
+	}
+
+	
+	public void modificarEmpleado(EmpleadoDTO e) throws RemoteException {
+		ControladorSucursal.getInstancia().editarEmpelado(e);
+		
 	}
 
 }

@@ -198,5 +198,18 @@ public class BusinessDelegate {
 	public List<ItemPrendaDTO> obtenerItemPrenda() throws RemoteException{
 		return interfazRemotaPuntoVenta.obtenerItemPrenda();
 	}
+
+	public void bajaEmpleado(EmpleadoDTO e)throws RemoteException{
+		interfazRemotaSucursales.elminarEmpleado(e);
+	}
+	
+	public List<EmpleadoDTO> getallEmpleados() throws RemoteException{
+	
+		return interfazRemotaSucursales.getallEmpleados();
+	}
+	public void modificarEmpleado(EmpleadoDTO e)throws RemoteException{
+		interfazRemotaSucursales.modificarEmpleado(e);
+	}
+
 			
 }

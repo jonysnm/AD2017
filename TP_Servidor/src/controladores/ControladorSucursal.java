@@ -1,5 +1,8 @@
 package controladores;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import dao.AdministracionDAO;
 import dto.EmpleadoDTO;
 import dto.SucursalDTO;
@@ -50,8 +53,14 @@ public class ControladorSucursal {
 		em.save();
 	}
 
-	public void editarEmpelado(EmpleadoDTO e) throws Exception {
-		Empleado em = EmpleadoDTO2Negocio(e);
+	public void editarEmpelado(EmpleadoDTO e)  {
+		Empleado em = null;
+		try {
+			em = EmpleadoDTO2Negocio(e);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		em.editar();
 	}
 
@@ -79,6 +88,7 @@ public class ControladorSucursal {
 //			}
 //		}
 		e.setNombre(empleado.getNombre());
+		e.setId(empleado.getId());
 		return e;
 	}
 
@@ -101,4 +111,21 @@ public class ControladorSucursal {
 		suc.setTelefono(s.getTelefono());
 		return suc;
 	}
+
+	public void eliminarEmpleado(EmpleadoDTO e) {
+		Empleado em = null;
+	
+		 LocalDate localDate = LocalDate.now();
+		 e.setFechaEgreso(java.sql.Date.valueOf(localDate));
+		try {
+			em = EmpleadoDTO2Negocio(e);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		em.editar();
+		
+	}
+
+	
 }
