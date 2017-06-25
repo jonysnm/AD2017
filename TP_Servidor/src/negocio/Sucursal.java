@@ -132,4 +132,8 @@ public class Sucursal {
 		sucursalEntity.setTelefono(this.getTelefono());
 		return sucursalEntity;
 	}
+	public void elminar() {
+		AdministracionDAO.getInstancia().bajaSucursal(this);
+		
+	}
 }

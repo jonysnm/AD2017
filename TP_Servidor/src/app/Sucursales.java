@@ -106,4 +106,10 @@ public class Sucursales extends UnicastRemoteObject implements IAdmSucursalesCon
 		
 	}
 
+	@Override
+	public void bajaSucursal(SucursalDTO e) throws RemoteException {
+		ControladorSucursal.getInstancia().bajaSucursal(e);
+		
+	}
+
 }

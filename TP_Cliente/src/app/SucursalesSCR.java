@@ -100,11 +100,27 @@ public class SucursalesSCR extends javax.swing.JFrame {
 						jMenuItemModificarSucursal = new JMenuItem();
 						jMenuSucursales.add(jMenuItemModificarSucursal);
 						jMenuItemModificarSucursal.setText("Modificar");
+						jMenuItemModificarSucursal.addActionListener(new ActionListener() {
+							
+							public void actionPerformed(ActionEvent e) {
+								ModificarSucursalSCR tv = new ModificarSucursalSCR();
+								tv.setVisible(true);
+//								ModificarSucursalSCR.getInstancia().setVisible(true);
+							}
+						});
 					}
 					{
 						jMenuItemEliminarSucursal = new JMenuItem();
 						jMenuSucursales.add(jMenuItemEliminarSucursal);
 						jMenuItemEliminarSucursal.setText("Eliminar");
+						jMenuItemEliminarSucursal.addActionListener(new ActionListener() {
+							
+							public void actionPerformed(ActionEvent e) {
+								BajaSucursalSCR tv = new BajaSucursalSCR();
+								tv.setVisible(true);
+//								BajaSucursalSCR.getInstancia().setVisible(true);
+							}
+						});
 					}
 					{
 						jSeparatorAsignar = new JSeparator();
