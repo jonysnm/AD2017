@@ -52,11 +52,15 @@ public class AdministracionDAO {
 	/** Sucursales **/
 	public void altaSucursal(Sucursal s) {
 		try {
-			Session session = sf.getCurrentSession();
+			Session session=sf.openSession();
+		
+//			Session session = sf.getCurrentSession();
 			session.beginTransaction();
 			SucursalEntity se = SucursalToEntity(s);
 			session.save(se);
 			session.getTransaction().commit();
+			session.flush();
+			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("ERROR en el AdministraciónDAO ALTA SUCURSAL");
@@ -65,12 +69,16 @@ public class AdministracionDAO {
 
 	public void modificarSucusal(Sucursal s) {
 		try {
-			Session session = sf.getCurrentSession();
+			Session session=sf.openSession();
+			
+//			Session session = sf.getCurrentSession();
 			session.beginTransaction();
 			SucursalEntity se = SucursalToEntity(s);
 			session.update(se);
 			session.getTransaction().commit();
-			//session.close();
+			session.flush();
+			session.close();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("ERROR en el AdministraciónDAO MODIFICAR SUCURSAL");
@@ -79,13 +87,16 @@ public class AdministracionDAO {
 
 	public void bajaSucursal(Sucursal s) {
 		try {
-			Session session = sf.getCurrentSession();
+			Session session=sf.openSession();
+			
+//			Session session = sf.getCurrentSession();
 			session.beginTransaction();
 			SucursalEntity se = SucursalToEntity(s);
 			session.delete(se);
-			session.flush();
+			
 			session.getTransaction().commit();
-//			session.close();
+			session.flush();
+			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("ERROR en el AdministraciónDAO Eliminar SUCURSAL");
@@ -94,13 +105,17 @@ public class AdministracionDAO {
 
 	public Sucursal getSucursal(Integer idSucursal) throws Exception {
 		try {
-			Session session = sf.getCurrentSession();
+			Session session=sf.openSession();
+			
+//			Session session = sf.getCurrentSession();
 			session.beginTransaction();
 			SucursalEntity sucursal = (SucursalEntity) session.get(SucursalEntity.class, idSucursal);
 			if(sucursal==null){
 			throw new SucursalException("No se encontro la sucursal");	
 			}
 			session.getTransaction().commit();
+			session.flush();
+			session.close();
 			return new Sucursal(sucursal);
 		}  catch (HibernateException e) {
 			throw new Exception("Error de Hibernate");
@@ -110,11 +125,15 @@ public class AdministracionDAO {
 	/** Empleados **/
 	public void altaEmpleado(Empleado e) {
 		try {
-			Session session = sf.getCurrentSession();
+			Session session=sf.openSession();
+			
+//			Session session = sf.getCurrentSession();
 			session.beginTransaction();
 			EmpleadoEntity ee = EmpleadoToEntity(e);
 			session.save(ee);
 			session.getTransaction().commit();
+			session.flush();
+			session.close();
 
 		} catch (Exception em) {
 			em.printStackTrace();
@@ -124,13 +143,15 @@ public class AdministracionDAO {
 
 	public void modificarEmpleado(Empleado empleado) {
 		try {
-			Session session = sf.getCurrentSession();
+			Session session=sf.openSession();
+			
+//			Session session = sf.getCurrentSession();
 			session.beginTransaction();
 			EmpleadoEntity ee = EmpleadoToEntity(empleado);
 			session.update(ee);
 			session.getTransaction().commit();
-//			session.flush();
-//			session.close();
+			session.flush();
+			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("ERROR en el AdministraciónDAO MODIFICAR EMPLEADO");
@@ -139,12 +160,15 @@ public class AdministracionDAO {
 
 	public void bajaEmpleado(Empleado empleado) {
 		try {
-			Session session = sf.getCurrentSession();
+			Session session=sf.openSession();
+			
+//			Session session = sf.getCurrentSession();
 			session.beginTransaction();
 			EmpleadoEntity ee = EmpleadoToEntity(empleado);
 			session.delete(ee);
 			session.flush();
 			session.getTransaction().commit();
+			session.flush();
 			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -154,10 +178,14 @@ public class AdministracionDAO {
 
 	public Empleado getEmpleado(Integer idEmpleado) {
 		try {
-			Session session = sf.getCurrentSession();
+			Session session=sf.openSession();
+			
+//			Session session = sf.getCurrentSession();
 			session.beginTransaction();
 			EmpleadoEntity empleado = (EmpleadoEntity) session.get(EmpleadoEntity.class, idEmpleado);
 			session.getTransaction().commit();
+			session.flush();
+			session.close();
 			return new Empleado(empleado);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -347,6 +375,7 @@ public class AdministracionDAO {
 		talleEntity.setDescripcion(talleDTO.getDescripcion().toUpperCase());
 		session.save(talleEntity);
 		session.getTransaction().commit();
+		
 	}
 
 	public List<EmpleadoDTO> getallEmpleados() {

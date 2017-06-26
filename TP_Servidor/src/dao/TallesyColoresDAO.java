@@ -78,12 +78,14 @@ public class TallesyColoresDAO {
 
 	public void bajaColor(Color color) {
 		try {
-			Session session = sf.getCurrentSession();
+			Session session = sf.openSession();
 			session.beginTransaction();
 			ColorEntity ce = colorToEntity(color);
 			session.delete(ce);
-			session.flush();
+			
 			session.getTransaction().commit();
+			session.flush();
+			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error Color. Baja Color");
@@ -133,6 +135,7 @@ public class TallesyColoresDAO {
 			te.setDescripcion(talle.getDescripcion());
 			session.save(te);
 			session.getTransaction().commit();
+			session.flush();
 			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -157,13 +160,14 @@ public class TallesyColoresDAO {
 
 	public void bajaTalle(Talle talle) {
 		try {
-			Session session = sf.getCurrentSession();
+			Session session = sf.openSession();
 			session.beginTransaction();
 			TalleEntity te = TalleToEntity(talle);
 			session.delete(te);
-			session.flush();
+		
 			session.getTransaction().commit();
-			
+			session.flush();
+			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error Talle. Baja Talle");
