@@ -10,6 +10,13 @@ public class TalleDTO implements Serializable{
 	private Integer idTalle;
 	private String descripcion;
 	
+	public TalleDTO(int idTalle, String descripcion) {//Creado por Jonathan -- consultar antes de modificar
+		this.setIdTalle(idTalle);
+		this.setDescripcion(descripcion);
+	}
+	public TalleDTO() {
+		// TODO Auto-generated constructor stub
+	}
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -22,6 +29,9 @@ public class TalleDTO implements Serializable{
 	public void setIdTalle(Integer idTalle) {
 		this.idTalle = idTalle;
 	}
-	
-	
+		
+	@Override
+	public String toString() { //Creado por Jonathan -- consultar antes de modificar
+		return this.getDescripcion();
+	}
 }

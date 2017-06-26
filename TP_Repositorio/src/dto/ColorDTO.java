@@ -9,6 +9,13 @@ public class ColorDTO implements Serializable  {
 	private Integer idColor;
 	private String descripcion;
 	
+	public ColorDTO(int idColor, String descripcion) {//Creado por Jonathan -- consultar antes de modificar
+		this.setIdColor(idColor);
+		this.setDescripcion(descripcion);
+	}
+	public ColorDTO() {
+		// TODO Auto-generated constructor stub
+	}
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -22,4 +29,9 @@ public class ColorDTO implements Serializable  {
 		this.idColor = idColor;
 	}
 
+    @Override
+    public String toString() {//Creado por Jonathan -- consultar antes de modificar
+        return this.getDescripcion();
+    } 
+	
 }
