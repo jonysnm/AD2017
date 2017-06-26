@@ -38,8 +38,8 @@ public class Cliente {
 			System.out.println(("IDPedido: " + id));
 			Integer id2=businessDelegate.grabarFactura(id);
 			System.out.println(("IDFactura: " + id2));
-			businessDelegate.confirmarPedido(1);
-			businessDelegate.IniciarProcesamientoPedidoAprobado(1);
+//			businessDelegate.confirmarPedido(1);
+//			businessDelegate.IniciarProcesamientoPedidoAprobado(1);
       	} catch (RemoteException e) {
 			e.printStackTrace();
 		}
