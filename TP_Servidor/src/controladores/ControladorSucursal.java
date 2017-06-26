@@ -103,7 +103,7 @@ public class ControladorSucursal {
 		 gerente = AdministracionDAO.getInstancia().getEmpleado(s.getIdGerente());}
 		
 		Empleado recepcionPedidos = null;
-		if(s.getIdGerente() != null){
+		if(s.getIdRecepcionPedidos() != null){
 				recepcionPedidos= 	AdministracionDAO.getInstancia().getEmpleado(s.getIdRecepcionPedidos());}
 		Sucursal suc = new Sucursal();
 		suc.setCodigoPostal(s.getCodigoPostal());

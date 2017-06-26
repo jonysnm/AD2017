@@ -309,7 +309,7 @@ public class ModificarSucursalSCR extends javax.swing.JFrame {
 				            .add(GroupLayout.LEADING, thisLayout.createSequentialGroup()
 				                .add(jLabelMensaje, 0, 378, Short.MAX_VALUE)
 				                .add(33))
-				            .add(GroupLayout.LEADING, jLabelIndicacion2, 0, 411, Short.MAX_VALUE)
+				            .add(GroupLayout.LEADING, jLabelIndicacion2, 0, 300, Short.MAX_VALUE)
 				            .add(thisLayout.createSequentialGroup()
 				                .add(thisLayout.createParallelGroup()
 				                    .add(GroupLayout.LEADING, jLabelCPSucursal, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)

@@ -135,11 +135,27 @@ public class SucursalesSCR extends javax.swing.JFrame {
 						jMenuItemAsignarGerenteSucursal = new JMenuItem();
 						jMenuSucursales.add(jMenuItemAsignarGerenteSucursal);
 						jMenuItemAsignarGerenteSucursal.setText("Asignar Gerente");
+						jMenuItemAsignarGerenteSucursal.addActionListener(new ActionListener() {
+							
+							public void actionPerformed(ActionEvent e) {
+								AsignarGerenteSucursalSCR tv = new AsignarGerenteSucursalSCR();
+								tv.setVisible(true);
+//								AsignarGerenteSucursalSCR.getInstancia().setVisible(true);
+							}
+						});
 					}
 					{
 						jMenuItemAsignarJefePedidos = new JMenuItem();
 						jMenuSucursales.add(jMenuItemAsignarJefePedidos);
 						jMenuItemAsignarJefePedidos.setText("Asignar Jefe Pedidos");
+						jMenuItemAsignarJefePedidos.addActionListener(new ActionListener() {
+							
+							public void actionPerformed(ActionEvent e) {
+								AsignarJefePedidosSucursalSCR tv = new AsignarJefePedidosSucursalSCR();
+								tv.setVisible(true);
+//								AsignarJefePedidosSucursalSCR.getInstancia().setVisible(true);
+							}
+						});
 					}
 				}
 				{
