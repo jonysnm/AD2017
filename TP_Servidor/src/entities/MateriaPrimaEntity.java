@@ -14,13 +14,12 @@ public class MateriaPrimaEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = 6617885206957270077L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int codigo;
 	private float cantidadAComprar;
+	private float cantidadPtoPedido; 
 	private String nombre;
 	
-	@Enumerated(EnumType.STRING)
-	private EstadoMP estado;
 	
 	public int getCodigo() {
 		return codigo;
@@ -40,10 +39,21 @@ public class MateriaPrimaEntity implements Serializable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public EstadoMP getEstado() {
-		return estado;
+	public float getCantidadPtoPedido() {
+		return cantidadPtoPedido;
 	}
-	public void setEstado(EstadoMP estado) {
-		this.estado = estado;
+	public void setCantidadPtoPedido(float cantidadPtoPedido) {
+		this.cantidadPtoPedido = cantidadPtoPedido;
 	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	public MateriaPrimaEntity() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	
+	
+	
 }

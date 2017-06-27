@@ -15,12 +15,14 @@ import entities.CuentaCorrienteEntity;
 import entities.ItemMovimientoCtaCteEntity;
 import entities.ItemPedidoEntity;
 import entities.ItemPedidoId;
+import entities.PedidoEntity;
 import entities.PrendaEntity;
 import hbt.HibernateUtil;
 import negocio.Cliente;
 import negocio.CuentaCorriente;
 import negocio.ItemMovimientoCtaCte;
 import negocio.ItemPedido;
+import negocio.Prenda;
 
 public class ClienteDAO {
 	private static ClienteDAO instancia;
@@ -70,7 +72,7 @@ public class ClienteDAO {
 	}
 	public void bajaCliente(Cliente cliente){
 		try{
-			Session session=sf.getCurrentSession();
+			Session session=sf.openSession();
 			session.beginTransaction();
 			ClienteEntity c=ClienteToEntity(cliente);
 			session.delete(c);
@@ -97,18 +99,48 @@ public class ClienteDAO {
 		}
 	}
 	public Cliente getCliente(Integer id){
-		try{
-			Session session=sf.openSession();
-			session.beginTransaction();
-			ClienteEntity cliente=(ClienteEntity) session.get(ClienteEntity.class, id);
-			session.getTransaction().commit();
-			session.close();
-			return new Cliente(cliente);
-		}catch(Exception e){
+		ClienteEntity cliente = null;
+		try {
+			Session session = sf.openSession();
+			
+			String hql = "FROM ClienteEntity P " +
+						 "WHERE P.id = :id";
+			
+			Query query = session.createQuery(hql);
+			query.setParameter("id", id);
+			query.setMaxResults(1);
+			
+			if(query.uniqueResult() != null){
+				cliente = (ClienteEntity) query.uniqueResult();
+	        	session.close();
+	        }else{
+	        	session.close();
+	        }
+		}catch (QuerySyntaxException q){
+			JOptionPane.showMessageDialog(null, q, "Error", JOptionPane.ERROR_MESSAGE);
+			System.out.println("Exception de sintaxis en ClienteDAO: GETCLIENTE");
+		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Error ClienteAO. Obtener cliente");
 		}
-		return null;
+		return new Cliente(cliente);
+		
+		
+		//try{
+//			Session session=sf.openSession();
+//			session.beginTransaction();
+//		
+////			ClienteEntity cliente=(ClienteEntity) session.get(ClienteEntity.class, id);
+//			Query query = session.createQuery("From ClienteEntity C where C.id = :id");
+//			PedidoEntity p = (PedidoEntity) query.setParameter("id", pedido.getId()).uniqueResult();
+//			p.setEstado(pedido.getEstado());
+//			session.getTransaction().commit();
+//			session.close();
+//			return new Cliente(cliente);
+//		}catch(Exception e){
+//			e.printStackTrace();
+//			System.out.println("Error ClienteAO. Obtener cliente");
+//		}
+//		return null;
 	}
 	@SuppressWarnings("unchecked")
 	public List<Cliente> buscarClientes (){
