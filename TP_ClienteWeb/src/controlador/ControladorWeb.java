@@ -116,6 +116,7 @@ public class ControladorWeb extends HttpServlet {
 		pedidoDTO.setCliente(clienteDTO);
 		pedidoDTO.setItems(itemPedidoDTOs);
 		
+		
 		try {
 			BusinessDelegate.getInstancia().nuevoPedido(pedidoDTO, idSucursal);
 		} catch (RemoteException e) {

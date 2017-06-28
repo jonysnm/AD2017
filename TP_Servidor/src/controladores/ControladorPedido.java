@@ -84,6 +84,7 @@ public class ControladorPedido {
 					p.update();
 	}
 	
+	
 	//a este metodo lo va a llamar el observer que va a elegir los pedidos en estado "AceptadoCliente" y va a pasarle el IdPedido
 	public void IniciarProcesamientoPedidoAprobado(Integer idPedido)
 	{   

@@ -76,6 +76,7 @@
 								for (ItemPrendaDTO itemPrendaDTO : itemsPrendaDTO) {
 							%>
 							<option value="<%=itemPrendaDTO.getPrendaDTO().getDescripcion()%>"><%=itemPrendaDTO.getPrendaDTO().getDescripcion()%></option>
+<!-- 							AGREGAR PRECIO DEL PEDIDO EN BASE AL COSTO PORCENTAJE DE GANNCIA  -->
 							<%
 								}
 							%>
