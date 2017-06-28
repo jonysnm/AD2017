@@ -44,7 +44,7 @@ public class ItemPrendaEntity implements Serializable {
 
 	// FIXME ver aca esto es dudoso(chequearlo)
 	@OneToMany(fetch=FetchType.EAGER)
-	@JoinColumn(name="item_materialprenda")
+	@JoinColumn(name="id_itemmat")
 	private List<ItemMaterialPrendaEntity> itemMaterialPrenda = new ArrayList<ItemMaterialPrendaEntity>();
 
 	public ItemPrendaEntity() {

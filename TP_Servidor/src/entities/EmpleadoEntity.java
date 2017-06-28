@@ -23,7 +23,7 @@ public class EmpleadoEntity implements Serializable{
 	
 //	@OneToOne(optional=true)
 //	@JoinColumn(name="idSucursal",nullable=true)
-//	private SucursalEntity sucursal;
+    //private SucursalEntity sucursal;
 	
 	public Integer getId() {
 		return id;

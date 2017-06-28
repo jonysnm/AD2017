@@ -111,11 +111,11 @@ public class ControladorPedido {
 					//me va a dejar decidir si reservo o no reservo las prendas
 					itemFaltantePedido = new ItemFaltantePedido();
 					itemFaltantePedido.setPedido(p);
-					itemFaltantePedido.setPrenda(itemPedido.getItemprenda().getPrenda());
+					//itemFaltantePedido.setPrenda(itemPedido.getItemprenda().getPrenda());
 					itemFaltantePedido.setItemPrenda(itemPedido.getItemprenda());
 					itemFaltantePedido.setCantidadFaltante(cantidadFaltante);
-					itemFaltantePedido.setColor(itemPedido.getItemprenda().getColor());
-					itemFaltantePedido.setTalle(itemPedido.getItemprenda().getTalle());
+					//itemFaltantePedido.setColor(itemPedido.getItemprenda().getColor());
+					//itemFaltantePedido.setTalle(itemPedido.getItemprenda().getTalle());
 					lstItemsFaltantesPedido.add(itemFaltantePedido);									
 				}
 				
@@ -167,18 +167,18 @@ public class ControladorPedido {
 		
 		for (ItemFaltantePedido itemFaltantePedido : lstItemsFaltantesPedido) {
 			boolean seGeneroOPCparaEstaPrenda = false;
-			idPrenda = itemFaltantePedido.getItemPrenda().getPrenda().getCodigo();
-			idColor = itemFaltantePedido.getItemPrenda().getColor().getIdcolor();
-			idTalle = itemFaltantePedido.getItemPrenda().getTalle().getIdTalle();
+			idPrenda = PedidoDAO.getInstancia().getItemPrenda(itemFaltantePedido.getItemPrenda().getIditemPrenda()).getPrenda().getCodigo();
+			idColor = PedidoDAO.getInstancia().getItemPrenda(itemFaltantePedido.getItemPrenda().getIditemPrenda()).getColor().getIdcolor();
+			idTalle =  PedidoDAO.getInstancia().getItemPrenda(itemFaltantePedido.getItemPrenda().getIditemPrenda()).getTalle().getIdTalle();
 			
 			for (ItemFaltantePedido itemFaltantePedidoAux : lstItemsFaltantesPedido) {
-				if(idPrenda == itemFaltantePedidoAux.getItemPrenda().getPrenda().getCodigo()
-						&& idColor == itemFaltantePedidoAux.getItemPrenda().getColor().getIdcolor()	)
+				if(idPrenda == PedidoDAO.getInstancia().getItemPrenda(itemFaltantePedidoAux.getItemPrenda().getIditemPrenda()).getPrenda().getCodigo()
+						&& idColor == itemFaltantePedidoAux.getItemPrenda().getColor().getIdcolor())
 				{
 					contadorFaltanteColorporPrenda++;
 				}
 
-				if(idPrenda == itemFaltantePedidoAux.getItemPrenda().getPrenda().getCodigo()
+				if(idPrenda == PedidoDAO.getInstancia().getItemPrenda(itemFaltantePedidoAux.getItemPrenda().getIditemPrenda()).getPrenda().getCodigo()
 						&& idTalle == itemFaltantePedidoAux.getItemPrenda().getTalle().getIdTalle())
 				{
 					contadorFaltanteTalleporPrenda++;

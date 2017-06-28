@@ -2,15 +2,15 @@ package entities;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.ForeignKey;
 
 
 @Entity
@@ -24,27 +24,31 @@ public class ItemFaltantePedidoEntity implements Serializable {
 
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer idItemFaltantePedido;
 
-	@ManyToOne
-	@JoinColumn(name="IdPedido")
-	@ForeignKey(name="FK_Pedi_ID")
-	private PedidoEntity pedido;
+	//@ManyToOne
+	//@JoinColumn(name="IdPedido")
+	//@ForeignKey(name="FK_Pedi_ID")
+	//private PedidoEntity pedido;
 	
 	
-	@ManyToOne
-	@JoinColumn(name="IdPrenda")
-	@ForeignKey(name="FK_PREN_ID")
-	private PrendaEntity prenda;
+	//@ManyToOne
+	//@JoinColumn(name="IdPrenda")
+	//@ForeignKey(name="FK_PREN_ID")
+	//private PrendaEntity prenda;
 
-	@ManyToOne
-	@JoinColumn(name="idTalle",nullable=false)
-	private TalleEntity talle;
+	//@ManyToOne
+	//@JoinColumn(name="idTalle",nullable=false)
+	//private TalleEntity talle;
 	
-	@ManyToOne
-	@JoinColumn(name="idColor",nullable=false)
-	private ColorEntity color;
+	//@ManyToOne
+	//@JoinColumn(name="idColor",nullable=false)
+	//private ColorEntity color;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="itemprendaf")
+	private ItemPrendaEntity ip;
 	
 	@Column(name="cantidadFaltante", nullable=false)
 	private float cantidadFaltante;
@@ -58,29 +62,29 @@ public class ItemFaltantePedidoEntity implements Serializable {
 		this.idItemFaltantePedido = idItemFaltantePedido;
 	}
 
-	public PrendaEntity getPrenda() {
-		return prenda;
-	}
+//	public PrendaEntity getPrenda() {
+	//	return prenda;
+	//}
 
-	public void setPrenda(PrendaEntity prenda) {
-		this.prenda = prenda;
-	}
+	//public void setPrenda(PrendaEntity prenda) {
+		//this.prenda = prenda;
+	//}
 
-	public TalleEntity getTalle() {
-		return talle;
-	}
+	//public TalleEntity getTalle() {
+		//return talle;
+	//}
 
-	public void setTalle(TalleEntity talle) {
-		this.talle = talle;
-	}
+	//public void setTalle(TalleEntity talle) {
+		//this.talle = talle;
+	//}
 
-	public ColorEntity getColor() {
-		return color;
-	}
+	//public ColorEntity getColor() {
+		//return color;
+	//}
 
-	public void setColor(ColorEntity color) {
-		this.color = color;
-	}
+	//public void setColor(ColorEntity color) {
+		//this.color = color;
+	//}
 
 	public float getCantidadFaltante() {
 		return cantidadFaltante;
@@ -89,6 +93,15 @@ public class ItemFaltantePedidoEntity implements Serializable {
 	public void setCantidadFaltante(float cantidadFaltante) {
 		this.cantidadFaltante = cantidadFaltante;
 	}
+
+	public ItemPrendaEntity getItemPrenda() {
+		return ip;
+	}
+
+	public void setItemPrenda(ItemPrendaEntity itemPrenda) {
+		this.ip = itemPrenda;
+	}
+	
 	
 }
 

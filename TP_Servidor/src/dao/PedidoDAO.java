@@ -240,12 +240,21 @@ public class PedidoDAO {
 		Session session=sf.openSession();
 		session.beginTransaction();
 		ItemPrendaEntity itemPrendaEntity = (ItemPrendaEntity) session.get(ItemPrendaEntity.class, iditemPrenda);
+		
+		ItemPrenda itemPrenda = new ItemPrenda();
+		itemPrenda.setIditemPrenda(itemPrendaEntity.getIdItemPrenda());
+		itemPrenda.setCantidadEnOPC(itemPrendaEntity.getCantidadEnOPC());
+		itemPrenda.setColor(new Color(itemPrendaEntity.getColor()));
+		itemPrenda.setTalle(new Talle(itemPrendaEntity.getTalle()));
+		itemPrenda.setCostoProduccionActual(itemPrendaEntity.getCostoProduccionActual());
+		itemPrenda.setPorcentajeGanancia(itemPrendaEntity.getPorcentajeGanancia());		
+		itemPrenda.setPrenda(new Prenda(itemPrendaEntity.getPrenda()));
 		session.beginTransaction().commit();
 		session.flush();
 		session.close();
-		ItemPrenda itemPrenda = new ItemPrenda(itemPrendaEntity);
 		return itemPrenda;
 	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Prenda> buscarPrendas (){
 		Session session = sf.openSession();

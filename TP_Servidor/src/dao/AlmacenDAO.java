@@ -79,8 +79,8 @@ public class AlmacenDAO {
 			UbicacionEntity ub = new UbicacionEntity();
 			ItemBultoPrenda ib = (ItemBultoPrenda) ubicacion.getBulto();
 			ItemBultoPrendaEntity ibpre = new ItemBultoPrendaEntity();
-			ItemPrendaEntity ip = (ItemPrendaEntity) session.get(ItemPrendaEntity.class,
-					ib.getItemPrenda().getIditemPrenda());
+			Query query = session.createQuery("From ItemPrendaEntity where IdItemPrenda = :idPedi");
+			ItemPrendaEntity ip = (ItemPrendaEntity) query.setParameter("idPedi", ib.getItemPrenda().getIditemPrenda()).uniqueResult();
 			ibpre.setItemPrenda(ip);
 			ibpre.setCantidad(ib.getCantidad());
 			ibpre.setCantidadReservada(ib.getCantidadReservada());

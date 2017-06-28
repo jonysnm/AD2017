@@ -16,10 +16,8 @@ public class ItemPrenda {
 	private Talle talle;
 	private float costoProduccionActual;
 	private float porcentajeGanancia;
-	public ItemPrenda(){
-		super();
-		setPrenda(prenda);
-	}
+	public ItemPrenda(){}
+	
 	public int getCantidadEnOPC() {
 		return cantidadEnOPC;
 	}

@@ -29,8 +29,8 @@ public class Cliente {
 	public Cliente() {
 		try {
 			businessDelegate = BusinessDelegate.getInstancia();
-			nuevoCliente();
-			nuevaSucursal();
+			//nuevoCliente();
+			//nuevaSucursal();
 			Integer id=nuevoPedido();
 //			
 //		
