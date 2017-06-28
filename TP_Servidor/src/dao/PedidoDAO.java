@@ -130,6 +130,19 @@ public class PedidoDAO {
 		}
 		return new Pedido(pedido);
 	}
+	
+	public void AltaPrenda(PrendaEntity pe){
+		Session session=sf.openSession();
+		session.beginTransaction();								
+		session.save(pe);
+		session.getTransaction().commit();
+		session.flush();
+		session.close();
+}
+	
+	
+	
+	
 	public void AltaPrenda(Prenda prenda){
 			Session session=sf.openSession();
 			session.beginTransaction();		
@@ -315,6 +328,10 @@ public class PedidoDAO {
 		}
 		return itemPrendas;
 	}
+	
+	
+	
+	
 	
 	
 

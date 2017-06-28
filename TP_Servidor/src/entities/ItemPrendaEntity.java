@@ -14,6 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import javax.persistence.CascadeType;
+
+
 @Entity
 @Table(name = "Items_Prenda")
 public class ItemPrendaEntity implements Serializable {
@@ -43,8 +46,8 @@ public class ItemPrendaEntity implements Serializable {
 	private int cantidadEnOPC;
 
 	// FIXME ver aca esto es dudoso(chequearlo)
-	@OneToMany(fetch=FetchType.EAGER)
-	@JoinColumn(name="id_itemmat")
+	@OneToMany
+	@JoinColumn(name="itemmatprenda")	
 	private List<ItemMaterialPrendaEntity> itemMaterialPrenda = new ArrayList<ItemMaterialPrendaEntity>();
 
 	public ItemPrendaEntity() {
@@ -115,7 +118,13 @@ public class ItemPrendaEntity implements Serializable {
 		this.itemMaterialPrenda = itemMaterialPrenda;
 	}
 
-
+	public void AgregarItemMaterialPrenda(ItemMaterialPrendaEntity itemMaterialPrendaEntity)
+	{
+		if(this.itemMaterialPrenda==null)
+			this.itemMaterialPrenda = new ArrayList<ItemMaterialPrendaEntity>();
+		this.itemMaterialPrenda.add(itemMaterialPrendaEntity);
+	}
+	
 
 	public PrendaEntity getPrenda() {
 		return prenda;

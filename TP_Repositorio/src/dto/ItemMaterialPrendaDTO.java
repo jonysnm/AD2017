@@ -6,6 +6,7 @@ public class ItemMaterialPrendaDTO implements Serializable{
 
 	private static final long serialVersionUID = 2563955825860385011L;
 	
+	
 	private PrendaDTO prenda;
 	private int cantidadutilizada;
 	private float despedicio;

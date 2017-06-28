@@ -2,6 +2,8 @@ package dto;
 
 import java.io.Serializable;
 
+
+
 public class MateriaPrimaDTO implements Serializable{
 
 	private static final long serialVersionUID = -697298117170348599L;
@@ -10,6 +12,14 @@ public class MateriaPrimaDTO implements Serializable{
 	private Float cantidadAComprar;
 	private Float cantidadPtoReposicion;
 	private String nombre;
+	
+	public MateriaPrimaDTO(int id, String Descripcion, float cantidadaComprar) {
+		this.setCodigo(id);
+		this.setNombre(Descripcion);
+		this.setCantidadAComprar(cantidadAComprar);
+	}
+	
+
 	
 	public Integer getCodigo() {
 		return codigo;
@@ -43,6 +53,10 @@ public class MateriaPrimaDTO implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	
-	
+	@Override
+	public String toString() {
+		return this.getNombre();
+	}
+
 	
 }

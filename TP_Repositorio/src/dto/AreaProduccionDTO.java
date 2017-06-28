@@ -1,6 +1,12 @@
 package dto;
 
-public class AreaProduccionDTO {
+import java.io.Serializable;
+
+public class AreaProduccionDTO implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8413018394636817775L;
 	private int id;
 	private String descripcion;
 	public AreaProduccionDTO(int id, String descripcion) {
