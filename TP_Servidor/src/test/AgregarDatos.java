@@ -41,7 +41,7 @@ public class AgregarDatos {
 	TallesyColoresDAO.getInstancia().altaTalle(t4);
 	Talle t5 = new Talle("XXL");
 	TallesyColoresDAO.getInstancia().altaTalle(t5);
-	
+	/*
     Prenda p1=new Prenda();
     p1.setDescripcion("BUFARRETA");
     p1.setVigente(true);
@@ -71,6 +71,7 @@ public class AgregarDatos {
 	//ibpr.setPrenda(PedidoDAO.getInstancia());
 	u.setBulto(ibpr);
 	AlmacenDAO.getInstancia().nuevaUbicacion(u);
+	*/
 	/*
 	Pedido p=PedidoDAO.getInstancia().getPedido(1);
 	float pp=0;
