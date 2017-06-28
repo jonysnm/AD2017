@@ -173,7 +173,7 @@ public class ControladorAlmacen {
 											
 				MateriaPrimaEntity materiaPrimaEntity = AlmacenDAO.getInstancia().getMateriaPrima(dto.getMateriaprima().getCodigo());				
 				itemMaterialPrendaEntity.setMateriaprima(materiaPrimaEntity);
-		//jonathan		itemMaterialPrendaEntity.setItemPrenda(itemPrendaEntity);
+				//itemMaterialPrendaEntity.setItemPrenda(itemPrendaEntity);
 								
 				
 				itemPrendaEntity.AgregarItemMaterialPrenda(itemMaterialPrendaEntity);			

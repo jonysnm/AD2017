@@ -3,6 +3,8 @@ package app;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,7 @@ import dto.TalleDTO;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -231,6 +234,8 @@ class MyTableModelMateriales extends AbstractTableModel {
 public class AltaPrendaSRC extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private ItemColorTalleDTO itemColorTalleSeleccionado = new ItemColorTalleDTO();
+	
 	private JPanel contentPane;
 	private JComboBox lstColores;
 	private JComboBox lstTalles;
@@ -327,28 +332,46 @@ public class AltaPrendaSRC extends JFrame {
 		final JRadioButton chkValidity = new JRadioButton("");
 		chkValidity.setBounds(60, 78, 50, altoControles);
 		contentPane.add(chkValidity);
-		
-		JLabel lblCantidadenOPC = new JLabel("Cantidad en OPC:");
-		lblCantidadenOPC.setBounds(150, 78 , 100, altoControles);
-		contentPane.add(lblCantidadenOPC);
-		
-		final JTextField txtCantidadenOPC = new JTextField("");
-		txtCantidadenOPC.setBounds(270, 78, 100, altoControles);
-		contentPane.add(txtCantidadenOPC);
-		
+	
 		JSeparator separator = new JSeparator();		
 		separator.setBounds(10, 110, 850, 10);
 		contentPane.add(separator);
 		
-		JLabel lblIngreseAreasProduccion = new JLabel("Seleccionar Colores y Tales:");
-		lblIngreseAreasProduccion.setBounds(10, 125, 200, altoControles);
-		contentPane.add(lblIngreseAreasProduccion);
-	
+		JLabel lblCantidadenOPC = new JLabel("Cant OPC:");
+		lblCantidadenOPC.setBounds(10, 120 , 100, altoControles);
+		contentPane.add(lblCantidadenOPC);
+		
+		final JTextField txtCantidadenOPC = new JTextField("");
+		txtCantidadenOPC.setBounds(70, 120, 50, altoControles);
+		contentPane.add(txtCantidadenOPC);
+				
+		JLabel lblCostoProdActual = new JLabel("Costo Prod");
+		lblCostoProdActual.setBounds(125, 120 , 100, altoControles);
+		contentPane.add(lblCostoProdActual);
+		
+		final JTextField txtCostoProdActual = new JTextField("");
+		txtCostoProdActual.setBounds(190, 120, 80, altoControles);
+		contentPane.add(txtCostoProdActual);		
+		
+		
+		JLabel lblPorcentajeGanancia = new JLabel("Gcia %:");
+		lblPorcentajeGanancia.setBounds(280, 120 , 100, altoControles);
+		contentPane.add(lblPorcentajeGanancia);
+		
+		final JTextField txtPorcentajeGanancia = new JTextField("");
+		txtPorcentajeGanancia.setBounds(330, 120, 80, altoControles);
+		contentPane.add(txtPorcentajeGanancia);
+		
+		
+		
+		
+		
 		lstColores.setBounds(10, 150, 100, altoControles);
 		contentPane.add(lstColores);
 		
 		lstTalles.setBounds(150, 150, 100, altoControles);
 		contentPane.add(lstTalles);
+				
 				
 		//TABLA	    
 	    myTableModel = new MyTableModel(lstItemColorTalle);	    
@@ -356,6 +379,24 @@ public class AltaPrendaSRC extends JFrame {
 	    table.setPreferredScrollableViewportSize(new Dimension(500, 70));
 	    JScrollPane scrollPane = new JScrollPane(table);
 	    scrollPane.setBounds(10, 175, 400, 200);	   
+	    
+	     table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	        table.addMouseListener(new MouseAdapter() {
+	            public void mouseClicked(MouseEvent e) {
+	                initDetail(table.getSelectedRow());
+	            }
+
+				private void initDetail(int selectedRow) {
+
+					itemColorTalleSeleccionado = lstItemColorTalle.get(table.convertRowIndexToModel(selectedRow));
+					
+			    	MyTableModelMateriales model = (MyTableModelMateriales)tableMateriales.getModel();
+		        	model.SetLstItems(itemColorTalleSeleccionado.getLstMaterialesporPrendaDTO());
+		        	model.refresh();	
+				}
+			});	    
+	    
+	    
 	    contentPane.add(scrollPane);	    	    
 	    //FIN TABLA
 			
@@ -373,13 +414,19 @@ public class AltaPrendaSRC extends JFrame {
 					itemColorTalleDTO.setIdItemColorTalle(lstItemColorTalle.size());
 					itemColorTalleDTO.setColorDTO(colorSeleccionado);
 					itemColorTalleDTO.setTalleDTO(talleSeleccionado);
+					itemColorTalleDTO.setCantidadenOPC(Float.parseFloat(txtCantidadenOPC.getText()));
+					itemColorTalleDTO.setPorcentajeGanancia(Float.parseFloat(txtPorcentajeGanancia.getText()));
+					itemColorTalleDTO.setCostroProduccionActual(Float.parseFloat(txtCostoProdActual.getText()));
+					
 					lstItemColorTalle.add(itemColorTalleDTO);
 					 										
 					MyTableModel model = (MyTableModel)table.getModel();
 					model.SetLstItems(lstItemColorTalle);
-					model.refresh();
+					model.refresh();					
 					
-										
+					txtCantidadenOPC.setText("");
+					txtPorcentajeGanancia.setText("");
+					txtCostoProdActual.setText("");		
 	        	
 	        }
 	    });
@@ -445,7 +492,8 @@ public class AltaPrendaSRC extends JFrame {
 				
 		
 		//TABLA	Materiales 
-		myTableModelMateriales = new MyTableModelMateriales(lstMaterialesporPrenda);  
+		//myTableModelMateriales = new MyTableModelMateriales(lstMaterialesporPrenda);
+		myTableModelMateriales = new MyTableModelMateriales(itemColorTalleSeleccionado.getLstMaterialesporPrendaDTO());				
 		tableMateriales = new JTable(myTableModelMateriales);
 		tableMateriales.setPreferredScrollableViewportSize(new Dimension(500, 70));
 	    JScrollPane scrollPaneMateriales = new JScrollPane(tableMateriales);
@@ -465,17 +513,21 @@ public class AltaPrendaSRC extends JFrame {
 	        	
 	        	MaterialesPorPrendaDTO materialporPrendaDTO = new MaterialesPorPrendaDTO();
 	        	materialporPrendaDTO.setNombreMaterial(materiaPrimaDTO.getNombre());
-	        	materialporPrendaDTO.setId(lstMaterialesporPrenda.size());
+	        	//materialporPrendaDTO.setId(lstMaterialesporPrenda.size());
+	        	materialporPrendaDTO.setId(itemColorTalleSeleccionado.getLstMaterialesporPrendaDTO().size());
+	        	
 	        	materialporPrendaDTO.setCantidad(Float.parseFloat(txtCantidadMateriaPrima.getText()));
 	        	materialporPrendaDTO.setDesperdicio(Float.parseFloat(txtDesperdicioMateriaPrima.getText()));
 	        	materialporPrendaDTO.setIdMaterial(materiaPrimaDTO.getCodigo());
 	        	materialporPrendaDTO.setMateriaPrimaDTO(materiaPrimaDTO);
+	        		        	
+	        	//lstMaterialesporPrenda.add(materialporPrendaDTO);       	
 	        	
+	        	itemColorTalleSeleccionado.agregarMaterialesporPrenda(materialporPrendaDTO);
+	        		        	
 	        	
-	        	lstMaterialesporPrenda.add(materialporPrendaDTO);
-       	
 	        	MyTableModelMateriales model = (MyTableModelMateriales)tableMateriales.getModel();
-	        	model.SetLstItems(lstMaterialesporPrenda);
+	        	model.SetLstItems(itemColorTalleSeleccionado.getLstMaterialesporPrendaDTO());
 	        	model.refresh();	        														
 	        	
 	        }
@@ -496,25 +548,37 @@ public class AltaPrendaSRC extends JFrame {
 	        		ItemPrendaDTO itemPrendadto = new ItemPrendaDTO();
 	        		itemPrendadto.setColor(itemColorTalleDTO.getColorDTO());
 	        		itemPrendadto.setTalle(itemColorTalleDTO.getTalleDTO());
-	        		itemPrendadto.setPrendaDTO(prendaDTO);	        			        		
-	        		prendaDTO.AgregarItemPrenda(itemPrendadto);
-	        			        	
+	        		itemPrendadto.setPrendaDTO(prendaDTO);	
+	        		
+	        		ItemMaterialPrendaDTO itemMaterialPrendaDTO = null;
+	        		for (MaterialesPorPrendaDTO materialesPorItemPrenda : itemColorTalleDTO.getLstMaterialesporPrendaDTO())
+	        		{
+	        			
+	        			itemMaterialPrendaDTO = new ItemMaterialPrendaDTO();
+	        			itemMaterialPrendaDTO.setCantidadutilizada((int)materialesPorItemPrenda.getCantidad());
+	        			itemMaterialPrendaDTO.setDespedicio(materialesPorItemPrenda.getDesperdicio());
+	        			itemMaterialPrendaDTO.setPrenda(prendaDTO);
+	        			itemMaterialPrendaDTO.setMateriaprima(materialesPorItemPrenda.getMateriaPrimaDTO());	        				        				        			
+	        			itemPrendadto.AgregarItemMaterialPrenda(itemMaterialPrendaDTO);	
+	        				        			
+					}	        			        		
+	        		prendaDTO.AgregarItemPrenda(itemPrendadto);	        			        
 				}
 	        		
 	        	
-	        	for (MaterialesPorPrendaDTO materiaPrimaDTO : lstMaterialesporPrenda) {
-				
-	        		ItemMaterialPrendaDTO itemMaterialPrendaDTO = null;
-	        		for (ItemPrendaDTO itemPrendaDTO : prendaDTO.getItemPrenda()) {
-						
-	        			itemMaterialPrendaDTO = new ItemMaterialPrendaDTO();
-	        			itemMaterialPrendaDTO.setCantidadutilizada((int)materiaPrimaDTO.getCantidad());
-	        			itemMaterialPrendaDTO.setDespedicio(materiaPrimaDTO.getDesperdicio());
-	        			itemMaterialPrendaDTO.setPrenda(prendaDTO);
-	        			itemMaterialPrendaDTO.setMateriaprima(materiaPrimaDTO.getMateriaPrimaDTO());	        				        				        			
-	        			itemPrendaDTO.AgregarItemMaterialPrenda(itemMaterialPrendaDTO);												
-					}
-				}
+//	        	for (MaterialesPorPrendaDTO materiaPrimaDTO : lstMaterialesporPrenda) {
+//				
+//	        		ItemMaterialPrendaDTO itemMaterialPrendaDTO = null;
+//	        		for (ItemPrendaDTO itemPrendaDTO : prendaDTO.getItemPrenda()) {
+//						
+//	        			itemMaterialPrendaDTO = new ItemMaterialPrendaDTO();
+//	        			itemMaterialPrendaDTO.setCantidadutilizada((int)materiaPrimaDTO.getCantidad());
+//	        			itemMaterialPrendaDTO.setDespedicio(materiaPrimaDTO.getDesperdicio());
+//	        			itemMaterialPrendaDTO.setPrenda(prendaDTO);
+//	        			itemMaterialPrendaDTO.setMateriaprima(materiaPrimaDTO.getMateriaPrimaDTO());	        				        				        			
+//	        			itemPrendaDTO.AgregarItemMaterialPrenda(itemMaterialPrendaDTO);												
+//					}
+//				}
 	        	
 	        	for (ItemAreaTiemposDTO itemAreaTiemposDTO : lstAreasTiempos) {
 	        		AreaProduccionInvolucradaDTO areaDTO = new AreaProduccionInvolucradaDTO();

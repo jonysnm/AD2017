@@ -13,8 +13,8 @@ public class MateriaPrimaEntity implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 6617885206957270077L;
-	@Id	
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int codigoMP;
 	private float cantidadAComprar;
 	private float cantidadPtoPedido; 
@@ -26,7 +26,6 @@ public class MateriaPrimaEntity implements Serializable {
 		return codigoMP;
 	}
 	public void setCodigo(int codigo) {
-		;
 		this.codigoMP = codigo;
 	}
 	public float getCantidadAComprar() {
