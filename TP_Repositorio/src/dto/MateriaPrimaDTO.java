@@ -19,8 +19,7 @@ public class MateriaPrimaDTO implements Serializable{
 		this.setCantidadAComprar(cantidadAComprar);
 	}
 	
-	public MateriaPrimaDTO() {
-	}
+
 	
 	public Integer getCodigo() {
 		return codigo;
