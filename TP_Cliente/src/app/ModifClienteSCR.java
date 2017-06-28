@@ -2,8 +2,11 @@ package app;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -39,11 +42,11 @@ public class ModifClienteSCR extends javax.swing.JFrame {
 	private JLabel jLabelnombre;
 	private JTextField jTextFieldnombre;
 	private JButton jButtonBuscar;
+	private JComboBox jComboBoxTipoFact;
 	private JTextField jTextFieldidcliente;
 	private JButton jButtonAceptar;
 	private JLabel jLabelidcliente;
 	private JLabel jLabelmensaje;
-	private JTextField jTextFieldtipofacturacion;
 	private JLabel jLabeltipoFacturacion;
 	private JTextField jTextFieldlimitecredito;
 	private JLabel jLabellimiteCredito;
@@ -74,13 +77,16 @@ public class ModifClienteSCR extends javax.swing.JFrame {
 			GroupLayout thisLayout = new GroupLayout((JComponent)getContentPane());
 			getContentPane().setLayout(thisLayout);
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+			
 			this.setTitle("Modificacion Cliente");
 			{
 				jLabelcuit = new JLabel();
 				jLabelcuit.setText("CUIT:  ");
+				
 			}
 			{
 				jTextFieldcuit = new JTextField();
+				jTextFieldcuit.setEnabled(false);
 			}
 			{
 				jLabelnombre = new JLabel();
@@ -88,6 +94,7 @@ public class ModifClienteSCR extends javax.swing.JFrame {
 			}
 			{
 				jTextFieldnombre = new JTextField();
+				jTextFieldnombre.setEnabled(false);
 			}
 			{
 				jButtonAceptar = new JButton();
@@ -97,21 +104,32 @@ public class ModifClienteSCR extends javax.swing.JFrame {
 					
 					
 					public void actionPerformed(ActionEvent arg0) {
+						
+						
 						String cu = jTextFieldcuit.getText();
 						String nam = jTextFieldnombre.getText();
-						String tip = jTextFieldtipofacturacion.getText();
+						String tip = jComboBoxTipoFact.getSelectedItem().toString();
 						float lim = Float.parseFloat(jTextFieldlimitecredito.getText());
 					
-						ClienteDTO clienteDTO = new ClienteDTO();
-						clienteDTO.setCuit(cu);
-						clienteDTO.setLimiteCredito(lim);
-						clienteDTO.setNombre(nam);
-						clienteDTO.setTipoFacturacion(tip);
-						//Integer nroCliente;
+						ClienteDTO c = null;
 						try {
-							ClienteDTO c=BusinessDelegate.getInstancia().buscarCliente(cu);
+							c = BusinessDelegate.getInstancia().buscarCliente(Integer.parseInt(jTextFieldidcliente.getText()));
+						} catch (NumberFormatException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (RemoteException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						c.setCuit(cu);
+						c.setLimiteCredito(lim);
+						c.setNombre(nam);
+						c.setTipoFacturacion(tip);
+						
+						try {
+						
 							BusinessDelegate.getInstancia().modificarCliente(c);
-							jLabelmensaje.setText("Se Modifico el Cliente nro: "+c.getCuit().toString());
+							jLabelmensaje.setText("Se Modifico el Cliente con Cuit: "+c.getCuit().toString());
 						} catch (RemoteException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -124,8 +142,49 @@ public class ModifClienteSCR extends javax.swing.JFrame {
 				jLabelmensaje = new JLabel();
 			}
 			{
+				ComboBoxModel jComboBoxTipoFactModel = 
+						new DefaultComboBoxModel(
+								new String[] { "A", "B", "C" });
+				jComboBoxTipoFact = new JComboBox();
+				jComboBoxTipoFact.setModel(jComboBoxTipoFactModel);
+				jComboBoxTipoFact.setEnabled(false);
+			}
+			{
 				jButtonBuscar = new JButton();
 				jButtonBuscar.setText("Buscar");
+				jButtonBuscar.addActionListener(new ActionListener() {
+					
+					ClienteDTO c = null;
+					public void actionPerformed(ActionEvent arg0) {
+						try {
+							c=BusinessDelegate.getInstancia().buscarCliente(Integer.parseInt(jTextFieldidcliente.getText()));
+							
+							
+						} catch (RemoteException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						jTextFieldcuit.setText(c.getCuit());
+						jTextFieldnombre.setText(c.getNombre());
+						jComboBoxTipoFact.setSelectedItem(c.getTipoFacturacion());
+					
+						jTextFieldlimitecredito.setText(String.valueOf(c.getLimiteCredito())); 
+						
+						jTextFieldidcliente.setEnabled(false);
+						jTextFieldcuit.setEnabled(true);
+						jTextFieldlimitecredito.setEnabled(true);
+						jTextFieldnombre.setEnabled(true);
+						jComboBoxTipoFact.setEnabled(true);
+						
+						jLabelidcliente.setVisible(false);
+						jButtonBuscar.setEnabled(false);
+						jButtonAceptar.setEnabled(true);
+					
+					
+						
+					}
+				});
 			}
 			{
 				jLabelidcliente = new JLabel();
@@ -137,16 +196,16 @@ public class ModifClienteSCR extends javax.swing.JFrame {
 			{
 				jLabeltipoFacturacion = new JLabel();
 				jLabeltipoFacturacion.setText("Tipo de Facturación: ");
-			}
-			{
-				jTextFieldtipofacturacion = new JTextField();
+				
 			}
 			{
 				jLabellimiteCredito = new JLabel();
 				jLabellimiteCredito.setText("Límite de Crédito: ");
+				
 			}
 			{
 				jTextFieldlimitecredito = new JTextField();
+				jTextFieldlimitecredito.setEnabled(false);
 			}
 			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
 				.addContainerGap()
@@ -167,20 +226,32 @@ public class ModifClienteSCR extends javax.swing.JFrame {
 				    .add(GroupLayout.BASELINE, jTextFieldlimitecredito, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
 				    .add(GroupLayout.BASELINE, jLabellimiteCredito, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addPreferredGap(LayoutStyle.RELATED)
-				.add(thisLayout.createParallelGroup(GroupLayout.BASELINE)
-				    .add(GroupLayout.BASELINE, jTextFieldtipofacturacion, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-				    .add(GroupLayout.BASELINE, jLabeltipoFacturacion, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(LayoutStyle.UNRELATED)
+				.add(thisLayout.createParallelGroup()
+				    .add(GroupLayout.LEADING, thisLayout.createSequentialGroup()
+				        .add(jLabeltipoFacturacion, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				        .add(8))
+				    .add(thisLayout.createSequentialGroup()
+				        .add(0, 0, Short.MAX_VALUE)
+				        .add(jComboBoxTipoFact, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)))
+				.addPreferredGap(LayoutStyle.RELATED)
 				.add(jButtonAceptar, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(LayoutStyle.RELATED, 0, Short.MAX_VALUE)
+				.addPreferredGap(LayoutStyle.RELATED)
 				.add(jLabelmensaje, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE));
 			thisLayout.setHorizontalGroup(thisLayout.createSequentialGroup()
 				.add(6)
 				.add(thisLayout.createParallelGroup()
 				    .add(GroupLayout.LEADING, thisLayout.createSequentialGroup()
 				        .add(jLabeltipoFacturacion, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)
-				        .add(jTextFieldidcliente, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
-				        .add(116))
+				        .add(thisLayout.createParallelGroup()
+				            .add(GroupLayout.LEADING, thisLayout.createSequentialGroup()
+				                .add(jTextFieldidcliente, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
+				                .add(19))
+				            .add(GroupLayout.LEADING, thisLayout.createSequentialGroup()
+				                .addPreferredGap(jTextFieldidcliente, jComboBoxTipoFact, LayoutStyle.INDENT)
+				                .add(jComboBoxTipoFact, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)))
+				        .addPreferredGap(LayoutStyle.RELATED)
+				        .add(jButtonBuscar, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
+				        .add(12))
 				    .add(GroupLayout.LEADING, jLabelmensaje, 0, 362, Short.MAX_VALUE)
 				    .add(thisLayout.createSequentialGroup()
 				        .add(thisLayout.createParallelGroup()
@@ -199,26 +270,18 @@ public class ModifClienteSCR extends javax.swing.JFrame {
 				            .add(GroupLayout.LEADING, thisLayout.createSequentialGroup()
 				                .add(jLabellimiteCredito, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
 				                .add(8)))
-				        .addPreferredGap(LayoutStyle.RELATED)
 				        .add(thisLayout.createParallelGroup()
 				            .add(GroupLayout.LEADING, thisLayout.createSequentialGroup()
-				                .add(jTextFieldnombre, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+				                .add(jTextFieldlimitecredito, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
+				                .add(65))
+				            .add(GroupLayout.LEADING, jTextFieldnombre, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+				            .add(GroupLayout.LEADING, thisLayout.createSequentialGroup()
+				                .add(jTextFieldcuit, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)
 				                .add(51))
 				            .add(GroupLayout.LEADING, thisLayout.createSequentialGroup()
-				                .add(thisLayout.createParallelGroup()
-				                    .add(GroupLayout.LEADING, jTextFieldcuit, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)
-				                    .add(GroupLayout.LEADING, thisLayout.createSequentialGroup()
-				                        .add(jTextFieldtipofacturacion, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
-				                        .add(15))
-				                    .add(GroupLayout.LEADING, thisLayout.createSequentialGroup()
-				                        .add(jTextFieldlimitecredito, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
-				                        .add(14))
-				                    .add(GroupLayout.LEADING, thisLayout.createSequentialGroup()
-				                        .add(jButtonAceptar, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
-				                        .add(6)))
-				                .add(25)
-				                .add(jButtonBuscar, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)))
-				        .add(8)))
+				                .add(jButtonAceptar, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
+				                .add(57)))
+				        .add(59)))
 				.addContainerGap());
 			pack();
 			this.setSize(390, 262);
@@ -228,3 +291,4 @@ public class ModifClienteSCR extends javax.swing.JFrame {
 	}
 
 }
+

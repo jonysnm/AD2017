@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.AdministracionDAO;
 import dao.ClienteDAO;
 import dto.ClienteDTO;
 import dto.CuentaCorrienteDTO;
@@ -58,6 +59,10 @@ public class ControladorClientes {
 		c.setNombre(cliente.getNombre());
 		c.setTipoFacturacion(cliente.getTipoFacturacion());
 		c.setCtacte(cc);
+		c.setId(cliente.getId());
+			
+		
+		
 		return c;
 	}
 }

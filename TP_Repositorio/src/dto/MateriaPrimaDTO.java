@@ -10,6 +10,7 @@ public class MateriaPrimaDTO implements Serializable{
 	
 	private Integer codigo;
 	private Float cantidadAComprar;
+	private Float cantidadPtoReposicion;
 	private String nombre;
 	
 	public MateriaPrimaDTO(int id, String Descripcion, float cantidadaComprar) {
@@ -38,6 +39,19 @@ public class MateriaPrimaDTO implements Serializable{
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	public Float getCantidadPtoReposicion() {
+		return cantidadPtoReposicion;
+	}
+	public void setCantidadPtoReposicion(Float cantidadPtoReposicion) {
+		this.cantidadPtoReposicion = cantidadPtoReposicion;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	public MateriaPrimaDTO() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
