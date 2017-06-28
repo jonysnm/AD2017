@@ -1,6 +1,7 @@
 package controladores;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -10,13 +11,18 @@ import negocio.ItemPedido;
 import negocio.Pedido;
 import negocio.Prenda;
 import dao.AdministracionDAO;
+import dao.AlmacenDAO;
 import dao.DespachoDAO;
 import dao.PedidoDAO;
+import dto.AreaProduccionDTO;
+import dto.MateriaPrimaDTO;
 import dto.OrdenDespachoDTO;
 import dto.PedidoDTO;
 import dto.PedidoaDespacharDTO;
 import dto.PedidosCompletosPendientesDespacharDTO;
 import dto.UbicacionDTO;
+import entities.AreaProduccionEntity;
+import entities.MateriaPrimaEntity;
 
 public class ControladorDespacho {
 	
@@ -85,7 +91,36 @@ public class ControladorDespacho {
 	public PedidoaDespacharDTO obtenerPedidoaDespachar(int idPedidoaDespachar) {
 		return new Pedido().obtenerPedidoaDespachar(idPedidoaDespachar);
 	}
+	
+	public List<AreaProduccionDTO> getAllAreaDeProduccion() {
+		List<AreaProduccionEntity> lstAreaProduccionEntity = AlmacenDAO.getInstancia().getAllAreaDeProduccion();
+		List<AreaProduccionDTO> lstReturn = new ArrayList<AreaProduccionDTO>();
+		AreaProduccionDTO areaProduccionDTO = null;
+		for (AreaProduccionEntity areaProduccionEntity : lstAreaProduccionEntity) {
+			areaProduccionDTO=new AreaProduccionDTO(areaProduccionEntity.getCodigo(), areaProduccionEntity.getNombreArea());
+			lstReturn.add(areaProduccionDTO);
+		}		
+		return lstReturn;
+	}
+
+	public List<MateriaPrimaDTO> getAllMateriaPrima() {
+		List<MateriaPrimaEntity> lstMateriaPrimaEntity = AlmacenDAO.getInstancia().getAllMateriaPrima();
+		List<MateriaPrimaDTO> lstReturn = new ArrayList<MateriaPrimaDTO>();
+		MateriaPrimaDTO materiaPrimaDTO = null;
+		for (MateriaPrimaEntity materiaPrimaEntity : lstMateriaPrimaEntity) {
+			materiaPrimaDTO =	new MateriaPrimaDTO();
+			materiaPrimaDTO.setCantidadAComprar(materiaPrimaEntity.getCantidadAComprar());
+			materiaPrimaDTO.setCodigo(materiaPrimaEntity.getCodigo());
+			materiaPrimaDTO.setNombre(materiaPrimaEntity.getNombre());
+			lstReturn.add(materiaPrimaDTO);
+		}
+		
+		return lstReturn;
+	}
+	
+	
 //FIN Metodos Jonathan --> Consultar antes de modificar
+
 
 
 }

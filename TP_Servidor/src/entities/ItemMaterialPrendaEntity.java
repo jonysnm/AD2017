@@ -21,9 +21,14 @@ public class ItemMaterialPrendaEntity implements Serializable {
 	private float despedicio;
 
 	@ManyToOne
-	@JoinColumn(name="codigo",nullable=false)
+	@JoinColumn(name="codigoMP",nullable=false)
 	private MateriaPrimaEntity materiaprima;
 
+//Jonathan	@ManyToOne(fetch=FetchType.EAGER)
+//	@JoinColumn(name="IdItemPrenda")
+//	private ItemPrendaEntity itemPrenda;
+	
+	
 	
 	public ItemMaterialPrendaEntity() {
 		super();
@@ -60,6 +65,12 @@ public class ItemMaterialPrendaEntity implements Serializable {
 	public void setMateriaprima(MateriaPrimaEntity materiaprima) {
 		this.materiaprima = materiaprima;
 	}
+//	public ItemPrendaEntity getItemPrenda() {
+//		return itemPrenda;
+//	}
+//	public void setItemPrenda(ItemPrendaEntity itemPrenda) {
+//		this.itemPrenda = itemPrenda;
+//	}
 
 
 

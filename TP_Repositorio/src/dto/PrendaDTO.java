@@ -1,7 +1,10 @@
 package dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class PrendaDTO implements Serializable{
 	
@@ -11,6 +14,7 @@ public class PrendaDTO implements Serializable{
 	private String descripcion;
 	private List<ItemPrendaDTO> itemPrenda;
 	private List<ItemMaterialPrendaDTO> itemMaterialPrenda;
+	private List<AreaProduccionInvolucradaDTO> lstAreasInvolucradas;
 	private boolean vigente;
 	private float costoProduccion;
 	private float costoProduccionActual;
@@ -67,5 +71,26 @@ public class PrendaDTO implements Serializable{
 	}
 	public void setItemPrenda(List<ItemPrendaDTO> itemPrenda) {
 		this.itemPrenda = itemPrenda;
+	}
+	
+	public void AgregarItemPrenda(ItemPrendaDTO itemPrendaDTO)
+	{
+		if(this.getItemPrenda()==null)
+			this.setItemPrenda(new ArrayList<ItemPrendaDTO>());
+		this.getItemPrenda().add(itemPrendaDTO);
+	}
+
+	public List<AreaProduccionInvolucradaDTO> getLstAreasInvolucradas() {
+		return lstAreasInvolucradas;
+	}
+
+	public void setLstAreasInvolucradas(List<AreaProduccionInvolucradaDTO> lstAreasInvolucradas) {
+		this.lstAreasInvolucradas = lstAreasInvolucradas;
+	}
+	
+	public void AgregarAreaProduccionInvolucrada(AreaProduccionInvolucradaDTO areaInvolucradaDTO){
+		if(lstAreasInvolucradas==null)
+			lstAreasInvolucradas= new ArrayList<AreaProduccionInvolucradaDTO>();
+		lstAreasInvolucradas.add(areaInvolucradaDTO);
 	}
 }

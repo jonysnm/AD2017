@@ -1,6 +1,8 @@
 package dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ItemPrendaDTO implements Serializable{
@@ -11,6 +13,12 @@ public class ItemPrendaDTO implements Serializable{
 	private TalleDTO talle;
 	private ColorDTO color;
 	private PrendaDTO prendaDTO;
+	public List<ItemMaterialPrendaDTO> lstItemMaterialPrendaDTO;
+	
+	
+	
+	
+	
 	
 	public TalleDTO getTalle() {
 		return talle;
@@ -36,7 +44,18 @@ public class ItemPrendaDTO implements Serializable{
 	public void setIditemPrenda(Integer iditemPrenda) {
 		IditemPrenda = iditemPrenda;
 	}
+	public List<ItemMaterialPrendaDTO> getLstItemMaterialPrendaDTO() {
+		return lstItemMaterialPrendaDTO;
+	}
+	public void setLstItemMaterialPrendaDTO(List<ItemMaterialPrendaDTO> lstItemMaterialPrendaDTO) {
+		this.lstItemMaterialPrendaDTO = lstItemMaterialPrendaDTO;
+	}
 	
-
+	public void AgregarItemMaterialPrenda(ItemMaterialPrendaDTO itemMaterialPrendaDTO){
+		if(this.getLstItemMaterialPrendaDTO()==null)
+			this.setLstItemMaterialPrendaDTO(new ArrayList<ItemMaterialPrendaDTO>());
+		this.lstItemMaterialPrendaDTO.add(itemMaterialPrendaDTO);
+	}
+	
 	
 }

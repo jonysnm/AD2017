@@ -27,9 +27,7 @@ public class PrendaEntity implements Serializable{
 	
 	private String descripcion;
 
-    @OneToMany(fetch=FetchType.EAGER,mappedBy="prenda",cascade={CascadeType.ALL})
-//    @OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-//	@JoinColumn(name="IdPrenda")
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER,mappedBy="prenda")
 	private List<ItemPrendaEntity> ip=new ArrayList<ItemPrendaEntity>();
 	
 	private Boolean vigente;
@@ -69,6 +67,13 @@ public class PrendaEntity implements Serializable{
 	public void setAreasInvolucradas(List<AreaProduccionInvolucradaEntity> areasInvolucradas) {
 		this.areasInvolucradas = areasInvolucradas;
 	}
+	
+	public void AgreagrArea(AreaProduccionInvolucradaEntity areaEntity)
+	{
+		if(this.areasInvolucradas==null)this.areasInvolucradas= new ArrayList<AreaProduccionInvolucradaEntity>();
+		this.areasInvolucradas.add(areaEntity);
+	}
+	
 	public List<ItemPrendaEntity> getIp() {
 		return ip;
 	}
@@ -76,5 +81,10 @@ public class PrendaEntity implements Serializable{
 		this.ip = ip;
 	}
 	
+	public void AgregarItemPrenda(ItemPrendaEntity ip)
+	{
+		if(this.ip==null)this.ip= new ArrayList<ItemPrendaEntity>();
+		this.ip.add(ip);
+	}
 
 }

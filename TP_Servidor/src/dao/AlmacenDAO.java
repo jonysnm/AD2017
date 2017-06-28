@@ -10,16 +10,20 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.hql.ast.QuerySyntaxException;
 
+import entities.AreaProduccionEntity;
+import entities.ClienteEntity;
 import entities.ColorEntity;
 import entities.ItemBultoEntity;
 import entities.ItemBultoPrendaEntity;
 import entities.ItemPrendaEntity;
+import entities.MateriaPrimaEntity;
 import entities.PedidoEntity;
 import entities.PrendaEntity;
 import entities.ReservasEntity;
 import entities.TalleEntity;
 import entities.UbicacionEntity;
 import hbt.HibernateUtil;
+import negocio.Cliente;
 import negocio.ItemBulto;
 import negocio.ItemBultoPrenda;
 import negocio.ItemPedido;
@@ -184,6 +188,102 @@ public class AlmacenDAO {
 				
 		return itemBulto;
 	}
+
+	public List<AreaProduccionEntity> getAllAreaDeProduccion() {
+
+		
+		Session s = sf.openSession();
+		String consulta = "from AreaProduccionEntity";		
+		@SuppressWarnings("unchecked")
+		ArrayList<AreaProduccionEntity> lista = (ArrayList<AreaProduccionEntity>) s.createQuery(consulta).list();
+		s.close();
+		return lista;				
+	}
+	
+	
+	public AreaProduccionEntity getAreaDeProduccion(int id) {
+
+		//AreaProduccionEntity
+		
+		AreaProduccionEntity areaEntity = null;
+		try {
+			Session session = sf.openSession();
+			
+			String hql = "FROM AreaProduccionEntity C " +
+						 "WHERE C.codigo = :id";
+			
+			Query query = session.createQuery(hql);
+			query.setParameter("id", id);
+			query.setMaxResults(1);
+			
+			if(query.uniqueResult() != null){
+				areaEntity = (AreaProduccionEntity) query.uniqueResult();
+	        	session.close();
+	        }else{
+	        	session.close();
+	        }
+			
+		}catch (QuerySyntaxException q){
+			JOptionPane.showMessageDialog(null, q, "Error", JOptionPane.ERROR_MESSAGE);
+			System.out.println("Exception");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return areaEntity;
+		
+	}
+	
+	
+
+	public List<MateriaPrimaEntity> getAllMateriaPrima() {
+		Session s = sf.openSession();
+		String consulta = "from MateriaPrimaEntity";		
+		@SuppressWarnings("unchecked")
+		ArrayList<MateriaPrimaEntity> lista = (ArrayList<MateriaPrimaEntity>) s.createQuery(consulta).list();
+		s.close();
+		return lista;	
+	}
+	
+	public MateriaPrimaEntity getMateriaPrima(int id) {
+		
+		
+		
+		MateriaPrimaEntity mpEntity = null;
+		try {
+			Session session = sf.openSession();
+			
+			String hql = "FROM MateriaPrimaEntity C " +
+						 "WHERE C.codigoMP = :id";
+			
+			Query query = session.createQuery(hql);
+			query.setParameter("id", id);
+			query.setMaxResults(1);
+			
+			if(query.uniqueResult() != null){
+				mpEntity = (MateriaPrimaEntity) query.uniqueResult();
+	        	session.close();
+	        }else{
+	        	session.close();
+	        }
+			
+		}catch (QuerySyntaxException q){
+			JOptionPane.showMessageDialog(null, q, "Error", JOptionPane.ERROR_MESSAGE);
+			System.out.println("Exception");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mpEntity;
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	
 	
 	//Fin Jonathan Methods
 }

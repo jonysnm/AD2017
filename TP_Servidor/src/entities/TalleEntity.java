@@ -15,6 +15,12 @@ public class TalleEntity implements Serializable{
 	private String descripcion;
 	public TalleEntity(){}
 
+	public TalleEntity(Integer idTalle2, String descripcion2) {
+		this.setidTalle(idTalle2);
+		this.setDescripcion(descripcion2);
+	}
+	
+
 	public String getDescripcion() {
 		return descripcion;
 	}

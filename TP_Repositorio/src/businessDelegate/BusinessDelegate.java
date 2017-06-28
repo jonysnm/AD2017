@@ -6,10 +6,12 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import dto.AreaProduccionDTO;
 import dto.ClienteDTO;
 import dto.ColorDTO;
 import dto.EmpleadoDTO;
 import dto.ItemPrendaDTO;
+import dto.MateriaPrimaDTO;
 import dto.PedidoDTO;
 import dto.PedidoaDespacharDTO;
 import dto.PedidosCompletosPendientesDespacharDTO;
@@ -228,6 +230,17 @@ public class BusinessDelegate {
 	}
 	public void bajaSucursal(SucursalDTO e)throws RemoteException{
 		interfazRemotaSucursales.bajaSucursal(e);
+		
+	}
+	public List<AreaProduccionDTO> getAllAreaDeProduccion()throws RemoteException {
+
+		return interfazRemotaDespacho.getAllAreaDeProduccion();
+	}
+	public List<MateriaPrimaDTO> getAllMateriaPrima()throws RemoteException {
+		return interfazRemotaDespacho.getAllMateriaPrima();
+	}
+	public void AltaPrenda(PrendaDTO prendaDTO)throws RemoteException {
+		interfazRemotaDespacho.AltaPrenda(prendaDTO);
 		
 	}		
 }
