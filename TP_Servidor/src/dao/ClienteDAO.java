@@ -74,7 +74,8 @@ public class ClienteDAO {
 		try{
 			Session session=sf.openSession();
 			session.beginTransaction();
-			ClienteEntity c=ClienteToEntity(cliente);
+//			ClienteEntity c=ClienteToEntity(cliente);
+			ClienteEntity c = getClienteE(cliente.getId());
 			session.delete(c);
 			session.flush();
 			session.getTransaction().commit();
@@ -90,7 +91,11 @@ public class ClienteDAO {
 			Session session=sf.openSession();
 			session.beginTransaction();
 			ClienteEntity c=ClienteToEntity(cliente);
+			c.setId(cliente.getId());
+			ClienteEntity c2 = getClienteE(c.getId());
+			c.setCtacte(c2.getCtacte());
 			session.update(c);
+			
 			session.getTransaction().commit();
 			session.close();
 		}catch(Exception e){
@@ -215,6 +220,36 @@ public class ClienteDAO {
 				e.printStackTrace();
 			}
 			return new Cliente(cliente);
+		}
+		
+		public ClienteEntity getClienteE(Integer id){
+			ClienteEntity cliente = null;
+			try {
+				Session session = sf.openSession();
+				
+				String hql = "FROM ClienteEntity P " +
+							 "WHERE P.id = :id";
+				
+				Query query = session.createQuery(hql);
+				query.setParameter("id", id);
+				query.setMaxResults(1);
+				
+				if(query.uniqueResult() != null){
+					cliente = (ClienteEntity) query.uniqueResult();
+		        	session.close();
+		        }else{
+		        	session.close();
+		        }
+			}catch (QuerySyntaxException q){
+				JOptionPane.showMessageDialog(null, q, "Error", JOptionPane.ERROR_MESSAGE);
+				System.out.println("Exception de sintaxis en ClienteDAO: GETCLIENTE");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return cliente;
+			
+			
+
 		}
 		
 }

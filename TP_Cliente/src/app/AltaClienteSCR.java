@@ -2,15 +2,18 @@ package app;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.LayoutStyle;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
+import org.jdesktop.layout.GroupLayout;
+import org.jdesktop.layout.LayoutStyle;
 
 import businessDelegate.BusinessDelegate;
 import dto.ClienteDTO;
@@ -39,8 +42,8 @@ public class AltaClienteSCR extends javax.swing.JFrame {
 	private JLabel jLabelnombre;
 	private JTextField jTextFieldnombre;
 	private JButton jButtonAceptar;
+	private JComboBox jComboBoxTipoFact;
 	private JLabel jLabelmensaje;
-	private JTextField jTextFieldtipofacturacion;
 	private JLabel jLabeltipoFacturacion;
 	private JTextField jTextFieldlimitecredito;
 	private JLabel jLabellimiteCredito;
@@ -95,7 +98,8 @@ public class AltaClienteSCR extends javax.swing.JFrame {
 					public void actionPerformed(ActionEvent arg0) {
 						String cu = jTextFieldcuit.getText();
 						String nam = jTextFieldnombre.getText();
-						String tip = jTextFieldtipofacturacion.getText();
+						String tip = jComboBoxTipoFact.getSelectedItem().toString();
+							
 						float lim = Float.parseFloat(jTextFieldlimitecredito.getText());
 					
 						ClienteDTO clienteDTO = new ClienteDTO();
@@ -120,11 +124,15 @@ public class AltaClienteSCR extends javax.swing.JFrame {
 				jLabelmensaje = new JLabel();
 			}
 			{
-				jLabeltipoFacturacion = new JLabel();
-				jLabeltipoFacturacion.setText("Tipo de Facturación: ");
+				ComboBoxModel jComboBoxTipoFactModel = 
+						new DefaultComboBoxModel(
+								new String[] { "A", "B", "C" });
+				jComboBoxTipoFact = new JComboBox();
+				jComboBoxTipoFact.setModel(jComboBoxTipoFactModel);
 			}
 			{
-				jTextFieldtipofacturacion = new JTextField();
+				jLabeltipoFacturacion = new JLabel();
+				jLabeltipoFacturacion.setText("Tipo de Facturación: ");
 			}
 			{
 				jLabellimiteCredito = new JLabel();
@@ -134,63 +142,60 @@ public class AltaClienteSCR extends javax.swing.JFrame {
 				jTextFieldlimitecredito = new JTextField();
 			}
 			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
-				.addContainerGap(33, 33)
-				.addGroup(thisLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-				    .addComponent(jTextFieldcuit, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-				    .addComponent(jLabelcuit, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-				.addGroup(thisLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-				    .addComponent(jTextFieldnombre, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-				    .addComponent(jLabelnombre, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-				.addGroup(thisLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-				    .addComponent(jTextFieldlimitecredito, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-				    .addComponent(jLabellimiteCredito, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-				.addGroup(thisLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-				    .addComponent(jTextFieldtipofacturacion, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-				    .addComponent(jLabeltipoFacturacion, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-				.addComponent(jButtonAceptar, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 0, Short.MAX_VALUE)
-				.addComponent(jLabelmensaje, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+				.addContainerGap(29, 29)
+				.add(thisLayout.createParallelGroup(GroupLayout.BASELINE)
+				    .add(GroupLayout.BASELINE, jTextFieldcuit, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+				    .add(GroupLayout.BASELINE, jLabelcuit, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(LayoutStyle.RELATED)
+				.add(thisLayout.createParallelGroup(GroupLayout.BASELINE)
+				    .add(GroupLayout.BASELINE, jTextFieldnombre, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+				    .add(GroupLayout.BASELINE, jLabelnombre, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(LayoutStyle.RELATED)
+				.add(thisLayout.createParallelGroup(GroupLayout.BASELINE)
+				    .add(GroupLayout.BASELINE, jTextFieldlimitecredito, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+				    .add(GroupLayout.BASELINE, jLabellimiteCredito, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(LayoutStyle.RELATED)
+				.add(thisLayout.createParallelGroup(GroupLayout.BASELINE)
+				    .add(GroupLayout.BASELINE, jComboBoxTipoFact, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				    .add(GroupLayout.BASELINE, jLabeltipoFacturacion, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addPreferredGap(LayoutStyle.UNRELATED)
+				.add(jButtonAceptar, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(LayoutStyle.RELATED, 0, Short.MAX_VALUE)
+				.add(jLabelmensaje, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
 				.addContainerGap());
 			thisLayout.setHorizontalGroup(thisLayout.createSequentialGroup()
-				.addGap(6)
-				.addGroup(thisLayout.createParallelGroup()
-				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				        .addComponent(jLabeltipoFacturacion, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)
-				        .addGap(204))
-				    .addGroup(thisLayout.createSequentialGroup()
-				        .addGroup(thisLayout.createParallelGroup()
-				            .addComponent(jLabellimiteCredito, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
-				            .addGroup(thisLayout.createSequentialGroup()
-				                .addGap(66)
-				                .addGroup(thisLayout.createParallelGroup()
-				                    .addComponent(jLabelnombre, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
-				                    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				                        .addGap(20)
-				                        .addComponent(jLabelcuit, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)))
-				                .addGap(6)))
-				        .addGap(8)
-				        .addGroup(thisLayout.createParallelGroup()
-				            .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				                .addComponent(jTextFieldtipofacturacion, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
-				                .addGap(66))
-				            .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				                .addComponent(jTextFieldlimitecredito, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
-				                .addGap(65))
-				            .addComponent(jTextFieldnombre, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-				            .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				                .addGap(0, 0, Short.MAX_VALUE)
-				                .addComponent(jTextFieldcuit, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)
-				                .addGap(51))
-				            .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				                .addGap(0, 0, Short.MAX_VALUE)
-				                .addComponent(jButtonAceptar, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
-				                .addGap(57)))
-				        .addGap(59))
-				    .addComponent(jLabelmensaje, GroupLayout.Alignment.LEADING, 0, 362, Short.MAX_VALUE))
+				.add(6)
+				.add(thisLayout.createParallelGroup()
+				    .add(GroupLayout.LEADING, thisLayout.createSequentialGroup()
+				        .add(jLabeltipoFacturacion, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)
+				        .add(jComboBoxTipoFact, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				        .add(109))
+				    .add(thisLayout.createSequentialGroup()
+				        .add(thisLayout.createParallelGroup()
+				            .add(GroupLayout.LEADING, jLabellimiteCredito, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
+				            .add(thisLayout.createSequentialGroup()
+				                .add(66)
+				                .add(thisLayout.createParallelGroup()
+				                    .add(GroupLayout.LEADING, jLabelnombre, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
+				                    .add(GroupLayout.LEADING, thisLayout.createSequentialGroup()
+				                        .add(20)
+				                        .add(jLabelcuit, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)))
+				                .add(6)))
+				        .add(8)
+				        .add(thisLayout.createParallelGroup()
+				            .add(GroupLayout.LEADING, thisLayout.createSequentialGroup()
+				                .add(jTextFieldlimitecredito, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
+				                .add(65))
+				            .add(GroupLayout.LEADING, jTextFieldnombre, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+				            .add(GroupLayout.LEADING, thisLayout.createSequentialGroup()
+				                .add(0, 0, Short.MAX_VALUE)
+				                .add(jTextFieldcuit, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)
+				                .add(51))
+				            .add(GroupLayout.LEADING, thisLayout.createSequentialGroup()
+				                .add(jButtonAceptar, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
+				                .add(57)))
+				        .add(59))
+				    .add(GroupLayout.LEADING, jLabelmensaje, 0, 362, Short.MAX_VALUE))
 				.addContainerGap());
 			pack();
 			this.setSize(390, 262);

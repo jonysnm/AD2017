@@ -104,7 +104,9 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 						newClienteMenuItem.addActionListener(new ActionListener() {
 							
 							public void actionPerformed(ActionEvent e) {
-								AltaClienteSCR.getInstancia().setVisible(true);
+								AltaClienteSCR tv = new AltaClienteSCR();
+								tv.setVisible(true);
+//								AltaClienteSCR.getInstancia().setVisible(true);
 							}
 						});
 						
@@ -113,12 +115,14 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 						editClienteMenuItem = new JMenuItem();
 						jMenu3.add(editClienteMenuItem);
 						editClienteMenuItem.setText("Modificar");
-						/*editClienteMenuItem.addActionListener(new ActionListener() {
+						editClienteMenuItem.addActionListener(new ActionListener() {
 							
 							public void actionPerformed(ActionEvent e) {
-								editClienteMenuItem.getInstancia().setVisible(true);
+								ModifClienteSCR tv = new ModifClienteSCR();
+								tv.setVisible(true);
+//								ModifClienteSCR.getInstancia().setVisible(true);
 							}
-						});*/
+						});
 					}
 					{
 						delClienteMenuItem = new JMenuItem();
@@ -127,8 +131,9 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 						delClienteMenuItem.addActionListener(new ActionListener() {
 							
 							public void actionPerformed(ActionEvent e) {
-								
-								BajaClienteSCR.getInstancia().setVisible(true);
+								BajaClienteSCR tv = new BajaClienteSCR();
+								tv.setVisible(true);
+//								BajaClienteSCR.getInstancia().setVisible(true);
 							}
 						});
 					}
@@ -212,6 +217,14 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 						jMenuItemAltaPrenda = new JMenuItem();
 						jMenuPrenda.add(jMenuItemAltaPrenda);
 						jMenuItemAltaPrenda.setText("Nueva Prenda");
+//						jMenuItemAltaPrenda.addActionListener(new ActionListener() {
+//							
+//							public void actionPerformed(ActionEvent e) {
+//								AltaPrendaSCR tv = new AltaPrendaSCR();
+//								tv.setVisible(true);
+////								AltaColorSCR.getInstancia().setVisible(true);
+//							}
+//						});
 					}
 					{
 						jMenuItemModifPrenda = new JMenuItem();
