@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import estados.EstadoMP;
+import negocio.MateriaPrima;
 
 @Entity
 @Table(name="Materias_Primas")
@@ -52,6 +53,14 @@ public class MateriaPrimaEntity implements Serializable {
 	public MateriaPrimaEntity() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public MateriaPrima ToNegocio() {
+		MateriaPrima mpReturn = new MateriaPrima();
+		mpReturn.setCantidadAComprar(this.getCantidadAComprar());
+		mpReturn.setCantidadPtoPedido(this.getCantidadPtoPedido());
+		mpReturn.setCodigo(this.getCodigo());
+		mpReturn.setNombre(this.getNombre());
+		return mpReturn;
 	}
 
 	

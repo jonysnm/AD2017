@@ -6,7 +6,7 @@ public class ItemMaterialPrendaDTO implements Serializable{
 
 	private static final long serialVersionUID = 2563955825860385011L;
 	
-	
+	private int IdItemMaterialPrenda;
 	private PrendaDTO prenda;
 	private int cantidadutilizada;
 	private float despedicio;
@@ -35,6 +35,12 @@ public class ItemMaterialPrendaDTO implements Serializable{
 	}
 	public void setMateriaprima(MateriaPrimaDTO materiaprima) {
 		this.materiaprima = materiaprima;
+	}
+	public int getIdItemMaterialPrenda() {
+		return IdItemMaterialPrenda;
+	}
+	public void setIdItemMaterialPrenda(int idItemMaterialPrenda) {
+		IdItemMaterialPrenda = idItemMaterialPrenda;
 	}
 	
 	

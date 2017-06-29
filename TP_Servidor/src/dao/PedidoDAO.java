@@ -13,6 +13,7 @@ import org.hibernate.hql.ast.QuerySyntaxException;
 import entities.ClienteEntity;
 import entities.ColorEntity;
 import entities.ItemFaltantePedidoEntity;
+import entities.ItemMaterialPrendaEntity;
 import entities.ItemPedidoEntity;
 import entities.ItemPrendaEntity;
 import entities.PedidoEntity;
@@ -22,6 +23,7 @@ import entities.TalleEntity;
 import hbt.HibernateUtil;
 import negocio.Color;
 import negocio.ItemFaltantePedido;
+import negocio.ItemMaterialPrenda;
 import negocio.ItemPedido;
 import negocio.ItemPrenda;
 import negocio.Pedido;
@@ -283,7 +285,32 @@ public class PedidoDAO {
 				Prenda p=new Prenda();
 				p.setCodigo(pr.getIdPrenda());
 				p.setDescripcion(pr.getDescripcion());
-				p.setVigente(pr.isVigente());
+				p.setVigente(pr.isVigente());				
+				
+				ItemPrenda itemPrenda = null;
+				for (ItemPrendaEntity itemPrendaEntity : pr.getIp()) {					
+					itemPrenda = new ItemPrenda();
+					itemPrenda.setIditemPrenda(itemPrendaEntity.getIdItemPrenda());
+					itemPrenda.setCantidadEnOPC(itemPrendaEntity.getCantidadEnOPC());
+					itemPrenda.setColor(new Color(itemPrendaEntity.getColor()));
+					itemPrenda.setTalle(new Talle(itemPrendaEntity.getTalle()));
+					itemPrenda.setCostoProduccionActual(itemPrendaEntity.getCostoProduccionActual());
+					itemPrenda.setPorcentajeGanancia(itemPrendaEntity.getPorcentajeGanancia());		
+					itemPrenda.setPrenda(new Prenda(itemPrendaEntity.getPrenda()));
+					
+					ItemMaterialPrenda itemMP = null;
+					for (ItemMaterialPrendaEntity iMPEntity : itemPrendaEntity.getItemMaterialPrenda()) {
+						itemMP = new ItemMaterialPrenda();
+						itemMP.setCantidadutilizada(iMPEntity.getCantidadutilizada());
+						itemMP.setDespedicio(iMPEntity.getDespedicio());
+						itemMP.setId(iMPEntity.getItem_materialprenda());
+						itemMP.setMateriaprima(iMPEntity.getMateriaprima().ToNegocio());
+						itemPrenda.AgregarItemMaterialPrenda(itemMP);
+					}
+					
+					
+					p.AgregarItemPrenda(itemPrenda);					
+				}																												
 				prendas.add(p);
 			}				
 		}catch (QuerySyntaxException q){

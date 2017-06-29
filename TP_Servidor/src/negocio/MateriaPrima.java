@@ -1,5 +1,6 @@
 package negocio;
 
+import dto.MateriaPrimaDTO;
 import entities.MateriaPrimaEntity;
 import estados.EstadoMP;
 
@@ -68,6 +69,15 @@ public class MateriaPrima {
 		this.cantidadPtoPedido = cantidadPtoPedido;
 		this.nombre = nombre;
 		
+	}
+
+	public MateriaPrimaDTO toDTO() {
+		MateriaPrimaDTO mate = new MateriaPrimaDTO();
+		mate.setCodigo(this.getCodigo());
+		mate.setCantidadAComprar(this.getCantidadAComprar());
+		//mate.setCantidadPtoReposicion(this.get);
+		mate.setNombre(this.getNombre());
+		return mate;
 	}
 	
 	

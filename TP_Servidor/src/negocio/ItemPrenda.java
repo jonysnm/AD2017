@@ -123,4 +123,11 @@ public class ItemPrenda {
 		return itemReturn;
 	}
 
+	public void AgregarItemMaterialPrenda(ItemMaterialPrenda itemMP) {
+		if(this.getItemMaterialPrenda()==null)
+			this.setItemMaterialPrenda(new ArrayList<ItemMaterialPrenda>());
+		this.getItemMaterialPrenda().add(itemMP);
+		
+	}
+
 }

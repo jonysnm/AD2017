@@ -38,6 +38,7 @@ import dto.TalleDTO;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.Box;
@@ -312,9 +313,9 @@ public class AltaPrendaSRC extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblIngreseLosDatos = new JLabel("Ingrese los datos de la nueva prenda");
-		lblIngreseLosDatos.setBounds(10, 10, 200, altoControles);
-		contentPane.add(lblIngreseLosDatos);
+//		JLabel lblIngreseLosDatos = new JLabel("Ingrese los datos de la nueva prenda");
+//		lblIngreseLosDatos.setBounds(10, 10, 200, altoControles);
+//		contentPane.add(lblIngreseLosDatos);
 		
 		JLabel lblDescripcion = new JLabel("Descripcion");
 		lblDescripcion.setBounds(10, 48, 100, altoControles);
@@ -331,6 +332,7 @@ public class AltaPrendaSRC extends JFrame {
 				
 		final JRadioButton chkValidity = new JRadioButton("");
 		chkValidity.setBounds(60, 78, 50, altoControles);
+		chkValidity.setSelected(true);
 		contentPane.add(chkValidity);
 	
 		JSeparator separator = new JSeparator();		
@@ -363,15 +365,11 @@ public class AltaPrendaSRC extends JFrame {
 		contentPane.add(txtPorcentajeGanancia);
 		
 		
-		
-		
-		
 		lstColores.setBounds(10, 150, 100, altoControles);
 		contentPane.add(lstColores);
 		
 		lstTalles.setBounds(150, 150, 100, altoControles);
-		contentPane.add(lstTalles);
-				
+		contentPane.add(lstTalles);				
 				
 		//TABLA	    
 	    myTableModel = new MyTableModel(lstItemColorTalle);	    
@@ -426,8 +424,7 @@ public class AltaPrendaSRC extends JFrame {
 					
 					txtCantidadenOPC.setText("");
 					txtPorcentajeGanancia.setText("");
-					txtCostoProdActual.setText("");		
-	        	
+					txtCostoProdActual.setText("");			        
 	        }
 	    });
 	    			    
@@ -465,7 +462,7 @@ public class AltaPrendaSRC extends JFrame {
 				MyTableModelAreas model = (MyTableModelAreas)tableAreas.getModel();
 				model.SetLstItems(lstAreasTiempos);
 				model.refresh();														
-	        	
+				txtTiempoArea.setText("");
 	        }
 	    });
 	    
@@ -530,6 +527,8 @@ public class AltaPrendaSRC extends JFrame {
 	        	model.SetLstItems(itemColorTalleSeleccionado.getLstMaterialesporPrendaDTO());
 	        	model.refresh();	        														
 	        	
+	        	txtCantidadMateriaPrima.setText("");
+	        	txtDesperdicioMateriaPrima.setText("");
 	        }
 	    });
 					    	   								
@@ -539,7 +538,7 @@ public class AltaPrendaSRC extends JFrame {
 	    contentPane.add(btnGuardar);	
 	    btnGuardar.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent event) 
-	        {   	        
+	        {   	  	        		        		        		        	
 	        	PrendaDTO prendaDTO = new PrendaDTO();
 	        	prendaDTO.setDescripcion(txtDescripcion.getText());
 	        	prendaDTO.setVigente(chkValidity.isSelected());
@@ -583,12 +582,32 @@ public class AltaPrendaSRC extends JFrame {
 	        	for (ItemAreaTiemposDTO itemAreaTiemposDTO : lstAreasTiempos) {
 	        		AreaProduccionInvolucradaDTO areaDTO = new AreaProduccionInvolucradaDTO();
 	        		areaDTO.setArea(itemAreaTiemposDTO.getAreaProduccionDTO());
-	        		areaDTO.setTiempoEnSegundos(Integer.parseInt(txtTiempoArea.getText()));
+	        		areaDTO.setTiempoEnSegundos((int)itemAreaTiemposDTO.getTiempo());
 	        		prendaDTO.AgregarAreaProduccionInvolucrada(areaDTO);
+	        		
 				}
 	        	
 	        	try {
 					BusinessDelegate.getInstancia().AltaPrenda(prendaDTO);
+					
+					JOptionPane.showMessageDialog(null, "Alta Prenda Finalizada", "Terminado", JOptionPane.PLAIN_MESSAGE);
+					txtDescripcion.setText("");
+					
+			    	MyTableModelMateriales model = (MyTableModelMateriales)tableMateriales.getModel();
+		        	model.SetLstItems(new ArrayList<MaterialesPorPrendaDTO>());
+		        	model.refresh();	
+					
+					MyTableModelAreas model1 = (MyTableModelAreas)tableAreas.getModel();
+					model1.SetLstItems(new ArrayList<ItemAreaTiemposDTO>());
+					model1.refresh();	
+								
+					
+					MyTableModel model2 = (MyTableModel)table.getModel();
+					model2.SetLstItems(new ArrayList<ItemColorTalleDTO>());
+					model2.refresh();	
+					
+		        	
+					
 				} catch (RemoteException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

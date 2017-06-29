@@ -12,6 +12,7 @@ public class ItemColorTalleDTO {
 	private float porcentajeGanancia;
 	private float cantidadenOPC;
 	private List<MaterialesPorPrendaDTO> lstMaterialesporPrendaDTO;
+	private int IdEnPantalla;
 	
 	
 	public void agregarMaterialesporPrenda(MaterialesPorPrendaDTO itemDTO){
@@ -64,6 +65,18 @@ public class ItemColorTalleDTO {
 		this.lstMaterialesporPrendaDTO = lstMaterialesporPrendaDTO;
 	}
 	
+	public void AgregarItemMaterialPorPrenda(MaterialesPorPrendaDTO mat)
+	{
+		if(this.getLstMaterialesporPrendaDTO()==null)
+			this.setLstMaterialesporPrendaDTO(new ArrayList<MaterialesPorPrendaDTO>());
+		lstMaterialesporPrendaDTO.add(mat);
+	}
+
+	public int getIdEnPantalla() {
+		return this.IdEnPantalla;
+	}
 	
-		
+	public void setIdEnPantalla(int x){
+		this.IdEnPantalla=x;
+	}
 }

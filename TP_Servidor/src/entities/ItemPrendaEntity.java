@@ -92,7 +92,7 @@ public class ItemPrendaEntity implements Serializable {
 
 
 	public Float getCostoProduccionActual() {
-		return costoProduccionActual;
+		return costoProduccionActual==null?0:costoProduccionActual;
 	}
 
 	public void setCostoProduccionActual(Float costoProduccionActual) {
@@ -100,7 +100,7 @@ public class ItemPrendaEntity implements Serializable {
 	}
 
 	public Float getPorcentajeGanancia() {
-		return porcentajeGanancia;
+		return porcentajeGanancia==null?0:porcentajeGanancia;
 	}
 
 	public void setPorcentajeGanancia(Float porcentajeGanancia) {

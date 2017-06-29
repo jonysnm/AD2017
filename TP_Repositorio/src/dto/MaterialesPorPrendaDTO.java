@@ -5,11 +5,14 @@ import java.io.Serializable;
 public class MaterialesPorPrendaDTO implements Serializable {
 
 	private int id;
+	private int idEnPantalla; //necesito un id para la grilla que se distinto al id de la BD
 	private int idMaterial;
 	private String nombreMaterial;
 	private float cantidad;
 	private float desperdicio;
 	private MateriaPrimaDTO materiaPrimaDTO;
+	
+	
 	
 	public int getId() {
 		return id;
@@ -47,5 +50,11 @@ public class MaterialesPorPrendaDTO implements Serializable {
 	}
 	public MateriaPrimaDTO getMateriaPrimaDTO() {
 		return materiaPrimaDTO;
+	}
+	public int getIdEnPantalla() {
+		return idEnPantalla;
+	}
+	public void setIdEnPantalla(int idEnPantalla) {
+		this.idEnPantalla = idEnPantalla;
 	}
 }

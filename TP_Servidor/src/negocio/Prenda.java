@@ -14,6 +14,13 @@ public class Prenda {
 	private boolean vigente;	
 	private List<AreaProduccionInvolucrada> areasInvolucradas;
 	private List<ItemPrenda> itemPrendas=new ArrayList<ItemPrenda>();
+	
+	public void AgregarItemPrenda(ItemPrenda itemPrenda)
+	{
+		if (itemPrendas==null) itemPrendas = new ArrayList<ItemPrenda>();
+		itemPrendas.add(itemPrenda);			
+	}
+	
 	/*PROBAR*/
 	public Prenda(){}
 	public Prenda(ItemPrenda p){
@@ -44,8 +51,7 @@ public class Prenda {
 		this.vigente = vigente;
 	}
 
-
-
+	
 	public List<AreaProduccionInvolucrada> getAreasInvolucradas() {
 		return areasInvolucradas;
 	}

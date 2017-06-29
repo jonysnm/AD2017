@@ -13,11 +13,11 @@ public class ItemPrendaDTO implements Serializable{
 	private TalleDTO talle;
 	private ColorDTO color;
 	private PrendaDTO prendaDTO;
+	private float cantidadenOPC;
+	private float costoProduccionActual;
+	private float porcentajedeGanancia;
 	public List<ItemMaterialPrendaDTO> lstItemMaterialPrendaDTO;
-	
-	
-	
-	
+		
 	
 	
 	public TalleDTO getTalle() {
@@ -56,6 +56,25 @@ public class ItemPrendaDTO implements Serializable{
 			this.setLstItemMaterialPrendaDTO(new ArrayList<ItemMaterialPrendaDTO>());
 		this.lstItemMaterialPrendaDTO.add(itemMaterialPrendaDTO);
 	}
+	public float getCantidadenOPC() {
+		return cantidadenOPC;
+	}
+	public void setCantidadenOPC(float cantidadenOPC) {
+		this.cantidadenOPC = cantidadenOPC;
+	}
+	public float getCostoProduccionActual() {
+		return costoProduccionActual;
+	}
+	public void setCostoProduccionActual(float costoProduccionActual) {
+		this.costoProduccionActual = costoProduccionActual;
+	}
+	public float getPorcentajedeGanancia() {
+		return porcentajedeGanancia;
+	}
+	public void setPorcentajedeGanancia(float porcentajedeGanancia) {
+		this.porcentajedeGanancia = porcentajedeGanancia;
+	}
+	
 	
 	
 }

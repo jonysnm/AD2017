@@ -2,6 +2,7 @@ package dto;
 
 public class ItemAreaTiemposDTO {
 
+	private int IdPantalla;
 	private int id;
 	private String areaProduccionNombre;
 	private float tiempo;
@@ -30,5 +31,11 @@ public class ItemAreaTiemposDTO {
 	}
 	public void setAreaProduccionDTO(AreaProduccionDTO areaProduccionDTO) {
 		this.areaProduccionDTO = areaProduccionDTO;
+	}
+	public void setIdPantalla(int x) {
+		this.IdPantalla=x;		
+	}
+	public int getIdPantalla(){
+		return this.IdPantalla;
 	}
 }
