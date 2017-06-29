@@ -243,4 +243,22 @@ public class BusinessDelegate {
 		interfazRemotaDespacho.AltaPrenda(prendaDTO);
 		
 	}		
+	
+	//-------Insumos (MateriaPrima)------------------
+
+	public void altaMP(MateriaPrimaDTO insumoDTO) throws RemoteException{
+		interfazRemotaPuntoVenta.altaMP(insumoDTO);
+	}
+
+	public void bajaMP(MateriaPrimaDTO insumoDTO) throws RemoteException{
+		interfazRemotaPuntoVenta.bajaMP(insumoDTO);
+	}
+
+	public void modificarMP(MateriaPrimaDTO insumoDTO) throws RemoteException{
+		interfazRemotaPuntoVenta.modificarMP(insumoDTO);
+	}
+
+	public List<MateriaPrimaDTO> getAllMP() throws RemoteException{
+		return interfazRemotaPuntoVenta.getAllMP();
+	}
 }

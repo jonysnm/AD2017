@@ -11,6 +11,7 @@ import controladores.ControladorPedido;
 import dto.ColorDTO;
 import dto.FacturaDTO;
 import dto.ItemPrendaDTO;
+import dto.MateriaPrimaDTO;
 import dto.PedidoDTO;
 import dto.PedidosPendientesAprobacionDTO;
 import dto.PrendaDTO;
@@ -175,6 +176,28 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 	}
 	public List<ItemPrendaDTO> obtenerItemPrenda() throws RemoteException{
 		return ControladorPedido.getInstancia().obtenerItemPrenda();
+	}
+	
+	//Insumo (MP)
+	public void altaMP(MateriaPrimaDTO insumoDTO) throws RemoteException {
+		ControladorAlmacen.getInstancia().altaMP(insumoDTO);
+				
+	}
+	
+	
+	public void bajaMP(MateriaPrimaDTO insumoDTO) throws RemoteException {
+		ControladorAlmacen.getInstancia().bajaMP(insumoDTO);
+		
+	}
+	
+	public void modificarMP(MateriaPrimaDTO insumoDTO) throws RemoteException {
+		ControladorAlmacen.getInstancia().modificarMP(insumoDTO);
+		
+	}
+
+	public List<MateriaPrimaDTO> getAllMP() throws RemoteException {
+		return ControladorAlmacen.getInstancia().getAllMP();
+		
 	}
 
 

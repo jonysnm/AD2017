@@ -10,6 +10,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.hql.ast.QuerySyntaxException;
 
+import dto.MateriaPrimaDTO;
+import dto.TalleDTO;
 import entities.AreaProduccionEntity;
 import entities.ClienteEntity;
 import entities.ColorEntity;
@@ -282,8 +284,107 @@ public class AlmacenDAO {
 		
 		
 	}
-	
-	
-	
+
 	//Fin Jonathan Methods
+	
+	
+	public void altaMP(MateriaPrimaDTO insumoDTO) {
+		try {
+			
+			Session session = sf.openSession();
+			session.beginTransaction();
+			MateriaPrimaEntity me=new MateriaPrimaEntity();
+			me.setNombre(insumoDTO.getNombre());
+			me.setCantidadPtoPedido(insumoDTO.getCantidadPtoReposicion());
+			me.setCantidadAComprar(insumoDTO.getCantidadAComprar());
+			
+			session.save(me);
+			session.getTransaction().commit();
+			session.flush();
+			session.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error AlmacenDAO. Alta MateriaPrima");
+		}
+		
+	}
+
+	public void bajaMP(MateriaPrimaDTO insumoDTO) {
+		try {
+			Session session = sf.openSession();
+			session.beginTransaction();
+			MateriaPrimaEntity me=new MateriaPrimaEntity();
+			me.setNombre(insumoDTO.getNombre());
+			me.setCantidadPtoPedido(insumoDTO.getCantidadPtoReposicion());
+			me.setCantidadAComprar(insumoDTO.getCantidadAComprar());
+			me.setCodigo(insumoDTO.getCodigo());
+			
+			session.delete(me);
+			session.getTransaction().commit();
+			session.flush();
+			session.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error AlmacenDAO. Baja MateriaPrima");
+		}
+		
+	}
+
+	public void modificarMP(MateriaPrimaDTO insumoDTO) {
+		try {
+			Session session = sf.openSession();
+			session.beginTransaction();
+			MateriaPrimaEntity me=new MateriaPrimaEntity();
+			me.setNombre(insumoDTO.getNombre());
+			me.setCantidadPtoPedido(insumoDTO.getCantidadPtoReposicion());
+			me.setCantidadAComprar(insumoDTO.getCantidadAComprar());
+			me.setCodigo(insumoDTO.getCodigo());
+			session.update(me);
+			session.getTransaction().commit();
+			session.flush();
+			session.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error AlmacenDAO. Modificar MateriaPrima");
+		}
+		
+	}
+
+	public List<MateriaPrimaDTO> getAllMP() {
+		Session session = sf.openSession();
+		List<MateriaPrimaDTO>listatdto=new ArrayList<MateriaPrimaDTO>();
+	try {
+
+			String hql = "FROM MateriaPrimaEntity M ";
+
+			@SuppressWarnings("unchecked")
+			List<MateriaPrimaEntity> query = session.createQuery(hql).list();
+
+
+			for (MateriaPrimaEntity ml : query) {
+				MateriaPrimaDTO tdto = new MateriaPrimaDTO();
+				tdto.setCantidadAComprar(ml.getCantidadAComprar());
+				tdto.setCantidadPtoReposicion(ml.getCantidadPtoPedido());
+				tdto.setNombre(ml.getNombre());
+				tdto.setCodigo(ml.getCodigo());
+				listatdto.add(tdto);
+			}
+	
+	}catch (QuerySyntaxException q){
+		JOptionPane.showMessageDialog(null, q, "Error", JOptionPane.ERROR_MESSAGE);
+		System.out.println("Exception de sintaxis en AlmacenDAO: getallMP");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return listatdto;
+	}
+	
+	
+	
+	
+	
+	
+	
 }

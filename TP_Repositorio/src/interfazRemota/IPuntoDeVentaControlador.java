@@ -47,6 +47,11 @@ public interface IPuntoDeVentaControlador extends Remote{
 	public void altaColor(ColorDTO colorDTO) throws RemoteException;
 	public void bajaColor(ColorDTO colorDTO) throws RemoteException;
 	public void modificarColor(ColorDTO colorDTO)throws RemoteException;
-	public List<ColorDTO> getallColor()throws RemoteException;	
+	public List<ColorDTO> getallColor()throws RemoteException;
+	//  Insumo (MateriaPrima)	
+	public void altaMP(MateriaPrimaDTO insumoDTO) throws RemoteException;
+	public void bajaMP(MateriaPrimaDTO insumoDTO) throws RemoteException;
+	public void modificarMP(MateriaPrimaDTO insumoDTO) throws RemoteException;
+	public List<MateriaPrimaDTO> getAllMP() throws RemoteException;	
 	
 }

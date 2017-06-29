@@ -331,16 +331,40 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 						jMenuItemAltaInsumo = new JMenuItem();
 						jMenuInsumos.add(jMenuItemAltaInsumo);
 						jMenuItemAltaInsumo.setText("Nuevo");
+						jMenuItemAltaInsumo.addActionListener(new ActionListener() {
+							
+							public void actionPerformed(ActionEvent e) {
+								AltaInsumoSCR tv = new AltaInsumoSCR();
+								tv.setVisible(true);
+//								AltaInsumoSCR.getInstancia().setVisible(true);
+							}
+						});
 					}
 					{
 						jMenuItemModifInsumo = new JMenuItem();
 						jMenuInsumos.add(jMenuItemModifInsumo);
 						jMenuItemModifInsumo.setText("Modificar");
+						jMenuItemModifInsumo.addActionListener(new ActionListener() {
+							
+							public void actionPerformed(ActionEvent e) {
+								ModificarInsumoSCR tv = new ModificarInsumoSCR();
+								tv.setVisible(true);
+//								ModificarInsumoSCR.getInstancia().setVisible(true);
+							}
+						});
 					}
 					{
 						jMenuItemBajaInsumo = new JMenuItem();
 						jMenuInsumos.add(jMenuItemBajaInsumo);
 						jMenuItemBajaInsumo.setText("Eliminar");
+						jMenuItemBajaInsumo.addActionListener(new ActionListener() {
+							
+							public void actionPerformed(ActionEvent e) {
+								BajaInsumoSCR tv = new BajaInsumoSCR();
+								tv.setVisible(true);
+//								BajaInsumoSCR.getInstancia().setVisible(true);
+							}
+						});
 					}
 				}
 				{
