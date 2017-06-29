@@ -213,6 +213,9 @@ public class BusinessDelegate {
 
 		return interfazRemotaSucursales.getallEmpleados();
 	}
+	public List<EmpleadoDTO> getallEmpleadosbySucursal(Integer id)throws RemoteException {
+		return interfazRemotaSucursales.getallEmpleadosbySucursal(id);
+	}
 	public void modificarEmpleado(EmpleadoDTO e)throws RemoteException{
 		interfazRemotaSucursales.modificarEmpleado(e);
 	}
@@ -261,4 +264,5 @@ public class BusinessDelegate {
 	public List<MateriaPrimaDTO> getAllMP() throws RemoteException{
 		return interfazRemotaPuntoVenta.getAllMP();
 	}
+	
 }

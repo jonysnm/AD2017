@@ -1,9 +1,11 @@
 package app;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -16,6 +18,7 @@ import org.jdesktop.layout.GroupLayout;
 import org.jdesktop.layout.LayoutStyle;
 
 import businessDelegate.BusinessDelegate;
+import dto.ColorDTO;
 import dto.EmpleadoDTO;
 import dto.SucursalDTO;
 
@@ -66,6 +69,14 @@ public class AsignarEmpleadosSucursalSCR extends javax.swing.JFrame {
 		});
 	}
 	
+	public boolean noEsta(EmpleadoDTO e ,List<EmpleadoDTO>listae){
+		for(EmpleadoDTO bus : listae){
+			if(bus.getApellido().equals(e.getApellido()) && bus.getNombre().equals(e.getNombre()))
+				return false;
+		}
+		return true;
+	}
+	
 	public AsignarEmpleadosSucursalSCR() {
 		super();
 		initGUI();
@@ -80,6 +91,7 @@ public class AsignarEmpleadosSucursalSCR extends javax.swing.JFrame {
 			final SucursalDTO editadodto = new SucursalDTO();
 			final List<SucursalDTO>  listatdto = BusinessDelegate.getInstancia().getallSucursales();
 			final List<EmpleadoDTO>  listaedto = BusinessDelegate.getInstancia().getallEmpleados();
+			
 			{
 				if(listatdto != null){
 					int i = 0;
@@ -119,6 +131,21 @@ public class AsignarEmpleadosSucursalSCR extends javax.swing.JFrame {
 				jButtonAgregar = new JButton();
 				jButtonAgregar.setText("Agregar");
 				jButtonAgregar.setEnabled(false);
+				jButtonAgregar.addActionListener(new ActionListener() {
+					
+					
+					public void actionPerformed(ActionEvent arg0) {
+						//String emp = 	jListEmpleados.getSelectedValue().toString();
+						
+						DefaultComboBoxModel lm2 = (DefaultComboBoxModel) jListEmpleadosActuales.getModel();
+						DefaultComboBoxModel lm1  = (DefaultComboBoxModel) jListEmpleados.getModel();
+						  
+						    lm2.addElement(jListEmpleados.getSelectedValue());
+						    lm1.removeElement(jListEmpleados.getSelectedValue());  
+						
+												
+					}
+				});
 			}
 			{
 				jLabelEmpleados = new JLabel();
@@ -172,14 +199,20 @@ jButtonModificar.addActionListener(new ActionListener() {
 								
 							
 						}
+						List<EmpleadoDTO>  listaesucdto = null;
+						try {
+						 listaesucdto= BusinessDelegate.getInstancia().getallEmpleadosbySucursal(editadodto.getId());
+						} catch (RemoteException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						
-					
 						//busco empleados 
 						if(listaedto != null){
 							int i = 0;
 							String[] descs = new String[80];
 							for (EmpleadoDTO t : listaedto){
-								if(t.getFechaEgreso() == null){
+								if(t.getFechaEgreso() == null && noEsta(t,listaesucdto)){
 									
 										descs[i] = t.getNombre()+ " "+ t.getApellido();
 										i++;
@@ -201,8 +234,30 @@ jButtonModificar.addActionListener(new ActionListener() {
 //										new String[] { "Item One", "Item Two" });
 //					
 //						jListEmpleadosActuales.setModel(jListEmpleadosActualesModel);
+						
+						if(listaesucdto != null){
+							int i2 = 0;
+							String[] descs2 = new String[80];
+							for (EmpleadoDTO t2 : listaedto){
+								if(t2.getFechaEgreso() == null){
+									
+										descs[i2] = t2.getNombre()+ " "+ t2.getApellido();
+										i2++;
+										
+									
+								}
+							}
+							
+							ListModel<String> jListEmpleadosActualesModel = new DefaultComboBoxModel<String>(descs2);
+						
+						
+						
+						
+						jListEmpleadosActuales.setModel(jListEmpleadosActualesModel);
+						
 						}
 						
+					}
 					}
 				});
 			}

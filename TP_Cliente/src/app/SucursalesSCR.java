@@ -133,8 +133,8 @@ public class SucursalesSCR extends javax.swing.JFrame {
 						jMenuItemAsignarEmpleados.addActionListener(new ActionListener() {
 							
 							public void actionPerformed(ActionEvent e) {
-//								AsignarEmpleadosSucursalSCR tv = new AsignarEmpleadosSucursalSCR();
-//								tv.setVisible(true);
+								AsignarEmpleadosSucursalSCR tv = new AsignarEmpleadosSucursalSCR();
+								tv.setVisible(true);
 //								AsignarEmpleadosSucursalSCR.getInstancia().setVisible(true);
 							}
 						});

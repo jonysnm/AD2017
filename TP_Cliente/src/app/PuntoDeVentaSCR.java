@@ -48,6 +48,8 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 	private JMenuItem jMenuItemBajaColor;
 	private JMenuItem jMenuItemModifColor;
 	private JMenuItem jMenuItemAltaColor;
+	private JMenuItem jMenuItemFacturarPedido;
+	private JSeparator jSeparator3pedido;
 	private JMenuItem jMenuItemBajaInsumo;
 	private JMenuItem jMenuItemModifInsumo;
 	private JMenuItem jMenuItemAltaInsumo;
@@ -206,6 +208,23 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 //							}
 //						});
 						
+					}
+					{
+						jSeparator3pedido = new JSeparator();
+						jMenu4.add(jSeparator3pedido);
+					}
+					{
+						jMenuItemFacturarPedido = new JMenuItem();
+						jMenu4.add(jMenuItemFacturarPedido);
+						jMenuItemFacturarPedido.setText("Facturar");
+						jMenuItemFacturarPedido.addActionListener(new ActionListener() {
+							
+							public void actionPerformed(ActionEvent e) {
+								FacturarPedidoSCR tv = new FacturarPedidoSCR();
+								tv.setVisible(true);
+//								FacturarPedidoSCR.getInstancia().setVisible(true);
+							}
+						});
 					}
 				}
 
