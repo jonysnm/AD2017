@@ -6,15 +6,16 @@ import java.util.List;
 
 import dao.ClienteDAO;
 import dao.FacturaDAO;
+import dao.MovimientoDAO;
 import dao.PedidoDAO;
-import dto.ItemPedidoDTO;
-import dto.PedidoDTO;
 import estados.EstadoFactura;
 import negocio.Cliente;
 import negocio.Factura;
 import negocio.ItemFactura;
+import negocio.ItemMovimientoCtaCte;
 import negocio.ItemPedido;
 import negocio.Pedido;
+import tipos.TipoMovimientoCtaCte;
 
 public class ControladorFactura {
 	private static ControladorFactura instancia;
@@ -54,11 +55,22 @@ public class ControladorFactura {
 			factura.setTotal(total);
 			factura.setEstado(EstadoFactura.EMITIDA);
 			Integer id=FacturaDAO.getInstancia().grabarFactura(factura);
-		FacturaDAO.getInstancia().grabarMovimiento(factura, id);
+//			FacturaDAO.getInstancia().grabarMovimiento(id);//ver aca
 			System.out.println("La factura se grabó con éxito");
 			
 			return id;
 		}
 		return 0;
 	}
+	public int grabarMovimiento(Integer idFactura) {
+		Factura factura = FacturaDAO.getInstancia().buscarFactura(idFactura);
+			ItemMovimientoCtaCte itemMovimientoCtaCte = new ItemMovimientoCtaCte();
+			itemMovimientoCtaCte.setDetalle("Factura " + String.valueOf(factura.getNro()));
+			itemMovimientoCtaCte.setFecha(factura.getFechaEmision());	
+			itemMovimientoCtaCte.setImporte(factura.getTotal());
+			itemMovimientoCtaCte.setTipo(TipoMovimientoCtaCte.DEBITO); //COMPLETAR
+			return MovimientoDAO.getInstancia().grabarMovimiento(itemMovimientoCtaCte);
+		
+	}
+	
 }

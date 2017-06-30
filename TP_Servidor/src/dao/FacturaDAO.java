@@ -13,13 +13,10 @@ import org.hibernate.hql.ast.QuerySyntaxException;
 import entities.ClienteEntity;
 import entities.FacturaEntity;
 import entities.ItemFacturaEntity;
-import entities.ItemMovimientoCtaCteEntity;
 import entities.PedidoEntity;
 import hbt.HibernateUtil;
 import negocio.Factura;
 import negocio.ItemFactura;
-import negocio.ItemMovimientoCtaCte;
-import tipos.TipoMovimientoCtaCte;
 
 public class FacturaDAO {
 	private static FacturaDAO instancia = null;
@@ -113,44 +110,6 @@ public class FacturaDAO {
 			e.printStackTrace();
 		}
 		return facturas;
-	}
-	
-	public void grabarMovimiento(Factura factura, Integer id){
-		Session session = sf.openSession();
-		session.beginTransaction();
-		//ClienteEnip =  (PedidoEntity) session.get(PedidoEntity.class, itemf.getPedido().getId());
-		ItemMovimientoCtaCteEntity im = new ItemMovimientoCtaCteEntity();
-		im.setDetalle("Factura " + id.toString());
-		im.setFecha(factura.getFechaEmision());
-		im.setImporte(factura.getTotal());
-		im.setTipo(TipoMovimientoCtaCte.DEBITO); //COMPLETAR
-//		fac
-//		List<ItemMovimientoCtaCteEntity> it=new ArrayList<ItemMovimientoCtaCteEntity>();
-//		for(ItemMovimientoCtaCteEntity it:)
-//		it.add(im);
-//		
-//		
-//		f.setCliente((ClienteEntity)session.get(ClienteEntity.class, (factura.getCliente().getId())));
-//		f.setEstado(factura.getEstado());
-//		f.setFechaEmision(factura.getFechaEmision());
-//		//f.setFechaVencimiento(factura.getFechaVencimiento());
-//		List<ItemFacturaEntity> itemsFactura=new ArrayList<ItemFacturaEntity>();
-// 			for (ItemFactura itemf : factura.getItemsFactura()) {
-//				ItemFacturaEntity item=new ItemFacturaEntity();
-//				item.setCantidad(itemf.getCantidad());
-//				PedidoEntity ip =  (PedidoEntity) session.get(PedidoEntity.class, itemf.getPedido().getId());
-//				item.setPedido(ip);
-//				item.setPrecioUnitario(itemf.getPrecioUnitario());
-//				
-//				itemsFactura.add(item);
-//			}
-//		    f.setItemsFactura(itemsFactura);
-//			f.setTotal(factura.getTotal());			
-//		Integer idfactura =(Integer) session.save(f);
-//		session.flush();
-//		session.getTransaction().commit();
-//		session.close();
-//		return idfactura;
 	}
 	
 }

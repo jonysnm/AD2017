@@ -224,6 +224,11 @@ public class BusinessDelegate {
 		return interfazRemotaFacturacion.grabarFactura(idPedido);
 
 	}
+	
+	public int grabarMovimiento (Integer idFactura) throws RemoteException{
+		return interfazRemotaFacturacion.grabarMovimiento(idFactura);
+	}
+	
 	public List<SucursalDTO> getallSucursales()throws RemoteException {
 		return interfazRemotaSucursales.getallSucursales();
 	}

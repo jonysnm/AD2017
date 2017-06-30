@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.Date;
 
+import dao.MovimientoDAO;
 import entities.ItemMovimientoCtaCteEntity;
 import tipos.TipoMovimientoCtaCte;
 
@@ -67,6 +68,10 @@ public class ItemMovimientoCtaCte {
 		this.importe = ite.getImporte();
 		this.detalle = ite.getDetalle();
 		
+	}
+	
+	public void save(){
+		MovimientoDAO.getInstancia().grabarMovimiento(this);
 	}
 
 

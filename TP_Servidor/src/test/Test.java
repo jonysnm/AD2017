@@ -1,7 +1,6 @@
 package test;
 
 
-import controladores.ControladorPedido;
 import hbt.HibernateUtil;
 
 public class Test {

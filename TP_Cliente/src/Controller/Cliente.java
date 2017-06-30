@@ -37,7 +37,9 @@ public class Cliente {
 			//nuevaubicacion();
 			System.out.println(("IDPedido: " + id));
 			Integer id2=businessDelegate.grabarFactura(id);
+			Integer idMovimiento =  businessDelegate.grabarMovimiento(id2);
 			System.out.println(("IDFactura: " + id2));
+			System.out.println(("idMovimiento: " + idMovimiento));
 //			businessDelegate.confirmarPedido(1);
 //			businessDelegate.IniciarProcesamientoPedidoAprobado(1);
       	} catch (RemoteException e) {
