@@ -25,4 +25,30 @@ public class OrdenProduccionParcial extends OrdenProduccion {
 		return listaFaltante;
 	}
 
+	public ItemFaltantePedido getIp1() {
+		return ip1;
+	}
+
+	public void setIp1(ItemFaltantePedido ip1) {
+		this.ip1 = ip1;
+	}
+
+	public ItemFaltantePedido getIp2() {
+		return ip2;
+	}
+
+	public void setIp2(ItemFaltantePedido ip2) {
+		this.ip2 = ip2;
+	}
+
+	public ItemFaltantePedido getIp3() {
+		return ip3;
+	}
+
+	public void setIp3(ItemFaltantePedido ip3) {
+		this.ip3 = ip3;
+	}
+	
+	
+
 }

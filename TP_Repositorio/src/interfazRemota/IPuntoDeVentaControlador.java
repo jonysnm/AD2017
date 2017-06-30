@@ -52,6 +52,10 @@ public interface IPuntoDeVentaControlador extends Remote{
 	public void altaMP(MateriaPrimaDTO insumoDTO) throws RemoteException;
 	public void bajaMP(MateriaPrimaDTO insumoDTO) throws RemoteException;
 	public void modificarMP(MateriaPrimaDTO insumoDTO) throws RemoteException;
-	public List<MateriaPrimaDTO> getAllMP() throws RemoteException;	
+	public List<MateriaPrimaDTO> getAllMP() throws RemoteException;
+	
+	
+	
+	public List<PedidoDTO> obtenerPedidosCompletoParaFacturar()throws RemoteException;	
 	
 }

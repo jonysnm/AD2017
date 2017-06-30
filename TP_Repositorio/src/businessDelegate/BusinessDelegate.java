@@ -264,5 +264,8 @@ public class BusinessDelegate {
 	public List<MateriaPrimaDTO> getAllMP() throws RemoteException{
 		return interfazRemotaPuntoVenta.getAllMP();
 	}
+	public List<PedidoDTO> obtenerPedidosCompletoParaFacturar() throws RemoteException{
+		return interfazRemotaPuntoVenta.obtenerPedidosCompletoParaFacturar();
+	}
 	
 }

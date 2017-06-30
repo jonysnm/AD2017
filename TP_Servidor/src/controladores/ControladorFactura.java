@@ -9,6 +9,7 @@ import dao.FacturaDAO;
 import dao.PedidoDAO;
 import dto.ItemPedidoDTO;
 import dto.PedidoDTO;
+import estados.EstadoFactura;
 import negocio.Cliente;
 import negocio.Factura;
 import negocio.ItemFactura;
@@ -51,8 +52,11 @@ public class ControladorFactura {
 		    factura.setItemsFactura(itemsFactura);
 			float total = factura.calcularTotal();
 			factura.setTotal(total);
+			factura.setEstado(EstadoFactura.EMITIDA);
 			Integer id=FacturaDAO.getInstancia().grabarFactura(factura);
+		FacturaDAO.getInstancia().grabarMovimiento(factura, id);
 			System.out.println("La factura se grabó con éxito");
+			
 			return id;
 		}
 		return 0;

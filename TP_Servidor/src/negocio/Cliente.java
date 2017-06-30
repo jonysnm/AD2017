@@ -1,10 +1,13 @@
 package negocio;
 
 
+import java.util.Date;
+
 import dao.ClienteDAO;
 import dto.ClienteDTO;
 import entities.ClienteEntity;
 import entities.CuentaCorrienteEntity;
+import tipos.TipoMovimientoCtaCte;
 
 public class Cliente {
 	private Integer id;
@@ -105,6 +108,7 @@ public class Cliente {
 		clienteDTO.setTipoFacturacion(this.getTipoFacturacion());		
 		return clienteDTO;
 	}
+
 	
 	//	FIN methods jonathan
 

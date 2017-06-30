@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.hibernate.hql.ast.QuerySyntaxException;
 
+import dto.PedidoDTO;
 import entities.ClienteEntity;
 import entities.ColorEntity;
 import entities.ItemFaltantePedidoEntity;
@@ -356,7 +357,26 @@ public class PedidoDAO {
 		return itemPrendas;
 	}
 	
-	
+	public List<PedidoDTO> obtenerPedidosCompletoParaFacturar() {
+		try {
+			Session session = sf.openSession();
+			@SuppressWarnings("unchecked")
+		List<PedidoEntity> lista = session.createQuery("from PedidoEntity where estado='Completo'").list();
+//			List<PedidoEntity> lista = session.createQuery("from PedidoEntity p where p.estado = 'PENDIENTE'").list();
+			session.close();
+			List<PedidoDTO> pedidos = new ArrayList<PedidoDTO>();
+			for (PedidoEntity pedidoEntity : lista) {
+				PedidoDTO pedd = new PedidoDTO();
+				pedd.setId(pedidoEntity.getId());
+				pedidos.add(pedd);
+			}
+			return pedidos;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("ErrorDAO: AdministracionDAO: Listar Pedidos pendientes de validacion");
+		}
+		return null;
+	}
 	
 	
 	

@@ -64,7 +64,7 @@ public class FacturarPedidoSCR extends javax.swing.JFrame {
 			getContentPane().setLayout(thisLayout);
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			this.setTitle("Facturar Pedido");
-	final List<PedidoDTO>  listatdto = BusinessDelegate.getInstancia().listarPedidosPendientesDeValidacion(); //poner solo los completos
+	final List<PedidoDTO>  listatdto = BusinessDelegate.getInstancia().obtenerPedidosCompletoParaFacturar();
 			{
 				if(listatdto != null){
 					int i = 0;

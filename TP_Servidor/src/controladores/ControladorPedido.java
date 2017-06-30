@@ -28,6 +28,8 @@ import negocio.ItemBultoPrenda;
 import negocio.ItemFaltantePedido;
 import negocio.ItemPedido;
 import negocio.ItemPrenda;
+import negocio.OrdenProduccion;
+import negocio.OrdenProduccionParcial;
 import negocio.Pedido;
 import negocio.Prenda;
 import negocio.Sucursal;
@@ -191,7 +193,11 @@ public class ControladorPedido {
 					{					
 						seGeneroOPCparaEstaPrenda = true;
 						lstIDsPrendasYaGeneradas.add(idPrenda);
-						//TODO: generar OPC para esta prenda idPrenda					
+						//TODO: generar OPC para esta prenda idPrenda	
+//						OrdenProduccion opc = new OrdenProduccion();
+						
+//						setear pedido, la prenda
+						
 					}
 				}
 			}
@@ -201,6 +207,9 @@ public class ControladorPedido {
 				{							
 					 lstIDsPrendasYaGeneradas.add(idPrenda);
 					 //TODO: Generar OPP para esta prenda idPrenda
+//					 OrdenProduccionParcial opp = new OrdenProduccionParcial();
+					 //recorres la lista y 
+//					 opp.setIp1(ip1);
 				}
 			 }
 			
@@ -311,6 +320,9 @@ public class ControladorPedido {
 			itemsPrendasDTO.add(ItemPrendaToDTO.toDTO(itmprenda));
 		}
 		return itemsPrendasDTO;
+	}
+	public List<PedidoDTO> obtenerPedidosCompletoParaFacturar() {
+		return PedidoDAO.getInstancia().obtenerPedidosCompletoParaFacturar();
 	}
 
 	
