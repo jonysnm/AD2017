@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.hibernate.hql.ast.QuerySyntaxException;
@@ -20,6 +21,7 @@ import dto.TalleDTO;
 import entities.ClienteEntity;
 import entities.ColorEntity;
 import entities.EmpleadoEntity;
+import entities.ItemBultoEntity;
 import entities.ItemPedidoEntity;
 import entities.PedidoEntity;
 import entities.SucursalEntity;
@@ -454,6 +456,34 @@ public class AdministracionDAO {
 		} finally {
 			session.close();
 		}
+		return listatdto;
+
+	}
+	
+	public List<EmpleadoDTO> getallEmpleadosbySucursal(int idSucs) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("From SucursalEntity where id = :idSucursal");
+		SucursalEntity p = (SucursalEntity) query.setParameter("idSucursal", idSucs).uniqueResult();
+			
+		List<EmpleadoDTO>listatdto=new ArrayList<EmpleadoDTO>();
+		
+
+ 
+				for (EmpleadoEntity tl : p.getEmpleados()) {
+					
+					EmpleadoDTO tdto = new EmpleadoDTO();
+					tdto.setApellido(tl.getApellido());
+					tdto.setFechaIngreso(tl.getFechaIngreso());
+					tdto.setFechaEgreso(tl.getFechaEgreso());
+					tdto.setTelefono(tl.getTelefono());
+					tdto.setId(tl.getId());
+					tdto.setNombre(tl.getNombre());
+					
+					listatdto.add(tdto);
+					
+				}
+		
 		return listatdto;
 
 	}

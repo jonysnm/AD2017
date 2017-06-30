@@ -2,6 +2,7 @@ package controladores;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import dao.AdministracionDAO;
 import dto.EmpleadoDTO;
@@ -131,6 +132,10 @@ public class ControladorSucursal {
 		}
 		em.editar();
 		
+	}
+
+	public List<EmpleadoDTO> getallEmpleadosbySucursal(Integer id) {
+		return AdministracionDAO.getInstancia().getallEmpleadosbySucursal(id);
 	}
 
 	

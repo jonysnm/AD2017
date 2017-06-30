@@ -213,6 +213,9 @@ public class BusinessDelegate {
 
 		return interfazRemotaSucursales.getallEmpleados();
 	}
+	public List<EmpleadoDTO> getallEmpleadosbySucursal(Integer id)throws RemoteException {
+		return interfazRemotaSucursales.getallEmpleadosbySucursal(id);
+	}
 	public void modificarEmpleado(EmpleadoDTO e)throws RemoteException{
 		interfazRemotaSucursales.modificarEmpleado(e);
 	}
@@ -247,4 +250,23 @@ public class BusinessDelegate {
 		interfazRemotaDespacho.ModificarPrenda(prendaDTO);
 		
 	}		
+	
+	//-------Insumos (MateriaPrima)------------------
+
+	public void altaMP(MateriaPrimaDTO insumoDTO) throws RemoteException{
+		interfazRemotaPuntoVenta.altaMP(insumoDTO);
+	}
+
+	public void bajaMP(MateriaPrimaDTO insumoDTO) throws RemoteException{
+		interfazRemotaPuntoVenta.bajaMP(insumoDTO);
+	}
+
+	public void modificarMP(MateriaPrimaDTO insumoDTO) throws RemoteException{
+		interfazRemotaPuntoVenta.modificarMP(insumoDTO);
+	}
+
+	public List<MateriaPrimaDTO> getAllMP() throws RemoteException{
+		return interfazRemotaPuntoVenta.getAllMP();
+	}
+	
 }

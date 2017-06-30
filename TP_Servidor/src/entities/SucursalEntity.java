@@ -32,10 +32,10 @@ public class SucursalEntity implements Serializable{
 	private String localidad;
 	private String codigoPostal;
 	private String telefono;
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name="idGerente")
 	private EmpleadoEntity gerente;
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name="idRecepcionPed")
 	private EmpleadoEntity recepcionPedidos;
 //	@OneToMany(mappedBy="sucursal",fetch=FetchType.EAGER)

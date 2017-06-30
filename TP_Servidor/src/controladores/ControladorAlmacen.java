@@ -11,6 +11,7 @@ import dto.AreaProduccionInvolucradaDTO;
 import dto.ItemBultoPrendaDTO;
 import dto.ItemMaterialPrendaDTO;
 import dto.ItemPrendaDTO;
+import dto.MateriaPrimaDTO;
 import dto.PrendaDTO;
 import dto.StockActualDTO;
 import dto.UbicacionDTO;
@@ -297,6 +298,23 @@ public class ControladorAlmacen {
 		
 	}
 	//FIN Jonathan Methods ---> preguntar antes de modificar
+	
+	public void altaMP(MateriaPrimaDTO insumoDTO) {
+		AlmacenDAO.getInstancia().altaMP(insumoDTO);
+		
+	}
+	public void bajaMP(MateriaPrimaDTO insumoDTO) {
+		AlmacenDAO.getInstancia().bajaMP(insumoDTO);
+		
+	}
+	public void modificarMP(MateriaPrimaDTO insumoDTO) {
+		AlmacenDAO.getInstancia().modificarMP(insumoDTO);
+		
+	}
+	public List<MateriaPrimaDTO> getAllMP() {
+	
+		return 	AlmacenDAO.getInstancia().getAllMP();
+	}
 
 
 

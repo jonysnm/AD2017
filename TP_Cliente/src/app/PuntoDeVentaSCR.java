@@ -48,6 +48,8 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 	private JMenuItem jMenuItemBajaColor;
 	private JMenuItem jMenuItemModifColor;
 	private JMenuItem jMenuItemAltaColor;
+	private JMenuItem jMenuItemFacturarPedido;
+	private JSeparator jSeparator3pedido;
 	private JMenuItem jMenuItemBajaInsumo;
 	private JMenuItem jMenuItemModifInsumo;
 	private JMenuItem jMenuItemAltaInsumo;
@@ -207,6 +209,23 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 //						});
 						
 					}
+					{
+						jSeparator3pedido = new JSeparator();
+						jMenu4.add(jSeparator3pedido);
+					}
+					{
+						jMenuItemFacturarPedido = new JMenuItem();
+						jMenu4.add(jMenuItemFacturarPedido);
+						jMenuItemFacturarPedido.setText("Facturar");
+						jMenuItemFacturarPedido.addActionListener(new ActionListener() {
+							
+							public void actionPerformed(ActionEvent e) {
+								FacturarPedidoSCR tv = new FacturarPedidoSCR();
+								tv.setVisible(true);
+//								FacturarPedidoSCR.getInstancia().setVisible(true);
+							}
+						});
+					}
 				}
 
 				{
@@ -331,16 +350,40 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 						jMenuItemAltaInsumo = new JMenuItem();
 						jMenuInsumos.add(jMenuItemAltaInsumo);
 						jMenuItemAltaInsumo.setText("Nuevo");
+						jMenuItemAltaInsumo.addActionListener(new ActionListener() {
+							
+							public void actionPerformed(ActionEvent e) {
+								AltaInsumoSCR tv = new AltaInsumoSCR();
+								tv.setVisible(true);
+//								AltaInsumoSCR.getInstancia().setVisible(true);
+							}
+						});
 					}
 					{
 						jMenuItemModifInsumo = new JMenuItem();
 						jMenuInsumos.add(jMenuItemModifInsumo);
 						jMenuItemModifInsumo.setText("Modificar");
+						jMenuItemModifInsumo.addActionListener(new ActionListener() {
+							
+							public void actionPerformed(ActionEvent e) {
+								ModificarInsumoSCR tv = new ModificarInsumoSCR();
+								tv.setVisible(true);
+//								ModificarInsumoSCR.getInstancia().setVisible(true);
+							}
+						});
 					}
 					{
 						jMenuItemBajaInsumo = new JMenuItem();
 						jMenuInsumos.add(jMenuItemBajaInsumo);
 						jMenuItemBajaInsumo.setText("Eliminar");
+						jMenuItemBajaInsumo.addActionListener(new ActionListener() {
+							
+							public void actionPerformed(ActionEvent e) {
+								BajaInsumoSCR tv = new BajaInsumoSCR();
+								tv.setVisible(true);
+//								BajaInsumoSCR.getInstancia().setVisible(true);
+							}
+						});
 					}
 				}
 				{
