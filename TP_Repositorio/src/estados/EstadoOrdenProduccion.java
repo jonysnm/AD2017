@@ -2,7 +2,7 @@ package estados;
 
 public enum EstadoOrdenProduccion {
 
-		COMPLETA, INCOMPLETA, ANULADA;
+		COMPLETA, INCOMPLETA, ANULADA, PENDIENTEVERIFICAR;
 	
 
 }

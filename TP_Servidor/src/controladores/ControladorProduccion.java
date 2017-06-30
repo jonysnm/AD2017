@@ -3,7 +3,12 @@ package controladores;
 import java.util.Date;
 import java.util.List;
 
+import dao.AlmacenDAO;
+import dao.PedidoDAO;
+import estados.EstadoAprobacionPedidoCliente;
 import negocio.OrdenProduccion;
+import negocio.OrdenProduccionParcial;
+import negocio.Pedido;
 
 public class ControladorProduccion {
 	
@@ -15,6 +20,15 @@ public class ControladorProduccion {
 			instancia=new ControladorProduccion();
 		}
 		return instancia;
+	}
+	public void CrearOrden(OrdenProduccion or){
+		or.save();
+		return;
+	}
+	public void cambiarEstadoPedido(Integer idPedido,EstadoAprobacionPedidoCliente estado){
+		Pedido p=PedidoDAO.getInstancia().getPedido(idPedido);
+					p.setEstado(estado);
+					p.update();
 	}
 	
 	public List<OrdenProduccion> obtenerOrdenesProduccionPendientes() {
