@@ -4,7 +4,6 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import controladores.ControladorFactura;
-import dto.PedidoDTO;
 import interfazRemota.IFactura;
 
 public class Facturacion extends UnicastRemoteObject implements IFactura{

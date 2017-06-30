@@ -8,13 +8,16 @@ import dao.ClienteDAO;
 import dao.FacturaDAO;
 import dao.MovimientoDAO;
 import dao.PedidoDAO;
+import dao.RemitoDAO;
 import estados.EstadoFactura;
 import negocio.Cliente;
 import negocio.Factura;
 import negocio.ItemFactura;
 import negocio.ItemMovimientoCtaCte;
 import negocio.ItemPedido;
+import negocio.ItemRemito;
 import negocio.Pedido;
+import negocio.Remito;
 import tipos.TipoMovimientoCtaCte;
 
 public class ControladorFactura {
@@ -71,6 +74,31 @@ public class ControladorFactura {
 			itemMovimientoCtaCte.setTipo(TipoMovimientoCtaCte.DEBITO); //COMPLETAR
 			return MovimientoDAO.getInstancia().grabarMovimiento(itemMovimientoCtaCte);
 		
+	}
+	
+	public int grabarRemito(Integer idPedido){
+		try {
+			Pedido p=PedidoDAO.getInstancia().getPedido(idPedido);
+			Remito remito = new Remito();
+			remito.setCliente(p.getCliente());
+			remito.setFecha(new Date());
+			
+			List<ItemRemito> ItemsRemito=new ArrayList<ItemRemito>();
+ 			for (ItemPedido itemPedido : p.getItems()) {
+ 				ItemRemito item=new ItemRemito();
+				item.setCantidad((int)itemPedido.getCantidad());
+				ItemsRemito.add(item);
+			}
+			int idRemito =(int) RemitoDAO.getInstancia().grabarRemito(remito);
+			System.out.println("El remito se grabó con éxito");
+			
+		return idRemito;
+		} catch (Exception e) {
+			//ver esta excepcion
+			e.printStackTrace();
+		}
+		return 0;
+	
 	}
 	
 }
