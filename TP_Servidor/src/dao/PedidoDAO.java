@@ -480,7 +480,7 @@ public class PedidoDAO {
 		try {
 			Session session = sf.openSession();
 			@SuppressWarnings("unchecked")
-		List<PedidoEntity> lista = session.createQuery("from PedidoEntity where estado='Completo'").list();
+		List<PedidoEntity> lista = session.createQuery("from PedidoEntity where estado='Despachado'").list();
 //			List<PedidoEntity> lista = session.createQuery("from PedidoEntity p where p.estado = 'PENDIENTE'").list();
 			session.close();
 			List<PedidoDTO> pedidos = new ArrayList<PedidoDTO>();
