@@ -1,9 +1,12 @@
 package utils;
 
+import dto.AreaProduccionInvolucradaDTO;
 import dto.ItemMaterialPrendaDTO;
 import dto.ItemPrendaDTO;
 import dto.PrendaDTO;
+import entities.AreaProduccionInvolucradaEntity;
 import entities.ItemMaterialPrendaEntity;
+import negocio.AreaProduccionInvolucrada;
 import negocio.ItemMaterialPrenda;
 import negocio.ItemPrenda;
 import negocio.Prenda;
@@ -40,6 +43,22 @@ public class PrendaToDTO {
 		}
 		
 		
+		
+		AreaProduccionInvolucradaDTO areaInvolucradaDTO = null;
+		
+		for (AreaProduccionInvolucrada areaInvolucrada: p.getAreasInvolucradas())
+		{
+			areaInvolucradaDTO = new AreaProduccionInvolucradaDTO();
+			areaInvolucradaDTO.setArea(areaInvolucrada.getArea().ToDTO());
+			areaInvolucradaDTO.setCodigo(areaInvolucrada.getCodigo());
+			areaInvolucradaDTO.setOrdenDeEjecucion(areaInvolucrada.getOrdenDeEjecucion());
+			areaInvolucradaDTO.setTiempoEnSegundos(areaInvolucrada.getTiempoEnSegundos());
+			prendaDTO.AgregarAreaProduccionInvolucrada(areaInvolucradaDTO);
+		}
+		
+		prendaDTO.AgregarAreaProduccionInvolucrada(areaInvolucradaDTO);
+		
+						
 //		List<ItemMaterialPrenda> itemsMaterial = p.getItemPrendas();
 //		List<ItemMaterialPrendaDTO> itemMaterialPrendaDTOs = new ArrayList<ItemMaterialPrendaDTO>();
 //		for (ItemMaterialPrenda itemMaterialPrenda : itemsMaterial) {

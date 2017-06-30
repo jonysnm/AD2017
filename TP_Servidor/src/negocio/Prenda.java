@@ -53,6 +53,7 @@ public class Prenda {
 
 	
 	public List<AreaProduccionInvolucrada> getAreasInvolucradas() {
+		if(areasInvolucradas==null) areasInvolucradas= new ArrayList<AreaProduccionInvolucrada>();
 		return areasInvolucradas;
 	}
 	public void setAreasInvolucradas(List<AreaProduccionInvolucrada> areasInvolucradas) {

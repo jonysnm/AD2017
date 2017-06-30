@@ -1,5 +1,6 @@
 package controladores;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +24,12 @@ import entities.ItemPrendaEntity;
 import entities.MateriaPrimaEntity;
 import entities.PrendaEntity;
 import entities.TalleEntity;
+import negocio.AreaProduccionInvolucrada;
 import negocio.ItemBultoPrenda;
+import negocio.ItemMaterialPrenda;
 import negocio.ItemPrenda;
 import negocio.MateriaPrima;
+import negocio.Prenda;
 import negocio.Ubicacion;
 
 public class ControladorAlmacen {
@@ -136,6 +140,111 @@ public class ControladorAlmacen {
 	}
 	
 	
+	public void ModificarPrenda(PrendaDTO prendaDTO){
+				
+		List<Prenda> prendas = PedidoDAO.getInstancia().buscarPrendas();
+													
+		for (Prenda prenda : prendas) {
+			if(prenda.getCodigo().intValue()== prendaDTO.getCodigo().intValue())
+			{
+				prenda.setDescripcion(prendaDTO.getDescripcion());
+				prenda.setVigente(prendaDTO.isVigente());
+				//recorro los itemPrendaDTO para encontrar los nuevos y los agrego a la prenda
+				ItemPrenda itemPrenda = null;
+				for (ItemPrendaDTO itemPrendaDTO : prendaDTO.getItemPrenda()) {
+					if(prendaDTO.getCodigo()==-1)
+					{
+						itemPrenda = new ItemPrenda();
+						itemPrenda.setCantidadEnOPC((int)itemPrendaDTO.getCantidadenOPC());
+						itemPrenda.setCostoProduccionActual(itemPrendaDTO.getCostoProduccionActual());
+						itemPrenda.setPorcentajeGanancia(itemPrendaDTO.getPorcentajedeGanancia());								
+						itemPrenda.setColor(new negocio.Color(itemPrendaDTO.getColor().getIdColor(), itemPrendaDTO.getColor().getDescripcion()));
+						itemPrenda.setTalle(new negocio.Talle(itemPrendaDTO.getTalle().getIdTalle(), itemPrendaDTO.getTalle().getDescripcion()));
+						prenda.AgregarItemPrenda(itemPrenda);
+						
+						ItemMaterialPrenda itemMaterialPrenda = null;
+										
+						for (ItemMaterialPrendaDTO dto : itemPrendaDTO.getLstItemMaterialPrendaDTO()) {							
+							itemMaterialPrenda = new ItemMaterialPrenda();							
+							itemMaterialPrenda.setCantidadutilizada(dto.getCantidadutilizada());
+							itemMaterialPrenda.setDespedicio(dto.getDespedicio());														
+							MateriaPrimaEntity materiaPrimaEntity = AlmacenDAO.getInstancia().getMateriaPrima(dto.getMateriaprima().getCodigo());				
+							itemMaterialPrenda.setMateriaprima(materiaPrimaEntity.ToNegocio());											
+							itemPrenda.AgregarItemMaterialPrenda(itemMaterialPrenda);										
+						}		
+						prenda.AgregarItemPrenda(itemPrenda);											
+					}														
+				}
+				
+				//recorro los itemPrenda de Prenda y los actualizo con los que vienen en Prenda DTO
+				for (ItemPrenda itemPrendaGuardado : prenda.getItemPrendas()) {
+					
+					for (ItemPrendaDTO ipDTO : prendaDTO.getItemPrenda()) {
+						if(ipDTO.getIditemPrenda().intValue()==itemPrendaGuardado.getIditemPrenda().intValue())
+						{
+							//actualizar los cammpos de imtemprenda
+							itemPrendaGuardado.setCantidadEnOPC((int)ipDTO.getCantidadenOPC());
+							itemPrendaGuardado.setColor(TallesyColoresDAO.getInstancia().getColor(ipDTO.getColor().getIdColor()));
+							itemPrendaGuardado.setTalle(TallesyColoresDAO.getInstancia().getTalle(ipDTO.getTalle().getIdTalle()));
+							itemPrendaGuardado.setCostoProduccionActual(ipDTO.getCostoProduccionActual());
+							itemPrendaGuardado.setPorcentajeGanancia(ipDTO.getPorcentajedeGanancia());
+
+							//actualizar los ItemMaterialPrenda
+							for (ItemMaterialPrenda itemMaterialPrenda : itemPrendaGuardado.getItemMaterialPrenda()) {
+								for (ItemMaterialPrendaDTO impDTO : ipDTO.getLstItemMaterialPrendaDTO()) {
+									if(itemMaterialPrenda.getId()==impDTO.getIdItemMaterialPrenda())
+									{
+										itemMaterialPrenda.setCantidadutilizada(impDTO.getCantidadutilizada());
+										itemMaterialPrenda.setDespedicio(impDTO.getDespedicio());
+										itemMaterialPrenda.setMateriaprima(AlmacenDAO.getInstancia().getMateriaPrima(impDTO.getMateriaprima().getCodigo()).ToNegocio());										
+									}
+									if(impDTO.getIdItemMaterialPrenda()==-1)//Agregar los ItemMaterialPrenda
+									{
+										ItemMaterialPrenda nuevo = new ItemMaterialPrenda();
+										nuevo.setCantidadutilizada(impDTO.getCantidadutilizada());
+										nuevo.setDespedicio(impDTO.getDespedicio());
+										nuevo.setMateriaprima(AlmacenDAO.getInstancia().getMateriaPrima(impDTO.getMateriaprima().getCodigo()).ToNegocio());
+										itemPrendaGuardado.AgregarItemMaterialPrenda(nuevo);
+									}									
+								}
+							}														
+						}
+					}
+					
+				}
+				
+				//Actualizar o Agregar las areas de produccion
+				for (AreaProduccionInvolucrada areaProduccionInvolucrada : prenda.getAreasInvolucradas()) {
+					for (AreaProduccionInvolucradaDTO areaProduccionInvolucradaDTO : prendaDTO.getLstAreasInvolucradas()) {
+						if(areaProduccionInvolucrada.getCodigo()==areaProduccionInvolucradaDTO.getCodigo())
+						{
+							areaProduccionInvolucrada.setArea(AlmacenDAO.getInstancia().getAreaDeProduccion(areaProduccionInvolucradaDTO.getCodigo()).ToNegocio());
+							areaProduccionInvolucrada.setOrdenDeEjecucion(areaProduccionInvolucradaDTO.getOrdenDeEjecucion());
+							areaProduccionInvolucrada.setTiempoEnSegundos(areaProduccionInvolucradaDTO.getTiempoEnSegundos());														
+						}
+						if(areaProduccionInvolucradaDTO.getCodigo()==-1)
+						{
+						    AreaProduccionInvolucrada nueva = new  AreaProduccionInvolucrada();
+						    nueva.setArea(AlmacenDAO.getInstancia().getAreaDeProduccion(areaProduccionInvolucradaDTO.getCodigo()).ToNegocio());
+						    nueva.setOrdenDeEjecucion(areaProduccionInvolucradaDTO.getOrdenDeEjecucion());
+						    nueva.setTiempoEnSegundos(areaProduccionInvolucradaDTO.getTiempoEnSegundos());
+						    prenda.getAreasInvolucradas().add(nueva);						
+						}
+					}
+					
+					
+				}
+				
+				PedidoDAO.getInstancia().ModificarPrenda(prenda);
+			}
+		}	
+						
+		
+	}
+	
+	
+	
+	
 	public void AltaPrenda(PrendaDTO prendaDTO) {
 	
 		PrendaEntity entity = new PrendaEntity();
@@ -159,7 +268,10 @@ public class ControladorAlmacen {
 		ItemPrendaEntity itemPrendaEntity = null;
 		for (ItemPrendaDTO itemPrendaDTO : prendaDTO.getItemPrenda()) {
 			itemPrendaEntity = new ItemPrendaEntity();
-			itemPrendaEntity.setCantidadEnOPC(10);//TODO: Actualizar Jonathan
+			itemPrendaEntity.setCantidadEnOPC((int)itemPrendaDTO.getCantidadenOPC());
+			itemPrendaEntity.setCostoProduccionActual(itemPrendaDTO.getCostoProduccionActual());
+			itemPrendaEntity.setPorcentajeGanancia(itemPrendaDTO.getPorcentajedeGanancia());		
+			
 			itemPrendaEntity.setColor(new ColorEntity(itemPrendaDTO.getColor().getIdColor(), itemPrendaDTO.getColor().getDescripcion()));
 			itemPrendaEntity.setTalle(new TalleEntity(itemPrendaDTO.getTalle().getIdTalle(), itemPrendaDTO.getTalle().getDescripcion()));
 			itemPrendaEntity.setPrenda(entity);

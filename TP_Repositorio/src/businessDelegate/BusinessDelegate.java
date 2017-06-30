@@ -245,6 +245,10 @@ public class BusinessDelegate {
 	public void AltaPrenda(PrendaDTO prendaDTO)throws RemoteException {
 		interfazRemotaDespacho.AltaPrenda(prendaDTO);
 		
+	}
+	public void ModificarPrenda(PrendaDTO prendaDTO)throws RemoteException {
+		interfazRemotaDespacho.ModificarPrenda(prendaDTO);
+		
 	}		
 	
 	//-------Insumos (MateriaPrima)------------------

@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import negocio.AreaProduccion;
 @Entity
 @Table(name="Areas_Produccion")
 public class AreaProduccionEntity implements Serializable{
@@ -59,6 +61,12 @@ public class AreaProduccionEntity implements Serializable{
 	public AreaProduccionEntity() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public AreaProduccion ToNegocio() {
+			AreaProduccion areaReturn = new AreaProduccion();
+			areaReturn.setCodigo(this.getCodigo());
+			areaReturn.setNombreArea(this.getNombreArea());
+		return areaReturn;
 	}
 	
 	
