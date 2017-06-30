@@ -62,5 +62,10 @@ public class Logistica extends UnicastRemoteObject implements ILogistica{
 		ControladorAlmacen.getInstancia().AltaPrenda(prendaDTO);
 		
 	}
+	@Override
+	public void ModificarPrenda(PrendaDTO prendaDTO) throws RemoteException {
+		ControladorAlmacen.getInstancia().ModificarPrenda(prendaDTO);
+		
+	}
 
 }

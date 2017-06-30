@@ -64,7 +64,7 @@ class MyTableModel extends AbstractTableModel {
 	}
 	
 	List<ItemColorTalleDTO> lstItemColorTalleGrid = null;
-	  private String[] columnNames = { "Color", "Talle" };
+	  private String[] columnNames = { "Color", "Talle", "OPC", "Costo", "Gcia" };
 
     public String getColumnName(int col) {
         return columnNames[col];
@@ -92,7 +92,15 @@ class MyTableModel extends AbstractTableModel {
 				case 1:
 					returnValue = itemColorTalleDTO.getTalleDTO();
 					break;
-
+				case 2:
+					returnValue = itemColorTalleDTO.getCantidadenOPC();
+					break;
+				case 3:
+					returnValue = itemColorTalleDTO.getCostroProduccionActual();
+					break;	
+				case 4:
+					returnValue = itemColorTalleDTO.getPorcentajeGanancia();
+					break;
 				default:
 					break;
 				}
@@ -404,6 +412,8 @@ public class AltaPrendaSRC extends JFrame {
 	    btnAddItemPrenda.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent event) 
 	        {   
+	        	if(txtCantidadenOPC.getText()=="" || txtCostoProdActual.getText()=="" || txtPorcentajeGanancia.getText()=="")
+	        	{
 	        	
 					ColorDTO colorSeleccionado = (ColorDTO)lstColores.getSelectedItem();				
 					TalleDTO talleSeleccionado = (TalleDTO)lstTalles.getSelectedItem();
@@ -424,7 +434,12 @@ public class AltaPrendaSRC extends JFrame {
 					
 					txtCantidadenOPC.setText("");
 					txtPorcentajeGanancia.setText("");
-					txtCostoProdActual.setText("");			        
+					txtCostoProdActual.setText("");
+	        	}
+	        	else
+	        	{
+	        		JOptionPane.showMessageDialog(null, "Verificar los datos ingresados", "Alerta", JOptionPane.PLAIN_MESSAGE);
+	        	}
 	        }
 	    });
 	    			    
@@ -450,19 +465,26 @@ public class AltaPrendaSRC extends JFrame {
 	    btnAddItemAreaProd.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent event) 
 	        {   	        
-	        	AreaProduccionDTO AreaSeleccionada = (AreaProduccionDTO)lstAreasProd.getSelectedItem();				
-					
-				ItemAreaTiemposDTO itemAreaTiemposDTO = new ItemAreaTiemposDTO();
-				itemAreaTiemposDTO.setId(lstAreasTiempos.size());
-				itemAreaTiemposDTO.setAreaProduccionNombre(AreaSeleccionada.getDescripcion());
-				itemAreaTiemposDTO.setTiempo(Float.parseFloat(txtTiempoArea.getText()));
-				itemAreaTiemposDTO.setAreaProduccionDTO(AreaSeleccionada);
-				lstAreasTiempos.add(itemAreaTiemposDTO);					
-				 										
-				MyTableModelAreas model = (MyTableModelAreas)tableAreas.getModel();
-				model.SetLstItems(lstAreasTiempos);
-				model.refresh();														
-				txtTiempoArea.setText("");
+	        	if(txtTiempoArea.getText()=="")
+	        	{	        			       	        	
+		        	AreaProduccionDTO AreaSeleccionada = (AreaProduccionDTO)lstAreasProd.getSelectedItem();				
+						
+					ItemAreaTiemposDTO itemAreaTiemposDTO = new ItemAreaTiemposDTO();
+					itemAreaTiemposDTO.setId(lstAreasTiempos.size());
+					itemAreaTiemposDTO.setAreaProduccionNombre(AreaSeleccionada.getDescripcion());
+					itemAreaTiemposDTO.setTiempo(Float.parseFloat(txtTiempoArea.getText()));
+					itemAreaTiemposDTO.setAreaProduccionDTO(AreaSeleccionada);
+					lstAreasTiempos.add(itemAreaTiemposDTO);					
+					 										
+					MyTableModelAreas model = (MyTableModelAreas)tableAreas.getModel();
+					model.SetLstItems(lstAreasTiempos);
+					model.refresh();														
+					txtTiempoArea.setText("");
+	        	}
+	        	else
+	        	{
+	        		JOptionPane.showMessageDialog(null, "Verificar los datos ingresados", "Alerta", JOptionPane.PLAIN_MESSAGE);
+	        	}
 	        }
 	    });
 	    
@@ -505,7 +527,8 @@ public class AltaPrendaSRC extends JFrame {
 	    btnAddItemMaterialPrenda.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent event) 
 	        {   	        
-				
+				if(txtCantidadMateriaPrima.getText()==""||txtDesperdicioMateriaPrima.getText()=="")
+				{
 	        	MateriaPrimaDTO materiaPrimaDTO = (MateriaPrimaDTO)ddlMateriaPrima.getSelectedItem();
 	        	
 	        	MaterialesPorPrendaDTO materialporPrendaDTO = new MaterialesPorPrendaDTO();
@@ -521,6 +544,16 @@ public class AltaPrendaSRC extends JFrame {
 	        	//lstMaterialesporPrenda.add(materialporPrendaDTO);       	
 	        	
 	        	itemColorTalleSeleccionado.agregarMaterialesporPrenda(materialporPrendaDTO);
+	        	
+	        	
+//	        	//jonathan--> 
+//	        	for (ItemColorTalleDTO itemColorTalleDTO : lstItemColorTalle) {
+//	        		if(itemColorTalleDTO.getIdItemColorTalle()==itemColorTalleSeleccionado.getIdItemColorTalle())
+//	        		{
+//	        			itemColorTalleDTO.AgregarItemMaterialPorPrenda(materialporPrendaDTO);
+//	        		}
+//				}
+	        	
 	        		        	
 	        	
 	        	MyTableModelMateriales model = (MyTableModelMateriales)tableMateriales.getModel();
@@ -529,6 +562,11 @@ public class AltaPrendaSRC extends JFrame {
 	        	
 	        	txtCantidadMateriaPrima.setText("");
 	        	txtDesperdicioMateriaPrima.setText("");
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "Verificar los datos ingresados", "Alerta", JOptionPane.PLAIN_MESSAGE);
+				}
 	        }
 	    });
 					    	   								
@@ -538,15 +576,21 @@ public class AltaPrendaSRC extends JFrame {
 	    contentPane.add(btnGuardar);	
 	    btnGuardar.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent event) 
-	        {   	  	        		        		        		        	
+	        {   	  	   
+	        	btnGuardar.setEnabled(false);
+	        	
 	        	PrendaDTO prendaDTO = new PrendaDTO();
 	        	prendaDTO.setDescripcion(txtDescripcion.getText());
 	        	prendaDTO.setVigente(chkValidity.isSelected());
 	        	
-	        	for (ItemColorTalleDTO itemColorTalleDTO : lstItemColorTalle) {
+	        	for (ItemColorTalleDTO itemColorTalleDTO : lstItemColorTalle) {        	
+	        	
 	        		ItemPrendaDTO itemPrendadto = new ItemPrendaDTO();
 	        		itemPrendadto.setColor(itemColorTalleDTO.getColorDTO());
 	        		itemPrendadto.setTalle(itemColorTalleDTO.getTalleDTO());
+	        		itemPrendadto.setCantidadenOPC(itemColorTalleDTO.getCantidadenOPC());
+	        		itemPrendadto.setCostoProduccionActual(itemColorTalleDTO.getCostroProduccionActual());
+	        		itemPrendadto.setPorcentajedeGanancia(itemColorTalleDTO.getPorcentajeGanancia());
 	        		itemPrendadto.setPrendaDTO(prendaDTO);	
 	        		
 	        		ItemMaterialPrendaDTO itemMaterialPrendaDTO = null;
@@ -558,27 +602,11 @@ public class AltaPrendaSRC extends JFrame {
 	        			itemMaterialPrendaDTO.setDespedicio(materialesPorItemPrenda.getDesperdicio());
 	        			itemMaterialPrendaDTO.setPrenda(prendaDTO);
 	        			itemMaterialPrendaDTO.setMateriaprima(materialesPorItemPrenda.getMateriaPrimaDTO());	        				        				        			
-	        			itemPrendadto.AgregarItemMaterialPrenda(itemMaterialPrendaDTO);	
-	        				        			
+	        			itemPrendadto.AgregarItemMaterialPrenda(itemMaterialPrendaDTO);	        				        				        				        				        			
 					}	        			        		
 	        		prendaDTO.AgregarItemPrenda(itemPrendadto);	        			        
 				}
-	        		
-	        	
-//	        	for (MaterialesPorPrendaDTO materiaPrimaDTO : lstMaterialesporPrenda) {
-//				
-//	        		ItemMaterialPrendaDTO itemMaterialPrendaDTO = null;
-//	        		for (ItemPrendaDTO itemPrendaDTO : prendaDTO.getItemPrenda()) {
-//						
-//	        			itemMaterialPrendaDTO = new ItemMaterialPrendaDTO();
-//	        			itemMaterialPrendaDTO.setCantidadutilizada((int)materiaPrimaDTO.getCantidad());
-//	        			itemMaterialPrendaDTO.setDespedicio(materiaPrimaDTO.getDesperdicio());
-//	        			itemMaterialPrendaDTO.setPrenda(prendaDTO);
-//	        			itemMaterialPrendaDTO.setMateriaprima(materiaPrimaDTO.getMateriaPrimaDTO());	        				        				        			
-//	        			itemPrendaDTO.AgregarItemMaterialPrenda(itemMaterialPrendaDTO);												
-//					}
-//				}
-	        	
+	        			        	
 	        	for (ItemAreaTiemposDTO itemAreaTiemposDTO : lstAreasTiempos) {
 	        		AreaProduccionInvolucradaDTO areaDTO = new AreaProduccionInvolucradaDTO();
 	        		areaDTO.setArea(itemAreaTiemposDTO.getAreaProduccionDTO());

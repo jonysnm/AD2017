@@ -10,17 +10,23 @@ import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.hibernate.hql.ast.QuerySyntaxException;
 
+import dto.AreaProduccionInvolucradaDTO;
+import entities.AreaProduccionEntity;
+import entities.AreaProduccionInvolucradaEntity;
 import entities.ClienteEntity;
 import entities.ColorEntity;
 import entities.ItemFaltantePedidoEntity;
 import entities.ItemMaterialPrendaEntity;
 import entities.ItemPedidoEntity;
 import entities.ItemPrendaEntity;
+import entities.MateriaPrimaEntity;
 import entities.PedidoEntity;
 import entities.PrendaEntity;
 import entities.SucursalEntity;
 import entities.TalleEntity;
 import hbt.HibernateUtil;
+import negocio.AreaProduccion;
+import negocio.AreaProduccionInvolucrada;
 import negocio.Color;
 import negocio.ItemFaltantePedido;
 import negocio.ItemMaterialPrenda;
@@ -79,6 +85,108 @@ public class PedidoDAO {
 		}
 		return null;
 	}
+	
+	
+	public void ModificarPrenda(Prenda prenda){
+		try{
+			Session session=sf.openSession();
+			session.beginTransaction();
+			Query query = session.createQuery("From PrendaEntity where id = :idPrenda");
+			PrendaEntity p = (PrendaEntity) query.setParameter("idPrenda", prenda.getCodigo()).uniqueResult();
+			
+			p.setDescripcion(prenda.getDescripcion());
+			p.setVigente(prenda.isVigente());
+			
+			for (AreaProduccionInvolucrada areaInvolucrada : prenda.getAreasInvolucradas()) {
+				if(areaInvolucrada.getCodigo()==0)
+				{
+					AreaProduccionInvolucradaEntity areaNueva = new AreaProduccionInvolucradaEntity();
+					areaNueva.setArea(AlmacenDAO.getInstancia().getAreaDeProduccion(areaInvolucrada.getCodigo()));
+					areaNueva.setOrdenDeEjecucion(areaInvolucrada.getOrdenDeEjecucion());
+					areaNueva.setTiempoEnSegundos(areaInvolucrada.getTiempoEnSegundos());
+					p.AgreagrArea(areaNueva);
+				}
+				else
+				{
+					for (AreaProduccionInvolucradaEntity areaEntity : p.getAreasInvolucradas()) {
+					
+						if(areaEntity.getCodigo()==areaInvolucrada.getCodigo())
+						{
+							//areaEntity.setArea(AlmacenDAO.getInstancia().getAreaDeProduccion(areaInvolucrada.getCodigo()));
+							areaEntity.setOrdenDeEjecucion(areaInvolucrada.getOrdenDeEjecucion());
+							areaEntity.setTiempoEnSegundos(areaInvolucrada.getTiempoEnSegundos());
+						}												
+					}									
+				}
+			}
+			
+			
+			for (ItemPrenda itemPrenda : prenda.getItemPrendas()) {
+				if(itemPrenda.getIditemPrenda()==0)
+				{
+									
+					ItemPrendaEntity nuevo = new ItemPrendaEntity();
+					nuevo.setCantidadEnOPC(itemPrenda.getCantidadEnOPC());
+					nuevo.setColor((ColorEntity)session.get(ColorEntity.class,itemPrenda.getColor().getIdcolor()));
+					nuevo.setTalle((TalleEntity)session.get(TalleEntity.class, itemPrenda.getTalle().getIdTalle()));								
+					nuevo.setCostoProduccionActual(itemPrenda.getCostoProduccionActual());									
+					nuevo.setPorcentajeGanancia(itemPrenda.getPorcentajeGanancia());
+					
+					for (ItemMaterialPrenda itemMaterialPrenda : itemPrenda.getItemMaterialPrenda()) {
+						ItemMaterialPrendaEntity nuevaIMP = new ItemMaterialPrendaEntity();
+						nuevaIMP.setCantidadutilizada(itemMaterialPrenda.getCantidadutilizada());
+						nuevaIMP.setDespedicio(itemMaterialPrenda.getDespedicio());
+						nuevaIMP.setMateriaprima(((MateriaPrimaEntity)session.get(MateriaPrimaEntity.class,itemMaterialPrenda.getId())));
+						nuevo.AgregarItemMaterialPrenda(nuevaIMP);
+					}
+					p.AgregarItemPrenda(nuevo);										
+				}
+				else{
+					for (ItemPrendaEntity iMPentity : p.getIp()) {
+						if(itemPrenda.getIditemPrenda().intValue()==iMPentity.getIdItemPrenda().intValue())
+						{
+							
+							iMPentity.setCantidadEnOPC(itemPrenda.getCantidadEnOPC());
+							iMPentity.setColor((ColorEntity)session.get(ColorEntity.class,itemPrenda.getColor().getIdcolor()));
+							iMPentity.setTalle((TalleEntity)session.get(TalleEntity.class, itemPrenda.getTalle().getIdTalle()));								
+							iMPentity.setCostoProduccionActual(itemPrenda.getCostoProduccionActual());									
+							iMPentity.setPorcentajeGanancia(itemPrenda.getPorcentajeGanancia());
+							
+							for (ItemMaterialPrendaEntity itemMaterialPrendaEntity : iMPentity.getItemMaterialPrenda()) {
+								
+								for (ItemMaterialPrenda item : itemPrenda.getItemMaterialPrenda()) {
+								
+									if(item.getId()==itemMaterialPrendaEntity.getItem_materialprenda().intValue())
+									{
+										itemMaterialPrendaEntity.setCantidadutilizada(item.getCantidadutilizada());
+										itemMaterialPrendaEntity.setDespedicio(item.getDespedicio());
+										itemMaterialPrendaEntity.setMateriaprima(((MateriaPrimaEntity)session.get(MateriaPrimaEntity.class,item.getMateriaprima().getCodigo())));											
+									}
+								}																					
+							}
+							
+						}
+					}
+				}
+				
+			}
+				
+			session.update(p);
+			session.getTransaction().commit();
+			
+			session.close();
+		}catch(Exception e){
+			e.printStackTrace();
+			System.out.println("Error PedidoDAO. Modificar Prenda");
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
 	public Pedido getPedido(Integer idpedido){
 		PedidoEntity pedido = null;
 		try {
@@ -306,6 +414,17 @@ public class PedidoDAO {
 						itemMP.setId(iMPEntity.getItem_materialprenda());
 						itemMP.setMateriaprima(iMPEntity.getMateriaprima().ToNegocio());
 						itemPrenda.AgregarItemMaterialPrenda(itemMP);
+					}
+					
+					AreaProduccionInvolucrada areaInv = null;
+					for (AreaProduccionInvolucradaEntity areaInvolucradaEntity : pr.getAreasInvolucradas()) {
+						areaInv = new AreaProduccionInvolucrada();
+						
+						areaInv.setArea(new AreaProduccion(areaInvolucradaEntity.getArea()));
+						areaInv.setCodigo(areaInvolucradaEntity.getCodigo());
+						areaInv.setOrdenDeEjecucion(areaInvolucradaEntity.getOrdenDeEjecucion());
+						areaInv.setTiempoEnSegundos(areaInvolucradaEntity.getTiempoEnSegundos());
+						p.getAreasInvolucradas().add(areaInv);
 					}
 					
 					

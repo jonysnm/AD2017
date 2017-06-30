@@ -3,6 +3,7 @@ package negocio;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.AreaProduccionDTO;
 import entities.AreaProduccionEntity;
 import entities.LineaProduccionEntity;
 
@@ -56,6 +57,10 @@ public class AreaProduccion {
 		}
 		this.lineas= lnp;
 		// TODO Auto-generated constructor stub
+	}
+	public AreaProduccionDTO ToDTO() {
+		AreaProduccionDTO areaInvolucradaDTO = new AreaProduccionDTO(this.getCodigo(),this.getNombreArea());
+		return areaInvolucradaDTO;
 	}
 	
 	

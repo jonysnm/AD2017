@@ -61,7 +61,7 @@ class MyTableModelModif extends AbstractTableModel {
 	}
 	
 	List<ItemColorTalleDTO> lstItemColorTalleGrid = null;
-	  private String[] columnNames = { "Color", "Talle" };
+	  private String[] columnNames = { "Color", "Talle", "OPC", "Costo", "Porcentaje" };
 
   public String getColumnName(int col) {
       return columnNames[col];
@@ -89,7 +89,15 @@ class MyTableModelModif extends AbstractTableModel {
 				case 1:
 					returnValue = itemColorTalleDTO.getTalleDTO();
 					break;
-
+				case 2:
+					returnValue = itemColorTalleDTO.getCantidadenOPC();
+					break;
+				case 3:
+					returnValue = itemColorTalleDTO.getCostroProduccionActual();
+					break;	
+				case 4:
+					returnValue = itemColorTalleDTO.getPorcentajeGanancia();
+					break;					
 				default:
 					break;
 				}
@@ -235,12 +243,18 @@ public class ModificarPrendaSRC extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private ItemColorTalleDTO itemColorTalleSeleccionado = new ItemColorTalleDTO();
+	private MaterialesPorPrendaDTO itemMaterialSeleccionado = new MaterialesPorPrendaDTO();
+	private ItemAreaTiemposDTO itemAreaTiemposSeleccionada = new ItemAreaTiemposDTO();
 	
 	
 	JTextField txtDescripcion;
+	JTextField txtTiempoArea;
 	JRadioButton chkValidity;
 	JTextField txtCantidadenOPC;
 	JTextField txtCostoProdActual;
+	JTextField txtPorcentajeGanancia;
+	JTextField txtCantidadMateriaPrima;
+	JTextField txtDesperdicioMateriaPrima;
 	
 	private JPanel contentPane;
 	private JComboBox lstColores;
@@ -248,8 +262,11 @@ public class ModificarPrendaSRC extends JFrame{
 	private JComboBox lstAreasProd;
 	private JComboBox ddlMateriaPrima;
 	private JButton btnAddItemPrenda;
+	private JButton btnModtemPrenda;
 	private JButton btnAddItemMaterialPrenda;
+	private JButton btnModificarItemMaterialPrenda;
 	private JButton btnAddItemAreaProd;
+	private JButton btnModificarItemAreaProd;
 	private JButton btnGuardar;
 	private JButton btnABuscarPrenda;
 	private int altoControles=16;
@@ -313,7 +330,7 @@ public class ModificarPrendaSRC extends JFrame{
 	     table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	        table.addMouseListener(new MouseAdapter() {
 	            public void mouseClicked(MouseEvent e) {
-	                initDetail(table.getSelectedRow());
+	                initDetail(table.getSelectedRow());	                	                	                	                
 	            }
 
 				private void initDetail(int selectedRow) {
@@ -321,6 +338,10 @@ public class ModificarPrendaSRC extends JFrame{
 					int index = table.convertRowIndexToModel(selectedRow);
 					
 					itemColorTalleSeleccionado = lstItemColorTalle.get(index);
+					
+					txtCantidadenOPC.setText(String.valueOf(itemColorTalleSeleccionado.getCantidadenOPC()));					
+					txtPorcentajeGanancia.setText(String.valueOf(itemColorTalleSeleccionado.getPorcentajeGanancia()));
+					txtCostoProdActual.setText(String.valueOf(itemColorTalleSeleccionado.getCostroProduccionActual()));
 					
 					MyTableModelModifMateriales model = (MyTableModelModifMateriales)tableMateriales.getModel();
 		        	model.SetLstItems(itemColorTalleSeleccionado.getLstMaterialesporPrendaDTO());
@@ -337,7 +358,26 @@ public class ModificarPrendaSRC extends JFrame{
 		tableMateriales = new JTable(myTableModelMateriales);
 		tableMateriales.setPreferredScrollableViewportSize(new Dimension(500, 70));
 	    JScrollPane scrollPaneMateriales = new JScrollPane(tableMateriales);
-	    scrollPaneMateriales.setBounds(10, 450, 400, 200);	   
+	    scrollPaneMateriales.setBounds(10, 450, 400, 200);
+	    
+	    
+	     tableMateriales.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	        tableMateriales.addMouseListener(new MouseAdapter() {
+	            public void mouseClicked(MouseEvent e) {
+	                initDetailMateriales(tableMateriales.getSelectedRow());	                	                	                	                
+	            }
+
+				private void initDetailMateriales(int selectedRow) {													
+					int index = table.convertRowIndexToModel(selectedRow);										  		
+					itemMaterialSeleccionado = itemColorTalleSeleccionado.getLstMaterialesporPrendaDTO().get(index); 
+									
+					txtCantidadMateriaPrima.setText(String.valueOf(itemMaterialSeleccionado.getCantidad()));
+					txtDesperdicioMateriaPrima.setText(String.valueOf(itemMaterialSeleccionado.getDesperdicio()));
+					ddlMateriaPrima.setSelectedItem(itemMaterialSeleccionado.getMateriaPrimaDTO());										
+				}
+	            
+	        });	  
+	    
 	    contentPane.add(scrollPaneMateriales);	    	    
 	    //FIN TABLA materiales	
 		
@@ -348,10 +388,26 @@ public class ModificarPrendaSRC extends JFrame{
 	    tableAreas.setPreferredScrollableViewportSize(new Dimension(500, 70));
 	    JScrollPane scrollPaneAreas = new JScrollPane(tableAreas);
 	    scrollPaneAreas.setBounds(470, 175, 400, 200);	   
-	    contentPane.add(scrollPaneAreas);	    	    
+	    
+	    
+	    
+		tableAreas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tableAreas.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                initDetailMateriales(tableAreas.getSelectedRow());	                	                	                	                
+            }
+
+			private void initDetailMateriales(int selectedRow) {													
+				int index = table.convertRowIndexToModel(selectedRow);					
+				itemAreaTiemposSeleccionada = lstAreasTiempos.get(index);				
+				txtTiempoArea.setText(String.valueOf(itemAreaTiemposSeleccionada.getTiempo()));				
+			}
+            
+        });	    	    	    	    
+	    contentPane.add(scrollPaneAreas);
+	    	    	    	    		    
 	    //FIN TABLA Areas			
-		
-		
+				
 		
 		
 	    btnABuscarPrenda = new JButton("Buscar");
@@ -483,7 +539,7 @@ public class ModificarPrendaSRC extends JFrame{
 		lblPorcentajeGanancia.setBounds(280, 120 , 100, altoControles);
 		contentPane.add(lblPorcentajeGanancia);
 		
-		final JTextField txtPorcentajeGanancia = new JTextField("");
+		txtPorcentajeGanancia = new JTextField("");
 		txtPorcentajeGanancia.setBounds(330, 120, 80, altoControles);
 		contentPane.add(txtPorcentajeGanancia);
 		
@@ -491,10 +547,315 @@ public class ModificarPrendaSRC extends JFrame{
 		lstColores.setBounds(10, 150, 100, altoControles);
 		contentPane.add(lstColores);
 		
-		lstTalles.setBounds(150, 150, 100, altoControles);
-		contentPane.add(lstTalles);				
+		lstTalles.setBounds(120, 150, 70, altoControles);
+		contentPane.add(lstTalles);			
+		
+	    btnModtemPrenda = new JButton("Modificar");
+	    btnModtemPrenda.setBounds(300, 150, 90, altoControles);
+	    btnModtemPrenda.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent event) 
+	        {
+	        	for (ItemColorTalleDTO item : lstItemColorTalle) {
+					if(item.getIdItemColorTalle()==itemColorTalleSeleccionado.getIdItemColorTalle())
+					{
+						item.setCantidadenOPC(Float.parseFloat(txtCantidadenOPC.getText()));
+						item.setCostroProduccionActual(Float.parseFloat(txtCostoProdActual.getText()));
+						item.setPorcentajeGanancia(Float.parseFloat(txtPorcentajeGanancia.getText()));
+						
+						ColorDTO colorSeleccionado = (ColorDTO)lstColores.getSelectedItem();				
+						TalleDTO talleSeleccionado = (TalleDTO)lstTalles.getSelectedItem();
+						item.setColorDTO(colorSeleccionado);
+						item.setTalleDTO(talleSeleccionado);																			
+						
+					for (ItemPrendaDTO itemPrendaDTO : prendaDTO.getItemPrenda()) {
+						if(itemPrendaDTO.getIditemPrenda().intValue()==item.getIdItemColorTalle())
+						{
+							itemPrendaDTO.setCantidadenOPC(Float.parseFloat(txtCantidadenOPC.getText()));
+							itemPrendaDTO.setCostoProduccionActual(Float.parseFloat(txtCostoProdActual.getText()));
+							itemPrendaDTO.setPorcentajedeGanancia(Float.parseFloat(txtPorcentajeGanancia.getText()));
+							itemPrendaDTO.setTalle(talleSeleccionado);
+							itemPrendaDTO.setColor(colorSeleccionado);
+						}							
+					}
+					
+																																															
+						MyTableModelModif model = (MyTableModelModif)table.getModel();
+						model.SetLstItems(lstItemColorTalle);
+						model.refresh();					
+						
+						txtCantidadenOPC.setText("");
+						txtPorcentajeGanancia.setText("");
+						txtCostoProdActual.setText("");		
+					}
+				}	        		        	
+	        }});   
+	    
+	    
+	    contentPane.add(btnModtemPrenda);
+		
+		
+	    btnAddItemPrenda = new JButton("Agregar");
+	    btnAddItemPrenda.setBounds(205, 150, 85, altoControles);
+	    contentPane.add(btnAddItemPrenda);		
+	    btnAddItemPrenda.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent event) 
+	        {   
+	        	if(txtCantidadMateriaPrima.getText()==""||txtDesperdicioMateriaPrima.getText()=="")
+	        	{
+	        	
+					ColorDTO colorSeleccionado = (ColorDTO)lstColores.getSelectedItem();				
+					TalleDTO talleSeleccionado = (TalleDTO)lstTalles.getSelectedItem();
+					
+					ItemColorTalleDTO itemColorTalleDTO = new ItemColorTalleDTO();				
+					itemColorTalleDTO.setIdEnPantalla(lstItemColorTalle.size());
+
+					itemColorTalleDTO.setIdItemColorTalle(-1);//le pongo un numero negativo para saber que son los items nuevos
+					
+					itemColorTalleDTO.setColorDTO(colorSeleccionado);
+					itemColorTalleDTO.setTalleDTO(talleSeleccionado);
+					itemColorTalleDTO.setCantidadenOPC(Float.parseFloat(txtCantidadenOPC.getText()));
+					itemColorTalleDTO.setPorcentajeGanancia(Float.parseFloat(txtPorcentajeGanancia.getText()));
+					itemColorTalleDTO.setCostroProduccionActual(Float.parseFloat(txtCostoProdActual.getText()));
+					
+					lstItemColorTalle.add(itemColorTalleDTO);
+					 										
+					MyTableModelModif model = (MyTableModelModif)table.getModel();
+					model.SetLstItems(lstItemColorTalle);
+					model.refresh();					
+					
+					txtCantidadenOPC.setText("");
+					txtPorcentajeGanancia.setText("");
+					txtCostoProdActual.setText("");
+	        	}
+	        	else
+	        	{
+	        		JOptionPane.showMessageDialog(null, "Verificar los datos ingresados", "Alerta", JOptionPane.PLAIN_MESSAGE);
+	        	}
+	        }
+	    });
+		
+	    lstAreasProd.setBounds(470, 150, 100, altoControles);
+		contentPane.add(lstAreasProd);
+		
+		txtTiempoArea = new JTextField("");
+		txtTiempoArea.setBounds(580, 150, 100, altoControles);
+		contentPane.add(txtTiempoArea);
+		
+		btnAddItemAreaProd = new JButton("Agregar");
+		btnAddItemAreaProd.setBounds(685, 150, 100, altoControles);
+	    contentPane.add(btnAddItemAreaProd);	
+	    btnAddItemAreaProd.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent event) 
+	        {   	        
+	        	
+	        	if(txtTiempoArea.getText()=="")
+	        	{
+	        	AreaProduccionDTO AreaSeleccionada = (AreaProduccionDTO)lstAreasProd.getSelectedItem();				
+					
+				ItemAreaTiemposDTO itemAreaTiemposDTO = new ItemAreaTiemposDTO();
+				
+				itemAreaTiemposDTO.setIdPantalla(lstAreasTiempos.size());
+				itemAreaTiemposDTO.setId(-1);//le pongo -1 para saber que es una linea nueva
+				
+				itemAreaTiemposDTO.setAreaProduccionNombre(AreaSeleccionada.getDescripcion());
+				itemAreaTiemposDTO.setTiempo(Float.parseFloat(txtTiempoArea.getText()));
+				itemAreaTiemposDTO.setAreaProduccionDTO(AreaSeleccionada);
+				lstAreasTiempos.add(itemAreaTiemposDTO);					
+				 										
+				MyTableModelModifAreas model = (MyTableModelModifAreas)tableAreas.getModel();
+				model.SetLstItems(lstAreasTiempos);
+				model.refresh();														
+				txtTiempoArea.setText("");
+	        	}
+	        	else
+				{
+					JOptionPane.showMessageDialog(null, "Verificar los datos ingresados", "Alerta", JOptionPane.PLAIN_MESSAGE);
+				}
+	        }
+	    });
 	 
+	    
+		btnModificarItemAreaProd = new JButton("Modificar");
+		btnModificarItemAreaProd.setBounds(785, 150, 100, altoControles);
+	    contentPane.add(btnModificarItemAreaProd);	
+	    btnModificarItemAreaProd.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent event) 
+	        {  
+	        		
+	        	for (ItemAreaTiemposDTO itemAreaTiemposDTO : lstAreasTiempos) {
+					if(itemAreaTiemposDTO.getId()==itemAreaTiemposSeleccionada.getId())
+					{
+						AreaProduccionDTO AreaSeleccionada = (AreaProduccionDTO)lstAreasProd.getSelectedItem();
+						itemAreaTiemposDTO.setAreaProduccionNombre(AreaSeleccionada.getDescripcion());
+						itemAreaTiemposDTO.setTiempo(Float.parseFloat(txtTiempoArea.getText()));
+						itemAreaTiemposDTO.setAreaProduccionDTO(AreaSeleccionada);
+																										
+						MyTableModelModifAreas model = (MyTableModelModifAreas)tableAreas.getModel();
+						model.SetLstItems(lstAreasTiempos);
+						model.refresh();														
+						txtTiempoArea.setText("");				
+					}
+				}
+	        }
+	    });
+	    
+	    
+	    
+	    ddlMateriaPrima.setBounds(10, 430, 100, altoControles);
+		contentPane.add(ddlMateriaPrima);
+	    
+		JLabel lblCantidadMateriaPrima = new JLabel("Cantidad: ");
+		lblCantidadMateriaPrima.setBounds(120, 430, 80, altoControles);
+		contentPane.add(lblCantidadMateriaPrima);
+	
+		txtCantidadMateriaPrima = new JTextField("");
+		txtCantidadMateriaPrima.setBounds(180, 430, 80, altoControles);
+		contentPane.add(txtCantidadMateriaPrima);
+		
+		JLabel lblDesperdicioMateriaPrima = new JLabel("Desperdicio: ");
+		lblDesperdicioMateriaPrima.setBounds(280, 430, 80, altoControles);
+		contentPane.add(lblDesperdicioMateriaPrima);
+		
+		txtDesperdicioMateriaPrima = new JTextField("");
+		txtDesperdicioMateriaPrima.setBounds(360, 430, 80, altoControles);
+		contentPane.add(txtDesperdicioMateriaPrima);
+		
+		btnAddItemMaterialPrenda = new JButton("Agregar");
+		btnAddItemMaterialPrenda.setBounds(450, 430, 100, altoControles);
+	    contentPane.add(btnAddItemMaterialPrenda);	
+	    btnAddItemMaterialPrenda.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent event) 
+	        {   	        
+	        	if(txtCantidadMateriaPrima.getText()==""||txtDesperdicioMateriaPrima.getText()=="")
+	        	{
+	        	MateriaPrimaDTO materiaPrimaDTO = (MateriaPrimaDTO)ddlMateriaPrima.getSelectedItem();
+	        	
+	        	MaterialesPorPrendaDTO materialporPrendaDTO = new MaterialesPorPrendaDTO();
+	        	materialporPrendaDTO.setNombreMaterial(materiaPrimaDTO.getNombre());
+	        	//materialporPrendaDTO.setId(lstMaterialesporPrenda.size());
+	        	
+	        	materialporPrendaDTO.setId(-1);//le pongo negativo para saber que es nuevo
+	        	
+	        	materialporPrendaDTO.setIdEnPantalla(itemColorTalleSeleccionado.getLstMaterialesporPrendaDTO().size());
+	        		        	
+	        	materialporPrendaDTO.setCantidad(Float.parseFloat(txtCantidadMateriaPrima.getText()));
+	        	materialporPrendaDTO.setDesperdicio(Float.parseFloat(txtDesperdicioMateriaPrima.getText()));
+	        	materialporPrendaDTO.setIdMaterial(materiaPrimaDTO.getCodigo());
+	        	materialporPrendaDTO.setMateriaPrimaDTO(materiaPrimaDTO);
+	        		        		            		     
+	        	itemColorTalleSeleccionado.agregarMaterialesporPrenda(materialporPrendaDTO);
+	        		        	
+	        	
+	        	MyTableModelModifMateriales model = (MyTableModelModifMateriales)tableMateriales.getModel();
+	        	model.SetLstItems(itemColorTalleSeleccionado.getLstMaterialesporPrendaDTO());
+	        	model.refresh();	        														
+	        	
+	        	txtCantidadMateriaPrima.setText("");
+	        	txtDesperdicioMateriaPrima.setText("");
+	        	}
+	        	else
+				{
+					JOptionPane.showMessageDialog(null, "Verificar los datos ingresados", "Alerta", JOptionPane.PLAIN_MESSAGE);
+				}
+	        }
+	    });
+	    
+	    
+		btnModificarItemMaterialPrenda = new JButton("Modificar");
+	    btnModificarItemMaterialPrenda.setBounds(555, 430, 100, altoControles);
+	    contentPane.add(btnModificarItemMaterialPrenda);	
+	    btnModificarItemMaterialPrenda.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent event) 
+	        {
+	        	
+	        	for (MaterialesPorPrendaDTO materialPorPrenda : itemColorTalleSeleccionado.getLstMaterialesporPrendaDTO()) {
+				
+	        		if(materialPorPrenda.getId()==itemMaterialSeleccionado.getId())
+	        		{
+	        			materialPorPrenda.setCantidad(Float.parseFloat(txtCantidadMateriaPrima.getText()));
+	        			materialPorPrenda.setDesperdicio(Float.parseFloat(txtDesperdicioMateriaPrima.getText()));
+	        	
+	        			
+	        			
+	        			for (ItemPrendaDTO itemPrendaDTO : prendaDTO.getItemPrenda()) {
+							if(itemPrendaDTO.getIditemPrenda()==materialPorPrenda.getId())
+							{
+								for (ItemMaterialPrendaDTO itemMaterial : itemPrendaDTO.getLstItemMaterialPrendaDTO()) {
+									if(itemMaterial.getIdItemMaterialPrenda()==materialPorPrenda.getId())
+									{
+										itemMaterial.setCantidadutilizada(Integer.parseInt(txtCantidadMateriaPrima.getText()));
+										itemMaterial.setDespedicio(Float.parseFloat(txtDesperdicioMateriaPrima.getText()));
+										itemMaterial.setMateriaprima((MateriaPrimaDTO)ddlMateriaPrima.getSelectedItem());
+									}									
+								}
+							}
+						}
+	        			
+	        			
+	        			
+	        			
+	        			
+	    	        	MyTableModelModifMateriales model = (MyTableModelModifMateriales)tableMateriales.getModel();
+	    	        	model.SetLstItems(itemColorTalleSeleccionado.getLstMaterialesporPrendaDTO());
+	    	        	model.refresh();
+	        		}
+	        		
+				}	        		        		        		        		       	        		        														        	
+	        	txtCantidadMateriaPrima.setText("");
+	        	txtDesperdicioMateriaPrima.setText("");
+	        	
+	        }
+	    });
 	 
+	    
+	    
+	    //Guardar
+	    
+	    
+		btnGuardar = new JButton("Guardar");
+		btnGuardar.setBounds(750, 400, 100, altoControles);
+	    contentPane.add(btnGuardar);	
+	    btnGuardar.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent event) 
+	        {   	  	        		        		        		        	
+	        	prendaDTO = getPrendaActual();
+	        	prendaDTO.setDescripcion(txtDescripcion.getText());
+	        	prendaDTO.setVigente(chkValidity.isSelected());	        		        	
+	        	
+	        	try {
+					BusinessDelegate.getInstancia().ModificarPrenda(prendaDTO);
+					
+					JOptionPane.showMessageDialog(null, "Modificacion Prenda Finalizada", "Terminado", JOptionPane.PLAIN_MESSAGE);
+					txtDescripcion.setText("");
+					
+			    	MyTableModelMateriales model = (MyTableModelMateriales)tableMateriales.getModel();
+		        	model.SetLstItems(new ArrayList<MaterialesPorPrendaDTO>());
+		        	model.refresh();	
+					
+					MyTableModelAreas model1 = (MyTableModelAreas)tableAreas.getModel();
+					model1.SetLstItems(new ArrayList<ItemAreaTiemposDTO>());
+					model1.refresh();	
+								
+					
+					MyTableModel model2 = (MyTableModel)table.getModel();
+					model2.SetLstItems(new ArrayList<ItemColorTalleDTO>());
+					model2.refresh();	
+					
+		        	
+					
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	        }
+	    });
+	    
+	    
+	    
+	    //FIN GuARDAR
+	    
+	    
+	    
 	}
 
 	private void CargarCombosPantalla() throws RemoteException {

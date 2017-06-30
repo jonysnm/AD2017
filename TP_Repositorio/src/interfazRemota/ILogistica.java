@@ -24,4 +24,6 @@ public interface ILogistica extends Remote{
 
 	public void AltaPrenda(PrendaDTO prendaDTO)throws RemoteException;
 
+	public void ModificarPrenda(PrendaDTO prendaDTO)throws RemoteException;
+
 }

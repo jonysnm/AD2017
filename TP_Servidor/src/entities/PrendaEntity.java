@@ -32,9 +32,14 @@ public class PrendaEntity implements Serializable{
 	
 	private Boolean vigente;
 	
+	
+	
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@Fetch(value=FetchMode.SELECT)
 	private List<AreaProduccionInvolucradaEntity> areasInvolucradas;
+	
+	
+	
 	public PrendaEntity(){}
 	public PrendaEntity(ItemPrendaEntity items){
 		ip.add(items);
