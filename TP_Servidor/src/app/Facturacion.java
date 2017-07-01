@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import controladores.ControladorFactura;
+import estados.EstadoRemito;
 import interfazRemota.IFactura;
 
 public class Facturacion extends UnicastRemoteObject implements IFactura{
@@ -37,9 +38,9 @@ public class Facturacion extends UnicastRemoteObject implements IFactura{
 		
 	}
 	
-	public int grabarRemito(Integer idPedido) throws RemoteException{
+	public int grabarRemito(Integer idPedido,EstadoRemito estadoRemito) throws RemoteException{
 		try {
-			return ControladorFactura.getInstancia().grabarRemito(idPedido);
+			return ControladorFactura.getInstancia().grabarRemito(idPedido,estadoRemito);
 		} catch (Exception e) {
 			throw new RemoteException("Error al crear nuevo Remito: "+e.getMessage());
 		}

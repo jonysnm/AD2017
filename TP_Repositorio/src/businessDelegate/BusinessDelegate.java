@@ -22,6 +22,7 @@ import dto.SucursalDTO;
 import dto.TalleDTO;
 import dto.UbicacionDTO;
 import estados.EstadoAprobacionPedidoCliente;
+import estados.EstadoRemito;
 import interfazRemota.IAdmSucursalesControlador;
 import interfazRemota.IClienteControlador;
 import interfazRemota.IFactura;
@@ -229,8 +230,8 @@ public class BusinessDelegate {
 		return interfazRemotaFacturacion.grabarMovimiento(idFactura);
 	}
 	
-	public int grabarRemito(Integer idPedido) throws RemoteException{
-		return interfazRemotaFacturacion.grabarRemito(idPedido);
+	public int grabarRemito(Integer idPedido,EstadoRemito estadoRemito) throws RemoteException{
+		return interfazRemotaFacturacion.grabarRemito(idPedido,estadoRemito);
 		}
 	
 	public List<SucursalDTO> getallSucursales()throws RemoteException {

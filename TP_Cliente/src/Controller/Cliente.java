@@ -17,6 +17,7 @@ import dto.PrendaDTO;
 import dto.SucursalDTO;
 import dto.TalleDTO;
 import dto.UbicacionDTO;
+import estados.EstadoRemito;
 
 public class Cliente {
 	BusinessDelegate businessDelegate;
@@ -38,7 +39,7 @@ public class Cliente {
 			System.out.println(("IDPedido: " + id));
 			Integer id2=businessDelegate.grabarFactura(id);
 			Integer idMovimiento =  businessDelegate.grabarMovimiento(id2);
-			Integer idRemito =  businessDelegate.grabarRemito(id);
+			Integer idRemito =  businessDelegate.grabarRemito(id,EstadoRemito.PENDIENTE);
 			System.out.println(("IDFactura: " + id2));
 			System.out.println(("idMovimiento: " + idMovimiento));
 			System.out.println(("idRemito: " + idRemito));

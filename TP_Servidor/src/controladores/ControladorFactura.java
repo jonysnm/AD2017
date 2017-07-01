@@ -77,13 +77,13 @@ public class ControladorFactura {
 		
 	}
 	
-	public int grabarRemito(Integer idPedido){
+	public int grabarRemito(Integer idPedido,EstadoRemito estadoR){
 		try {
 			Pedido p=PedidoDAO.getInstancia().getPedidoComp(idPedido);
 			Remito remito = new Remito();
 			remito.setCliente(p.getCliente());
 			remito.setFecha(new Date());
-			remito.setEstado(EstadoRemito.ENTREGADO);
+			remito.setEstado(estadoR);
 			
 			List<ItemRemito> itemsRemito=new ArrayList<ItemRemito>();
  			for (ItemPedido itemPedido : p.getItems()) {
