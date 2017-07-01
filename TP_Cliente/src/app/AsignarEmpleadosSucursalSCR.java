@@ -119,6 +119,21 @@ public class AsignarEmpleadosSucursalSCR extends javax.swing.JFrame {
 				jButtonQuitar = new JButton();
 				jButtonQuitar.setText("Quitar");
 				jButtonQuitar.setEnabled(false);
+				jButtonQuitar.addActionListener(new ActionListener() {
+					
+					
+					public void actionPerformed(ActionEvent arg0) {
+						//String emp = 	jListEmpleados.getSelectedValue().toString();
+						
+						DefaultComboBoxModel lm2 = (DefaultComboBoxModel) jListEmpleadosActuales.getModel();
+						DefaultComboBoxModel lm1  = (DefaultComboBoxModel) jListEmpleados.getModel();
+						  
+						    lm1.addElement(jListEmpleadosActuales.getSelectedValue());
+						    lm2.removeElement(jListEmpleadosActuales.getSelectedValue());  
+						
+												
+					}
+				});
 			}
 			{
 				jListEmpleadosActuales = new JList();

@@ -188,27 +188,27 @@ public class PuntoDeVentaSCR extends javax.swing.JFrame {
 						jSeparator1 = new JSeparator();
 						jMenu4.add(jSeparator1);
 					}
-					{
-						listPedidoMenuItem = new JMenuItem();
-						jMenu4.add(listPedidoMenuItem);
-						listPedidoMenuItem.setText("Listar");
-//						listPedidoMenuItem.addActionListener(new ActionListener() {
-//							
-//							public void actionPerformed(ActionEvent e) {
-//								try {
-//							List<PedidosPendientesAprobacionDTO> pedidos = BusinessDelegate.getInstancia().obtenerPedidosPendientesdeAprobacion(1);
-//							for (PedidosPendientesAprobacionDTO pedidoDTO : pedidos) {
-//								for (ItemPedidoDTO iPedidoDTO : pedidoDTO.getItems()) {
-//									System.out.println(pedidoDTO.getId() +" "+ pedidoDTO.getTotal() +" "+ 	iPedidoDTO.getTalle() +" "+  iPedidoDTO.getColor() +" "+  iPedidoDTO.getPrenda() +" "+  iPedidoDTO.getImporte());
-//								}
-//							}
-//								} catch (RemoteException e1) {
-//									e1.printStackTrace();
-//								}
-//							}
-//						});
-						
-					}
+//					{
+//						listPedidoMenuItem = new JMenuItem();
+//						jMenu4.add(listPedidoMenuItem);
+//						listPedidoMenuItem.setText("Listar");
+////						listPedidoMenuItem.addActionListener(new ActionListener() {
+////							
+////							public void actionPerformed(ActionEvent e) {
+////								try {
+////							List<PedidosPendientesAprobacionDTO> pedidos = BusinessDelegate.getInstancia().obtenerPedidosPendientesdeAprobacion(1);
+////							for (PedidosPendientesAprobacionDTO pedidoDTO : pedidos) {
+////								for (ItemPedidoDTO iPedidoDTO : pedidoDTO.getItems()) {
+////									System.out.println(pedidoDTO.getId() +" "+ pedidoDTO.getTotal() +" "+ 	iPedidoDTO.getTalle() +" "+  iPedidoDTO.getColor() +" "+  iPedidoDTO.getPrenda() +" "+  iPedidoDTO.getImporte());
+////								}
+////							}
+////								} catch (RemoteException e1) {
+////									e1.printStackTrace();
+////								}
+////							}
+////						});
+//						
+//					}
 					{
 						jSeparator3pedido = new JSeparator();
 						jMenu4.add(jSeparator3pedido);

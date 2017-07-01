@@ -16,9 +16,11 @@ import entities.AreaProduccionEntity;
 import entities.ClienteEntity;
 import entities.ColorEntity;
 import entities.ItemBultoEntity;
+import entities.ItemBultoMPEntity;
 import entities.ItemBultoPrendaEntity;
 import entities.ItemPrendaEntity;
 import entities.MateriaPrimaEntity;
+import entities.OrdenProduccionEntity;
 import entities.PedidoEntity;
 import entities.PrendaEntity;
 import entities.ReservasEntity;
@@ -30,6 +32,8 @@ import negocio.ItemBulto;
 import negocio.ItemBultoPrenda;
 import negocio.ItemPedido;
 import negocio.ItemPrenda;
+import negocio.MateriaPrima;
+import negocio.OrdenProduccion;
 import negocio.Pedido;
 import negocio.Ubicacion;
 
@@ -115,8 +119,16 @@ public class AlmacenDAO {
 	}
 	
 	
-	public List<ItemBultoPrendaEntity> ObtenerItemBultoPrenda(ItemPrenda ip)
+	public List<ItemBultoMPEntity> ObtenerItemBultoMP(MateriaPrima mp)
 	{
+		Session s = sf.openSession();
+		String consulta = "from ItemBultoMPEntity ib where ib.mp.codigoMP= :id";		
+		@SuppressWarnings("unchecked")
+		ArrayList<ItemBultoMPEntity> lista = (ArrayList<ItemBultoMPEntity>) s.createQuery(consulta)
+				.setParameter("id",mp.getCodigo()).list();
+		return lista;	
+	}
+	public List<ItemBultoPrendaEntity> ObtenerItemBultoPrenda(ItemPrenda ip){
 		Session s = sf.openSession();
 		String consulta = "from ItemBultoPrendaEntity ib where ib.itemPrenda.IdItemPrenda= :id";		
 		@SuppressWarnings("unchecked")
@@ -138,7 +150,7 @@ public class AlmacenDAO {
 	public void NuevaReserva(ReservasEntity reserva){
 		Session session=sf.openSession();
 		session.beginTransaction();				
-		session.save(reserva);
+		session.saveOrUpdate(reserva);
 		session.getTransaction().commit();
 		session.flush();
 		session.close();						
@@ -380,11 +392,20 @@ public class AlmacenDAO {
 		}
 		return listatdto;
 	}
+	public void CrearOrdenProduccion(OrdenProduccion orden){
+		Session session = sf.openSession();
+		session.beginTransaction();
+		OrdenProduccionEntity opp=new OrdenProduccionEntity();
+		opp.setCostoProduccion(orden.getCostoProduccion());
+		opp.setEstado(orden.getEstado());
+		opp.setFecha(orden.getFecha());
+	    opp.setPedido(orden.getPedido().toEntity());
+		opp.setPrenda(orden.getPrenda().ToEntity());
+		session.save(opp);
+		session.getTransaction().commit();
+		session.flush();
+		session.close();	
+		
 	
-	
-	
-	
-	
-	
-	
+	}
 }

@@ -35,7 +35,7 @@ public class FacturaDAO {
 		session.beginTransaction();
 		FacturaEntity f=new FacturaEntity();
 		f.setCliente((ClienteEntity)session.get(ClienteEntity.class, (factura.getCliente().getId())));
-		//f.setEstado(factura.getEstado());
+		f.setEstado(factura.getEstado());
 		f.setFechaEmision(factura.getFechaEmision());
 		//f.setFechaVencimiento(factura.getFechaVencimiento());
 		List<ItemFacturaEntity> itemsFactura=new ArrayList<ItemFacturaEntity>();
@@ -111,4 +111,5 @@ public class FacturaDAO {
 		}
 		return facturas;
 	}
+	
 }

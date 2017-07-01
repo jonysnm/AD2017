@@ -6,14 +6,20 @@ import java.util.List;
 
 import dao.ClienteDAO;
 import dao.FacturaDAO;
+import dao.MovimientoDAO;
 import dao.PedidoDAO;
-import dto.ItemPedidoDTO;
-import dto.PedidoDTO;
+import dao.RemitoDAO;
+import estados.EstadoFactura;
+import estados.EstadoRemito;
 import negocio.Cliente;
 import negocio.Factura;
 import negocio.ItemFactura;
+import negocio.ItemMovimientoCtaCte;
 import negocio.ItemPedido;
+import negocio.ItemRemito;
 import negocio.Pedido;
+import negocio.Remito;
+import tipos.TipoMovimientoCtaCte;
 
 public class ControladorFactura {
 	private static ControladorFactura instancia;
@@ -51,10 +57,53 @@ public class ControladorFactura {
 		    factura.setItemsFactura(itemsFactura);
 			float total = factura.calcularTotal();
 			factura.setTotal(total);
+			factura.setEstado(EstadoFactura.EMITIDA);
 			Integer id=FacturaDAO.getInstancia().grabarFactura(factura);
+//			FacturaDAO.getInstancia().grabarMovimiento(id);//ver aca
 			System.out.println("La factura se grabó con éxito");
+			
 			return id;
 		}
 		return 0;
 	}
+	public int grabarMovimiento(Integer idFactura) {
+		Factura factura = FacturaDAO.getInstancia().buscarFactura(idFactura);
+			ItemMovimientoCtaCte itemMovimientoCtaCte = new ItemMovimientoCtaCte();
+			itemMovimientoCtaCte.setDetalle("Factura " + String.valueOf(factura.getNro()));
+			itemMovimientoCtaCte.setFecha(factura.getFechaEmision());	
+			itemMovimientoCtaCte.setImporte(factura.getTotal());
+			itemMovimientoCtaCte.setTipo(TipoMovimientoCtaCte.DEBITO); //COMPLETAR
+			return MovimientoDAO.getInstancia().grabarMovimiento(itemMovimientoCtaCte);
+		
+	}
+	
+	public int grabarRemito(Integer idPedido,EstadoRemito estadoR){
+		try {
+			Pedido p=PedidoDAO.getInstancia().getPedidoComp(idPedido);
+			Remito remito = new Remito();
+			remito.setCliente(p.getCliente());
+			remito.setFecha(new Date());
+			remito.setEstado(estadoR);
+			
+			List<ItemRemito> itemsRemito=new ArrayList<ItemRemito>();
+ 			for (ItemPedido itemPedido : p.getItems()) {
+ 				ItemRemito item=new ItemRemito();
+ 				item.setPrenda(itemPedido.getItemprenda().getPrenda());
+				item.setCantidad((int)itemPedido.getCantidad());
+				itemsRemito.add(item);
+			}
+ 			remito.setItemsRemito(itemsRemito);
+			int idRemito =(int) RemitoDAO.getInstancia().grabarRemito(remito);
+			System.out.println("El remito se grabó con éxito");
+			
+		return idRemito;
+		} catch (Exception e) {
+			//ver esta excepcion
+			e.printStackTrace();
+			e.getCause();
+		}
+		return 0;
+	
+	}
+	
 }

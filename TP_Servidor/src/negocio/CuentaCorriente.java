@@ -1,6 +1,7 @@
 package negocio;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import entities.CuentaCorrienteEntity;
@@ -86,6 +87,17 @@ public class CuentaCorriente {
 		return ctaEntity;
 	}
 	
+	
+	public void agregarDebito(float total, Integer id2, Date fechaAct) {
+		ItemMovimientoCtaCte im = new ItemMovimientoCtaCte();
+		im.setDetalle("Factura " + id2.toString());
+		im.setFecha(fechaAct);
+		im.setImporte(total);
+		im.setTipo(TipoMovimientoCtaCte.DEBITO);
+		items.add(im);
+		
+		
+	}
 	
 
 

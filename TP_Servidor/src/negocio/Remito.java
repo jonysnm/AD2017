@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import dao.RemitoDAO;
 import estados.EstadoFactura;
 import estados.EstadoRemito;
 
@@ -75,6 +76,10 @@ public class Remito {
 		// TODO Auto-generated constructor stub
 	}
 	
+	
+	public void save(){
+		RemitoDAO.getInstancia().grabarRemito(this);
+	}
 	
 	
 	

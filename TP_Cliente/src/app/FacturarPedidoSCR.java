@@ -64,7 +64,7 @@ public class FacturarPedidoSCR extends javax.swing.JFrame {
 			getContentPane().setLayout(thisLayout);
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			this.setTitle("Facturar Pedido");
-	final List<PedidoDTO>  listatdto = BusinessDelegate.getInstancia().listarPedidosPendientesDeValidacion(); //poner solo los completos
+	final List<PedidoDTO>  listatdto = BusinessDelegate.getInstancia().obtenerPedidosCompletoParaFacturar();
 			{
 				if(listatdto != null){
 					int i = 0;
@@ -99,7 +99,8 @@ public class FacturarPedidoSCR extends javax.swing.JFrame {
 						
 						
 								try {
-									 BusinessDelegate.getInstancia().grabarFactura(idped);
+									 int idFactura = BusinessDelegate.getInstancia().grabarFactura(idped);
+									 BusinessDelegate.getInstancia().grabarMovimiento(idFactura);
 										jLabelMensaje.setText("Se emitió la factura del pedido" + String.valueOf(idped));
 										jButtonAceptar.setEnabled(false);
 										jListSucursales.setEnabled(false);

@@ -62,7 +62,7 @@ public class ItemPrenda {
 
 	public ItemPrenda(ItemPrendaEntity ipe){
 		this.IditemPrenda=ipe.getIdItemPrenda();
-		//		this.prenda=new Prenda(ipe.getPrenda());
+//				this.prenda=new Prenda(ipe.getPrenda());
 		this.color=new Color(ipe.getColor());
 		this.talle=new Talle(ipe.getTalle());
 		this.cantidadEnOPC=ipe.getCantidadEnOPC();

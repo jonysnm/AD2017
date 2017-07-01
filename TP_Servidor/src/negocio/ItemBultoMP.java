@@ -1,5 +1,7 @@
 package negocio;
 
+import entities.ItemBultoEntity;
+
 public class ItemBultoMP extends ItemBulto {
 
 	
@@ -22,6 +24,14 @@ public class ItemBultoMP extends ItemBulto {
 	public ItemBultoMP() {
 		super();
 	}
+	public ItemBultoEntity toEntity() {
+		ItemBultoEntity itemReturn = new ItemBultoEntity();
+		itemReturn.setCantidad(this.getCantidad());
+		itemReturn.setCantidadReservada(this.getCantidadReservada());
+		itemReturn.setId(this.getIdBulto());
+		return itemReturn;
+	}
+	
 	
 	
 }
