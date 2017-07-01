@@ -5,6 +5,7 @@ import java.util.List;
 
 import dao.AlmacenDAO;
 import dao.PedidoDAO;
+import entities.ItemBultoMPEntity;
 import entities.ItemBultoPrendaEntity;
 import entities.ItemPedidoEntity;
 import entities.ReservasEntity;
@@ -149,12 +150,70 @@ public class Almacen {
 			i++;
 		}				
 	}
+	public void ReservarItemsMP(List<ItemBultoMP> lstItemBultoMp, float cantidadTotalaReservar, Pedido pedido, ItemPedido itemPedido)//reserva la cantidad enviada como parametro en esta lista de items
+	{
+		float cantidadAux = cantidadTotalaReservar;
+		ItemBultoMP itemActual = null;
+		float cantidadDisponibleenBulto = 0;
+		int i = 0;
+		
+		while(cantidadAux > 0 && i < lstItemBultoMp.size())
+		{
+			itemActual = lstItemBultoMp.get(i);			
+			cantidadDisponibleenBulto = itemActual.getCantidad() - itemActual.getCantidadReservada();
+			if(cantidadDisponibleenBulto >= cantidadAux)
+			{
+				//reservar cantidadAux				
+				ReservasEntity reserva = new ReservasEntity();
+				reserva.setCantidad(cantidadAux);
+				reserva.setItemBultoEntity(itemActual.toEntity());
+				reserva.setItemPedidoEntity(itemPedido.Toentity());
+				SaveOrUpdateReserva(reserva);
+														
+				float cantidadReservadaActualizada = itemActual.getCantidadReservada()+cantidadAux;							
+				itemActual.setCantidadReservada(cantidadReservadaActualizada);
+				
+				AlmacenDAO.getInstancia().ActualizarReservadoyDisponible(itemActual);
+								
+				cantidadAux = 0;
+			}
+			if(cantidadDisponibleenBulto < cantidadAux)
+			{
+				//reservar cantidadDisponibleenBulto
+				ReservasEntity reserva = new ReservasEntity();
+				reserva.setCantidad(cantidadDisponibleenBulto);
+				reserva.setItemBultoEntity(itemActual.toEntity());
+				reserva.setItemPedidoEntity(itemPedido.Toentity());
+				SaveOrUpdateReserva(reserva);															
+				
+				
+				//Actualizar Reserba Bulto----Se puede sacar a un metodo
+															
+				itemActual.setCantidadReservada(itemActual.getCantidad());
+				AlmacenDAO.getInstancia().ActualizarReservadoyDisponible(itemActual);
+				//----Fin se puede sacar a un metodo
+				
+				cantidadAux= cantidadAux-cantidadDisponibleenBulto;
+			}
+			
+			i++;
+		}				
+	}
+	
 	
 	
 	public float CalcularDisponibleEn(List<ItemBultoPrenda> lstItemBultoPrenda)//para una lista de bultos previamente filtrada me dice cuanto hay disponible
 	{
 		float cantidad = 0;
 		for (ItemBultoPrenda ib : lstItemBultoPrenda) {
+			cantidad = cantidad + (ib.getCantidad() - ib.getCantidadReservada());
+		}
+		return cantidad;	
+	}
+	public float CalcularDisponibleEnMP(List<ItemBultoMP> lstItemBultoMP)//para una lista de bultos previamente filtrada me dice cuanto hay disponible
+	{
+		float cantidad = 0;
+		for (ItemBultoMP ib : lstItemBultoMP) {
 			cantidad = cantidad + (ib.getCantidad() - ib.getCantidadReservada());
 		}
 		return cantidad;	
@@ -175,6 +234,22 @@ public class Almacen {
 		}
 		
 		return lstItemBultoPrenda;
+	}
+	public List<ItemBultoMP> ObtenerItemBultoMP(MateriaPrima mp)//devuelvo todos los bultos donde se encuentra la MateriaPrima que estoy bucando
+	{			
+		List<ItemBultoMPEntity> lstEntity = AlmacenDAO.getInstancia().ObtenerItemBultoMP(mp);
+		List<ItemBultoMP>lstItemBultoMP = new ArrayList<ItemBultoMP>();
+		ItemBultoMP itemBultoMP = null;
+		for (ItemBultoMPEntity itemBultoMPEntity : lstEntity) {
+			itemBultoMP = new ItemBultoMP();
+			itemBultoMP.setCantidad(itemBultoMPEntity.getCantidad());
+			itemBultoMP.setCantidadReservada(itemBultoMPEntity.getCantidadReservada());
+			itemBultoMP.setIdBulto(itemBultoMPEntity.getId());
+			itemBultoMP.setMateriaPrima(new MateriaPrima(itemBultoMPEntity.getMp()));
+			lstItemBultoMP.add(itemBultoMP);
+		}
+
+		return lstItemBultoMP;
 	}
 	
 	private void SaveOrUpdateReserva(ReservasEntity reserva){

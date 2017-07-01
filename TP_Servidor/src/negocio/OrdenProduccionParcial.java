@@ -12,6 +12,12 @@ public class OrdenProduccionParcial extends OrdenProduccion {
 		super(ordenProduccionEntity);
 		// TODO Auto-generated constructor stub
 	}
+	
+
+	public OrdenProduccionParcial() {
+		super();
+	}
+
 
 	private ItemFaltantePedido ip1;
 	private ItemFaltantePedido ip2;

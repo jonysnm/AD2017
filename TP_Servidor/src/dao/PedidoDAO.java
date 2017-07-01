@@ -439,8 +439,12 @@ public class PedidoDAO {
 		itemPrenda.setColor(new Color(itemPrendaEntity.getColor()));
 		itemPrenda.setTalle(new Talle(itemPrendaEntity.getTalle()));
 		itemPrenda.setCostoProduccionActual(itemPrendaEntity.getCostoProduccionActual());
-		itemPrenda.setPorcentajeGanancia(itemPrendaEntity.getPorcentajeGanancia());		
-		itemPrenda.setPrenda(new Prenda(itemPrendaEntity.getPrenda()));
+		itemPrenda.setPorcentajeGanancia(itemPrendaEntity.getPorcentajeGanancia());
+		Prenda p=new Prenda();
+		p.setCodigo(itemPrendaEntity.getPrenda().getIdPrenda());
+		p.setDescripcion(itemPrendaEntity.getPrenda().getDescripcion());
+		p.setVigente(itemPrendaEntity.getPrenda().isVigente());
+		itemPrenda.setPrenda(p);
 		session.beginTransaction().commit();
 		session.flush();
 		session.close();

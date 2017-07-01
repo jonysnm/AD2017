@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import dao.AlmacenDAO;
 import entities.OrdenProduccionEntity;
 import estados.EstadoOrdenProduccion;
 
@@ -18,8 +19,14 @@ public class OrdenProduccion {
 	private float costoProduccion;
 	
 	
+	public OrdenProduccion() {
+		super();
+	}
 	public OrdenProduccion(OrdenProduccionEntity ordenProduccionEntity) {
 		this.codigo=ordenProduccionEntity.getCodigo();
+	}
+	public void save(){
+		AlmacenDAO.getInstancia().CrearOrdenProduccion(this);
 	}
 
 	
@@ -32,6 +39,55 @@ public class OrdenProduccion {
 		}
 		return listaFaltante;
 	}
+	public int getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+	public Pedido getPedido() {
+		return pedido;
+	}
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
+	public Prenda getPrenda() {
+		return prenda;
+	}
+	public void setPrenda(Prenda prenda) {
+		this.prenda = prenda;
+	}
+	public Date getFecha() {
+		return fecha;
+	}
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+	public EstadoOrdenProduccion getEstado() {
+		return estado;
+	}
+	public void setEstado(EstadoOrdenProduccion estado) {
+		this.estado = estado;
+	}
+	public List<OCMP> getOcmps() {
+		return ocmps;
+	}
+	public void setOcmps(List<OCMP> ocmps) {
+		this.ocmps = ocmps;
+	}
+	public Date getFechaEntrega() {
+		return fechaEntrega;
+	}
+	public void setFechaEntrega(Date fechaEntrega) {
+		this.fechaEntrega = fechaEntrega;
+	}
+	public float getCostoProduccion() {
+		return costoProduccion;
+	}
+	public void setCostoProduccion(float costoProduccion) {
+		this.costoProduccion = costoProduccion;
+	}
+	
 
 	
 //	public boolean VerificarStockMateriaPrima(Object prenda) {
