@@ -38,8 +38,10 @@ public class Cliente {
 			System.out.println(("IDPedido: " + id));
 			Integer id2=businessDelegate.grabarFactura(id);
 			Integer idMovimiento =  businessDelegate.grabarMovimiento(id2);
+			Integer idRemito =  businessDelegate.grabarRemito(id);
 			System.out.println(("IDFactura: " + id2));
 			System.out.println(("idMovimiento: " + idMovimiento));
+			System.out.println(("idRemito: " + idRemito));
 //			businessDelegate.confirmarPedido(1);
 //			businessDelegate.IniciarProcesamientoPedidoAprobado(1);
       	} catch (RemoteException e) {

@@ -32,8 +32,16 @@ public class Facturacion extends UnicastRemoteObject implements IFactura{
 			return ControladorFactura.getInstancia().grabarMovimiento(idFactura);
 			
 		} catch (Exception e) {
-			throw new RemoteException("Error al crear nueva FACTURA: "+e.getMessage());
+			throw new RemoteException("Error al crear nuevo movimiento: "+e.getMessage());
 		}
 		
+	}
+	
+	public int grabarRemito(Integer idPedido) throws RemoteException{
+		try {
+			return ControladorFactura.getInstancia().grabarRemito(idPedido);
+		} catch (Exception e) {
+			throw new RemoteException("Error al crear nuevo Remito: "+e.getMessage());
+		}
 	}
 }

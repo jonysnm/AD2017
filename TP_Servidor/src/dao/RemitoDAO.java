@@ -28,6 +28,7 @@ public class RemitoDAO {
 
 	public int grabarRemito(Remito remito) {
 		Session session = sf.openSession();
+		
 		session.beginTransaction();
 		RemitoEntity remitoEntity = new RemitoEntity();
 		ClienteEntity clienteEntity = (ClienteEntity) session.get(ClienteEntity.class, remito.getCliente().getId());

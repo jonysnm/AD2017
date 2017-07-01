@@ -28,6 +28,7 @@ import entities.TalleEntity;
 import hbt.HibernateUtil;
 import negocio.AreaProduccion;
 import negocio.AreaProduccionInvolucrada;
+import negocio.Cliente;
 import negocio.Color;
 import negocio.ItemFaltantePedido;
 import negocio.ItemMaterialPrenda;
@@ -35,6 +36,7 @@ import negocio.ItemPedido;
 import negocio.ItemPrenda;
 import negocio.Pedido;
 import negocio.Prenda;
+import negocio.Sucursal;
 import negocio.Talle;
 
 public class PedidoDAO {
@@ -214,6 +216,72 @@ public class PedidoDAO {
 		}
 		return new Pedido(pedido);
 	}
+	public Pedido getPedidoComp(Integer idpedido){
+		PedidoEntity pedidoEntity = null;
+		try {
+			Session session = sf.openSession();
+			
+			String hql = "FROM PedidoEntity P " +
+						 "WHERE P.id = :id";
+			
+			Query query = session.createQuery(hql);
+			query.setParameter("id", idpedido);
+			query.setMaxResults(1);
+			
+			if(query.uniqueResult() != null){
+				pedidoEntity = (PedidoEntity) query.uniqueResult();
+	        	session.close();
+	        }else{
+	        	session.close();
+	        }
+		}catch (QuerySyntaxException q){
+			JOptionPane.showMessageDialog(null, q, "Error", JOptionPane.ERROR_MESSAGE);
+			System.out.println("Exception de sintaxis en ProductoDAO: buscarProducto");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Pedido ped = new Pedido();
+		ped.setCliente(new Cliente(pedidoEntity.getCliente()));
+		ped.setEstado(pedidoEntity.getEstado());
+		ped.setFechaCreacion(pedidoEntity.getFechaCreacion());
+		ped.setFechaprobableDespacho(pedidoEntity.getFechaprobableDespacho());
+		ped.setFecharealDespacho(pedidoEntity.getFecharealDespacho());
+		List<ItemPedido> itemsPedido = new ArrayList<ItemPedido>();
+		for (ItemPedidoEntity itemPedidoEntity : pedidoEntity.getItems()) {
+			ItemPedido itemPedido = new ItemPedido();
+			itemPedido.setIdItemPedido(itemPedidoEntity.getIdItemPedido());
+			itemPedido.setImporte(itemPedidoEntity.getImporte());
+			
+			ItemPrenda itemprenda = new ItemPrenda();
+			itemprenda.setCantidadEnOPC(itemPedidoEntity.getIprenda().getCantidadEnOPC());
+			itemprenda.setColor(new Color(itemPedidoEntity.getIprenda().getColor()));
+			itemprenda.setCostoProduccionActual(itemPedidoEntity.getIprenda().getCostoProduccionActual());
+			itemprenda.setIditemPrenda(itemPedidoEntity.getIprenda().getIdItemPrenda());
+			itemprenda.setPorcentajeGanancia(itemPedidoEntity.getIprenda().getPorcentajeGanancia());
+			itemprenda.setTalle(new Talle(itemPedidoEntity.getIprenda().getTalle()));
+			
+			Prenda prenda = new Prenda();
+			prenda.setCodigo(itemPedidoEntity.getIprenda().getPrenda().getIdPrenda());
+			prenda.setDescripcion(itemPedidoEntity.getIprenda().getPrenda().getDescripcion());
+			prenda.setVigente(itemPedidoEntity.getIprenda().getPrenda().isVigente());
+			
+			itemprenda.setPrenda(prenda);
+//			itemPedidoEntity.getIprenda().getPrenda()
+			
+//			itemprenda.setPrenda(new Prenda(itemPedidoEntity.getIprenda().getPrenda()));
+			
+			itemPedido.setItemprenda(itemprenda);
+			itemPedido.setPedido(ped);
+			itemPedido.setCantidad(itemPedidoEntity.getCantidad());
+			itemsPedido.add(itemPedido);
+		}
+		
+		ped.setItems(itemsPedido);
+		ped.setSucursal(new Sucursal(pedidoEntity.getSucursal()));
+		return ped;
+	}
+	
+	
 	public Pedido getPedidoAprobado(Integer idpedido){
 		PedidoEntity pedido = null;
 		try {

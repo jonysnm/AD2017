@@ -10,6 +10,7 @@ import dao.MovimientoDAO;
 import dao.PedidoDAO;
 import dao.RemitoDAO;
 import estados.EstadoFactura;
+import estados.EstadoRemito;
 import negocio.Cliente;
 import negocio.Factura;
 import negocio.ItemFactura;
@@ -78,17 +79,20 @@ public class ControladorFactura {
 	
 	public int grabarRemito(Integer idPedido){
 		try {
-			Pedido p=PedidoDAO.getInstancia().getPedido(idPedido);
+			Pedido p=PedidoDAO.getInstancia().getPedidoComp(idPedido);
 			Remito remito = new Remito();
 			remito.setCliente(p.getCliente());
 			remito.setFecha(new Date());
+			remito.setEstado(EstadoRemito.ENTREGADO);
 			
-			List<ItemRemito> ItemsRemito=new ArrayList<ItemRemito>();
+			List<ItemRemito> itemsRemito=new ArrayList<ItemRemito>();
  			for (ItemPedido itemPedido : p.getItems()) {
  				ItemRemito item=new ItemRemito();
+ 				item.setPrenda(itemPedido.getItemprenda().getPrenda());
 				item.setCantidad((int)itemPedido.getCantidad());
-				ItemsRemito.add(item);
+				itemsRemito.add(item);
 			}
+ 			remito.setItemsRemito(itemsRemito);
 			int idRemito =(int) RemitoDAO.getInstancia().grabarRemito(remito);
 			System.out.println("El remito se grabó con éxito");
 			
@@ -96,6 +100,7 @@ public class ControladorFactura {
 		} catch (Exception e) {
 			//ver esta excepcion
 			e.printStackTrace();
+			e.getCause();
 		}
 		return 0;
 	
