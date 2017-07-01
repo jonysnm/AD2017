@@ -130,7 +130,7 @@ public class AlmacenDAO {
 	}
 	public List<ItemBultoPrendaEntity> ObtenerItemBultoPrenda(ItemPrenda ip){
 		Session s = sf.openSession();
-		String consulta = "from ItemBultoMPEntity ib where ib.itemPrenda.IdItemPrenda= :id";		
+		String consulta = "from ItemBultoPrendaEntity ib where ib.itemPrenda.IdItemPrenda= :id";		
 		@SuppressWarnings("unchecked")
 		ArrayList<ItemBultoPrendaEntity> lista = (ArrayList<ItemBultoPrendaEntity>) s.createQuery(consulta)
 				.setParameter("id", ip.getIditemPrenda()).list();
@@ -150,7 +150,7 @@ public class AlmacenDAO {
 	public void NuevaReserva(ReservasEntity reserva){
 		Session session=sf.openSession();
 		session.beginTransaction();				
-		session.save(reserva);
+		session.saveOrUpdate(reserva);
 		session.getTransaction().commit();
 		session.flush();
 		session.close();						
