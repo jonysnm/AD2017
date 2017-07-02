@@ -18,6 +18,8 @@ import org.jdesktop.layout.LayoutStyle;
 import businessDelegate.BusinessDelegate;
 import dto.PedidoDTO;
 import dto.TalleDTO;
+import estados.EstadoAprobacionPedidoCliente;
+import estados.EstadoRemito;
 
 import javax.swing.SwingUtilities;
 
@@ -35,6 +37,10 @@ import javax.swing.SwingUtilities;
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
 public class FacturarPedidoSCR extends javax.swing.JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6716040174497153331L;
 	private JList jListSucursales;
 	private JButton jButtonAceptar;
 	private JLabel jLabelMensaje;
@@ -86,6 +92,7 @@ public class FacturarPedidoSCR extends javax.swing.JFrame {
 			}
 			{
 				jLabelMensaje = new JLabel();
+				
 			}
 			{
 				jButtonAceptar = new JButton();
@@ -101,7 +108,9 @@ public class FacturarPedidoSCR extends javax.swing.JFrame {
 								try {
 									 int idFactura = BusinessDelegate.getInstancia().grabarFactura(idped);
 									 BusinessDelegate.getInstancia().grabarMovimiento(idFactura);
-										jLabelMensaje.setText("Se emitió la factura del pedido" + String.valueOf(idped));
+									 BusinessDelegate.getInstancia().grabarRemito(idped, EstadoRemito.ENTREGADO);
+									 BusinessDelegate.getInstancia().cambiarEstadoPedido(idped, EstadoAprobacionPedidoCliente.Facturado);
+										jLabelMensaje.setText("Se emitió factura (Nro "+String.valueOf(idFactura)+") y remito del pedido" + String.valueOf(idped));
 										jButtonAceptar.setEnabled(false);
 										jListSucursales.setEnabled(false);
 									} catch (RemoteException e) {
@@ -116,17 +125,18 @@ public class FacturarPedidoSCR extends javax.swing.JFrame {
 				});
 			}
 			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
-				.addContainerGap(24, Short.MAX_VALUE)
+				.addContainerGap(23, Short.MAX_VALUE)
 				.add(jLabelIndicacion, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
 				.add(thisLayout.createParallelGroup()
 				    .add(thisLayout.createSequentialGroup()
 				        .add(0, 0, GroupLayout.PREFERRED_SIZE)
-				        .add(jListSucursales, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE))
+				        .add(jListSucursales, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE))
 				    .add(GroupLayout.LEADING, thisLayout.createSequentialGroup()
 				        .add(0, 64, GroupLayout.PREFERRED_SIZE)
 				        .add(jButtonAceptar, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				        .add(87)
-				        .add(jLabelMensaje, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)))
+				        .add(76)))
+				.addPreferredGap(LayoutStyle.UNRELATED)
+				.add(jLabelMensaje, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
 				.addContainerGap(17, 17));
 			thisLayout.setHorizontalGroup(thisLayout.createSequentialGroup()
 				.addContainerGap()
@@ -134,14 +144,13 @@ public class FacturarPedidoSCR extends javax.swing.JFrame {
 				    .add(GroupLayout.LEADING, thisLayout.createSequentialGroup()
 				        .add(jLabelIndicacion, GroupLayout.PREFERRED_SIZE, 342, GroupLayout.PREFERRED_SIZE)
 				        .add(16))
-				    .add(GroupLayout.LEADING, thisLayout.createSequentialGroup()
+				    .add(thisLayout.createSequentialGroup()
 				        .add(18)
-				        .add(jListSucursales, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
-				        .addPreferredGap(LayoutStyle.UNRELATED)
 				        .add(thisLayout.createParallelGroup()
-				            .add(GroupLayout.LEADING, jLabelMensaje, 0, 183, Short.MAX_VALUE)
+				            .add(GroupLayout.LEADING, jLabelMensaje, 0, 340, Short.MAX_VALUE)
 				            .add(GroupLayout.LEADING, thisLayout.createSequentialGroup()
-				                .add(0, 53, Short.MAX_VALUE)
+				                .add(jListSucursales, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+				                .add(0, 71, Short.MAX_VALUE)
 				                .add(jButtonAceptar, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
 				                .add(43)))))
 				.addContainerGap(20, 20));
