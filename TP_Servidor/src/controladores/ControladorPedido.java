@@ -212,6 +212,11 @@ public class ControladorPedido {
 				if (!lstIDsPrendasYaGeneradas.contains(idPrenda)) {
 					lstIDsPrendasYaGeneradas.add(idPrenda);
 					CrearOrdenProduccionParcial(itemFaltantePedido);
+					
+					ItemFaltantePedido i1 = new ItemFaltantePedido();
+					ItemFaltantePedido i2 = new ItemFaltantePedido();
+					ItemFaltantePedido i3 = new ItemFaltantePedido();
+					
 					// TODO: Generar OPP para esta prenda idPrenda
 					// OrdenProduccionParcial opp = new
 					// OrdenProduccionParcial();
