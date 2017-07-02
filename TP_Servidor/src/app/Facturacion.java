@@ -28,9 +28,9 @@ public class Facturacion extends UnicastRemoteObject implements IFactura{
 		
 	}
 	
-	public int grabarMovimiento (Integer idFactura) throws RemoteException{
+	public void grabarMovimiento (Integer idFactura) throws RemoteException{
 		try {
-			return ControladorFactura.getInstancia().grabarMovimiento(idFactura);
+			ControladorFactura.getInstancia().grabarMovimiento(idFactura);
 			
 		} catch (Exception e) {
 			throw new RemoteException("Error al crear nuevo movimiento: "+e.getMessage());

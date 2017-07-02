@@ -139,7 +139,6 @@ public class ControladorPedido {
 			// cualquier caso las prendas quedan reservadas
 
 			if (lstItemsFaltantesPedido.size() == 0) {
-				p.setEstado(EstadoAprobacionPedidoCliente.Completo);
 				this.cambiarEstadoPedido(idPedido, EstadoAprobacionPedidoCliente.Completo);
 			} else {
 				this.cambiarEstadoPedido(idPedido, EstadoAprobacionPedidoCliente.EnEsperaFinalizacionOrdendeProduccion);

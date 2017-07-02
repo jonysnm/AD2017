@@ -24,8 +24,8 @@ public class CuentaCorrienteEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idCuenta;
-	@OneToMany(fetch=FetchType.LAZY)
-	@JoinColumn(name="idCtaCte")
+	@OneToMany(fetch=FetchType.EAGER)
+	@JoinColumn(name="idctacte")
 	private List<ItemMovimientoCtaCteEntity> items;
 	public Integer getIdCuenta() {
 		return idCuenta;

@@ -12,6 +12,7 @@ import dao.RemitoDAO;
 import estados.EstadoFactura;
 import estados.EstadoRemito;
 import negocio.Cliente;
+import negocio.CuentaCorriente;
 import negocio.Factura;
 import negocio.ItemFactura;
 import negocio.ItemMovimientoCtaCte;
@@ -66,14 +67,19 @@ public class ControladorFactura {
 		}
 		return 0;
 	}
-	public int grabarMovimiento(Integer idFactura) {
+	public void grabarMovimiento(Integer idFactura) {
 		Factura factura = FacturaDAO.getInstancia().buscarFactura(idFactura);
+		CuentaCorriente cuentaCorriente = factura.getCliente().getCtacte();
+		List<ItemMovimientoCtaCte> itemsMovimientoCtaCte = new ArrayList<ItemMovimientoCtaCte>();
 			ItemMovimientoCtaCte itemMovimientoCtaCte = new ItemMovimientoCtaCte();
 			itemMovimientoCtaCte.setDetalle("Factura " + String.valueOf(factura.getNro()));
 			itemMovimientoCtaCte.setFecha(factura.getFechaEmision());	
 			itemMovimientoCtaCte.setImporte(factura.getTotal());
 			itemMovimientoCtaCte.setTipo(TipoMovimientoCtaCte.DEBITO); //COMPLETAR
-			return MovimientoDAO.getInstancia().grabarMovimiento(itemMovimientoCtaCte);
+			itemsMovimientoCtaCte.add(itemMovimientoCtaCte);
+			cuentaCorriente.setItems(itemsMovimientoCtaCte);
+
+			MovimientoDAO.getInstancia().grabarMovimiento(cuentaCorriente);
 		
 	}
 	

@@ -226,8 +226,8 @@ public class BusinessDelegate {
 
 	}
 	
-	public int grabarMovimiento (Integer idFactura) throws RemoteException{
-		return interfazRemotaFacturacion.grabarMovimiento(idFactura);
+	public void grabarMovimiento (Integer idFactura) throws RemoteException{
+		interfazRemotaFacturacion.grabarMovimiento(idFactura);
 	}
 	
 	public int grabarRemito(Integer idPedido,EstadoRemito estadoRemito) throws RemoteException{

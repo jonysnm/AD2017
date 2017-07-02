@@ -46,7 +46,7 @@
 			</tr>
 	</table>
 			
-	<h2>Items del Peido</h2>		
+	<h2>Items del Pedido</h2>		
 	<table>			
 	<tr>				
 		<th>Prenda</th>

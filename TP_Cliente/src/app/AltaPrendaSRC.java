@@ -1,5 +1,6 @@
 package app;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,19 +9,20 @@ import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.EventQueue;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 
 import businessDelegate.BusinessDelegate;
@@ -28,6 +30,8 @@ import dto.AreaProduccionDTO;
 import dto.AreaProduccionInvolucradaDTO;
 import dto.ColorDTO;
 import dto.ItemAreaTiemposDTO;
+import dto.ItemBultoMPDTO;
+import dto.ItemBultoPrendaDTO;
 import dto.ItemColorTalleDTO;
 import dto.ItemMaterialPrendaDTO;
 import dto.ItemPrendaDTO;
@@ -35,15 +39,7 @@ import dto.MateriaPrimaDTO;
 import dto.MaterialesPorPrendaDTO;
 import dto.PrendaDTO;
 import dto.TalleDTO;
-
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
+import dto.UbicacionDTO;
 
 
 
@@ -582,6 +578,7 @@ public class AltaPrendaSRC extends JFrame {
 	        	PrendaDTO prendaDTO = new PrendaDTO();
 	        	prendaDTO.setDescripcion(txtDescripcion.getText());
 	        	prendaDTO.setVigente(chkValidity.isSelected());
+//	        	List<ItemMaterialPrendaDTO> itemsMaterialPrendaDTO = new ArrayList<ItemMaterialPrendaDTO>();
 	        	
 	        	for (ItemColorTalleDTO itemColorTalleDTO : lstItemColorTalle) {        	
 	        	
@@ -602,8 +599,10 @@ public class AltaPrendaSRC extends JFrame {
 	        			itemMaterialPrendaDTO.setDespedicio(materialesPorItemPrenda.getDesperdicio());
 	        			itemMaterialPrendaDTO.setPrenda(prendaDTO);
 	        			itemMaterialPrendaDTO.setMateriaprima(materialesPorItemPrenda.getMateriaPrimaDTO());	        				        				        			
-	        			itemPrendadto.AgregarItemMaterialPrenda(itemMaterialPrendaDTO);	        				        				        				        				        			
-					}	        			        		
+	        			itemPrendadto.AgregarItemMaterialPrenda(itemMaterialPrendaDTO);	   
+//	        			itemsMaterialPrendaDTO.add(itemMaterialPrendaDTO);
+					}	       
+//	        		prendaDTO.setItemMaterialPrenda(itemsMaterialPrendaDTO);
 	        		prendaDTO.AgregarItemPrenda(itemPrendadto);	        			        
 				}
 	        			        	
@@ -642,5 +641,34 @@ public class AltaPrendaSRC extends JFrame {
 				}
 	        }
 	    });
-	}	
+	}
+	
+//	private void itemBultoMP(PrendaDTO prendaDTO){
+//		UbicacionDTO ubicacionDTO=new UbicacionDTO();
+//		for (ItemPrendaDTO itemPrendaDTO : prendaDTO.getItemPrenda()) {
+//			for (ItemMaterialPrendaDTO itemMaterialPrendaDTO: itemPrendaDTO.getLstItemMaterialPrendaDTO()) {
+//				ItemBultoMPDTO itemBultoMPDTO = new ItemBultoMPDTO();
+//				itemBultoMPDTO.setCantidad(itemMaterialPrendaDTO.get);
+//			}
+//		}
+//		ItemBultoPrendaDTO item=new ItemBultoPrendaDTO();
+//		ItemPrendaDTO ip=new ItemPrendaDTO();
+//		ip.setIditemPrenda(1);
+//		item.setCantidad(5);
+//		item.setCantidadReservada(2);
+//		ColorDTO colorDTO = new ColorDTO();
+//		colorDTO.setIdColor(1);
+//		ip.setColor(colorDTO);
+//		TalleDTO talleDTO = new TalleDTO();
+//		talleDTO.setIdTalle(1);
+//		ip.setTalle(talleDTO);;
+//		PrendaDTO prendaDTO = new PrendaDTO();
+//		prendaDTO.setCodigo(3);
+//		ip.setPrendaDTO(prendaDTO);
+//		item.setIpr(ip);		
+//		ubicacionDTO.setBulto(item);	
+//		
+//	}
+		
+	
 }

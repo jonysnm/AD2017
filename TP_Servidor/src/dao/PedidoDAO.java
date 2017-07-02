@@ -247,6 +247,7 @@ public class PedidoDAO {
 		ped.setFechaCreacion(pedidoEntity.getFechaCreacion());
 		ped.setFechaprobableDespacho(pedidoEntity.getFechaprobableDespacho());
 		ped.setFecharealDespacho(pedidoEntity.getFecharealDespacho());
+		ped.setId(pedidoEntity.getId());
 		List<ItemPedido> itemsPedido = new ArrayList<ItemPedido>();
 		for (ItemPedidoEntity itemPedidoEntity : pedidoEntity.getItems()) {
 			ItemPedido itemPedido = new ItemPedido();
@@ -342,6 +343,7 @@ public class PedidoDAO {
 		ped.setFechaCreacion(pedidoEntity.getFechaCreacion());
 		ped.setFechaprobableDespacho(pedidoEntity.getFechaprobableDespacho());
 		ped.setFecharealDespacho(pedidoEntity.getFecharealDespacho());
+		ped.setId(pedidoEntity.getId());
 		List<ItemPedido> itemsPedido = new ArrayList<ItemPedido>();
 		for (ItemPedidoEntity itemPedidoEntity : pedidoEntity.getItems()) {
 			ItemPedido itemPedido = new ItemPedido();

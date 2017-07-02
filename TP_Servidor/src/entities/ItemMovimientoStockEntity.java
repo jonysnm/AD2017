@@ -41,6 +41,7 @@ public class ItemMovimientoStockEntity implements Serializable {
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="idJefe")
 	private EmpleadoEntity autorizo;
+	
 	public int getId() {
 		return id;
 	}

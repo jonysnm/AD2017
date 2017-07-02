@@ -317,7 +317,7 @@ public Pedido(){}
 		PedidoaDespacharDTO pedidoReturn = new PedidoaDespacharDTO();
 		
 		
-		Pedido pedido = PedidoDAO.getInstancia().getPedido(idPedidoaDespachar);		
+		Pedido pedido = PedidoDAO.getInstancia().getPedidoComp(idPedidoaDespachar);		
 		
 		pedidoReturn.setId(pedido.getId());
 		pedidoReturn.setCuit(pedido.getCliente().getCuit());
@@ -331,7 +331,7 @@ public Pedido(){}
 			itemReturn = new ItemPedidoaDespacharDTO();
 			itemReturn.setCantidad(itemPedido.getCantidad());
 			itemReturn.setColor(itemPedido.getItemprenda().getColor().getDescripcion());
-			itemReturn.setPrenda("Pantalon");//TODO: Revisar Jona
+			itemReturn.setPrenda(itemPedido.getItemprenda().getPrenda().getDescripcion());
 			itemReturn.setTalle(itemPedido.getItemprenda().getTalle().getDescripcion());
 			itemReturn.setUbicacion(ObtenerListCodigoUbicacion(itemPedido.getIdItemPedido()));
 			lstReturn.add(itemReturn);

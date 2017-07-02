@@ -12,6 +12,8 @@ public class ItemMovimientoCtaCte {
 	private Date fecha;
 	private float importe;
 	private String detalle;
+	private CuentaCorriente cuentaCorriente;
+	
 	public int getId() {
 		return id;
 	}
@@ -70,8 +72,12 @@ public class ItemMovimientoCtaCte {
 		
 	}
 	
-	public void save(){
-		MovimientoDAO.getInstancia().grabarMovimiento(this);
+	
+	public CuentaCorriente getCuentaCorriente() {
+		return cuentaCorriente;
+	}
+	public void setCuentaCorriente(CuentaCorriente cuentaCorriente) {
+		this.cuentaCorriente = cuentaCorriente;
 	}
 
 

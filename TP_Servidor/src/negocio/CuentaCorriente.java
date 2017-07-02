@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import dao.MovimientoDAO;
 import entities.CuentaCorrienteEntity;
 import entities.ItemMovimientoCtaCteEntity;
 import tipos.TipoMovimientoCtaCte;
@@ -67,7 +68,7 @@ public class CuentaCorriente {
 		for(ItemMovimientoCtaCteEntity ite : ctaEntity.getItems()){
 			listaItems.add(new ItemMovimientoCtaCte(ite)) ;
 		}
-		
+		this.items=listaItems;
 		
 		
 	}
@@ -87,6 +88,9 @@ public class CuentaCorriente {
 		return ctaEntity;
 	}
 	
+	public void save(){
+		MovimientoDAO.getInstancia().grabarMovimiento(this);
+	}
 	
 	public void agregarDebito(float total, Integer id2, Date fechaAct) {
 		ItemMovimientoCtaCte im = new ItemMovimientoCtaCte();

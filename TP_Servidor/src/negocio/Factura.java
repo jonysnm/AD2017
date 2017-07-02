@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import entities.CuentaCorrienteEntity;
 import entities.FacturaEntity;
 import entities.ItemFacturaEntity;
 import estados.EstadoFactura;
@@ -88,10 +89,23 @@ public class Factura {
 		return total;
 	}
 	public Factura(FacturaEntity f){
-		this.cliente=new Cliente(f.getCliente());
+		Cliente c = new Cliente();
+		c.setCuit(f.getCliente().getCuit());
+		c.setId(f.getCliente().getId());
+		c.setLimiteCredito(f.getCliente().getLimiteCredito());
+		c.setNombre(f.getCliente().getNombre());
+		c.setTipoFacturacion(f.getCliente().getTipofacturacion());
+		CuentaCorriente cn = new CuentaCorriente(f.getCliente().getCtacte());
+		c.setCtacte(cn);
+		this.cliente=c;
+		
+		
 		this.estado=f.getEstado();
 		this.fechaEmision=f.getFechaEmision();
 		this.fechaVencimiento=f.getFechaVencimiento();
+		this.nro =  f.getNro();
+		this.pago = f.isPago();
+		
 		List<ItemFactura> items=new ArrayList<ItemFactura>();
 		for(ItemFacturaEntity ip:f.getItemsFactura()){
 			ItemFactura item=new ItemFactura();
@@ -100,7 +114,8 @@ public class Factura {
 			item.setPrecioUnitario(ip.getPrecioUnitario());
 			items.add(item);
 		}
-		this.setItemsFactura(items);			
+		this.itemsFactura = items;			
+		this.total = calcularTotal();
 	}			
 }
 
