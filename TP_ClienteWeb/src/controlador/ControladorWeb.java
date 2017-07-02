@@ -62,9 +62,9 @@ public class ControladorWeb extends HttpServlet {
 		case "crear_pedido":	
 		String prendaSeleccionada = request.getParameter("prendaSeleccionada");
 			
-		if (!prendaSeleccionada.equals("")) {
+		//if (!prendaSeleccionada.equals("")) {
 //			talle
-		}
+		//}
 		response.setContentType("text/plain");
 		response.getWriter().write("asdñsaads");
 		

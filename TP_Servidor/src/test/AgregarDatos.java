@@ -3,6 +3,7 @@ package test;
 import java.util.ArrayList;
 import java.util.List;
 
+import controladores.ControladorPedido;
 import dao.AlmacenDAO;
 import dao.FacturaDAO;
 import dao.PedidoDAO;
@@ -19,7 +20,7 @@ import negocio.Talle;
 import negocio.Ubicacion;
 public class AgregarDatos {
 	public static void guardarInfo(){
-//	
+
 //		Color c1 = new Color("Rojo");
 //	TallesyColoresDAO.getInstancia().altaColor(c1);
 //	Color c2 = new Color("Negro");
@@ -63,15 +64,15 @@ public class AgregarDatos {
 //	ip.add(ipp);
 //	p1.setItemPrendas(ip);
 //	PedidoDAO.getInstancia().AltaPrenda(p1);
-//	
-//	Ubicacion u=new Ubicacion();
-//	ItemBultoPrenda ibpr=new ItemBultoPrenda();
-//	ibpr.setCantidad(40);
-//	ibpr.setCantidadReservada(10);
-//	ibpr.setTipo("IBPRENDA");
-//	ibpr.setItemPrenda(PedidoDAO.getInstancia().getItemPrenda(1));
-//	u.setBulto(ibpr);
-//	AlmacenDAO.getInstancia().nuevaUbicacion(u);
+/*
+	Ubicacion u=new Ubicacion();
+	ItemBultoPrenda ibpr=new ItemBultoPrenda();
+	ibpr.setCantidad(40);
+	ibpr.setCantidadReservada(10);
+	ibpr.setTipo("IBPRENDA");
+	ibpr.setItemPrenda(PedidoDAO.getInstancia().getItemPrenda(1));
+	u.setBulto(ibpr);
+	AlmacenDAO.getInstancia().nuevaUbicacion(u);
 	
 	
 	Ubicacion uMP=new Ubicacion();
@@ -90,7 +91,7 @@ public class AgregarDatos {
 	ibmp.setCodigoUbicacion("A010320");
 	uMP.setBulto(ibmp);
 	AlmacenDAO.getInstancia().nuevaUbicacionMP(uMP);
-	
+	*/
 	/*
 	Pedido p=PedidoDAO.getInstancia().getPedido(1);
 	float pp=0;
@@ -100,5 +101,7 @@ public class AgregarDatos {
 	}	
 		*/
 	
+	ControladorPedido.getInstancia().IniciarProcesamientoPedidoAprobado(1);
 	}
+	
 }

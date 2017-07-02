@@ -88,7 +88,8 @@ public class ControladorPedido {
 	// Jonathan Methods--> CONSULTAR ANTES DE MODIFICAR
 
 	public void cambiarEstadoPedido(Integer idPedido, EstadoAprobacionPedidoCliente estado) {
-		Pedido p = PedidoDAO.getInstancia().getPedido(idPedido);
+		//Pedido p = PedidoDAO.getInstancia().getPedido(idPedido);
+		Pedido p = PedidoDAO.getInstancia().getPedidoAprobadoCompleto(idPedido);
 		p.setEstado(estado);
 		p.update();
 	}

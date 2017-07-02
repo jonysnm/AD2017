@@ -233,7 +233,7 @@ public class Almacen {
 			itemBultoPrenda.setCantidad(itemBultoPrendaEntity.getCantidad());
 			itemBultoPrenda.setCantidadReservada(itemBultoPrendaEntity.getCantidadReservada());
 			itemBultoPrenda.setIdBulto(itemBultoPrendaEntity.getId());
-			itemBultoPrenda.setItemPrenda(new ItemPrenda(itemBultoPrendaEntity.getItemPrenda()));
+			itemBultoPrenda.setItemPrenda(new ItemPrenda(itemBultoPrendaEntity.getItemPrenda()));			
 			lstItemBultoPrenda.add(itemBultoPrenda);
 		}
 		
