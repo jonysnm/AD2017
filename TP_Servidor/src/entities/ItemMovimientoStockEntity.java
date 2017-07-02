@@ -2,7 +2,6 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -13,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import tipos.TipoMovimientoStock;
@@ -31,9 +29,10 @@ public class ItemMovimientoStockEntity implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private TipoMovimientoStock tipo;
 	private Date fecha;
-	@OneToMany (cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="idItemMovStock")
-	private List<ItemBultoEntity> bultoitems;
+	private ItemBultoEntity bultoitems;
+
 	private String detalle;
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="idEmpleado")
@@ -60,12 +59,6 @@ public class ItemMovimientoStockEntity implements Serializable {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	public List<ItemBultoEntity> getBultoitems() {
-		return bultoitems;
-	}
-	public void setBultoitems(List<ItemBultoEntity> bultoitems) {
-		this.bultoitems = bultoitems;
-	}
 	public String getDetalle() {
 		return detalle;
 	}
@@ -90,12 +83,12 @@ public class ItemMovimientoStockEntity implements Serializable {
 	@Override
 	public String toString() {
 		return "ItemMovimientoStockEntity [id=" + id + ", tipo=" + tipo
-				+ ", fecha=" + fecha + ", bultoitems=" + bultoitems
+				+ ", fecha=" + fecha + ", bultoitems=" + getBultoitems()
 				+ ", detalle=" + detalle + ", empleado=" + empleado
 				+ ", autorizo=" + autorizo + "]";
 	}
 	public ItemMovimientoStockEntity(int id, TipoMovimientoStock tipo,
-			Date fecha, List<ItemBultoEntity> bultoitems, String detalle,
+			Date fecha, ItemBultoEntity bultoitems, String detalle,
 			EmpleadoEntity empleado, EmpleadoEntity autorizo) {
 		super();
 		this.id = id;
@@ -109,6 +102,12 @@ public class ItemMovimientoStockEntity implements Serializable {
 	public ItemMovimientoStockEntity() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public ItemBultoEntity getBultoitems() {
+		return bultoitems;
+	}
+	public void setBultoitems(ItemBultoEntity bultoitems) {
+		this.bultoitems = bultoitems;
 	}
 	
 	

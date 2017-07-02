@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -27,6 +30,12 @@ public class ItemBultoEntity implements Serializable{
 	private float cantidadReservada;
 
 	private String codigoUbicacion;
+	
+	@OneToMany
+	@JoinColumn(name="idBulto")
+	private List<ItemMovimientoStockEntity> itemsMovimientoStockEntities;
+	
+	
 	
 	public ItemBultoEntity() {
 		super();
@@ -79,6 +88,14 @@ public class ItemBultoEntity implements Serializable{
 
 	public void setCodigoUbicacion(String codigoUbicacion) {
 		this.codigoUbicacion = codigoUbicacion;
+	}
+
+	public List<ItemMovimientoStockEntity> getItemsMovimientoStockEntities() {
+		return itemsMovimientoStockEntities;
+	}
+
+	public void setItemsMovimientoStockEntities(List<ItemMovimientoStockEntity> itemsMovimientoStockEntities) {
+		this.itemsMovimientoStockEntities = itemsMovimientoStockEntities;
 	}
 
 
