@@ -412,7 +412,7 @@ public class AltaPrendaSRC extends JFrame {
 	    btnAddItemPrenda.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent event) 
 	        {   
-	        	if(txtCantidadenOPC.getText()=="" || txtCostoProdActual.getText()=="" || txtPorcentajeGanancia.getText()=="")
+	        	if(txtCantidadenOPC.getText()!="" && txtCostoProdActual.getText()!="" && txtPorcentajeGanancia.getText()!="")
 	        	{
 	        	
 					ColorDTO colorSeleccionado = (ColorDTO)lstColores.getSelectedItem();				
@@ -465,7 +465,7 @@ public class AltaPrendaSRC extends JFrame {
 	    btnAddItemAreaProd.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent event) 
 	        {   	        
-	        	if(txtTiempoArea.getText()=="")
+	        	if(txtTiempoArea.getText()!="")
 	        	{	        			       	        	
 		        	AreaProduccionDTO AreaSeleccionada = (AreaProduccionDTO)lstAreasProd.getSelectedItem();				
 						
@@ -527,7 +527,7 @@ public class AltaPrendaSRC extends JFrame {
 	    btnAddItemMaterialPrenda.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent event) 
 	        {   	        
-				if(txtCantidadMateriaPrima.getText()==""||txtDesperdicioMateriaPrima.getText()=="")
+				if(txtCantidadMateriaPrima.getText()!=""||txtDesperdicioMateriaPrima.getText()!="")
 				{
 	        	MateriaPrimaDTO materiaPrimaDTO = (MateriaPrimaDTO)ddlMateriaPrima.getSelectedItem();
 	        	
