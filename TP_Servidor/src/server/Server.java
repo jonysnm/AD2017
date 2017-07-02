@@ -54,7 +54,8 @@ public class Server {
 			System.out.println("Se fija el SERVIDOR PUNTO DE VENTA");
 			System.out.println("Se fija el SERVIDOR GESTION SUCURSALES");
 			System.out.println("Se fija el SERVIDOR GESTION CLIENTES");
-			System.out.println("Se fija el SERVIDOR GESTION DESPACHO");			
+			System.out.println("Se fija el SERVIDOR GESTION DESPACHO");	
+			System.out.println("Se fija el SERVIDOR GESTION FACTURACION");
 			this.msje ="Se cargó el servidor";
 		}catch(Exception e){
 			this.msje = "ERROR al cargar Server.Java";

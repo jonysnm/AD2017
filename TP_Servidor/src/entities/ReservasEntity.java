@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import dao.AlmacenDAO;
 
 @Entity
-@Table(name = "Reservas")
+@Table(name = "Reservas_Prenda")
 public class ReservasEntity implements Serializable {
 
 	private static final long serialVersionUID = 8497411257851849309L;
