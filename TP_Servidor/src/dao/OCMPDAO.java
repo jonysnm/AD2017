@@ -67,9 +67,8 @@ public class OCMPDAO {
 	}
 
 
-	public void createOCMP() {
-		// TODO Auto-generated method stub
-		
+	public void createOCMP(OCMP ocmp) {
+		this.altaOCMP(ocmp);
 	}
 
 

@@ -3,11 +3,9 @@ package controladores;
 import java.util.Date;
 import java.util.List;
 
-import dao.AlmacenDAO;
 import dao.PedidoDAO;
 import estados.EstadoAprobacionPedidoCliente;
 import negocio.OrdenProduccion;
-import negocio.OrdenProduccionParcial;
 import negocio.Pedido;
 
 public class ControladorProduccion {
@@ -21,9 +19,9 @@ public class ControladorProduccion {
 		}
 		return instancia;
 	}
-	public void CrearOrden(OrdenProduccion or){
-		or.save();
-		return;
+	public int CrearOrden(OrdenProduccion or){
+		return or.save();
+		
 	}
 	public void cambiarEstadoPedido(Integer idPedido,EstadoAprobacionPedidoCliente estado){
 		Pedido p=PedidoDAO.getInstancia().getPedido(idPedido);
@@ -57,8 +55,11 @@ public class ControladorProduccion {
 	
 	}
 	
-	public void marcarOrdenCompletada() {
+	public void marcarOrdenCompletada(int idOrdenProd) {
+		//buscar el la odenCOmpleta y cambiar estado a completa
 	
 	}
+	
+	
 	
 }

@@ -3,12 +3,16 @@ package negocio;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.classic.Session;
+
 import dao.AlmacenDAO;
 import dao.PedidoDAO;
 import entities.ItemBultoMPEntity;
 import entities.ItemBultoPrendaEntity;
 import entities.ItemPedidoEntity;
+import entities.OrdenProduccionEntity;
 import entities.ReservasEntity;
+import entities.ReservasMPEntity;
 
 public class Almacen {
 	private int id;
@@ -150,7 +154,7 @@ public class Almacen {
 			i++;
 		}				
 	}
-	public void ReservarItemsMP(List<ItemBultoMP> lstItemBultoMp, float cantidadTotalaReservar, Pedido pedido, ItemPedido itemPedido)//reserva la cantidad enviada como parametro en esta lista de items
+	public void ReservarItemsMP(List<ItemBultoMP> lstItemBultoMp, float cantidadTotalaReservar,OrdenProduccion ordenProduccion)//reserva la cantidad enviada como parametro en esta lista de items
 	{
 		float cantidadAux = cantidadTotalaReservar;
 		ItemBultoMP itemActual = null;
@@ -164,12 +168,12 @@ public class Almacen {
 			if(cantidadDisponibleenBulto >= cantidadAux)
 			{
 				//reservar cantidadAux				
-				ReservasEntity reserva = new ReservasEntity();
+				ReservaMP reserva = new ReservaMP();
 				reserva.setCantidad(cantidadAux);
-				reserva.setItemBultoEntity(itemActual.toEntity());
-				reserva.setItemPedidoEntity(itemPedido.Toentity());
-				SaveOrUpdateReserva(reserva);
-														
+				reserva.setOrdenProduccion(ordenProduccion);
+				reserva.setItemBulto(itemActual);
+				reserva.save();
+				
 				float cantidadReservadaActualizada = itemActual.getCantidadReservada()+cantidadAux;							
 				itemActual.setCantidadReservada(cantidadReservadaActualizada);
 				
@@ -180,11 +184,11 @@ public class Almacen {
 			if(cantidadDisponibleenBulto < cantidadAux)
 			{
 				//reservar cantidadDisponibleenBulto
-				ReservasEntity reserva = new ReservasEntity();
-				reserva.setCantidad(cantidadDisponibleenBulto);
-				reserva.setItemBultoEntity(itemActual.toEntity());
-				reserva.setItemPedidoEntity(itemPedido.Toentity());
-				SaveOrUpdateReserva(reserva);															
+				ReservaMP reserva = new ReservaMP();
+				reserva.setCantidad(cantidadAux);
+				reserva.setOrdenProduccion(ordenProduccion);
+				reserva.setItemBulto(itemActual);
+				reserva.save();
 				
 				
 				//Actualizar Reserba Bulto----Se puede sacar a un metodo
@@ -239,6 +243,7 @@ public class Almacen {
 	{			
 		List<ItemBultoMPEntity> lstEntity = AlmacenDAO.getInstancia().ObtenerItemBultoMP(mp);
 		List<ItemBultoMP>lstItemBultoMP = new ArrayList<ItemBultoMP>();
+		
 		ItemBultoMP itemBultoMP = null;
 		for (ItemBultoMPEntity itemBultoMPEntity : lstEntity) {
 			itemBultoMP = new ItemBultoMP();

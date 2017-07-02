@@ -7,6 +7,7 @@ import java.util.List;
 import dao.OCMPDAO;
 import dto.OCMPDTO;
 import estados.EstadoOCMP;
+import negocio.OCMP;
 
 public class ControladorCompras {
 	
@@ -48,8 +49,8 @@ public class ControladorCompras {
 		OCMPDAO.getInstancia().informarInsumosRecibidos( IdOCMP);
 	}
 	
-	public void createOCMP() {
-		OCMPDAO.getInstancia().createOCMP();
+	public void createOCMP(OCMP ocmp) {
+		ocmp.save();
 		}
 
 }

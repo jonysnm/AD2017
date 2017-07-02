@@ -3,6 +3,7 @@ package negocio;
 import java.util.Date;
 import java.util.List;
 
+import dao.OCMPDAO;
 import entities.OCMPEntity;
 import estados.EstadoOCMP;
 
@@ -127,6 +128,9 @@ public class OCMP {
 		oe.setFechaEntrega(this.getFechaEntrega());
 	//completar
 		return oe;
+	}
+	public void save() {
+		OCMPDAO.getInstancia().createOCMP(this);		
 	}
 	
 	

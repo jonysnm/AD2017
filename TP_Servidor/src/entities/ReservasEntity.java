@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import dao.AlmacenDAO;
+
 @Entity
 @Table(name = "Reservas")
 public class ReservasEntity implements Serializable {
@@ -80,6 +82,11 @@ public class ReservasEntity implements Serializable {
 
 	public void setItemPedidoEntity(ItemPedidoEntity itemPedidoEntity) {
 		this.itemPedidoEntity = itemPedidoEntity;
+	}
+
+	public void save() {
+	AlmacenDAO.getInstancia().NuevaReserva(this);
+		
 	}
 
 //	public PedidoEntity getPedido() {

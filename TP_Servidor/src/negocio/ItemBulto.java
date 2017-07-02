@@ -5,6 +5,9 @@ public class ItemBulto {
 	private float cantidad;
 	private float cantidadReservada;
 	private String tipo;
+	private String codigoUbicacion;
+	
+	
 	public ItemBulto() {
 		super();
 	}
@@ -31,6 +34,12 @@ public class ItemBulto {
 	}
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+	public String getCodigoUbicacion() {
+		return codigoUbicacion;
+	}
+	public void setCodigoUbicacion(String codigoUbicacion) {
+		this.codigoUbicacion = codigoUbicacion;
 	}
 }	
 	

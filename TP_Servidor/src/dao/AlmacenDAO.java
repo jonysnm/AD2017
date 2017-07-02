@@ -11,30 +11,25 @@ import org.hibernate.SessionFactory;
 import org.hibernate.hql.ast.QuerySyntaxException;
 
 import dto.MateriaPrimaDTO;
-import dto.TalleDTO;
 import entities.AreaProduccionEntity;
-import entities.ClienteEntity;
-import entities.ColorEntity;
 import entities.ItemBultoEntity;
 import entities.ItemBultoMPEntity;
 import entities.ItemBultoPrendaEntity;
 import entities.ItemPrendaEntity;
 import entities.MateriaPrimaEntity;
 import entities.OrdenProduccionEntity;
-import entities.PedidoEntity;
-import entities.PrendaEntity;
 import entities.ReservasEntity;
-import entities.TalleEntity;
+import entities.ReservasMPEntity;
 import entities.UbicacionEntity;
 import hbt.HibernateUtil;
-import negocio.Cliente;
 import negocio.ItemBulto;
+import negocio.ItemBultoMP;
 import negocio.ItemBultoPrenda;
 import negocio.ItemPedido;
 import negocio.ItemPrenda;
 import negocio.MateriaPrima;
 import negocio.OrdenProduccion;
-import negocio.Pedido;
+import negocio.ReservaMP;
 import negocio.Ubicacion;
 
 public class AlmacenDAO {
@@ -82,29 +77,60 @@ public class AlmacenDAO {
 		return cantidad;
 	}
 
-	public void nuevaUbicacion(Ubicacion ubicacion) {
-		try {
-			Session session = sf.openSession();
-			session.beginTransaction();
-			UbicacionEntity ub = new UbicacionEntity();
-			ItemBultoPrenda ib = (ItemBultoPrenda) ubicacion.getBulto();
-			ItemBultoPrendaEntity ibpre = new ItemBultoPrendaEntity();
-			Query query = session.createQuery("From ItemPrendaEntity where IdItemPrenda = :idPedi");
-			ItemPrendaEntity ip = (ItemPrendaEntity) query.setParameter("idPedi", ib.getItemPrenda().getIditemPrenda()).uniqueResult();
-			ibpre.setItemPrenda(ip);
-			ibpre.setCantidad(ib.getCantidad());
-			ibpre.setCantidadReservada(ib.getCantidadReservada());
-			ub.setBulto(ibpre);
-			session.save(ub);
-			session.getTransaction().commit();
-			session.flush();
-			session.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Error ALMACENDAO. Nueva Ubicacion");
+		public void nuevaUbicacion(Ubicacion ubicacion) {
+			try {
+				Session session = sf.openSession();
+				session.beginTransaction();
+				UbicacionEntity ub = new UbicacionEntity();
+				ItemBultoPrenda ib = (ItemBultoPrenda) ubicacion.getBulto();
+				ItemBultoPrendaEntity ibpre = new ItemBultoPrendaEntity();
+				Query query = session.createQuery("From ItemPrendaEntity where IdItemPrenda = :idPedi");
+				ItemPrendaEntity ip = (ItemPrendaEntity) query.setParameter("idPedi", ib.getItemPrenda().getIditemPrenda()).uniqueResult();
+				ibpre.setItemPrenda(ip);
+				ibpre.setCantidad(ib.getCantidad());
+				ibpre.setCantidadReservada(ib.getCantidadReservada());
+				ub.setBulto(ibpre);
+				session.save(ub);
+				session.getTransaction().commit();
+				session.flush();
+				session.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("Error ALMACENDAO. Nueva Ubicacion");
+			}
+			return;
 		}
-		return;
-	}
+		
+		
+		public void nuevaUbicacionMP(Ubicacion ubicacion) {
+			try {
+				Session session = sf.openSession();
+				session.beginTransaction();
+				UbicacionEntity ub = new UbicacionEntity();
+				ItemBultoMP ib = (ItemBultoMP) ubicacion.getBulto();
+				ItemBultoMPEntity ibpre = new ItemBultoMPEntity();
+				
+				ibpre.setCantidad(ib.getCantidad());
+				ibpre.setCantidadReservada(ib.getCantidadReservada());
+				
+				
+				MateriaPrimaEntity materiaPrimaEntity = (MateriaPrimaEntity) session.get(MateriaPrimaEntity.class, ib.getMateriaPrima().getCodigo());
+				ibpre.setMp(materiaPrimaEntity);
+				ibpre.setCodigoUbicacion(ib.getCodigoUbicacion());
+				
+				ub.setBulto(ibpre);
+				session.save(ub);
+				session.getTransaction().commit();
+				session.flush();
+				session.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("Error ALMACENDAO. Nueva Ubicacion");
+			}
+		}
+	
+	
+	
 	
 	//Jonathan Methods --> Consultar antes de modificar
 	
@@ -124,8 +150,7 @@ public class AlmacenDAO {
 		Session s = sf.openSession();
 		String consulta = "from ItemBultoMPEntity ib where ib.mp.codigoMP= :id";		
 		@SuppressWarnings("unchecked")
-		ArrayList<ItemBultoMPEntity> lista = (ArrayList<ItemBultoMPEntity>) s.createQuery(consulta)
-				.setParameter("id",mp.getCodigo()).list();
+		ArrayList<ItemBultoMPEntity> lista = (ArrayList<ItemBultoMPEntity>) s.createQuery(consulta).setParameter("id",mp.getCodigo()).list();
 		return lista;	
 	}
 	public List<ItemBultoPrendaEntity> ObtenerItemBultoPrenda(ItemPrenda ip){
@@ -151,8 +176,23 @@ public class AlmacenDAO {
 		Session session=sf.openSession();
 		session.beginTransaction();				
 		session.saveOrUpdate(reserva);
-		session.getTransaction().commit();
-		session.flush();
+		session.close();						
+	}
+	
+	public void NuevaReservaMP(ReservaMP reserva){
+		Session session=sf.openSession();
+		session.beginTransaction();				
+
+		ReservasMPEntity reservasMPEntity = new ReservasMPEntity();
+		reservasMPEntity.setCantidad(reserva.getCantidad());
+		
+		Query query = session.createQuery("From ItemBultoEntity where id = :idItemBulto");
+		ItemBultoEntity itemBultoEntity = (ItemBultoEntity) query.setParameter("idItemBulto", reserva.getItemBulto().getIdBulto()).uniqueResult();
+		
+		reservasMPEntity.setItemBultoEntity(itemBultoEntity);
+		OrdenProduccionEntity ordenProduccionEntity = (OrdenProduccionEntity) session.get(OrdenProduccionEntity.class, reserva.getOrdenProduccion().getCodigo());
+		reservasMPEntity.setOrdenProduccionEntity(ordenProduccionEntity);
+		session.saveOrUpdate(reserva);
 		session.close();						
 	}
 	
@@ -392,7 +432,7 @@ public class AlmacenDAO {
 		}
 		return listatdto;
 	}
-	public void CrearOrdenProduccion(OrdenProduccion orden){
+	public int CrearOrdenProduccion(OrdenProduccion orden){
 		Session session = sf.openSession();
 		session.beginTransaction();
 		OrdenProduccionEntity opp=new OrdenProduccionEntity();
@@ -401,11 +441,11 @@ public class AlmacenDAO {
 		opp.setFecha(orden.getFecha());
 	    opp.setPedido(orden.getPedido().toEntity());
 		opp.setPrenda(orden.getPrenda().ToEntity());
-		session.save(opp);
+		int id = (int )session.save(opp);
 		session.getTransaction().commit();
 		session.flush();
 		session.close();	
-		
+		return id;
 	
 	}
 }

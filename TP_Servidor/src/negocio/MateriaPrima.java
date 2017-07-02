@@ -2,7 +2,6 @@ package negocio;
 
 import dto.MateriaPrimaDTO;
 import entities.MateriaPrimaEntity;
-import estados.EstadoMP;
 
 public class MateriaPrima {
 	private int codigo;

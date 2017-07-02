@@ -5,6 +5,8 @@ public class Proveedor {
 	private String direccion;
 	private String telefono;
 	private String razonSocial;
+	private int ranking;
+	
 	public int getId() {
 		return id;
 	}
@@ -94,9 +96,16 @@ public class Proveedor {
 		this.telefono = telefono;
 		this.razonSocial = razonSocial;
 	}
+	
 	public Proveedor() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public int getRanking() {
+		return ranking;
+	}
+	public void setRanking(int ranking) {
+		this.ranking = ranking;
 	}
 	
 	

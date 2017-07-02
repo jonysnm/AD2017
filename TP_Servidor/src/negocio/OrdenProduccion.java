@@ -25,8 +25,8 @@ public class OrdenProduccion {
 	public OrdenProduccion(OrdenProduccionEntity ordenProduccionEntity) {
 		this.codigo=ordenProduccionEntity.getCodigo();
 	}
-	public void save(){
-		AlmacenDAO.getInstancia().CrearOrdenProduccion(this);
+	public int save(){
+		return AlmacenDAO.getInstancia().CrearOrdenProduccion(this);
 	}
 
 	

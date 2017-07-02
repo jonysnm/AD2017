@@ -67,7 +67,7 @@
 					<th>ItemPedido:</th>
 					<td><b>Prenda</b></td>
 					<td>
-					<select  name="prenda"><option>Seleccione
+					<select  id="prenda" name="prenda" onchange="doAjaxCall()"><option>Seleccione
 								una opcion</option>
 							<%
 								List<ItemPrendaDTO> itemsPrendaDTO = BusinessDelegate.getInstancia().obtenerItemPrenda();
@@ -83,7 +83,7 @@
 					</select></td>
 					<td><b>Talle</b></td>
 						<td>
-					<select  name="talle"><option>Seleccione
+					<select id="talle" name="talle"><option>Seleccione
 								una opcion</option>
 							<%
 								List<TalleDTO> TallesDTOs = BusinessDelegate.getInstancia().getAllTalle();
@@ -118,15 +118,13 @@
 		</form>
 
 	</div>
+	
+	
 	<script type="text/javascript">
 	function obtenerClienteSeleccionado(){
 		var x= document.getElementById("selectCliente").selectedIndex;
 	    var y = document.getElementById("selectCliente").options;
-	   
-//			request.setAttribute(cliente., arg1)
-	    
 	}
-	
 	</script>
 	
 	

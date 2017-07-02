@@ -2,7 +2,7 @@ package estados;
 
 public enum EstadoOCMP {
 
-		COMPLETA, INCOMPLETA, ANULADA;
+		COMPLETA, INCOMPLETA, ANULADA,GENERADA;
 	
 
 }

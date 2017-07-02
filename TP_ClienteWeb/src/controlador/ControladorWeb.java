@@ -60,8 +60,17 @@ public class ControladorWeb extends HttpServlet {
 			jspPage = "/index.jsp";
 			break;
 		case "crear_pedido":	
+		String prendaSeleccionada = request.getParameter("prendaSeleccionada");
+			
+		if (!prendaSeleccionada.equals("")) {
+//			talle
+		}
+		response.setContentType("text/plain");
+		response.getWriter().write("asdñsaads");
+		
 		jspPage = "/CrearPedido.jsp";
 		break;	
+		
 		case "altaPedido":	
 		String[] variasPrendas = request.getParameterValues("prenda");
 		String[] variosTalles = request.getParameterValues("talle");

@@ -34,6 +34,7 @@ import negocio.ItemFaltantePedido;
 import negocio.ItemMaterialPrenda;
 import negocio.ItemPedido;
 import negocio.ItemPrenda;
+import negocio.MateriaPrima;
 import negocio.Pedido;
 import negocio.Prenda;
 import negocio.Sucursal;
@@ -310,6 +311,73 @@ public class PedidoDAO {
 		return new Pedido(pedido);
 	}
 	
+	public Pedido getPedidoAprobadoCompleto(Integer idpedido){
+		PedidoEntity pedidoEntity = null;
+		try {
+			Session session = sf.openSession();
+			
+			String hql = "FROM PedidoEntity P " +
+						 "WHERE P.id = :id";// and P.estado = :estado";
+			
+			Query query = session.createQuery(hql);
+			query.setParameter("id", idpedido);
+			//query.setParameter("estado", EstadoAprobacionPedidoCliente.AprobadoenSucursal);
+			
+			if(query.uniqueResult() != null){
+				pedidoEntity = (PedidoEntity) query.uniqueResult();
+	        	session.close();
+	        }else{
+	        	session.close();
+	        	
+	        }
+		}catch (QuerySyntaxException q){
+			JOptionPane.showMessageDialog(null, q, "Error", JOptionPane.ERROR_MESSAGE);
+			System.out.println("Exception de sintaxis en PEDIDODAO: buscarpedidoscompletos");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Pedido ped = new Pedido();
+		ped.setCliente(new Cliente(pedidoEntity.getCliente()));
+		ped.setEstado(pedidoEntity.getEstado());
+		ped.setFechaCreacion(pedidoEntity.getFechaCreacion());
+		ped.setFechaprobableDespacho(pedidoEntity.getFechaprobableDespacho());
+		ped.setFecharealDespacho(pedidoEntity.getFecharealDespacho());
+		List<ItemPedido> itemsPedido = new ArrayList<ItemPedido>();
+		for (ItemPedidoEntity itemPedidoEntity : pedidoEntity.getItems()) {
+			ItemPedido itemPedido = new ItemPedido();
+			itemPedido.setIdItemPedido(itemPedidoEntity.getIdItemPedido());
+			itemPedido.setImporte(itemPedidoEntity.getImporte());
+			
+			ItemPrenda itemprenda = new ItemPrenda();
+			itemprenda.setCantidadEnOPC(itemPedidoEntity.getIprenda().getCantidadEnOPC());
+			itemprenda.setColor(new Color(itemPedidoEntity.getIprenda().getColor()));
+			itemprenda.setCostoProduccionActual(itemPedidoEntity.getIprenda().getCostoProduccionActual());
+			itemprenda.setIditemPrenda(itemPedidoEntity.getIprenda().getIdItemPrenda());
+			itemprenda.setPorcentajeGanancia(itemPedidoEntity.getIprenda().getPorcentajeGanancia());
+			itemprenda.setTalle(new Talle(itemPedidoEntity.getIprenda().getTalle()));
+			
+			Prenda prenda = new Prenda();
+			prenda.setCodigo(itemPedidoEntity.getIprenda().getPrenda().getIdPrenda());
+			prenda.setDescripcion(itemPedidoEntity.getIprenda().getPrenda().getDescripcion());
+			prenda.setVigente(itemPedidoEntity.getIprenda().getPrenda().isVigente());
+			
+			itemprenda.setPrenda(prenda);
+//			itemPedidoEntity.getIprenda().getPrenda()
+			
+//			itemprenda.setPrenda(new Prenda(itemPedidoEntity.getIprenda().getPrenda()));
+			
+			itemPedido.setItemprenda(itemprenda);
+			itemPedido.setPedido(ped);
+			itemPedido.setCantidad(itemPedidoEntity.getCantidad());
+			itemsPedido.add(itemPedido);
+		}
+		
+		ped.setItems(itemsPedido);
+		ped.setSucursal(new Sucursal(pedidoEntity.getSucursal()));
+		return ped;
+	}
+	
+	
 	public void AltaPrenda(PrendaEntity pe){
 		Session session=sf.openSession();
 		session.beginTransaction();								
@@ -440,10 +508,23 @@ public class PedidoDAO {
 		itemPrenda.setTalle(new Talle(itemPrendaEntity.getTalle()));
 		itemPrenda.setCostoProduccionActual(itemPrendaEntity.getCostoProduccionActual());
 		itemPrenda.setPorcentajeGanancia(itemPrendaEntity.getPorcentajeGanancia());
+		
 		Prenda p=new Prenda();
 		p.setCodigo(itemPrendaEntity.getPrenda().getIdPrenda());
 		p.setDescripcion(itemPrendaEntity.getPrenda().getDescripcion());
 		p.setVigente(itemPrendaEntity.getPrenda().isVigente());
+		
+		List<ItemMaterialPrenda> itemsMaterialPrenda = new ArrayList<ItemMaterialPrenda>();
+		for (ItemMaterialPrendaEntity itemMaterialPrendaEntity : itemPrendaEntity.getItemMaterialPrenda()) {
+			ItemMaterialPrenda itemMaterialPrenda = new ItemMaterialPrenda();
+			itemMaterialPrenda.setCantidadutilizada(itemMaterialPrendaEntity.getCantidadutilizada());
+			itemMaterialPrenda.setDespedicio(itemMaterialPrendaEntity.getDespedicio());
+			itemMaterialPrenda.setId(itemMaterialPrendaEntity.getItem_materialprenda());
+			itemMaterialPrenda.setMateriaprima(new MateriaPrima(itemMaterialPrendaEntity.getMateriaprima()));
+			itemsMaterialPrenda.add(itemMaterialPrenda);
+		}
+		
+		itemPrenda.setItemMaterialPrenda(itemsMaterialPrenda);
 		itemPrenda.setPrenda(p);
 		session.beginTransaction().commit();
 		session.flush();

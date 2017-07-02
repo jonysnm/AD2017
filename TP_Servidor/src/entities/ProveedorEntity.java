@@ -22,6 +22,7 @@ public class ProveedorEntity implements Serializable{
 	private String direccion;
 	private String telefono;
 	private String razonSocial;
+	private int ranking;
 	
 	
 	public int getId() {
@@ -56,6 +57,12 @@ public class ProveedorEntity implements Serializable{
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public int getRanking() {
+		return ranking;
+	}
+	public void setRanking(int ranking) {
+		this.ranking = ranking;
 	}
 	
 	
