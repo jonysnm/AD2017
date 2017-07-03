@@ -703,6 +703,125 @@ public class PedidoDAO {
 		}
 		return null;
 	}
+	public List<ItemFaltantePedido> obtenerItemFaltantesPedido(int idPedido) {
+		Session session = sf.openSession();
+		@SuppressWarnings("unchecked")
+		Query consulta = session.createQuery("from ItemFaltantePedidoEntity itp where itp.pedido.id=:idPedido");
+		consulta.setParameter("id", idPedido);
+		List<ItemFaltantePedidoEntity> itemsFaltantePedidoEntity = (List<ItemFaltantePedidoEntity>)consulta.list();
+		session.close();
+		List<ItemFaltantePedido> itemFaltantePedido = new ArrayList<ItemFaltantePedido>();
+		for (ItemFaltantePedidoEntity itemFaltantePedEntity: itemsFaltantePedidoEntity) {
+			ItemFaltantePedido itemFaltantePed = new ItemFaltantePedido();
+			itemFaltantePed.setCantidadFaltante(itemFaltantePedEntity.getCantidadFaltante());
+			itemFaltantePed.setId(itemFaltantePedEntity.getIdItemFaltantePedido());
+			ItemPrenda iPrenda = new ItemPrenda();
+			iPrenda.setCantidadEnOPC(itemFaltantePedEntity.getItemPrenda().getCantidadEnOPC());
+			iPrenda.setColor(new Color(itemFaltantePedEntity.getItemPrenda().getColor()));
+			iPrenda.setCostoProduccionActual(itemFaltantePedEntity.getItemPrenda().getCostoProduccionActual());
+			iPrenda.setIditemPrenda(itemFaltantePedEntity.getItemPrenda().getIdItemPrenda());
+			
+			List<ItemMaterialPrenda> itemsMaterialPrenda = new ArrayList<ItemMaterialPrenda>();
+			for (ItemMaterialPrendaEntity itemMaterialPrendaEntity : itemFaltantePedEntity.getItemPrenda().getItemMaterialPrenda()) {
+				ItemMaterialPrenda itemMaterialPrenda = new ItemMaterialPrenda();
+				itemMaterialPrenda.setCantidadutilizada(itemMaterialPrendaEntity.getCantidadutilizada());
+				itemMaterialPrenda.setDespedicio(itemMaterialPrendaEntity.getDespedicio());
+				itemMaterialPrenda.setMateriaprima(new MateriaPrima(itemMaterialPrendaEntity.getMateriaprima()));
+				itemMaterialPrenda.setId(itemMaterialPrendaEntity.getItem_materialprenda());
+				itemsMaterialPrenda.add(itemMaterialPrenda);
+				
+			}
+			iPrenda.setItemMaterialPrenda(itemsMaterialPrenda);
+			
+
+			Prenda p=new Prenda();
+			p.setCodigo(itemFaltantePedEntity.getItemPrenda().getPrenda().getIdPrenda());
+			p.setDescripcion(itemFaltantePedEntity.getItemPrenda().getPrenda().getDescripcion());
+			p.setVigente(itemFaltantePedEntity.getItemPrenda().getPrenda().isVigente());				
+			
+			for (ItemPrendaEntity itemPrendaEntity : itemFaltantePedEntity.getItemPrenda().getPrenda().getIp()) {					
+				ItemPrenda itemPrenda = new ItemPrenda();
+				itemPrenda.setIditemPrenda(itemPrendaEntity.getIdItemPrenda());
+				itemPrenda.setCantidadEnOPC(itemPrendaEntity.getCantidadEnOPC());
+				itemPrenda.setColor(new Color(itemPrendaEntity.getColor()));
+				itemPrenda.setTalle(new Talle(itemPrendaEntity.getTalle()));
+				itemPrenda.setCostoProduccionActual(itemPrendaEntity.getCostoProduccionActual());
+				itemPrenda.setPorcentajeGanancia(itemPrendaEntity.getPorcentajeGanancia());		
+				itemPrenda.setPrenda(new Prenda(itemPrendaEntity.getPrenda()));
+				
+				ItemMaterialPrenda itemMP = null;
+				for (ItemMaterialPrendaEntity iMPEntity : itemPrendaEntity.getItemMaterialPrenda()) {
+					itemMP = new ItemMaterialPrenda();
+					itemMP.setCantidadutilizada(iMPEntity.getCantidadutilizada());
+					itemMP.setDespedicio(iMPEntity.getDespedicio());
+					itemMP.setId(iMPEntity.getItem_materialprenda());
+					itemMP.setMateriaprima(iMPEntity.getMateriaprima().ToNegocio());
+					itemPrenda.AgregarItemMaterialPrenda(itemMP);
+				}
+				
+				AreaProduccionInvolucrada areaInv = null;
+				for (AreaProduccionInvolucradaEntity areaInvolucradaEntity : itemFaltantePedEntity.getItemPrenda().getPrenda().getAreasInvolucradas()) {
+					areaInv = new AreaProduccionInvolucrada();
+					
+					areaInv.setArea(new AreaProduccion(areaInvolucradaEntity.getArea()));
+					areaInv.setCodigo(areaInvolucradaEntity.getCodigo());
+					areaInv.setOrdenDeEjecucion(areaInvolucradaEntity.getOrdenDeEjecucion());
+					areaInv.setTiempoEnSegundos(areaInvolucradaEntity.getTiempoEnSegundos());
+					p.getAreasInvolucradas().add(areaInv);
+				}
+				
+				p.AgregarItemPrenda(itemPrenda);					
+			}																												
+		
+			
+			iPrenda.setPrenda(p);
+			
+			itemFaltantePed.setItemPrenda(iPrenda );
+			
+			Pedido ped = new Pedido();
+			ped.setCliente(new Cliente(itemFaltantePedEntity.getPedido().getCliente()));
+			ped.setEstado(itemFaltantePedEntity.getPedido().getEstado());
+			ped.setFechaCreacion(itemFaltantePedEntity.getPedido().getFechaCreacion());
+			ped.setFechaprobableDespacho(itemFaltantePedEntity.getPedido().getFechaprobableDespacho());
+			ped.setFecharealDespacho(itemFaltantePedEntity.getPedido().getFecharealDespacho());
+			ped.setId(itemFaltantePedEntity.getPedido().getId());
+			List<ItemPedido> itemsPedido = new ArrayList<ItemPedido>();
+			for (ItemPedidoEntity itemPedidoEntity : itemFaltantePedEntity.getPedido().getItems()) {
+				ItemPedido itemPedido = new ItemPedido();
+				itemPedido.setIdItemPedido(itemPedidoEntity.getIdItemPedido());
+				itemPedido.setImporte(itemPedidoEntity.getImporte());
+				
+				ItemPrenda itemprenda = new ItemPrenda();
+				itemprenda.setCantidadEnOPC(itemPedidoEntity.getIprenda().getCantidadEnOPC());
+				itemprenda.setColor(new Color(itemPedidoEntity.getIprenda().getColor()));
+				itemprenda.setCostoProduccionActual(itemPedidoEntity.getIprenda().getCostoProduccionActual());
+				itemprenda.setIditemPrenda(itemPedidoEntity.getIprenda().getIdItemPrenda());
+				itemprenda.setPorcentajeGanancia(itemPedidoEntity.getIprenda().getPorcentajeGanancia());
+				itemprenda.setTalle(new Talle(itemPedidoEntity.getIprenda().getTalle()));
+				
+				Prenda prenda = new Prenda();
+				prenda.setCodigo(itemPedidoEntity.getIprenda().getPrenda().getIdPrenda());
+				prenda.setDescripcion(itemPedidoEntity.getIprenda().getPrenda().getDescripcion());
+				prenda.setVigente(itemPedidoEntity.getIprenda().getPrenda().isVigente());
+				
+				itemprenda.setPrenda(prenda);
+				
+				itemPedido.setItemprenda(itemprenda);
+				itemPedido.setPedido(ped);
+				itemPedido.setCantidad(itemPedidoEntity.getCantidad());
+				itemsPedido.add(itemPedido);
+			}
+			
+			ped.setItems(itemsPedido);
+			ped.setSucursal(new Sucursal(itemFaltantePedEntity.getPedido().getSucursal()));
+			itemFaltantePed.setPedido(ped);
+			itemFaltantePedido.add(itemFaltantePed);
+		}
+		return itemFaltantePedido;
+		
+		
+		
+	}
 	
 	
 	

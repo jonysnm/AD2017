@@ -142,11 +142,30 @@ public class ControladorPedido {
 				Almacen.getInstancia().ActualizarStockPrenda(idPedido);
 			}else{
 				this.cambiarEstadoPedido(idPedido, EstadoAprobacionPedidoCliente.EnEsperaFinalizacionOrdendeProduccion);
-				DefiniryCrearTipoOrdenProduccion(lstItemsFaltantesPedido);
 				GuardarItemsFaltantePedido(lstItemsFaltantesPedido);
+//				DefiniryCrearTipoOrdenProduccion(lstItemsFaltantesPedido);
 			}
 		}
 	}
+	
+	private List<ItemFaltantePedido> obtenerItemFaltantesPedido(int idPedido){
+		try {
+			PedidoDAO.getInstancia().obtenerItemFaltantesPedido(idPedido);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ArrayList<ItemFaltantePedido>();
+	}
+	
+	public void procesarYcrearTipoOrdenProduccion(int idPedido){
+		try {
+			List<ItemFaltantePedido> lstItemsFaltantesPedido= obtenerItemFaltantesPedido(idPedido);
+			DefiniryCrearTipoOrdenProduccion(lstItemsFaltantesPedido);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private void GuardarItemsFaltantePedido(List<ItemFaltantePedido> lstItemsFaltantesPedido) {
 		for (ItemFaltantePedido itemFaltantePedido : lstItemsFaltantesPedido) {
 			PedidoDAO.getInstancia().NuevoItemFaltantePedido(itemFaltantePedido);

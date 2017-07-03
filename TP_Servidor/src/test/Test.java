@@ -21,6 +21,8 @@ public class Test {
 		
 		new HibernateUtil();
 		
+		ControladorPedido.getInstancia().procesarYcrearTipoOrdenProduccion(1);
+		
 //	AgregarDatos.guardarInfo();		
 
 	//AgregarDatos.guardarInfo();		
