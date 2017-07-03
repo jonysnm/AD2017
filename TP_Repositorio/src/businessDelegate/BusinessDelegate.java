@@ -304,6 +304,10 @@ public class BusinessDelegate {
 	public UsuarioDTO obtenerUsuario(UsuarioDTO usuarioDTO) throws RemoteException{
 		return interfazRemotaSucursales.obtenerUsuario(usuarioDTO);
 }
+	public void ProcesarYCrearTipoOrdenProduccion(int idPedidoaProducir)throws RemoteException {
+		interfazRemotaPuntoVenta.ProcesarYCrearTipoOrdenProduccion(idPedidoaProducir);
+		
+	}
 	
 	
 }

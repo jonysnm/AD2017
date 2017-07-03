@@ -707,7 +707,7 @@ public class PedidoDAO {
 		Session session = sf.openSession();
 		@SuppressWarnings("unchecked")
 		Query consulta = session.createQuery("from ItemFaltantePedidoEntity itp where itp.pedido.id=:idPedido");
-		consulta.setParameter("id", idPedido);
+		consulta.setParameter("idPedido", idPedido);
 		List<ItemFaltantePedidoEntity> itemsFaltantePedidoEntity = (List<ItemFaltantePedidoEntity>)consulta.list();
 		session.close();
 		List<ItemFaltantePedido> itemFaltantePedido = new ArrayList<ItemFaltantePedido>();

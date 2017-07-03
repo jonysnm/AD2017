@@ -213,6 +213,11 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 	public List<PedidosConFaltantesAProducirDTO> obtenerPedidosConFaltantes() throws RemoteException {
 		return ControladorPedido.getInstancia().obtenerPedidosConFaltantes();
 	}
+	@Override
+	public void ProcesarYCrearTipoOrdenProduccion(int idPedidoaProducir) throws RemoteException {
+		ControladorPedido.getInstancia().procesarYcrearTipoOrdenProduccion(idPedidoaProducir);
+		
+	}
 
 
 }

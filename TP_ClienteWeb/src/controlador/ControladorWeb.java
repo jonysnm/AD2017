@@ -134,7 +134,7 @@ public class ControladorWeb extends HttpServlet {
 		case "Iniciar_Produccion":
 			int idPedidoaProducir = Integer.parseInt(request.getParameter("hdnIdPedidoaProducir"));			
 			String mensaje="";									
-			//BusinessDelegate.getInstancia().   (idPedidoaProcesar);
+			BusinessDelegate.getInstancia().ProcesarYCrearTipoOrdenProduccion(idPedidoaProducir);
 			mensaje="Se iniciara la produccion del peido: "+ Integer.toString(idPedidoaProducir);			
 			request.setAttribute("Mensaje", mensaje);
 			jspPage = "/Confirmaciones.jsp";			
