@@ -20,6 +20,7 @@ import dto.OrdenDespachoDTO;
 import dto.PedidoDTO;
 import dto.PedidoaDespacharDTO;
 import dto.PedidosCompletosPendientesDespacharDTO;
+import dto.PedidosPendientesProcesarDTO;
 import dto.UbicacionDTO;
 import entities.AreaProduccionEntity;
 import entities.MateriaPrimaEntity;
@@ -116,6 +117,14 @@ public class ControladorDespacho {
 		}
 		
 		return lstReturn;
+	}
+
+
+
+
+
+	public List<PedidosPendientesProcesarDTO> obtenerPedidosPendientesdeProcesar() {
+		return DespachoDAO.getInstancia().obtenerPedidosPendientesdeProcesar();
 	}
 	
 	

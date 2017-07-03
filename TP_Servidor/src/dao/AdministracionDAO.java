@@ -488,4 +488,24 @@ public class AdministracionDAO {
 
 	}
 
+	public List<Pedido> obtenerPedidosPendientesdeProcesar() {
+		try {
+			Session session = sf.openSession();
+
+			@SuppressWarnings("unchecked")
+			List<PedidoEntity> lista = session.createQuery("from PedidoEntity where estado='AceptadoCliente'").list();
+			session.close();			
+			
+			List<Pedido> pedidos = new ArrayList<Pedido>();
+			for (PedidoEntity pedidoEntity : lista) {
+				pedidos.add(new Pedido(pedidoEntity));
+			}			
+			return pedidos;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("ErrorDAO: AdministracionDAO: Listar Pedidos Completo");
+		}
+		return null;
+	}
+
 }

@@ -56,6 +56,7 @@ public interface IPuntoDeVentaControlador extends Remote{
 	
 	
 	
-	public List<PedidoDTO> obtenerPedidosCompletoParaFacturar()throws RemoteException;	
+	public List<PedidoDTO> obtenerPedidosCompletoParaFacturar()throws RemoteException;
+	public void IniciarProcesamientoPedido(int idPedidoaProcesar) throws RemoteException;	
 	
 }

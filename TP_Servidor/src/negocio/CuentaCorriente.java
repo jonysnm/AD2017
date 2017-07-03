@@ -61,15 +61,17 @@ public class CuentaCorriente {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CuentaCorriente(CuentaCorrienteEntity ctaEntity) {
+	public CuentaCorriente(CuentaCorrienteEntity ctaEntity) {		
 		super();
-		this.idCuenta = ctaEntity.getIdCuenta();
-		List<ItemMovimientoCtaCte> listaItems = new ArrayList<ItemMovimientoCtaCte>();
-		for(ItemMovimientoCtaCteEntity ite : ctaEntity.getItems()){
-			listaItems.add(new ItemMovimientoCtaCte(ite)) ;
+		if(ctaEntity!=null)
+		{
+			this.idCuenta = ctaEntity.getIdCuenta();
+			List<ItemMovimientoCtaCte> listaItems = new ArrayList<ItemMovimientoCtaCte>();
+			for(ItemMovimientoCtaCteEntity ite : ctaEntity.getItems()){
+				listaItems.add(new ItemMovimientoCtaCte(ite)) ;
+			}
+			this.items=listaItems;
 		}
-		this.items=listaItems;
-		
 		
 	}
 

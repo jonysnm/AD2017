@@ -6,10 +6,12 @@ import java.util.List;
 
 import controladores.ControladorAlmacen;
 import controladores.ControladorDespacho;
+import controladores.ControladorPedido;
 import dto.AreaProduccionDTO;
 import dto.MateriaPrimaDTO;
 import dto.PedidoaDespacharDTO;
 import dto.PedidosCompletosPendientesDespacharDTO;
+import dto.PedidosPendientesProcesarDTO;
 import dto.PrendaDTO;
 import dto.UbicacionDTO;
 import interfazRemota.ILogistica;
@@ -68,4 +70,9 @@ public class Logistica extends UnicastRemoteObject implements ILogistica{
 		
 	}
 
+	@Override
+	public List<PedidosPendientesProcesarDTO> obtenerPedidosPendientesdeProcesar() throws RemoteException {
+		return ControladorPedido.getInstancia().obtenerPedidosPendientesdeProcesar();
+	}
+	
 }
