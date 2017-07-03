@@ -16,17 +16,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import businessDelegate.BusinessDelegate;
 import dto.ClienteDTO;
-import dto.ColorDTO;
+import dto.ItemBultoPrendaDTO;
 import dto.ItemPedidoDTO;
 import dto.ItemPrendaDTO;
+import dto.MateriaPrimaDTO;
 import dto.PedidoDTO;
 import dto.PedidoaDespacharDTO;
 import dto.PedidosCompletosPendientesDespacharDTO;
 import dto.PedidosPendientesAprobacionDTO;
-import dto.PrendaDTO;
 import dto.StockActualDTO;
 import dto.SucursalDTO;
 import dto.TalleDTO;
+import dto.UbicacionDTO;
 import estados.EstadoAprobacionPedidoCliente;
 
 /**
@@ -290,6 +291,92 @@ public class ControladorWeb extends HttpServlet {
 			
 			
 			break;			
+			
+			
+			
+		case "altaBultoPrenda":	
+			String[] variasPrendas2 = request.getParameterValues("prenda");
+			String[] variosTalles2 = request.getParameterValues("talle");
+			String[] varioscolores2 = request.getParameterValues("color");
+			String[] varioscantidad2 = request.getParameterValues("cantidad");
+			String[] varioscalle2 = request.getParameterValues("Calle");
+		//	String[] variosbloque2 = request.getParameterValues("Bloque");
+			String[] variosestanteria2 = request.getParameterValues("Estanteria");
+			String[] variosposicion2 = request.getParameterValues("Posicion");
+
+		List<ItemPrendaDTO> itemsPrendas2 = 	BusinessDelegate.getInstancia().obtenerItemPrenda();
+				
+			
+		ItemBultoPrendaDTO ibpdto = new ItemBultoPrendaDTO();
+		UbicacionDTO udto = new UbicacionDTO();
+				
+				
+				ItemPrendaDTO itemPrendaDTO = new ItemPrendaDTO();
+				for (ItemPrendaDTO itemDTO : itemsPrendas2) {
+					if(itemDTO.getPrendaDTO().getDescripcion().equals(variasPrendas2[0])&&itemDTO.getColor().getDescripcion().equals(varioscolores2[0])&&itemDTO.getTalle().getDescripcion().equals(variosTalles2[0])){
+						itemPrendaDTO = itemDTO;
+						
+					}
+				}
+				ibpdto.setCantidad(Float.valueOf(varioscantidad2[0]));
+				ibpdto.setCantidadReservada(0);
+				ibpdto.setIpr(itemPrendaDTO);
+				udto.setCalle(varioscalle2[0].charAt(0));
+				udto.setPosicion(Integer.valueOf(variosposicion2[0]));
+				udto.setBulto(ibpdto);
+				udto.setEstante(Integer.valueOf(variosestanteria2[0]));
+				//udto.setBloque(Integer.valueOf(variosbloque2[0]));
+				udto.setOcupado(true);
+				
+			
+			
+			try {
+				BusinessDelegate.getInstancia().altaUbicacion(udto);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+				break;	
+				
+		case "altaBultoMP":	
+			String[] variasmp3 = request.getParameterValues("mp");
+			String[] varioscalle3 = request.getParameterValues("Calle");
+			//String[] variosbloque3 = request.getParameterValues("Bloque");
+			String[] variosestanteria3 = request.getParameterValues("Estanteria");
+			String[] variosposicion3 = request.getParameterValues("Posicion");
+			String[] varioscantidad3 = request.getParameterValues("cantidad");
+		List<MateriaPrimaDTO> mprimas = 	BusinessDelegate.getInstancia().getAllMP();
+				
+			
+		ItemBultoPrendaDTO ibpdto3 = new ItemBultoPrendaDTO();
+		UbicacionDTO udto3 = new UbicacionDTO();
+				
+				
+				MateriaPrimaDTO mateprimDTO = new MateriaPrimaDTO();
+				for (MateriaPrimaDTO itemDTO : mprimas) {
+					if(itemDTO.getNombre().equals(variasmp3[0])){
+						mateprimDTO = itemDTO;
+						
+					}
+				}
+				ibpdto3.setCantidad(Float.valueOf(varioscantidad3[0]));
+				ibpdto3.setCantidadReservada(0);
+				ibpdto3.setMp(mateprimDTO);
+				udto3.setCalle(varioscalle3[0].charAt(0));
+				udto3.setPosicion(Integer.valueOf(variosposicion3[0]));
+				udto3.setBulto(ibpdto3);
+				udto3.setEstante(Integer.valueOf(variosestanteria3[0]));
+				//udto.setBloque(Integer.valueOf(variosbloque2[0]));
+				udto3.setOcupado(true);
+				
+			
+			
+			try {
+				BusinessDelegate.getInstancia().altaUbicacion(udto3);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+				break;	
+				
 		case "altaTalle":
 			try {
 				TalleDTO talleDTO = new TalleDTO();
