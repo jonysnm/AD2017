@@ -39,7 +39,7 @@ public class ControladorSucursal {
 		Sucursal sucursal = SucursalDTO2Negocio(s);
 		sucursal.editar();
 	}
-	
+
 	public void bajaSucursal(SucursalDTO s) {
 		Sucursal sucursal = SucursalDTO2Negocio(s);
 		sucursal.elminar();
@@ -59,7 +59,7 @@ public class ControladorSucursal {
 		em.save();
 	}
 
-	public void editarEmpelado(EmpleadoDTO e)  {
+	public void editarEmpelado(EmpleadoDTO e) {
 		Empleado em = null;
 		try {
 			em = EmpleadoDTO2Negocio(e);
@@ -78,21 +78,22 @@ public class ControladorSucursal {
 	 * (EmpleadoEntity emp : empleados) {
 	 * empleadosDTO.add(EmpleadoEntity2DTO(emp)); } return empleadosDTO; }
 	 */
-	
+
 	public Empleado EmpleadoDTO2Negocio(EmpleadoDTO empleado) throws Exception {
 		Empleado e = new Empleado();
 		e.setApellido(empleado.getApellido());
 		e.setFechaEgreso(empleado.getFechaEgreso());
 		e.setFechaIngreso(empleado.getFechaIngreso());
 		e.setTelefono(empleado.getTelefono());
-//		if (empleado.getIdSucursal() != null) {
-//			try {
-//				Sucursal suc = AdministracionDAO.getInstancia().getSucursal(empleado.getIdSucursal());
-//				e.setSucursal(suc);
-//			} catch (SucursalException s) {
-//				s.printStackTrace();
-//			}
-//		}
+		// if (empleado.getIdSucursal() != null) {
+		// try {
+		// Sucursal suc =
+		// AdministracionDAO.getInstancia().getSucursal(empleado.getIdSucursal());
+		// e.setSucursal(suc);
+		// } catch (SucursalException s) {
+		// s.printStackTrace();
+		// }
+		// }
 		e.setNombre(empleado.getNombre());
 		e.setId(empleado.getId());
 		return e;
@@ -100,12 +101,14 @@ public class ControladorSucursal {
 
 	public Sucursal SucursalDTO2Negocio(SucursalDTO s) {
 		Empleado gerente = null;
-		if(s.getIdGerente() != null){
-		 gerente = AdministracionDAO.getInstancia().getEmpleado(s.getIdGerente());}
-		
+		if (s.getIdGerente() != null) {
+			gerente = AdministracionDAO.getInstancia().getEmpleado(s.getIdGerente());
+		}
+
 		Empleado recepcionPedidos = null;
-		if(s.getIdRecepcionPedidos() != null){
-				recepcionPedidos= 	AdministracionDAO.getInstancia().getEmpleado(s.getIdRecepcionPedidos());}
+		if (s.getIdRecepcionPedidos() != null) {
+			recepcionPedidos = AdministracionDAO.getInstancia().getEmpleado(s.getIdRecepcionPedidos());
+		}
 		Sucursal suc = new Sucursal();
 		suc.setCodigoPostal(s.getCodigoPostal());
 		suc.setDireccion(s.getDireccion());
@@ -121,9 +124,9 @@ public class ControladorSucursal {
 
 	public void eliminarEmpleado(EmpleadoDTO e) {
 		Empleado em = null;
-	
-		 LocalDate localDate = LocalDate.now();
-		 e.setFechaEgreso(java.sql.Date.valueOf(localDate));
+
+		LocalDate localDate = LocalDate.now();
+		e.setFechaEgreso(java.sql.Date.valueOf(localDate));
 		try {
 			em = EmpleadoDTO2Negocio(e);
 		} catch (Exception e1) {
@@ -131,7 +134,7 @@ public class ControladorSucursal {
 			e1.printStackTrace();
 		}
 		em.editar();
-		
+
 	}
 
 	public List<EmpleadoDTO> getallEmpleadosbySucursal(Integer id) {
@@ -140,26 +143,28 @@ public class ControladorSucursal {
 
 	public int crearUsuario(UsuarioDTO usuarioDTO) {
 		return AdministracionDAO.getInstancia().crearUsuario(usuarioDTO);
-		
+
 	}
 
 	public UsuarioDTO obtenerUsuario(UsuarioDTO usuarioDTO) {
-		Usuario usuario = AdministracionDAO.getInstancia().obtenerUsuario(usuarioDTO);
-		UsuarioDTO usuarioDTO2 = new UsuarioDTO();
-
-		usuarioDTO2.setApellido(usuario.getApellido());
-		usuarioDTO2.setEmail(usuario.getEmail());
-		usuarioDTO2.setFechaRegistracion(usuario.getFechaRegistracion());
-		usuarioDTO2.setId(usuario.getId());
-		usuarioDTO2.setCuit(usuario.getCuit());
-		usuarioDTO2.setIdEmpleado(usuario.getIdEmpl());
-		usuarioDTO2.setNombre(usuario.getNombre());
-		usuarioDTO2.setPass(usuario.getPass());
-		usuarioDTO2.setUsername(usuario.getUsername());
-		return usuarioDTO2;
+		
+		try {
+			UsuarioDTO usuarioDTO2 = new UsuarioDTO();
+			Usuario usuario = AdministracionDAO.getInstancia().obtenerUsuario(usuarioDTO);
+			usuarioDTO2.setApellido(usuario.getApellido());
+			usuarioDTO2.setEmail(usuario.getEmail());
+			usuarioDTO2.setFechaRegistracion(usuario.getFechaRegistracion());
+			usuarioDTO2.setId(usuario.getId());
+			usuarioDTO2.setCuit(usuario.getCuit());
+			usuarioDTO2.setIdEmpleado(usuario.getIdEmpl());
+			usuarioDTO2.setNombre(usuario.getNombre());
+			usuarioDTO2.setPass(usuario.getPass());
+			usuarioDTO2.setUsername(usuario.getUsername());
+			return usuarioDTO2;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
-	
-
-	
 }

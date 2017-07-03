@@ -203,6 +203,11 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 	public List<PedidoDTO> obtenerPedidosCompletoParaFacturar() throws RemoteException {
 		return ControladorPedido.getInstancia().obtenerPedidosCompletoParaFacturar();
 	}
+	@Override
+	public void IniciarProcesamientoPedido(int idPedidoaProcesar) throws RemoteException {
+		ControladorPedido.getInstancia().IniciarProcesamientoPedidoAprobado(idPedidoaProcesar);	
+		
+	}
 
 
 }

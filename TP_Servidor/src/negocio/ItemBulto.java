@@ -1,11 +1,14 @@
 package negocio;
 
+import java.util.List;
+
 public class ItemBulto {
 	private Integer IdBulto;
 	private float cantidad;
 	private float cantidadReservada;
 	private String tipo;
 	private String codigoUbicacion;
+	private List<ItemMovimientoStock> items;
 	
 	
 	public ItemBulto() {
@@ -41,5 +44,12 @@ public class ItemBulto {
 	public void setCodigoUbicacion(String codigoUbicacion) {
 		this.codigoUbicacion = codigoUbicacion;
 	}
+	public List<ItemMovimientoStock> getItems() {
+		return items;
+	}
+	public void setItems(List<ItemMovimientoStock> items) {
+		this.items = items;
+	}
+	
 }	
 	

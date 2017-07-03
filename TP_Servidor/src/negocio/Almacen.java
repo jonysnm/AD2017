@@ -1,18 +1,24 @@
 package negocio;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.classic.Session;
 
 import dao.AlmacenDAO;
+import dao.FacturaDAO;
+import dao.MovimientoDAO;
 import dao.PedidoDAO;
+import entities.ItemBultoEntity;
 import entities.ItemBultoMPEntity;
 import entities.ItemBultoPrendaEntity;
 import entities.ItemPedidoEntity;
 import entities.OrdenProduccionEntity;
 import entities.ReservasEntity;
 import entities.ReservasMPEntity;
+import tipos.TipoMovimientoCtaCte;
+import tipos.TipoMovimientoStock;
 
 public class Almacen {
 	private int id;
@@ -31,9 +37,23 @@ public class Almacen {
 //	
 //	}
 //	
-//	public void 3_ActualizarStockPrenda(Object idPrenda) {
-//	
-//	}
+	public void ActualizarStockPrenda(Integer idPedido) {
+		Pedido p=PedidoDAO.getInstancia().getPedidoAprobadoCompleto(idPedido);		
+		for(ItemPedido i:p.getItems()){
+			List<ItemBultoPrenda> lstItemBultoPrenda = Almacen.getInstancia().ObtenerItemBultoPrenda(i.getItemprenda());
+			List<ItemMovimientoStock> itemsMovimientoStock=new ArrayList<ItemMovimientoStock>();
+			for(ItemBulto ip:lstItemBultoPrenda){
+			ItemMovimientoStock itemMovimientoStock=new ItemMovimientoStock();
+			//itemMovimientoStock.setAutorizo();
+			itemMovimientoStock.setCantidad(i.getCantidad());
+			itemMovimientoStock.setFecha(new Date());
+			itemMovimientoStock.setTipo(TipoMovimientoStock.DISMINUCIONPORPEDIDO);
+			itemsMovimientoStock.add(itemMovimientoStock);
+			ip.setItems(itemsMovimientoStock);
+			AlmacenDAO.getInstancia().grabarMovimiento(ip);
+			}
+		}
+	}
 //	
 //	public int obtenerDisponibleMateriaPrima(Object idMateriaPrima) {
 //	

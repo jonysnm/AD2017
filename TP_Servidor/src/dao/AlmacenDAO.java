@@ -8,28 +8,48 @@ import javax.swing.JOptionPane;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.hql.ast.QuerySyntaxException;
 
 import dto.MateriaPrimaDTO;
 import entities.AreaProduccionEntity;
+import entities.CuentaCorrienteEntity;
 import entities.ItemBultoEntity;
 import entities.ItemBultoMPEntity;
 import entities.ItemBultoPrendaEntity;
+import entities.ItemMovimientoCtaCteEntity;
+import entities.ItemMovimientoStockEntity;
+import entities.ItemOCMPEntity;
+import entities.ItemPedidoEntity;
 import entities.ItemPrendaEntity;
 import entities.MateriaPrimaEntity;
+import entities.OCMPEntity;
 import entities.OrdenProduccionEntity;
+import entities.PedidoEntity;
 import entities.ReservasEntity;
 import entities.ReservasMPEntity;
 import entities.UbicacionEntity;
 import hbt.HibernateUtil;
+import negocio.Cliente;
+import negocio.Color;
+import negocio.CuentaCorriente;
 import negocio.ItemBulto;
 import negocio.ItemBultoMP;
 import negocio.ItemBultoPrenda;
+import negocio.ItemMovimientoCtaCte;
+import negocio.ItemMovimientoStock;
+import negocio.ItemOCMP;
 import negocio.ItemPedido;
 import negocio.ItemPrenda;
 import negocio.MateriaPrima;
+import negocio.OCMP;
 import negocio.OrdenProduccion;
+import negocio.Pedido;
+import negocio.Prenda;
+import negocio.Proveedor;
 import negocio.ReservaMP;
+import negocio.Sucursal;
+import negocio.Talle;
 import negocio.Ubicacion;
 
 public class AlmacenDAO {
@@ -47,11 +67,6 @@ public class AlmacenDAO {
 			instancia = new AlmacenDAO();
 		}
 		return instancia;
-	}
-
-	public int gestionarReserva(ItemPedido i) {
-		// dps va a seguir
-		return 0;
 	}
 
 	public List<ItemBultoPrenda> reservarStockPrenda(ItemPedido ip) {
@@ -89,7 +104,12 @@ public class AlmacenDAO {
 				ibpre.setItemPrenda(ip);
 				ibpre.setCantidad(ib.getCantidad());
 				ibpre.setCantidadReservada(ib.getCantidadReservada());
+				ibpre.setCodigoUbicacion(ib.getCodigoUbicacion());
 				ub.setBulto(ibpre);
+				ub.setCalle(ubicacion.getCalle());
+				ub.setEstante(ubicacion.getEstante());
+				ub.setOcupado(ubicacion.isOcupado());
+				ub.setPosicion(ubicacion.getPosicion());
 				session.save(ub);
 				session.getTransaction().commit();
 				session.flush();
@@ -119,10 +139,15 @@ public class AlmacenDAO {
 				ibpre.setCodigoUbicacion(ib.getCodigoUbicacion());
 				
 				ub.setBulto(ibpre);
+				ub.setCalle(ubicacion.getCalle());
+				ub.setEstante(ubicacion.getEstante());
+				ub.setOcupado(ubicacion.isOcupado());
+				ub.setPosicion(ubicacion.getPosicion());
 				session.save(ub);
 				session.getTransaction().commit();
 				session.flush();
 				session.close();
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("Error ALMACENDAO. Nueva Ubicacion");
@@ -171,7 +196,29 @@ public class AlmacenDAO {
 				.setParameter("id", idItemPedido).list();
 		return lista;
 	}
-	
+	public void grabarMovimiento(ItemBulto item){
+		Session session = sf.openSession();
+		session.beginTransaction();
+		
+		ItemBultoEntity ib = (ItemBultoEntity) session.get(ItemBultoEntity.class, item.getIdBulto());
+		
+		List<ItemMovimientoStockEntity> itemmovstock = ib.getItemsMovimientoStockEntities();
+		
+		for (ItemMovimientoStock istock: item.getItems()) {
+			ItemMovimientoStockEntity itemMovimientoStockEntity = new ItemMovimientoStockEntity();
+			itemMovimientoStockEntity.setFecha(istock.getFecha());
+			itemMovimientoStockEntity.setTipo(istock.getTipo());
+			itemMovimientoStockEntity.setCantidad(istock.getCantidad());
+			itemmovstock.add(itemMovimientoStockEntity);
+			session.save(itemMovimientoStockEntity);
+		}		
+		ib.setItemsMovimientoStockEntities(itemmovstock);
+
+		session.saveOrUpdate(ib);
+		session.getTransaction().commit();
+		session.flush();
+		session.close();
+	}	
 	public void NuevaReserva(ReservasEntity reserva){
 		Session session=sf.openSession();
 		session.beginTransaction();				
@@ -192,7 +239,8 @@ public class AlmacenDAO {
 		reservasMPEntity.setItemBultoEntity(itemBultoEntity);
 		OrdenProduccionEntity ordenProduccionEntity = (OrdenProduccionEntity) session.get(OrdenProduccionEntity.class, reserva.getOrdenProduccion().getCodigo());
 		reservasMPEntity.setOrdenProduccionEntity(ordenProduccionEntity);
-		session.saveOrUpdate(reserva);
+	
+		session.saveOrUpdate(reservasMPEntity);
 		session.close();						
 	}
 	
@@ -439,6 +487,7 @@ public class AlmacenDAO {
 		opp.setCostoProduccion(orden.getCostoProduccion());
 		opp.setEstado(orden.getEstado());
 		opp.setFecha(orden.getFecha());
+		opp.setFechaEntrega(orden.getFechaEntrega());
 	    opp.setPedido(orden.getPedido().toEntity());
 		opp.setPrenda(orden.getPrenda().ToEntity());
 		int id = (int )session.save(opp);
@@ -447,5 +496,136 @@ public class AlmacenDAO {
 		session.close();	
 		return id;
 	
+	}
+	
+	public OrdenProduccion getPedidoOrdenProduccion(Integer idOrden){
+		OrdenProduccionEntity ordenEntity = null;
+		try {
+			Session session = sf.openSession();
+			
+			String hql = "FROM OrdenProduccionEntity P " +
+						 "WHERE P.codigo = :id";// and P.estado = :estado";
+			
+			Query query = session.createQuery(hql);
+			query.setParameter("id", idOrden);
+		
+			
+			if(query.uniqueResult() != null){
+				ordenEntity = (OrdenProduccionEntity) query.uniqueResult();
+	        	session.close();
+	        }else{
+	        	session.close();
+	        	
+	        }
+		}catch (QuerySyntaxException q){
+			JOptionPane.showMessageDialog(null, q, "Error", JOptionPane.ERROR_MESSAGE);
+			System.out.println("Exception de sintaxis en PEDIDODAO: buscarpedidoscompletos");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		OrdenProduccion orden = new OrdenProduccion();
+		orden.setCodigo(ordenEntity.getCodigo());
+		orden.setCostoProduccion(ordenEntity.getCostoProduccion());
+		orden.setEstado(ordenEntity.getEstado());
+		orden.setFecha(ordenEntity.getFecha());
+		orden.setFechaEntrega(ordenEntity.getFechaEntrega());
+		List<OCMP> ordenescompra=new ArrayList<OCMP>();
+		for (OCMPEntity ordencompraentity : ordenEntity.getOcmps()) {
+			OCMP ordenCompra = new OCMP();
+			ordenCompra.setEstado(ordencompraentity.getEstado());
+			ordenCompra.setFecha(ordencompraentity.getFecha());
+			ordenCompra.setFechaEntrega(ordencompraentity.getFechaEntrega());
+			Proveedor prove=new Proveedor();
+			prove.setCuit(ordencompraentity.getProveedor().getCuit());
+			prove.setDireccion(ordencompraentity.getProveedor().getDireccion());
+			prove.setId(ordencompraentity.getProveedor().getId());
+			prove.setRanking(ordencompraentity.getProveedor().getRanking());
+			prove.setRazonSocial(ordencompraentity.getProveedor().getRazonSocial());
+			prove.setTelefono(ordencompraentity.getProveedor().getTelefono());
+			ordenCompra.setProveedor(prove);
+			ordenescompra.add(ordenCompra);
+		}
+		orden.setOcmps(ordenescompra);
+		return orden;
+	}
+	public void ModificarOrden(OrdenProduccion orden){
+		try{
+			Session session=sf.openSession();
+			session.beginTransaction();
+			Query query = session.createQuery("From OrdenProduccionEntity where codigo = :idPedi");
+			OrdenProduccionEntity or = (OrdenProduccionEntity) query.setParameter("idPedi", orden.getCodigo()).uniqueResult();
+			or.setEstado(orden.getEstado());
+			or.setFechaEntrega(orden.getFechaEntrega());
+			session.update(or);
+			session.getTransaction().commit();
+			
+			session.close();
+		}catch(Exception e){
+			e.printStackTrace();
+			System.out.println("Error ALMACENDAO. Modificar ORDEN");
+		}
+	}
+	public OCMP getOrdenCompra(Integer idOCMP){
+		OCMPEntity ordenCEntity = null;
+		try {
+			Session session = sf.openSession();
+			
+			String hql = "FROM OCMPEntity P " +
+						 "WHERE P.id = :id";
+			
+			Query query = session.createQuery(hql);
+			query.setParameter("id", idOCMP);
+		
+			
+			if(query.uniqueResult() != null){
+				ordenCEntity = (OCMPEntity) query.uniqueResult();
+	        	session.close();
+	        }else{
+	        	session.close();
+	        	
+	        }
+		}catch (QuerySyntaxException q){
+			JOptionPane.showMessageDialog(null, q, "Error", JOptionPane.ERROR_MESSAGE);
+			System.out.println("Exception de sintaxis en ALMACENDA0: ORDENESCOMPRA");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		OCMP orden = new OCMP();
+		orden.setEstado(ordenCEntity.getEstado());
+		orden.setFecha(ordenCEntity.getFecha());
+		orden.setFechaEntrega(ordenCEntity.getFechaEntrega());
+		orden.setId(ordenCEntity.getId());
+		List<ItemOCMP> ordenescompra=new ArrayList<ItemOCMP>();
+		for (ItemOCMPEntity ordencompraentity : ordenCEntity.getItemsOcmp()) {
+			ItemOCMP iordenCompra = new ItemOCMP();
+			iordenCompra.setCantidadComprada(ordencompraentity.getCantidadComprada());
+			iordenCompra.setCantidadSolicitada(ordencompraentity.getCantidadSolicitada());
+			MateriaPrima mp=new MateriaPrima();
+			mp.setCantidadAComprar(ordencompraentity.getMateriaPrima().getCantidadAComprar());
+			mp.setCantidadPtoPedido(ordencompraentity.getMateriaPrima().getCantidadPtoPedido());
+			mp.setCodigo(ordencompraentity.getMateriaPrima().getCodigo());
+			mp.setNombre(ordencompraentity.getMateriaPrima().getNombre());
+			iordenCompra.setMateriaPrima(mp);
+			ordenescompra.add(iordenCompra);
+		}
+		orden.setItemsOcmp(ordenescompra);
+		return orden;
+	}
+	public void ModificarOrdenCompra(OCMP oc){
+		try{
+			Session session=sf.openSession();
+			session.beginTransaction();
+			Query query = session.createQuery("From OCMPEntity where id = :idPedi");
+			OCMPEntity or = (OCMPEntity) query.setParameter("idPedi", oc.getId()).uniqueResult();
+			or.setEstado(oc.getEstado());
+			or.setFechaEntrega(oc.getFechaEntrega());
+			session.update(or);
+			session.getTransaction().commit();
+			
+			session.close();
+		}catch(Exception e){
+			e.printStackTrace();
+			System.out.println("Error ALMACENDAO. Modificar ORDENCOMPRA");
+		}
 	}
 }

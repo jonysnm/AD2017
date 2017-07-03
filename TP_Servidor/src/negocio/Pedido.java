@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import businessDelegate.BusinessDelegate;
 import dao.AdministracionDAO;
 import dao.AlmacenDAO;
 import dao.PedidoDAO;
-import dto.ItemPedidoDTO;
-import dto.PedidoDTO;
 import dto.*;
-import dto.PedidosCompletosPendientesDespacharDTO;
-import dto.PedidosPendientesAprobacionDTO;
 import entities.ItemBultoEntity;
 import entities.ItemPedidoEntity;
 import entities.PedidoEntity;
@@ -235,8 +232,8 @@ public Pedido(){}
 		peddto.setFechaEntregaEstimada(this.getFechaprobableDespacho());
 		
 		
-		//TODO: peddto.setContieneDiscontinuosyHaystock(this.TengoDiscontinuossinStock()); Harcodeado para testing
-		peddto.setContieneDiscontinuosyHaystock(false);		
+		peddto.setContieneDiscontinuosyHaystock(this.TengoDiscontinuossinStock()); 
+		//peddto.setContieneDiscontinuosyHaystock(false);		
 		//TODO:peddto.setSaldoCtaCte(this.getCliente().getCtacte().getSaldo());Harcodeado para testing
 		peddto.setSaldoCtaCte(this.getCliente().getCtacte().getSaldo());
 		return peddto;
@@ -250,7 +247,8 @@ public Pedido(){}
 		while(!contieneItemsDiscountinuosSinStock & index < cantidadItemsPedido)
 		{
 			itemPedido = this.getItems().get(index);
-			if(!itemPedido.getItemprenda().getPrenda().isVigente() && !itemPedido.HayStockSuficiente())
+			ItemPedido iPedido = PedidoDAO.getInstancia().getItemPedidoComp(itemPedido.getIdItemPedido());
+			if(!iPedido.getItemprenda().getPrenda().isVigente() && !iPedido.HayStockSuficiente())
 			{
 				contieneItemsDiscountinuosSinStock=true;
 			}
@@ -350,9 +348,26 @@ public Pedido(){}
 				
 		return lstUbicaciones;
 	}
-	
-	
-	
+	public List<PedidosPendientesProcesarDTO> obtenerPedidosPendientesdeProcesar() {
+		List<Pedido> pedidos = AdministracionDAO.getInstancia().obtenerPedidosPendientesdeProcesar();//.obtenerPedidosPendientesdeAprobacion( idSucursal);
+		List<PedidosPendientesProcesarDTO> pedidosVista = new ArrayList<PedidosPendientesProcesarDTO>();
+		for (Pedido pedido : pedidos) {
+			pedidosVista.add(pedido.ToPedidosPendientesProcesarDTO());//ToPedidosPendientesAprobacionDTO());		
+			}
+		return pedidosVista;
+	}
+	private PedidosPendientesProcesarDTO ToPedidosPendientesProcesarDTO() {
+		PedidosPendientesProcesarDTO pedidosPendientesProcesarDTO = new PedidosPendientesProcesarDTO();
+		pedidosPendientesProcesarDTO.setId(this.getId());
+		pedidosPendientesProcesarDTO.setFechaCreacion(this.getFechaCreacion());
+		pedidosPendientesProcesarDTO.setFechaProbableDespacho(this.getFechaprobableDespacho());
+		pedidosPendientesProcesarDTO.setIdCliente(this.getCliente().getId());
+		pedidosPendientesProcesarDTO.setIdSucursal(this.getSucursal().getId());
+		pedidosPendientesProcesarDTO.setNombreCliente(this.getCliente().getNombre());
+				
+		return pedidosPendientesProcesarDTO;
+	}
+			
 	//Fin Jonathan Methods
 
 

@@ -1,6 +1,5 @@
 package controladores;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +24,7 @@ import entities.MateriaPrimaEntity;
 import entities.PrendaEntity;
 import entities.TalleEntity;
 import negocio.AreaProduccionInvolucrada;
+import negocio.ItemBultoMP;
 import negocio.ItemBultoPrenda;
 import negocio.ItemMaterialPrenda;
 import negocio.ItemPrenda;
@@ -51,6 +51,7 @@ public class ControladorAlmacen {
 //	}
 	
 	public void actualizarStockPrenda(int idPrenda) {
+		
 	
 	}
 	
@@ -78,47 +79,59 @@ public class ControladorAlmacen {
 	public void asignarUbicacionDeposito(int idLote) {
 	
 	}
+	
 	public void altaUbicacion(UbicacionDTO ubicacion){
 		Ubicacion ub=new Ubicacion();
+		if(ubicacion.getBulto().getMp() == null){
 		ItemBultoPrendaDTO ib=ubicacion.getBulto();
 		ItemBultoPrenda ibpr=new ItemBultoPrenda();
 		ibpr.setCantidad(ib.getCantidad());
 		ibpr.setCantidadReservada(ib.getCantidadReservada());
-		ibpr.setTipo(ib.getClass().getName());
+		//ibpr.setTipo(ib.getClass().getName());
+		ibpr.setTipo("IBPRENDA");
 		ItemPrenda itemPrenda = PedidoDAO.getInstancia().getItemPrenda(ib.getIpr().getIditemPrenda());
 		ibpr.setItemPrenda(itemPrenda);
 		ub.setBulto(ibpr);
-		AlmacenDAO.getInstancia().nuevaUbicacion(ub);		
-	}
-	//	public void iniciarProcesamientoPedido(Pedido pedido) {
-//	//TODO 3_
-//	}
-//	
-//	private List<Prenda> verificarStockPrendas(Pedido pedido) {
-//		//TODO 3_
-//		return null;
-//	}
-//	
-//	private void reservarStockPrendas(Pedido pedido) {
-//		//TODO 3_
-//	}
-//	
-//	private void marcarPedidoCompletado(int idPedido) {
-//		//TODO 3_
-//	}
-//	
-//	private void calcularyAsignarFechaEstimadaEntrega(int idPedido) {
-//		//TODO 3_
-//	}
-//	
-//	private void emitirOrdenProduccion(Pedido pedido) {
-//		//TODO 4_
-//	}
-//	
-//	public void completarOrdenProduccion(int idPedido) {
-//		//TODO
-//	}
+		ub.setCalle(ubicacion.getCalle());
+		ub.setEstante(ubicacion.getEstante());
+		ub.setOcupado(ubicacion.isOcupado());
+		ub.setPosicion(ubicacion.getPosicion());
+		ibpr.setCodigoUbicacion(getcodigo(ub));
+		
+		AlmacenDAO.getInstancia().nuevaUbicacion(ub);	
+		}
+		else{
+			ItemBultoMP ibmp=new ItemBultoMP();
+			ibmp.setTipo("IBMP");
+			ibmp.setCantidad(ubicacion.getBulto().getCantidad());
+			ibmp.setCantidadReservada(ubicacion.getBulto().getCantidadReservada());
+			MateriaPrima matep = AlmacenDAO.getInstancia().getMateriaPrima(ubicacion.getBulto().getMp().getCodigo()).ToNegocio();
+			ibmp.setMateriaPrima(matep);
+			ub.setBulto(ibmp);
+			ub.setCalle(ubicacion.getCalle());
+			ub.setEstante(ubicacion.getEstante());
+			ub.setOcupado(ubicacion.isOcupado());
+			ub.setPosicion(ubicacion.getPosicion());
+			ibmp.setCodigoUbicacion(getcodigo(ub));
+			AlmacenDAO.getInstancia().nuevaUbicacionMP(ub);
+		
+		}
+	
 
+	}
+	
+	public String getcodigo(Ubicacion ubi){
+		String retu = String.valueOf(ubi.getCalle());
+		retu = retu + "0";
+		retu = retu + ubi.getEstante();
+		if(ubi.getPosicion() <10)
+			retu = retu + "0";
+		retu = retu + ubi.getPosicion();
+			
+		return retu;
+		
+	}
+	
 	//Jonathan Methods ---> preguntar antes de modificar
 	public List<StockActualDTO> obtenerlstStockActualDTO() {
 		

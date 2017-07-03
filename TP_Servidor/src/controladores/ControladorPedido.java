@@ -18,6 +18,7 @@ import dto.ItemPedidoDTO;
 import dto.ItemPrendaDTO;
 import dto.PedidoDTO;
 import dto.PedidosPendientesAprobacionDTO;
+import dto.PedidosPendientesProcesarDTO;
 import dto.PrendaDTO;
 import dto.TalleDTO;
 import estados.EstadoAprobacionPedidoCliente;
@@ -86,7 +87,6 @@ public class ControladorPedido {
 	}
 
 	// Jonathan Methods--> CONSULTAR ANTES DE MODIFICAR
-
 	public void cambiarEstadoPedido(Integer idPedido, EstadoAprobacionPedidoCliente estado) {
 		//Pedido p = PedidoDAO.getInstancia().getPedido(idPedido);
 		Pedido p = PedidoDAO.getInstancia().getPedidoAprobadoCompleto(idPedido);
@@ -115,9 +115,8 @@ public class ControladorPedido {
 				// y en base a eso vaya insertando en la tabla de
 				// Reservas que bultos tiene reservado que cantidad y para que
 				// pedido en particular
-				Almacen.getInstancia().ReservarItemsPrendas(lstItemBultoPrenda, itemPedido.getCantidad(), p,
+				Almacen.getInstancia().ReservarItemsPrendas(lstItemBultoPrenda, itemPedido.getCantidad(),p,
 						itemPedido);
-
 				if (cantidadFaltante > 0) // significa que hay faltante
 				{
 					// * 2- voy cargando la lista de items faltantes que al
@@ -137,41 +136,21 @@ public class ControladorPedido {
 			// quedo la lista para decidir puedo marcarlo como
 			// "Completo" o si tengo que emitir orden de produccion -> en
 			// cualquier caso las prendas quedan reservadas
-
 			if (lstItemsFaltantesPedido.size() == 0) {
 				this.cambiarEstadoPedido(idPedido, EstadoAprobacionPedidoCliente.Completo);
-				
-			} else {
+				Almacen.getInstancia().ActualizarStockPrenda(idPedido);
+			}else{
 				this.cambiarEstadoPedido(idPedido, EstadoAprobacionPedidoCliente.EnEsperaFinalizacionOrdendeProduccion);
 				DefiniryCrearTipoOrdenProduccion(lstItemsFaltantesPedido);
 				GuardarItemsFaltantePedido(lstItemsFaltantesPedido);
 			}
 		}
 	}
-
-	private void ReservarPrendaenStock(ItemPedido itemPedido, int i) {
-		// TODO: este metodo se encargar de marcar la prenda como reservada y
-		// decrementar el stock disponible
-		List<ItemBultoPrenda> list = AlmacenDAO.getInstancia().reservarStockPrenda(itemPedido);
-		for (ItemBultoPrenda itemBulto : list) {
-			// 40 - 10 = Total 30 quiero 13
-
-			if ((itemBulto.getCantidad() - itemBulto.getCantidadReservada()) > itemPedido.getCantidad()) {
-				itemBulto.setCantidadReservada(itemBulto.getCantidadReservada() + itemPedido.getCantidad());
-				// falta QUE EL ITEMPEDIDO CONOZCA SU PEDIDO PARA PODER RESERVAR
-				// NECESITAMOS CONOCER ESTO ADEMAS DEL ITEMBULTO
-				// AlmacenDAO.getInstancia().gestionarReserva(itemPedido,itemBulto);
-			}
-		}
-	}
-
 	private void GuardarItemsFaltantePedido(List<ItemFaltantePedido> lstItemsFaltantesPedido) {
-		PedidoDAO pedidoDao = PedidoDAO.getInstancia();
 		for (ItemFaltantePedido itemFaltantePedido : lstItemsFaltantesPedido) {
-			pedidoDao.NuevoItemFaltantePedido(itemFaltantePedido);
+			PedidoDAO.getInstancia().NuevoItemFaltantePedido(itemFaltantePedido);
 		}
 	}
-
 	// --> Jonathan Method : consultar antes de modificar
 	private void DefiniryCrearTipoOrdenProduccion(List<ItemFaltantePedido> lstItemsFaltantesPedido) {
 		// SI SON MAYORES A O SI ES PARCIAL
@@ -204,32 +183,19 @@ public class ControladorPedido {
 					if (!lstIDsPrendasYaGeneradas.contains(idPrenda)) {
 						seGeneroOPCparaEstaPrenda = true;
 						lstIDsPrendasYaGeneradas.add(idPrenda);
-						
-						// TODO: generar OPC para esta prenda idPrenda
+						CrearOrdenProduccionCompleta(itemFaltantePedido);					
+					}
+				}else{
+					if (!seGeneroOPCparaEstaPrenda) {
+						if (!lstIDsPrendasYaGeneradas.contains(idPrenda)) {
+							lstIDsPrendasYaGeneradas.add(idPrenda);
+							CrearOrdenProduccionParcial(itemFaltantePedido);
+						}
 					}
 				}
 			}
-			if (!seGeneroOPCparaEstaPrenda) {
-				if (!lstIDsPrendasYaGeneradas.contains(idPrenda)) {
-					lstIDsPrendasYaGeneradas.add(idPrenda);
-					CrearOrdenProduccionParcial(itemFaltantePedido);
-					
-					ItemFaltantePedido i1 = new ItemFaltantePedido();
-					ItemFaltantePedido i2 = new ItemFaltantePedido();
-					ItemFaltantePedido i3 = new ItemFaltantePedido();
-					
-					// TODO: Generar OPP para esta prenda idPrenda
-					// OrdenProduccionParcial opp = new
-					// OrdenProduccionParcial();
-					// recorres la lista y
-					// opp.setIp1(ip1);
-				}
-			}
-
 		}
-		return;
 	}
-
 	private void CrearOrdenProduccionParcial(ItemFaltantePedido itemFaltantePedido) {
 		boolean tieneFaltante = false;
 
@@ -240,11 +206,11 @@ public class ControladorPedido {
 		or.setCostoProduccion(ipr.getCostoProduccionActual());
 		or.setEstado(EstadoOrdenProduccion.PENDIENTEVERIFICAR);
 		or.setFecha(new Date());
+		//or.setFechaEntrega(new Date());
 		or.setPedido(itemFaltantePedido.getPedido());
 		or.setPrenda(ipr.getPrenda());
 		int idOrden = ControladorProduccion.getInstancia().CrearOrden(or);
 		or.setCodigo(idOrden);
-
 		for (ItemMaterialPrenda itt : ipr.getItemMaterialPrenda()) {
 			tieneFaltante = true;
 			List<ItemBultoMP> lstItemBultoMP = Almacen.getInstancia().ObtenerItemBultoMP(itt.getMateriaprima());
@@ -252,159 +218,246 @@ public class ControladorPedido {
 					* (itemFaltantePedido.getCantidadFaltante()))
 					- Almacen.getInstancia().CalcularDisponibleEnMP(lstItemBultoMP);
 
+			Almacen.getInstancia().ReservarItemsMP(lstItemBultoMP,((itt.getDespedicio()+itt.getCantidadutilizada())*itemFaltantePedido.getCantidadFaltante()),or);
+
 			if (cantidadFaltante > 0) // significa que hay faltante de insumo
 			{
 				ItemFaltanteInsumo itemFaltanteInsumo = new ItemFaltanteInsumo();
 				itemFaltanteInsumo.setMateriaPrima(itt.getMateriaprima());
 				itemFaltanteInsumo.setCantidadFaltante(cantidadFaltante);
 				lstItemsFaltanteInsumo.add(itemFaltanteInsumo);
+			}else{
+				// reservoo para que no utilicen esa mp
+				//Almacen.getInstancia().ReservarItemsMP(lstItemBultoMP,((itt.getDespedicio()+itt.getCantidadutilizada())*itemFaltantePedido.getCantidadFaltante()),or);
 			}
-
-			// reservoo para que no utilicen esa mp
-			Almacen.getInstancia().ReservarItemsMP(lstItemBultoMP, itemFaltantePedido.getCantidadFaltante(), or);
-
 		}
-		// camino feliz
 		if (!tieneFaltante) {
-			// ControladorProduccion.getInstancia().marcarOrdenCompletada();
-		} else {
-			// ver de devolver la reserva en este caso (ordenDeProduccion
-			// eliminar por id)
-			OCMP ocmp = new OCMP();
-			ocmp.setEstado(EstadoOCMP.GENERADA);
-			ocmp.setFecha(new Date());
-			ocmp.setFechaEntrega(new Date());
-
-			// mejorarlo a una nueva web que traiga todos los proveedores y
-			// permita elegir cual asignar a la OCMP
-			Proveedor proveedor = ProveedorDAO.getInstancia().obtenerMejorProveedor();
-
-			// hacer en web de OCMP
-			ocmp.setProveedor(proveedor);
-			List<ItemOCMP> itemsOcmp = new ArrayList<ItemOCMP>();
-			for (ItemFaltanteInsumo itemInsumo : lstItemsFaltanteInsumo) {
-				ItemOCMP itemOCMP = new ItemOCMP();
-				itemOCMP.setMateriaPrima(itemInsumo.getMateriaPrima());
-				itemOCMP.setCantidadSolicitada(itemInsumo.getCantidadFaltante());
-				itemOCMP.setCosto(123);
-				itemsOcmp.add(itemOCMP);
+				ControladorProduccion.getInstancia().marcarOrdenCompletada(idOrden);
+				//ACA SE MARCA COMO COMPLETO PORQUE TENGO INSUMOS Y EMITI LA ORDEN DE PRODUCCION
+				this.cambiarEstadoPedido(itemFaltantePedido.getPedido().getId(),EstadoAprobacionPedidoCliente.Completo);
+				Almacen.getInstancia().ActualizarStockPrenda(itemFaltantePedido.getPedido().getId());
+				
+			} else {
+				// ver de devolver la reserva en este caso (ordenDeProduccion
+				// eliminar por id)
+				OCMP ocmp = new OCMP();
+				ocmp.setEstado(EstadoOCMP.GENERADA);
+				ocmp.setFecha(new Date());
+				//ocmp.setFechaEntrega(new Date());
+				// mejorarlo a una nueva web que traiga todos los proveedores y
+				// permita elegir cual asignar a la OCMP
+				Proveedor proveedor = ProveedorDAO.getInstancia().obtenerMejorProveedor();
+				// hacer en web de OCMP
+				ocmp.setProveedor(proveedor);
+				List<ItemOCMP> itemsOcmp = new ArrayList<ItemOCMP>();
+				for (ItemFaltanteInsumo itemInsumo : lstItemsFaltanteInsumo) {
+					ItemOCMP itemOCMP = new ItemOCMP();
+					itemOCMP.setMateriaPrima(itemInsumo.getMateriaPrima());
+					itemOCMP.setCantidadSolicitada(itemInsumo.getCantidadFaltante());
+					itemOCMP.setCosto(560);
+					itemOCMP.setCantidadComprada(400);
+					itemsOcmp.add(itemOCMP);
+				}
+				ocmp.setItemsOcmp(itemsOcmp);
+				int id=ocmp.save();
+				ocmp.setId(id);
+				ControladorProduccion.getInstancia().marcarOrdenCompletada(idOrden);
+				ControladorCompras.getInstancia().actualizarestadoOCMP(id);
+				//ACA SE MARCA COMO COMPLETO PORQUE TENGO INSUMOS Y EMITI LA ORDEN DE PRODUCCION
+				this.cambiarEstadoPedido(itemFaltantePedido.getPedido().getId(),EstadoAprobacionPedidoCliente.Completo);
+				Almacen.getInstancia().ActualizarStockPrenda(itemFaltantePedido.getPedido().getId());
 			}
-			ocmp.setItemsOcmp(itemsOcmp);
-			ocmp.save();
 			
 		}
+		private void CrearOrdenProduccionCompleta(ItemFaltantePedido itemFaltantePedido){
+			boolean tieneFaltante = false;
 
-	}
+			List<ItemFaltanteInsumo> lstItemsFaltanteInsumo = new ArrayList<ItemFaltanteInsumo>();
+			ItemPrenda ipr = PedidoDAO.getInstancia().getItemPrenda(itemFaltantePedido.getItemPrenda().getIditemPrenda());
 
-	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal) {
-		Pedido pedidoNegocio = new Pedido();
-		return pedidoNegocio.obtenerPedidosPendientesdeAprobacion(idSucursal);
-	}
+			OrdenProduccion or = new OrdenProduccion();
+			or.setCostoProduccion(ipr.getCostoProduccionActual());
+			or.setEstado(EstadoOrdenProduccion.PENDIENTEVERIFICAR);
+			or.setFecha(new Date());
+			//or.setFechaEntrega(new Date());
+			or.setPedido(itemFaltantePedido.getPedido());
+			or.setPrenda(ipr.getPrenda());
+			int idOrden = ControladorProduccion.getInstancia().CrearOrden(or);
+			or.setCodigo(idOrden);
 
-	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacionPorCliente(int idCliente) {
-		Pedido pedidoNegocio = new Pedido();
-		return pedidoNegocio.obtenerPedidosPendientesdeAprobacionPorCliente(idCliente);
-	}
+			for (ItemMaterialPrenda itt : ipr.getItemMaterialPrenda()) {
+				tieneFaltante = true;
+				List<ItemBultoMP> lstItemBultoMP = Almacen.getInstancia().ObtenerItemBultoMP(itt.getMateriaprima());
+				float cantidadFaltante = ((itt.getDespedicio() + itt.getCantidadutilizada())
+						* (itemFaltantePedido.getCantidadFaltante()))
+						- Almacen.getInstancia().CalcularDisponibleEnMP(lstItemBultoMP);
 
-	public void ActualizarFechaProbableDespacho(String fechaDeseadaEntrega, int idPedido) throws ParseException {
+				Almacen.getInstancia().ReservarItemsMP(lstItemBultoMP,((itt.getDespedicio()+itt.getCantidadutilizada())*itemFaltantePedido.getCantidadFaltante()),or);
 
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date parsed = format.parse(fechaDeseadaEntrega);
+				if (cantidadFaltante > 0) // significa que hay faltante de insumo
+				{
+					ItemFaltanteInsumo itemFaltanteInsumo = new ItemFaltanteInsumo();
+					itemFaltanteInsumo.setMateriaPrima(itt.getMateriaprima());
+					itemFaltanteInsumo.setCantidadFaltante(cantidadFaltante);
+					lstItemsFaltanteInsumo.add(itemFaltanteInsumo);
+				}else{
+					// reservoo para que no utilicen esa mp
+					//Almacen.getInstancia().ReservarItemsMP(lstItemBultoMP,((itt.getDespedicio()+itt.getCantidadutilizada())*itemFaltantePedido.getCantidadFaltante()),or);
+				}
+			}
+			// camino feliz
+			if (!tieneFaltante) {
+				ControladorProduccion.getInstancia().marcarOrdenCompletada(idOrden);
+				//ACA SE MARCA COMO COMPLETO PORQUE TENGO INSUMOS Y EMITI LA ORDEN DE PRODUCCION
+				this.cambiarEstadoPedido(itemFaltantePedido.getPedido().getId(),EstadoAprobacionPedidoCliente.Completo);
+				Almacen.getInstancia().ActualizarStockPrenda(itemFaltantePedido.getPedido().getId());
+			} else {
+				// ver de devolver la reserva en este caso (ordenDeProduccion
+				// eliminar por id)
+				OCMP ocmp = new OCMP();
+				ocmp.setEstado(EstadoOCMP.GENERADA);
+				ocmp.setFecha(new Date());
+				//ocmp.setFechaEntrega(new Date());
 
-		Pedido p = PedidoDAO.getInstancia().getPedido(idPedido);
-		p.setFechaprobableDespacho(parsed);
-		p.update();
-	}
+				// mejorarlo a una nueva web que traiga todos los proveedores y
+				// permita elegir cual asignar a la OCMP
+				Proveedor proveedor = ProveedorDAO.getInstancia().obtenerMejorProveedor();
 
-	public void ActualizarFechaDespachado(String fechaConfirmadaDespacho, int idPedidoDespachado)
-			throws ParseException {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date parsed = format.parse(fechaConfirmadaDespacho);
-
-		Pedido p = PedidoDAO.getInstancia().getPedido(idPedidoDespachado);
-		p.setFecharealDespacho(parsed);
-		p.update();
-
-	}
-
-	// FIN Jonathan Methods--> CONSULTAR ANTES DE MODIFICAR
-
-	public void cancelarPedido(Integer id) {
-		Pedido pe = PedidoDAO.getInstancia().getPedido(id);
-		pe.setEstado(EstadoAprobacionPedidoCliente.RechazadoenSucursal);
-		pe.update();
-	}
-
-	public PedidoDTO obtenerPedido(int idPedido) throws Exception {
-		Pedido p = AdministracionDAO.getInstancia().obtenerPedido(idPedido);
-
-		PedidoDTO pedidoDTO = p.toDTO();// PedidoToDTO.toDTO(p);
-		return pedidoDTO;
-	}
-
-	// Talle
-	public void altaTalle(TalleDTO talleDTO) {
-		TallesyColoresDAO.getInstancia().altaTalle(talleDTO);
-	}
-
-	public void bajaTalle(TalleDTO talleDTO) {
-		TallesyColoresDAO.getInstancia().bajaTalle(talleDTO);
-
-	}
-
-	public void modificarTalle(TalleDTO talleDTO) {
-		TallesyColoresDAO.getInstancia().modificarTalle(talleDTO);
-
-	}
-
-	public List<TalleDTO> getallTalle() {
-		return TallesyColoresDAO.getInstancia().getallTalle();
-	}
-
-	public void altaColor(ColorDTO colorDTO) {
-		TallesyColoresDAO.getInstancia().altaColor(colorDTO);
-
-	}
-
-	public void bajaColor(ColorDTO colorDTO) {
-		TallesyColoresDAO.getInstancia().bajaColor(colorDTO);
-
-	}
-
-	public void modificarColor(ColorDTO colorDTO) {
-		TallesyColoresDAO.getInstancia().modificarColor(colorDTO);
-
-	}
-
-	public List<ColorDTO> getallColor() {
-		return TallesyColoresDAO.getInstancia().getallColor();
-	}
-
-	// ver que onda esto
-	public List<PedidoDTO> listarPedidosPendientesDeValidacion() {
-		return null;
-	}
-
-	public List<PrendaDTO> obtenerPrendas() throws RemoteException {
-		List<Prenda> prendas = PedidoDAO.getInstancia().buscarPrendas();
-		List<PrendaDTO> prendasDTO = new ArrayList<PrendaDTO>();
-		for (Prenda pr : prendas) {
-			prendasDTO.add(PrendaToDTO.toDTO(pr));
+				// hacer en web de OCMP
+				ocmp.setProveedor(proveedor);
+				List<ItemOCMP> itemsOcmp = new ArrayList<ItemOCMP>();
+				for (ItemFaltanteInsumo itemInsumo : lstItemsFaltanteInsumo) {
+					ItemOCMP itemOCMP = new ItemOCMP();
+					itemOCMP.setMateriaPrima(itemInsumo.getMateriaPrima());
+					itemOCMP.setCantidadSolicitada(itemInsumo.getCantidadFaltante());
+					itemOCMP.setCosto(200);
+					itemOCMP.setCantidadComprada(400);
+					itemsOcmp.add(itemOCMP);
+				}
+				ocmp.setItemsOcmp(itemsOcmp);
+				int id=ocmp.save();
+				ocmp.setId(id);
+				ControladorProduccion.getInstancia().marcarOrdenCompletada(idOrden);
+				ControladorCompras.getInstancia().actualizarestadoOCMP(id);
+				this.cambiarEstadoPedido(itemFaltantePedido.getPedido().getId(),EstadoAprobacionPedidoCliente.Completo);
+				Almacen.getInstancia().ActualizarStockPrenda(itemFaltantePedido.getPedido().getId());
+			}
 		}
-		return prendasDTO;
-	}
-
-	public List<ItemPrendaDTO> obtenerItemPrenda() throws RemoteException {
-		List<ItemPrenda> itemPrendas = PedidoDAO.getInstancia().buscarItemPrendas();
-		List<ItemPrendaDTO> itemsPrendasDTO = new ArrayList<ItemPrendaDTO>();
-		for (ItemPrenda itmprenda : itemPrendas) {
-			itemsPrendasDTO.add(ItemPrendaToDTO.toDTO(itmprenda));
+		public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal) {
+			Pedido pedidoNegocio = new Pedido();
+			return pedidoNegocio.obtenerPedidosPendientesdeAprobacion(idSucursal);
 		}
-		return itemsPrendasDTO;
-	}
+		public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacionPorCliente(int idCliente) {
+			Pedido pedidoNegocio = new Pedido();
+			return pedidoNegocio.obtenerPedidosPendientesdeAprobacionPorCliente(idCliente);
+		}
 
-	public List<PedidoDTO> obtenerPedidosCompletoParaFacturar() {
-		return PedidoDAO.getInstancia().obtenerPedidosCompletoParaFacturar();
+		public void ActualizarFechaProbableDespacho(String fechaDeseadaEntrega, int idPedido) throws ParseException {
+
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Date parsed = format.parse(fechaDeseadaEntrega);
+
+			Pedido p = PedidoDAO.getInstancia().getPedido(idPedido);
+			p.setFechaprobableDespacho(parsed);
+			p.update();
+		}
+
+		public void ActualizarFechaDespachado(String fechaConfirmadaDespacho, int idPedidoDespachado)
+				throws ParseException {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Date parsed = format.parse(fechaConfirmadaDespacho);
+
+			Pedido p = PedidoDAO.getInstancia().getPedido(idPedidoDespachado);
+			p.setFecharealDespacho(parsed);
+			p.update();
+
+		}
+
+		// FIN Jonathan Methods--> CONSULTAR ANTES DE MODIFICAR
+
+		public void cancelarPedido(Integer id) {
+			Pedido pe = PedidoDAO.getInstancia().getPedido(id);
+			pe.setEstado(EstadoAprobacionPedidoCliente.RechazadoenSucursal);
+			pe.update();
+		}
+
+		public PedidoDTO obtenerPedido(int idPedido) throws Exception {
+			Pedido p = AdministracionDAO.getInstancia().obtenerPedido(idPedido);
+
+			PedidoDTO pedidoDTO = p.toDTO();// PedidoToDTO.toDTO(p);
+			return pedidoDTO;
+		}
+
+		// Talle
+		public void altaTalle(TalleDTO talleDTO) {
+			TallesyColoresDAO.getInstancia().altaTalle(talleDTO);
+		}
+
+		public void bajaTalle(TalleDTO talleDTO) {
+			TallesyColoresDAO.getInstancia().bajaTalle(talleDTO);
+
+		}
+
+		public void modificarTalle(TalleDTO talleDTO) {
+			TallesyColoresDAO.getInstancia().modificarTalle(talleDTO);
+
+		}
+
+		public List<TalleDTO> getallTalle() {
+			return TallesyColoresDAO.getInstancia().getallTalle();
+		}
+
+		public void altaColor(ColorDTO colorDTO) {
+			TallesyColoresDAO.getInstancia().altaColor(colorDTO);
+
+		}
+
+		public void bajaColor(ColorDTO colorDTO) {
+			TallesyColoresDAO.getInstancia().bajaColor(colorDTO);
+
+		}
+
+		public void modificarColor(ColorDTO colorDTO) {
+			TallesyColoresDAO.getInstancia().modificarColor(colorDTO);
+
+		}
+
+		public List<ColorDTO> getallColor() {
+			return TallesyColoresDAO.getInstancia().getallColor();
+		}
+
+		// ver que onda esto
+		public List<PedidoDTO> listarPedidosPendientesDeValidacion() {
+			return null;
+		}
+
+		public List<PrendaDTO> obtenerPrendas() throws RemoteException {
+			List<Prenda> prendas = PedidoDAO.getInstancia().buscarPrendas();
+			List<PrendaDTO> prendasDTO = new ArrayList<PrendaDTO>();
+			for (Prenda pr : prendas) {
+				prendasDTO.add(PrendaToDTO.toDTO(pr));
+			}
+			return prendasDTO;
+		}
+
+		public List<ItemPrendaDTO> obtenerItemPrenda() throws RemoteException {
+			List<ItemPrenda> itemPrendas = PedidoDAO.getInstancia().buscarItemPrendas();
+			List<ItemPrendaDTO> itemsPrendasDTO = new ArrayList<ItemPrendaDTO>();
+			for (ItemPrenda itmprenda : itemPrendas) {
+				itemsPrendasDTO.add(ItemPrendaToDTO.toDTO(itmprenda));
+			}
+			return itemsPrendasDTO;
+		}
+
+		public List<PedidoDTO> obtenerPedidosCompletoParaFacturar() {
+			return PedidoDAO.getInstancia().obtenerPedidosCompletoParaFacturar();
+		}
+
+	
+	public List<PedidosPendientesProcesarDTO> obtenerPedidosPendientesdeProcesar() {
+		Pedido pedidoNegocio = new Pedido();
+		return pedidoNegocio.obtenerPedidosPendientesdeProcesar();//.obtenerPedidosPendientesdeAprobacion(idSucursal);
+		
 	}
 
 }

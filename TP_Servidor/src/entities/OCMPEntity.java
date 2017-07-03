@@ -31,7 +31,7 @@ public class OCMPEntity implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private Date fecha;
-	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="idOcmp")
 	private List<ItemOCMPEntity> itemsOcmp;
 	
@@ -100,6 +100,7 @@ public class OCMPEntity implements Serializable{
 				+ itemsOcmp + ", proveedor=" + proveedor + ", fechaEntrega="
 				+ fechaEntrega + ", estado=" + estado + "]";
 	}
+	
 
 	
 	

@@ -25,9 +25,9 @@ public class AlmacenEntity implements Serializable {
 	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	@JoinColumn(name="idAlmacen")
 	private List<UbicacionEntity> ubicacion;
-	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	@JoinColumn(name="idAlmacen")
-	private List<ItemMovimientoStockEntity> stock;
+	//@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	//@JoinColumn(name="idAlmacen")
+	//private List<ItemMovimientoStockEntity> stock;
 	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	@JoinColumn(name="idAlmacen")
 	private List<ItemBultoEntity> scrap;
@@ -43,12 +43,6 @@ public class AlmacenEntity implements Serializable {
 	public void setUbicacion(List<UbicacionEntity> ubicacion) {
 		this.ubicacion = ubicacion;
 	}
-	public List<ItemMovimientoStockEntity> getStock() {
-		return stock;
-	}
-	public void setStock(List<ItemMovimientoStockEntity> stock) {
-		this.stock = stock;
-	}
 	public List<ItemBultoEntity> getScrap() {
 		return scrap;
 	}
@@ -61,14 +55,13 @@ public class AlmacenEntity implements Serializable {
 	@Override
 	public String toString() {
 		return "AlmacenEntity [id=" + id + ", ubicacion=" + ubicacion
-				+ ", stock=" + stock + ", scrap=" + scrap + "]";
+				+", scrap=" + scrap + "]";
 	}
-	public AlmacenEntity(int id, List<UbicacionEntity> ubicacion,
-			List<ItemMovimientoStockEntity> stock, List<ItemBultoEntity> scrap) {
+	public AlmacenEntity(int id, List<UbicacionEntity> ubicacion,List<ItemBultoEntity> scrap) {
 		super();
 		this.id = id;
 		this.ubicacion = ubicacion;
-		this.stock = stock;
+		
 		this.scrap = scrap;
 	}
 	public AlmacenEntity() {

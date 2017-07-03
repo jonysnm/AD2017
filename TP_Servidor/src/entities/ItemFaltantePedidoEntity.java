@@ -46,7 +46,7 @@ public class ItemFaltantePedidoEntity implements Serializable {
 	//@JoinColumn(name="idColor",nullable=false)
 	//private ColorEntity color;
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne
     @JoinColumn(name="itemprendaf")
 	private ItemPrendaEntity ip;
 	
@@ -101,6 +101,15 @@ public class ItemFaltantePedidoEntity implements Serializable {
 	public void setItemPrenda(ItemPrendaEntity itemPrenda) {
 		this.ip = itemPrenda;
 	}
+
+	public PedidoEntity getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(PedidoEntity pedido) {
+		this.pedido = pedido;
+	}
+	
 	
 	
 }

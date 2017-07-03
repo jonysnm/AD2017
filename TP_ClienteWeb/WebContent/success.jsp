@@ -37,7 +37,18 @@ You are not logged in
     <br>
      	<a href="ControladorWeb?action=mostrar_pedidos_pendientes_despachar" target="_self">Ver Pedidos listos para Despachar</a>
      	<br>
-     	<a href="ControladorWeb?action=mostrar_stock" target="_self">Mostrar Stock Actual</a>    	
+     	<a href="ControladorWeb?action=mostrar_stock" target="_self">Mostrar Stock Actual</a>    
+     	<br>
+     	<a href="altaBultoMP.jsp" target="_self">Alta Bulto Materia Prima</a>    
+     	<br>
+     	<a href="altaBultoPrenda.jsp" target="_self">Alta Bulto Prenda</a> 
+     	
+     	<br>
+         <a href="ControladorWeb?action=obtener_pedidos_a_procesar" target="_self">Iniciar Procesamiento de Pedido</a>    
+
+     	
+
+     	
      </div>	
  <% }else{ %>
     
@@ -66,7 +77,7 @@ You are not logged in
 <!--          	<a href="ControladorWeb?action=Aceptacion_pedidos_por_Cliente" target="_self" >Aceptar-Rechazar Pedidos por parte del cliente</a> -->
      	<% } %>
 
-<a href='logout.jsp'>Log out</a>
+<!-- <a href='logout.jsp'>Log out</a> -->
 <%
 	}
 %>

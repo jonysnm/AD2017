@@ -1,33 +1,25 @@
 package controladores;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-
-import negocio.ItemPedido;
-import negocio.Pedido;
-import negocio.Prenda;
-import dao.AdministracionDAO;
 import dao.AlmacenDAO;
 import dao.DespachoDAO;
-import dao.PedidoDAO;
 import dto.AreaProduccionDTO;
 import dto.MateriaPrimaDTO;
 import dto.OrdenDespachoDTO;
 import dto.PedidoDTO;
 import dto.PedidoaDespacharDTO;
 import dto.PedidosCompletosPendientesDespacharDTO;
+import dto.PedidosPendientesProcesarDTO;
 import dto.UbicacionDTO;
 import entities.AreaProduccionEntity;
 import entities.MateriaPrimaEntity;
+import negocio.Pedido;
+import negocio.Prenda;
 
-public class ControladorDespacho {
-	
-	
-	
+public class ControladorDespacho {	
 	private static ControladorDespacho instancia;
 
 	public static ControladorDespacho getInstancia(){
@@ -117,7 +109,11 @@ public class ControladorDespacho {
 		
 		return lstReturn;
 	}
+	public List<PedidosPendientesProcesarDTO> obtenerPedidosPendientesdeProcesar() {
+		return DespachoDAO.getInstancia().obtenerPedidosPendientesdeProcesar();
+	}
 	
+
 	
 //FIN Metodos Jonathan --> Consultar antes de modificar
 

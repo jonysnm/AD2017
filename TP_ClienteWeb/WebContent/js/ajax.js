@@ -25,10 +25,14 @@ function getXMLHTTPObject() {
 function setAjaxOutput() {
 	
 	var stringla = xmlhttpObject.responseText.toString();
+	var actual = document.getElementById('color').innerHTML;
+	alert(actual);
 	if(stringla.indexOf("color") !=-1){
-		document.getElementById('color').innerHTML = xmlhttpObject.responseText;
+	if(actual.indexOf("Seleccione una opcion") !=-1){
+	document.getElementById('color').innerHTML = xmlhttpObject.responseText;
+	}
 	}else{
-		document.getElementById('talle').innerHTML = xmlhttpObject.responseText;
+	document.getElementById('talle').innerHTML = xmlhttpObject.responseText;
 	}
 	
 }

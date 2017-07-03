@@ -11,8 +11,6 @@ import org.hibernate.classic.Session;
 import org.hibernate.hql.ast.QuerySyntaxException;
 
 import dto.PedidoDTO;
-import dto.AreaProduccionInvolucradaDTO;
-import entities.AreaProduccionEntity;
 import entities.AreaProduccionInvolucradaEntity;
 import entities.ClienteEntity;
 import entities.ColorEntity;
@@ -283,6 +281,58 @@ public class PedidoDAO {
 		ped.setItems(itemsPedido);
 		ped.setSucursal(new Sucursal(pedidoEntity.getSucursal()));
 		return ped;
+	}
+	
+	public ItemPedido getItemPedidoComp(Integer idItemPedido){
+		ItemPedidoEntity itemPedidoEntity = null;
+		ItemPedido itemPedido = new ItemPedido();
+		try {
+			Session session = sf.openSession();
+			
+			String hql = "FROM ItemPedidoEntity ip " +
+						 "WHERE ip.IdItemPedido = :IdItemPedido";
+			
+			Query query = session.createQuery(hql);
+			query.setParameter("IdItemPedido", idItemPedido);
+			query.setMaxResults(1);
+			
+			if(query.uniqueResult() != null){
+				itemPedidoEntity = (ItemPedidoEntity) query.uniqueResult();
+	        	session.close();
+	        }else{
+	        	session.close();
+	        }
+			
+
+			itemPedido.setIdItemPedido(itemPedidoEntity.getIdItemPedido());
+			itemPedido.setImporte(itemPedidoEntity.getImporte());
+			
+			ItemPrenda itemprenda = new ItemPrenda();
+			itemprenda.setCantidadEnOPC(itemPedidoEntity.getIprenda().getCantidadEnOPC());
+			itemprenda.setColor(new Color(itemPedidoEntity.getIprenda().getColor()));
+			itemprenda.setCostoProduccionActual(itemPedidoEntity.getIprenda().getCostoProduccionActual());
+			itemprenda.setIditemPrenda(itemPedidoEntity.getIprenda().getIdItemPrenda());
+			itemprenda.setPorcentajeGanancia(itemPedidoEntity.getIprenda().getPorcentajeGanancia());
+			itemprenda.setTalle(new Talle(itemPedidoEntity.getIprenda().getTalle()));
+			
+			Prenda prenda = new Prenda();
+			prenda.setCodigo(itemPedidoEntity.getIprenda().getPrenda().getIdPrenda());
+			prenda.setDescripcion(itemPedidoEntity.getIprenda().getPrenda().getDescripcion());
+			prenda.setVigente(itemPedidoEntity.getIprenda().getPrenda().isVigente());
+			
+			itemprenda.setPrenda(prenda);
+			
+			itemPedido.setItemprenda(itemprenda);
+			itemPedido.setCantidad(itemPedidoEntity.getCantidad());
+			
+		}catch (QuerySyntaxException q){
+			JOptionPane.showMessageDialog(null, q, "Error", JOptionPane.ERROR_MESSAGE);
+			System.out.println("Exception de sintaxis en ProductoDAO: buscarProducto");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return itemPedido;
 	}
 	
 	

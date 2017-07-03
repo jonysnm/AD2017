@@ -41,10 +41,10 @@ public class PrendaEntity implements Serializable{
 	
 	
 	public PrendaEntity(){}
-	public PrendaEntity(ItemPrendaEntity items){
-		ip.add(items);
-		items.setPrenda(this);
-	}
+	//public PrendaEntity(ItemPrendaEntity items){
+		//ip.add(items);
+		//items.setPrenda(this);
+//	}
 	public Integer getIdPrenda() {
 		return IdPrenda;
 	}

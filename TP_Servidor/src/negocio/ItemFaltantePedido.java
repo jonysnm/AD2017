@@ -6,10 +6,6 @@ public class ItemFaltantePedido {
 	private int id;
 	private Pedido pedido;
 	private float cantidadFaltante;
-	//private Prenda prenda;	
-	//private Talle talle;
-	//private Color color;
-	
 	private ItemPrenda itemPrenda;
 
 	public int getId() {
@@ -36,6 +32,7 @@ public class ItemFaltantePedido {
 	public void setItemPrenda(ItemPrenda itemPrenda) {
 		this.itemPrenda = itemPrenda;
 	}
+	
 	//public ItemFaltantePedido(int id, int cantidadFaltante, Prenda prenda, ItemPrenda itemPrenda) {
 		//super();
 		//this.id = id;
@@ -50,22 +47,7 @@ public class ItemFaltantePedido {
 	//this.prenda = prenda;
 	this.itemPrenda = itemPrenda;
 	}
-	//public ItemFaltantePedido() {
-		//super();
-	//}
-	//public Talle getTalle() {
-		//return talle;
-	//}
-	//public void setTalle(Talle talle) {
-		//this.talle = talle;
-	//}
-	//public Color getColor() {
-		//return color;
-	//}
-	//public void setColor(Color color) {
-//		this.color = color;
-	//}
-		
+	
 	//Jonathan Methods --> CONSULTAR ANTES DE MODIFICAR
 	public ItemFaltantePedidoEntity ToEntity() {
 			
@@ -73,6 +55,7 @@ public class ItemFaltantePedido {
 //		entity.setColor(new ColorEntity(this.getColor().getDescripcion()));
 		//entity.setTalle(this.getTalle().ToEntity());
 		//entity.setPrenda(this.getPrenda().ToEntity());
+		entity.setPedido(this.getPedido().toEntity());
 		entity.setItemPrenda(this.getItemPrenda().ToEntity());
 		entity.setCantidadFaltante(this.getCantidadFaltante());
 		return entity;

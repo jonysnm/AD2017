@@ -57,7 +57,7 @@ public class ItemPrendaEntity implements Serializable {
 
 	public ItemPrendaEntity() {
 		super();
-		setPrenda(prenda);
+		//setPrenda(prenda);
 	}
 
 

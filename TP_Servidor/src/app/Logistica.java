@@ -6,10 +6,12 @@ import java.util.List;
 
 import controladores.ControladorAlmacen;
 import controladores.ControladorDespacho;
+import controladores.ControladorPedido;
 import dto.AreaProduccionDTO;
 import dto.MateriaPrimaDTO;
 import dto.PedidoaDespacharDTO;
 import dto.PedidosCompletosPendientesDespacharDTO;
+import dto.PedidosPendientesProcesarDTO;
 import dto.PrendaDTO;
 import dto.UbicacionDTO;
 import interfazRemota.ILogistica;
@@ -29,7 +31,7 @@ public class Logistica extends UnicastRemoteObject implements ILogistica{
 		try {
 			ControladorAlmacen.getInstancia().altaUbicacion(ubicacion);;
 		} catch (Exception e) {
-			throw new RemoteException("Error al crear nuevo pedido: "+e.getMessage());
+			throw new RemoteException("Error al crear nueva ubicacion: "+e.getMessage());
 		}
 	}
 	@Override
@@ -68,4 +70,9 @@ public class Logistica extends UnicastRemoteObject implements ILogistica{
 		
 	}
 
+	@Override
+	public List<PedidosPendientesProcesarDTO> obtenerPedidosPendientesdeProcesar() throws RemoteException {
+		return ControladorPedido.getInstancia().obtenerPedidosPendientesdeProcesar();
+	}
+	
 }

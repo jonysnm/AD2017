@@ -16,6 +16,7 @@ import dto.PedidoDTO;
 import dto.PedidoaDespacharDTO;
 import dto.PedidosCompletosPendientesDespacharDTO;
 import dto.PedidosPendientesAprobacionDTO;
+import dto.PedidosPendientesProcesarDTO;
 import dto.PrendaDTO;
 import dto.StockActualDTO;
 import dto.SucursalDTO;
@@ -126,7 +127,7 @@ public class BusinessDelegate {
 
 
 	//Methods Jonathan --> Pregutar antes de modificar
-
+		
 	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacionPorCliente(int idCliente)throws RemoteException {
 		return interfazRemotaPuntoVenta.obtenerPedidosPendientesdeAprobacionPorCliente(idCliente);
 
@@ -137,6 +138,11 @@ public class BusinessDelegate {
 	}
 	public List<PedidosCompletosPendientesDespacharDTO> ObtenerListaPedidosCompletosPendientesDespachar() throws RemoteException{
 		return interfazRemotaDespacho.ObtenerListaPedidosCompletosPendientesDespachar();
+	}
+	
+	public List<PedidosPendientesProcesarDTO> obtenerPedidosPendientesdeProcesar() throws RemoteException{
+
+		return interfazRemotaDespacho.obtenerPedidosPendientesdeProcesar();
 	}
 
 	public void ActualizarFechaProbableDespacho(String fechaDeseadaEntrega, int idPedido) throws RemoteException{
@@ -282,6 +288,9 @@ public class BusinessDelegate {
 	}
 	public List<PedidoDTO> obtenerPedidosCompletoParaFacturar() throws RemoteException{
 		return interfazRemotaPuntoVenta.obtenerPedidosCompletoParaFacturar();
+	}
+	public void IniciarProcesamientoPedido(int idPedidoaProcesar) throws RemoteException {
+		interfazRemotaPuntoVenta.IniciarProcesamientoPedido(idPedidoaProcesar);	
 	}
 	
 	public int guardarUsuario(UsuarioDTO usuarioDTO) throws RemoteException{

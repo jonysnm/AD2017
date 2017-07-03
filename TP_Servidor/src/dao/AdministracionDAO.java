@@ -63,7 +63,6 @@ public class AdministracionDAO {
 	public void modificarSucusal(Sucursal s) {
 		try {
 			Session session=sf.openSession();
-			
 //			Session session = sf.getCurrentSession();
 			session.beginTransaction();
 			SucursalEntity se = SucursalToEntity(s);
@@ -504,6 +503,26 @@ public class AdministracionDAO {
 		query.setParameter("username", usuarioDTO.getUsername());
 		query.setParameter("pass", usuarioDTO.getPass());
 		return (Usuario) query.uniqueResult();
+	}
+	public List<Pedido> obtenerPedidosPendientesdeProcesar() {
+		try {
+			Session session = sf.openSession();
+
+			@SuppressWarnings("unchecked")
+			List<PedidoEntity> lista = session.createQuery("from PedidoEntity where estado='AceptadoCliente'").list();
+			session.close();			
+			
+			List<Pedido> pedidos = new ArrayList<Pedido>();
+			//OJO NO USAR EL CONSTRUCTOR DE NEW PEDIDO HACERLE LOS SETTERS A MANO
+			for (PedidoEntity pedidoEntity : lista) {
+				pedidos.add(new Pedido(pedidoEntity));
+			}			
+			return pedidos;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("ErrorDAO: AdministracionDAO: Listar Pedidos Completo");
+		}
+		return null;
 	}
 
 }
