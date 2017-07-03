@@ -92,6 +92,10 @@ public class AlmacenDAO {
 				ibpre.setCantidadReservada(ib.getCantidadReservada());
 				ibpre.setCodigoUbicacion(ib.getCodigoUbicacion());
 				ub.setBulto(ibpre);
+				ub.setCalle(ubicacion.getCalle());
+				ub.setEstante(ubicacion.getEstante());
+				ub.setOcupado(ubicacion.isOcupado());
+				ub.setPosicion(ubicacion.getPosicion());
 				session.save(ub);
 				session.getTransaction().commit();
 				session.flush();
@@ -121,10 +125,15 @@ public class AlmacenDAO {
 				ibpre.setCodigoUbicacion(ib.getCodigoUbicacion());
 				
 				ub.setBulto(ibpre);
+				ub.setCalle(ubicacion.getCalle());
+				ub.setEstante(ubicacion.getEstante());
+				ub.setOcupado(ubicacion.isOcupado());
+				ub.setPosicion(ubicacion.getPosicion());
 				session.save(ub);
 				session.getTransaction().commit();
 				session.flush();
 				session.close();
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("Error ALMACENDAO. Nueva Ubicacion");

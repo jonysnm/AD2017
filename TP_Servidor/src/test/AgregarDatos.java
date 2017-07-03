@@ -64,6 +64,7 @@ public class AgregarDatos {
 //	ip.add(ipp);
 //	p1.setItemPrendas(ip);
 //	PedidoDAO.getInstancia().AltaPrenda(p1);
+<<<<<<< HEAD
 ///*
 	
 	Ubicacion u=new Ubicacion();
@@ -93,8 +94,7 @@ public class AgregarDatos {
 	ibmp.setCodigoUbicacion("H010320");
 	uMP.setBulto(ibmp);
 	AlmacenDAO.getInstancia().nuevaUbicacionMP(uMP);
-//	*/
-	/*
+
 	Pedido p=PedidoDAO.getInstancia().getPedido(1);
 	float pp=0;
 	for(ItemPedido it:p.getItems()){

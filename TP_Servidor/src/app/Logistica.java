@@ -29,7 +29,7 @@ public class Logistica extends UnicastRemoteObject implements ILogistica{
 		try {
 			ControladorAlmacen.getInstancia().altaUbicacion(ubicacion);;
 		} catch (Exception e) {
-			throw new RemoteException("Error al crear nuevo pedido: "+e.getMessage());
+			throw new RemoteException("Error al crear nueva ubicacion: "+e.getMessage());
 		}
 	}
 	@Override

@@ -1,6 +1,5 @@
 package controladores;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +24,7 @@ import entities.MateriaPrimaEntity;
 import entities.PrendaEntity;
 import entities.TalleEntity;
 import negocio.AreaProduccionInvolucrada;
+import negocio.ItemBultoMP;
 import negocio.ItemBultoPrenda;
 import negocio.ItemMaterialPrenda;
 import negocio.ItemPrenda;
@@ -81,15 +81,40 @@ public class ControladorAlmacen {
 	}
 	public void altaUbicacion(UbicacionDTO ubicacion){
 		Ubicacion ub=new Ubicacion();
+		if(ubicacion.getBulto().getMp() == null){
 		ItemBultoPrendaDTO ib=ubicacion.getBulto();
 		ItemBultoPrenda ibpr=new ItemBultoPrenda();
 		ibpr.setCantidad(ib.getCantidad());
 		ibpr.setCantidadReservada(ib.getCantidadReservada());
-		ibpr.setTipo(ib.getClass().getName());
+		//ibpr.setTipo(ib.getClass().getName());
+		ibpr.setTipo("IBPRENDA");
 		ItemPrenda itemPrenda = PedidoDAO.getInstancia().getItemPrenda(ib.getIpr().getIditemPrenda());
 		ibpr.setItemPrenda(itemPrenda);
 		ub.setBulto(ibpr);
-		AlmacenDAO.getInstancia().nuevaUbicacion(ub);		
+		ub.setCalle(ubicacion.getCalle());
+		ub.setEstante(ubicacion.getEstante());
+		ub.setOcupado(ubicacion.isOcupado());
+		ub.setPosicion(ubicacion.getPosicion());
+		
+		AlmacenDAO.getInstancia().nuevaUbicacion(ub);	
+		}
+		else{
+			ItemBultoMP ibmp=new ItemBultoMP();
+			ibmp.setTipo("IBMP");
+			ibmp.setCantidad(ubicacion.getBulto().getCantidad());
+			ibmp.setCantidadReservada(ubicacion.getBulto().getCantidadReservada());
+			MateriaPrima matep = AlmacenDAO.getInstancia().getMateriaPrima(ubicacion.getBulto().getMp().getCodigo()).ToNegocio();
+			ibmp.setMateriaPrima(matep);
+			ub.setBulto(ibmp);
+			ub.setCalle(ubicacion.getCalle());
+			ub.setEstante(ubicacion.getEstante());
+			ub.setOcupado(ubicacion.isOcupado());
+			ub.setPosicion(ubicacion.getPosicion());
+			AlmacenDAO.getInstancia().nuevaUbicacionMP(ub);
+		
+		}
+	
+
 	}
 	//	public void iniciarProcesamientoPedido(Pedido pedido) {
 //	//TODO 3_
