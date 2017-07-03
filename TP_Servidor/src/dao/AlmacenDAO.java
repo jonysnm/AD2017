@@ -487,6 +487,7 @@ public class AlmacenDAO {
 		opp.setCostoProduccion(orden.getCostoProduccion());
 		opp.setEstado(orden.getEstado());
 		opp.setFecha(orden.getFecha());
+		opp.setFechaEntrega(orden.getFechaEntrega());
 	    opp.setPedido(orden.getPedido().toEntity());
 		opp.setPrenda(orden.getPrenda().ToEntity());
 		int id = (int )session.save(opp);
@@ -554,7 +555,7 @@ public class AlmacenDAO {
 			Query query = session.createQuery("From OrdenProduccionEntity where codigo = :idPedi");
 			OrdenProduccionEntity or = (OrdenProduccionEntity) query.setParameter("idPedi", orden.getCodigo()).uniqueResult();
 			or.setEstado(orden.getEstado());
-			or.setFechaEntrega(or.getFechaEntrega());
+			or.setFechaEntrega(orden.getFechaEntrega());
 			session.update(or);
 			session.getTransaction().commit();
 			

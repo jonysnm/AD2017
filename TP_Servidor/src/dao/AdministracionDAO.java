@@ -497,6 +497,7 @@ public class AdministracionDAO {
 			session.close();			
 			
 			List<Pedido> pedidos = new ArrayList<Pedido>();
+			//OJO NO USAR EL CONSTRUCTOR DE NEW PEDIDO HACERLE LOS SETTERS A MANO
 			for (PedidoEntity pedidoEntity : lista) {
 				pedidos.add(new Pedido(pedidoEntity));
 			}			

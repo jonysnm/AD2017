@@ -42,7 +42,7 @@ public class ControladorCompras {
 	public void actualizarestadoOCMP(int idOCMP){
 			OCMP oc=AlmacenDAO.getInstancia().getOrdenCompra(idOCMP);
 			oc.setEstado(EstadoOCMP.COMPLETA);
-			oc.setFechaEntrega(new Date());			
+			oc.setFechaEntrega(new Date());	
 			oc.update();
 	}
 	public void informarInsumosRecibidos(int IdOCMP){

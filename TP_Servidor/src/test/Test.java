@@ -24,7 +24,7 @@ public class Test {
 
 	//AgregarDatos.guardarInfo();		
 //		BusinessDelegate.getInstancia().grabarMovimiento(1);
-//ControladorPedido.getInstancia().IniciarProcesamientoPedidoAprobado(5);//Pedido ped = PedidoDAO.getInstancia().getPedidoAprobado(1);	
+ControladorPedido.getInstancia().IniciarProcesamientoPedidoAprobado(5);//Pedido ped = PedidoDAO.getInstancia().getPedidoAprobado(1);	
 
 //		Prenda ped = PedidoDAO.getInstancia().getPrenda(1);
 		

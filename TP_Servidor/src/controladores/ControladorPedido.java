@@ -206,6 +206,7 @@ public class ControladorPedido {
 		or.setCostoProduccion(ipr.getCostoProduccionActual());
 		or.setEstado(EstadoOrdenProduccion.PENDIENTEVERIFICAR);
 		or.setFecha(new Date());
+		//or.setFechaEntrega(new Date());
 		or.setPedido(itemFaltantePedido.getPedido());
 		or.setPrenda(ipr.getPrenda());
 		int idOrden = ControladorProduccion.getInstancia().CrearOrden(or);
@@ -234,13 +235,15 @@ public class ControladorPedido {
 				ControladorProduccion.getInstancia().marcarOrdenCompletada(idOrden);
 				//ACA SE MARCA COMO COMPLETO PORQUE TENGO INSUMOS Y EMITI LA ORDEN DE PRODUCCION
 				this.cambiarEstadoPedido(itemFaltantePedido.getPedido().getId(),EstadoAprobacionPedidoCliente.Completo);
+				Almacen.getInstancia().ActualizarStockPrenda(itemFaltantePedido.getPedido().getId());
+				
 			} else {
 				// ver de devolver la reserva en este caso (ordenDeProduccion
 				// eliminar por id)
 				OCMP ocmp = new OCMP();
 				ocmp.setEstado(EstadoOCMP.GENERADA);
 				ocmp.setFecha(new Date());
-				ocmp.setFechaEntrega(new Date());
+				//ocmp.setFechaEntrega(new Date());
 				// mejorarlo a una nueva web que traiga todos los proveedores y
 				// permita elegir cual asignar a la OCMP
 				Proveedor proveedor = ProveedorDAO.getInstancia().obtenerMejorProveedor();
@@ -262,6 +265,7 @@ public class ControladorPedido {
 				ControladorCompras.getInstancia().actualizarestadoOCMP(id);
 				//ACA SE MARCA COMO COMPLETO PORQUE TENGO INSUMOS Y EMITI LA ORDEN DE PRODUCCION
 				this.cambiarEstadoPedido(itemFaltantePedido.getPedido().getId(),EstadoAprobacionPedidoCliente.Completo);
+				Almacen.getInstancia().ActualizarStockPrenda(itemFaltantePedido.getPedido().getId());
 			}
 			
 		}
@@ -275,6 +279,7 @@ public class ControladorPedido {
 			or.setCostoProduccion(ipr.getCostoProduccionActual());
 			or.setEstado(EstadoOrdenProduccion.PENDIENTEVERIFICAR);
 			or.setFecha(new Date());
+			//or.setFechaEntrega(new Date());
 			or.setPedido(itemFaltantePedido.getPedido());
 			or.setPrenda(ipr.getPrenda());
 			int idOrden = ControladorProduccion.getInstancia().CrearOrden(or);
@@ -305,13 +310,14 @@ public class ControladorPedido {
 				ControladorProduccion.getInstancia().marcarOrdenCompletada(idOrden);
 				//ACA SE MARCA COMO COMPLETO PORQUE TENGO INSUMOS Y EMITI LA ORDEN DE PRODUCCION
 				this.cambiarEstadoPedido(itemFaltantePedido.getPedido().getId(),EstadoAprobacionPedidoCliente.Completo);
+				Almacen.getInstancia().ActualizarStockPrenda(itemFaltantePedido.getPedido().getId());
 			} else {
 				// ver de devolver la reserva en este caso (ordenDeProduccion
 				// eliminar por id)
 				OCMP ocmp = new OCMP();
 				ocmp.setEstado(EstadoOCMP.GENERADA);
 				ocmp.setFecha(new Date());
-				ocmp.setFechaEntrega(new Date());
+				//ocmp.setFechaEntrega(new Date());
 
 				// mejorarlo a una nueva web que traiga todos los proveedores y
 				// permita elegir cual asignar a la OCMP
@@ -334,6 +340,7 @@ public class ControladorPedido {
 				ControladorProduccion.getInstancia().marcarOrdenCompletada(idOrden);
 				ControladorCompras.getInstancia().actualizarestadoOCMP(id);
 				this.cambiarEstadoPedido(itemFaltantePedido.getPedido().getId(),EstadoAprobacionPedidoCliente.Completo);
+				Almacen.getInstancia().ActualizarStockPrenda(itemFaltantePedido.getPedido().getId());
 			}
 		}
 		public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacion(int idSucursal) {
