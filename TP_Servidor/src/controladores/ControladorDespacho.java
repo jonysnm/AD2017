@@ -12,6 +12,8 @@ import dto.OrdenDespachoDTO;
 import dto.PedidoDTO;
 import dto.PedidoaDespacharDTO;
 import dto.PedidosCompletosPendientesDespacharDTO;
+import dto.PedidosPendientesProcesarDTO;
+import dto.UbicacionDTO;
 import entities.AreaProduccionEntity;
 import entities.MateriaPrimaEntity;
 import negocio.Pedido;
@@ -107,6 +109,10 @@ public class ControladorDespacho {
 		
 		return lstReturn;
 	}
+	public List<PedidosPendientesProcesarDTO> obtenerPedidosPendientesdeProcesar() {
+		return DespachoDAO.getInstancia().obtenerPedidosPendientesdeProcesar();
+	}
+	
 
 	
 //FIN Metodos Jonathan --> Consultar antes de modificar

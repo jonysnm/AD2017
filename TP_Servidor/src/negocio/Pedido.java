@@ -7,11 +7,7 @@ import java.util.List;
 import dao.AdministracionDAO;
 import dao.AlmacenDAO;
 import dao.PedidoDAO;
-import dto.ItemPedidoDTO;
-import dto.PedidoDTO;
 import dto.*;
-import dto.PedidosCompletosPendientesDespacharDTO;
-import dto.PedidosPendientesAprobacionDTO;
 import entities.ItemBultoEntity;
 import entities.ItemPedidoEntity;
 import entities.PedidoEntity;
@@ -235,8 +231,8 @@ public Pedido(){}
 		peddto.setFechaEntregaEstimada(this.getFechaprobableDespacho());
 		
 		
-		//TODO: peddto.setContieneDiscontinuosyHaystock(this.TengoDiscontinuossinStock()); Harcodeado para testing
-		peddto.setContieneDiscontinuosyHaystock(false);		
+		peddto.setContieneDiscontinuosyHaystock(this.TengoDiscontinuossinStock()); 
+		//peddto.setContieneDiscontinuosyHaystock(false);		
 		//TODO:peddto.setSaldoCtaCte(this.getCliente().getCtacte().getSaldo());Harcodeado para testing
 		peddto.setSaldoCtaCte(this.getCliente().getCtacte().getSaldo());
 		return peddto;
@@ -350,9 +346,26 @@ public Pedido(){}
 				
 		return lstUbicaciones;
 	}
-	
-	
-	
+	public List<PedidosPendientesProcesarDTO> obtenerPedidosPendientesdeProcesar() {
+		List<Pedido> pedidos = AdministracionDAO.getInstancia().obtenerPedidosPendientesdeProcesar();//.obtenerPedidosPendientesdeAprobacion( idSucursal);
+		List<PedidosPendientesProcesarDTO> pedidosVista = new ArrayList<PedidosPendientesProcesarDTO>();
+		for (Pedido pedido : pedidos) {
+			pedidosVista.add(pedido.ToPedidosPendientesProcesarDTO());//ToPedidosPendientesAprobacionDTO());		
+			}
+		return pedidosVista;
+	}
+	private PedidosPendientesProcesarDTO ToPedidosPendientesProcesarDTO() {
+		PedidosPendientesProcesarDTO pedidosPendientesProcesarDTO = new PedidosPendientesProcesarDTO();
+		pedidosPendientesProcesarDTO.setId(this.getId());
+		pedidosPendientesProcesarDTO.setFechaCreacion(this.getFechaCreacion());
+		pedidosPendientesProcesarDTO.setFechaProbableDespacho(this.getFechaprobableDespacho());
+		pedidosPendientesProcesarDTO.setIdCliente(this.getCliente().getId());
+		pedidosPendientesProcesarDTO.setIdSucursal(this.getSucursal().getId());
+		pedidosPendientesProcesarDTO.setNombreCliente(this.getCliente().getNombre());
+				
+		return pedidosPendientesProcesarDTO;
+	}
+			
 	//Fin Jonathan Methods
 
 

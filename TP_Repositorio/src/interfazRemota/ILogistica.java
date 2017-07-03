@@ -8,6 +8,7 @@ import dto.AreaProduccionDTO;
 import dto.MateriaPrimaDTO;
 import dto.PedidoaDespacharDTO;
 import dto.PedidosCompletosPendientesDespacharDTO;
+import dto.PedidosPendientesProcesarDTO;
 import dto.PrendaDTO;
 import dto.UbicacionDTO;
 
@@ -25,5 +26,7 @@ public interface ILogistica extends Remote{
 	public void AltaPrenda(PrendaDTO prendaDTO)throws RemoteException;
 
 	public void ModificarPrenda(PrendaDTO prendaDTO)throws RemoteException;
+
+	public List<PedidosPendientesProcesarDTO> obtenerPedidosPendientesdeProcesar()throws RemoteException;
 
 }

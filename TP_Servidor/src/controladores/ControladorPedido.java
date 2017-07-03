@@ -18,6 +18,7 @@ import dto.ItemPedidoDTO;
 import dto.ItemPrendaDTO;
 import dto.PedidoDTO;
 import dto.PedidosPendientesAprobacionDTO;
+import dto.PedidosPendientesProcesarDTO;
 import dto.PrendaDTO;
 import dto.TalleDTO;
 import estados.EstadoAprobacionPedidoCliente;
@@ -446,3 +447,10 @@ public class ControladorPedido {
 		}
 
 	}
+	public List<PedidosPendientesProcesarDTO> obtenerPedidosPendientesdeProcesar() {
+		Pedido pedidoNegocio = new Pedido();
+		return pedidoNegocio.obtenerPedidosPendientesdeProcesar();//.obtenerPedidosPendientesdeAprobacion(idSucursal);
+		
+	}
+
+}

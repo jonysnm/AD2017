@@ -24,6 +24,7 @@ import dto.PedidoDTO;
 import dto.PedidoaDespacharDTO;
 import dto.PedidosCompletosPendientesDespacharDTO;
 import dto.PedidosPendientesAprobacionDTO;
+import dto.PedidosPendientesProcesarDTO;
 import dto.StockActualDTO;
 import dto.SucursalDTO;
 import dto.TalleDTO;
@@ -148,6 +149,25 @@ public class ControladorWeb extends HttpServlet {
 				jspPage = "/AprobarRechazarPedidosPendientes.jsp";
 			}
 			break;
+			
+		case "obtener_pedidos_a_procesar": 
+			
+			List<PedidosPendientesProcesarDTO> lstPedidosPendientesProcesarDTO = BusinessDelegate.getInstancia().obtenerPedidosPendientesdeProcesar();
+			request.setAttribute("lstPedidosPendientesProcesarDTO", lstPedidosPendientesProcesarDTO);
+			
+			mensaje="";	
+			if(lstPedidosPendientesProcesarDTO.size()==0)
+			{
+				mensaje="No registra pedidos pendientes de Procesar";
+				request.setAttribute("Mensaje",mensaje);
+				jspPage = "/Confirmaciones.jsp";
+			}
+			else
+			{
+				request.setAttribute("lstPedidosPendientesProcesarDTO",lstPedidosPendientesProcesarDTO);
+				jspPage = "/IniciarProcesamientoPedidos.jsp";
+			}
+			break;												
 		case "mostrar_stock"://esta funcionalidad se agrega para poder ver el stock en tiempo real - Solo para control
 									
 			List<StockActualDTO> lstStockActualDTO = BusinessDelegate.getInstancia().obtenerlstStockActualDTO();
@@ -249,6 +269,16 @@ public class ControladorWeb extends HttpServlet {
 			PedidoaDespacharDTO pedidoaDespacharDTO = BusinessDelegate.getInstancia().obtenerPedidoaDespachar(idPedidoaDespachar);
 			request.setAttribute("pedidoaDespacharDTO",pedidoaDespacharDTO);
 			jspPage = "/DetallePedidoADespachar.jsp";
+			
+			break;
+			
+		case "iniciar_procesamiento_pedido_POST":
+			int idPedidoaProcesar = Integer.parseInt(request.getParameter("hdnIdPedidoaProcesar"));			
+			mensaje="";									
+			BusinessDelegate.getInstancia().IniciarProcesamientoPedido(idPedidoaProcesar);
+			mensaje="El pedido nro: "+ Integer.toString(idPedidoaProcesar) + "sera procesado por las areas correspondientes.";			
+			request.setAttribute("Mensaje", mensaje);
+			jspPage = "/Confirmaciones.jsp";			
 			
 			break;
 

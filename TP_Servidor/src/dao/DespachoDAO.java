@@ -11,6 +11,7 @@ import org.hibernate.SessionFactory;
 
 import dto.OrdenDespachoDTO;
 import dto.PedidoDTO;
+import dto.PedidosPendientesProcesarDTO;
 
 public class DespachoDAO {
 	private static DespachoDAO instancia;
@@ -79,6 +80,13 @@ public class DespachoDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	public List<PedidosPendientesProcesarDTO> obtenerPedidosPendientesdeProcesar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	
 	
 	
