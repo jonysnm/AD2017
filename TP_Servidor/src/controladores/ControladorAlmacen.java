@@ -51,6 +51,7 @@ public class ControladorAlmacen {
 //	}
 	
 	public void actualizarStockPrenda(int idPrenda) {
+		
 	
 	}
 	

@@ -12,9 +12,12 @@ import org.hibernate.hql.ast.QuerySyntaxException;
 
 import dto.MateriaPrimaDTO;
 import entities.AreaProduccionEntity;
+import entities.CuentaCorrienteEntity;
 import entities.ItemBultoEntity;
 import entities.ItemBultoMPEntity;
 import entities.ItemBultoPrendaEntity;
+import entities.ItemMovimientoCtaCteEntity;
+import entities.ItemMovimientoStockEntity;
 import entities.ItemPrendaEntity;
 import entities.MateriaPrimaEntity;
 import entities.OrdenProduccionEntity;
@@ -22,9 +25,12 @@ import entities.ReservasEntity;
 import entities.ReservasMPEntity;
 import entities.UbicacionEntity;
 import hbt.HibernateUtil;
+import negocio.CuentaCorriente;
 import negocio.ItemBulto;
 import negocio.ItemBultoMP;
 import negocio.ItemBultoPrenda;
+import negocio.ItemMovimientoCtaCte;
+import negocio.ItemMovimientoStock;
 import negocio.ItemPedido;
 import negocio.ItemPrenda;
 import negocio.MateriaPrima;
@@ -47,11 +53,6 @@ public class AlmacenDAO {
 			instancia = new AlmacenDAO();
 		}
 		return instancia;
-	}
-
-	public int gestionarReserva(ItemPedido i) {
-		// dps va a seguir
-		return 0;
 	}
 
 	public List<ItemBultoPrenda> reservarStockPrenda(ItemPedido ip) {
@@ -180,7 +181,29 @@ public class AlmacenDAO {
 				.setParameter("id", idItemPedido).list();
 		return lista;
 	}
-	
+	public void grabarMovimiento(ItemBulto item){
+		Session session = sf.openSession();
+		session.beginTransaction();
+		
+		ItemBultoEntity ib = (ItemBultoEntity) session.get(ItemBultoEntity.class, item.getIdBulto());
+		
+		List<ItemMovimientoStockEntity> itemmovstock = ib.getItemsMovimientoStockEntities();
+		
+		for (ItemMovimientoStock istock: item.getItems()) {
+			ItemMovimientoStockEntity itemMovimientoStockEntity = new ItemMovimientoStockEntity();
+			itemMovimientoStockEntity.setFecha(istock.getFecha());
+			itemMovimientoStockEntity.setTipo(istock.getTipo());
+			itemMovimientoStockEntity.setCantidad(istock.getCantidad());
+			itemmovstock.add(itemMovimientoStockEntity);
+			session.save(itemMovimientoStockEntity);
+		}		
+		ib.setItemsMovimientoStockEntities(itemmovstock);
+
+		session.saveOrUpdate(ib);
+		session.getTransaction().commit();
+		session.flush();
+		session.close();
+	}	
 	public void NuevaReserva(ReservasEntity reserva){
 		Session session=sf.openSession();
 		session.beginTransaction();				
@@ -201,7 +224,8 @@ public class AlmacenDAO {
 		reservasMPEntity.setItemBultoEntity(itemBultoEntity);
 		OrdenProduccionEntity ordenProduccionEntity = (OrdenProduccionEntity) session.get(OrdenProduccionEntity.class, reserva.getOrdenProduccion().getCodigo());
 		reservasMPEntity.setOrdenProduccionEntity(ordenProduccionEntity);
-		session.saveOrUpdate(reserva);
+	
+		session.saveOrUpdate(reservasMPEntity);
 		session.close();						
 	}
 	

@@ -115,8 +115,8 @@ public class ControladorPedido {
 				// y en base a eso vaya insertando en la tabla de
 				// Reservas que bultos tiene reservado que cantidad y para que
 				// pedido en particular
-				Almacen.getInstancia().ReservarItemsPrendas(lstItemBultoPrenda, itemPedido.getCantidad(), p,
-						itemPedido);
+				
+				
 
 				if (cantidadFaltante > 0) // significa que hay faltante
 				{
@@ -130,6 +130,9 @@ public class ControladorPedido {
 					// itemFaltantePedido.setColor(itemPedido.getItemprenda().getColor());
 					// itemFaltantePedido.setTalle(itemPedido.getItemprenda().getTalle());
 					lstItemsFaltantesPedido.add(itemFaltantePedido);
+				}else{
+					Almacen.getInstancia().ReservarItemsPrendas(lstItemBultoPrenda, itemPedido.getCantidad(),p,
+							itemPedido);
 				}
 
 			}
@@ -140,26 +143,11 @@ public class ControladorPedido {
 
 			if (lstItemsFaltantesPedido.size() == 0) {
 				this.cambiarEstadoPedido(idPedido, EstadoAprobacionPedidoCliente.Completo);
-			} else {
+				Almacen.getInstancia().ActualizarStockPrenda(idPedido);
+			}else{
 				this.cambiarEstadoPedido(idPedido, EstadoAprobacionPedidoCliente.EnEsperaFinalizacionOrdendeProduccion);
 				DefiniryCrearTipoOrdenProduccion(lstItemsFaltantesPedido);
 				GuardarItemsFaltantePedido(lstItemsFaltantesPedido);
-			}
-		}
-	}
-
-	private void ReservarPrendaenStock(ItemPedido itemPedido, int i) {
-		// TODO: este metodo se encargar de marcar la prenda como reservada y
-		// decrementar el stock disponible
-		List<ItemBultoPrenda> list = AlmacenDAO.getInstancia().reservarStockPrenda(itemPedido);
-		for (ItemBultoPrenda itemBulto : list) {
-			// 40 - 10 = Total 30 quiero 13
-
-			if ((itemBulto.getCantidad() - itemBulto.getCantidadReservada()) > itemPedido.getCantidad()) {
-				itemBulto.setCantidadReservada(itemBulto.getCantidadReservada() + itemPedido.getCantidad());
-				// falta QUE EL ITEMPEDIDO CONOZCA SU PEDIDO PARA PODER RESERVAR
-				// NECESITAMOS CONOCER ESTO ADEMAS DEL ITEMBULTO
-				// AlmacenDAO.getInstancia().gestionarReserva(itemPedido,itemBulto);
 			}
 		}
 	}

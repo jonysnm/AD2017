@@ -33,13 +33,15 @@ public class ItemMovimientoStockEntity implements Serializable {
 	@JoinColumn(name="idItemMovStock")
 	private ItemBultoEntity bultoitems;
 
-	private String detalle;
+	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="idEmpleado")
 	private EmpleadoEntity empleado;
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="idJefe")
 	private EmpleadoEntity autorizo;
+	
+	private Float cantidad;
 	
 	public int getId() {
 		return id;
@@ -59,12 +61,6 @@ public class ItemMovimientoStockEntity implements Serializable {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	public String getDetalle() {
-		return detalle;
-	}
-	public void setDetalle(String detalle) {
-		this.detalle = detalle;
-	}
 	public EmpleadoEntity getEmpleado() {
 		return empleado;
 	}
@@ -80,25 +76,6 @@ public class ItemMovimientoStockEntity implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	@Override
-	public String toString() {
-		return "ItemMovimientoStockEntity [id=" + id + ", tipo=" + tipo
-				+ ", fecha=" + fecha + ", bultoitems=" + getBultoitems()
-				+ ", detalle=" + detalle + ", empleado=" + empleado
-				+ ", autorizo=" + autorizo + "]";
-	}
-	public ItemMovimientoStockEntity(int id, TipoMovimientoStock tipo,
-			Date fecha, ItemBultoEntity bultoitems, String detalle,
-			EmpleadoEntity empleado, EmpleadoEntity autorizo) {
-		super();
-		this.id = id;
-		this.tipo = tipo;
-		this.fecha = fecha;
-		this.bultoitems = bultoitems;
-		this.detalle = detalle;
-		this.empleado = empleado;
-		this.autorizo = autorizo;
-	}
 	public ItemMovimientoStockEntity() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -109,6 +86,14 @@ public class ItemMovimientoStockEntity implements Serializable {
 	public void setBultoitems(ItemBultoEntity bultoitems) {
 		this.bultoitems = bultoitems;
 	}
+	public Float getCantidad() {
+		return cantidad;
+	}
+	public void setCantidad(Float cantidad) {
+		this.cantidad = cantidad;
+	}
+	
+	
 	
 	
 	

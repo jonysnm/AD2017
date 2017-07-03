@@ -61,14 +61,6 @@ public class ControladorWeb extends HttpServlet {
 			jspPage = "/index.jsp";
 			break;
 		case "crear_pedido":	
-		String prendaSeleccionada = request.getParameter("prendaSeleccionada");
-			
-		//if (!prendaSeleccionada.equals("")) {
-//			talle
-		//}
-		response.setContentType("text/plain");
-		response.getWriter().write("asdñsaads");
-		
 		jspPage = "/CrearPedido.jsp";
 		break;	
 		
@@ -106,6 +98,8 @@ public class ControladorWeb extends HttpServlet {
 	}
 	
 		List<ItemPedidoDTO> itemPedidoDTOs = new ArrayList<ItemPedidoDTO>();
+		
+		
 		for(int i=0; i<variasPrendas.length;i++){
 			ItemPedidoDTO itemPedidoDTO = new ItemPedidoDTO();
 			itemPedidoDTO.setCantidad(new Float(varioscantidad[i]));
@@ -174,6 +168,8 @@ public class ControladorWeb extends HttpServlet {
 			break;
 		case "Aceptacion_pedidos_por_Cliente"://3-obtengo los pedidos que fueron aprobados por el gerente de la sucursal para que el cliente de la aceptacion final
 			//TODO: falta armar logica login para obtener el cliente y traer los pedidos exclusivos del cliente
+			
+			
 			List<PedidosPendientesAprobacionDTO> lstPedidosPendientesAprobacionporCliente = BusinessDelegate.getInstancia().obtenerPedidosPendientesdeAprobacionPorCliente(1);
 			request.setAttribute("lstPedidosPendientesAprobacionporCliente", lstPedidosPendientesAprobacionporCliente);
 			
