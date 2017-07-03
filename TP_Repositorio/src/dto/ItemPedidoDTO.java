@@ -11,7 +11,7 @@ public class ItemPedidoDTO implements Serializable {
 	private int IdItemPedido;
 	private float cantidad;
 	private ItemPrendaDTO itemPrendaDTO;
-	private int importe;
+	private float importe;
 	public ItemPedidoDTO(){}
 	
 	
@@ -19,19 +19,8 @@ public class ItemPedidoDTO implements Serializable {
 		return cantidad;
 	}
 
-
 	public void setCantidad(float cantidad) {
 		this.cantidad = cantidad;
-	}
-
-
-	public int getImporte() {
-		return importe;
-	}
-
-
-	public void setImporte(int importe) {
-		this.importe = importe;
 	}
 
 
@@ -46,6 +35,16 @@ public class ItemPedidoDTO implements Serializable {
 	}
 	public void setIdItemPedido(int idItemPedido) {
 		IdItemPedido = idItemPedido;
+	}
+
+
+	public float getImporte() {
+		return importe;
+	}
+
+
+	public void setImporte(float importe) {
+		this.importe = importe;
 	}
 	
 }

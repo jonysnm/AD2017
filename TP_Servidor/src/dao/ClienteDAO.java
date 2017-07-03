@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -23,6 +24,7 @@ import negocio.CuentaCorriente;
 import negocio.ItemMovimientoCtaCte;
 import negocio.ItemPedido;
 import negocio.Prenda;
+import tipos.TipoMovimientoCtaCte;
 
 public class ClienteDAO {
 	private static ClienteDAO instancia;
@@ -43,6 +45,15 @@ public class ClienteDAO {
 			session.beginTransaction();
 			ClienteEntity c=ClienteToEntity(cliente);	
 			CuentaCorrienteEntity cce=new CuentaCorrienteEntity();
+			ItemMovimientoCtaCteEntity item = new ItemMovimientoCtaCteEntity();
+			item.setDetalle("Alta Cuenta Corriente");
+			item.setFecha(new Date());
+			item.setImporte(cliente.getLimiteCredito());
+			item.setTipo(TipoMovimientoCtaCte.CREDITO);
+			session.save(item);
+			List<ItemMovimientoCtaCteEntity> items = new ArrayList<ItemMovimientoCtaCteEntity>();
+			items.add(item);
+			cce.setItems(items);
 			c.setCtacte(cce);
 		    Integer numeroCliente = (Integer) session.save(c);
 			session.getTransaction().commit();

@@ -2,9 +2,14 @@ package entities;
 
 import java.io.Serializable;
 
-import javax.persistence.*;
-
-import negocio.Pedido;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 
 
@@ -29,7 +34,7 @@ public class ItemPedidoEntity implements Serializable{
 	
 	
 
-	private int importe;
+	private float importe;
 	private float cantidad;	
 
 	public ItemPedidoEntity(){}
@@ -50,13 +55,6 @@ public class ItemPedidoEntity implements Serializable{
 		this.iprenda = iprenda;
 	}
 
-	public int getImporte() {
-		return importe;
-	}
-
-	public void setImporte(int importe) {
-		this.importe = importe;
-	}
 
 	public float getCantidad() {
 		return cantidad;
@@ -72,6 +70,14 @@ public class ItemPedidoEntity implements Serializable{
 
 	public void setPedido(PedidoEntity pedido) {
 		this.pedido = pedido;
+	}
+
+	public float getImporte() {
+		return importe;
+	}
+
+	public void setImporte(float importe) {
+		this.importe = importe;
 	}
 	
 }

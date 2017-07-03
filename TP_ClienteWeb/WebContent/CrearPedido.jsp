@@ -14,6 +14,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Alta Pedido</title>
+<script type="text/javascript" src="js/ajax.js"></script>
+<!-- <script type="text/javascript" src="js/ajax2.js"></script> -->
 </head>
 <body>
 	<h1>Crear Pedido</h1>
@@ -25,17 +27,18 @@
 				<tr>
 					<button value="Agregar ItemPedido" type="button"
 						onclick="agregarItemPedido()">Agregar ItemsPedido</button>
-						&nbsp;&nbsp;
+					&nbsp;&nbsp;
 					<button value="Remover ItemPedido" type="button"
 						onclick="removerItemPedido(this)">Remover ItemsPedido</button>
-						&nbsp;&nbsp;
+					&nbsp;&nbsp;
 					<button value="Enviar Pedido" type="submit" onclick="enviarPedido">Enviar
 						Pedido</button>
-						
+
 					<br>
 					<br>
 					<th>Pedido:</th>
-					<td><b>Cliente</b> <select id="selectCliente" name="cliente" onchange="obtenerClienteSeleccionado()"><option>Seleccione
+					<td><b>Cliente</b> <select id="selectCliente" name="cliente"
+						onchange="obtenerClienteSeleccionado()"><option>Seleccione
 								una opcion</option>
 							<%
 								List<ClienteDTO> clientesDTO = BusinessDelegate.getInstancia().obtenerClientes();
@@ -48,8 +51,7 @@
 								}
 							%>
 					</select></td>
-					<td><b>Sucursal</b> 
-					<select id="suc" name="sucursal"><option>Seleccione
+					<td><b>Sucursal</b> <select id="suc" name="sucursal"><option>Seleccione
 								una opcion</option>
 							<%
 								List<SucursalDTO> sucursalesDTO = BusinessDelegate.getInstancia().obtenerSucursales();
@@ -66,50 +68,27 @@
 				<tr id="itemPedido">
 					<th>ItemPedido:</th>
 					<td><b>Prenda</b></td>
-					<td>
-					<select  id="prenda" name="prenda" onchange="doAjaxCall()"><option>Seleccione
+					<td><select id="prenda" name="prenda" onchange="doAjaxCall();"><option>Seleccione
 								una opcion</option>
 							<%
-								List<ItemPrendaDTO> itemsPrendaDTO = BusinessDelegate.getInstancia().obtenerItemPrenda();
+								List<PrendaDTO> prendasDTO = BusinessDelegate.getInstancia().obtenerPrendas();
 							%>
 							<%
-								for (ItemPrendaDTO itemPrendaDTO : itemsPrendaDTO) {
+								for (PrendaDTO prendaDTO : prendasDTO) {
 							%>
-							<option value="<%=itemPrendaDTO.getPrendaDTO().getDescripcion()%>"><%=itemPrendaDTO.getPrendaDTO().getDescripcion()%></option>
-<!-- 							AGREGAR PRECIO DEL PEDIDO EN BASE AL COSTO PORCENTAJE DE GANNCIA  -->
+							<option value="<%=prendaDTO.getDescripcion()%>"><%=prendaDTO.getDescripcion()%></option>
+							<!-- 							AGREGAR PRECIO DEL PEDIDO EN BASE AL COSTO PORCENTAJE DE GANNCIA  -->
 							<%
 								}
 							%>
 					</select></td>
 					<td><b>Talle</b></td>
-						<td>
-					<select id="talle" name="talle"><option>Seleccione
+					<td><select id="talle" name="talle" onchange="doAjaxCall();"><option>Seleccione
 								una opcion</option>
-							<%
-								List<TalleDTO> TallesDTOs = BusinessDelegate.getInstancia().getAllTalle();
-							%>
-							<%
-								for (TalleDTO talleDTO : TallesDTOs) {
-							%>
-							<option value="<%=talleDTO.getDescripcion()%>"><%=talleDTO.getDescripcion()%></option>
-							<%
-								}
-							%>
 					</select></td>
 					<td><b>Color</b></td>
-						<td>
-						<select  name="color"><option>Seleccione
+					<td><select id="color"  name="color"><option>Seleccione
 								una opcion</option>
-							<%
-								List<ColorDTO> coloresDTOs = BusinessDelegate.getInstancia().getAllColor();
-							%>
-							<%
-								for (ColorDTO colorDTO : coloresDTOs) {
-							%>
-							<option value="<%=colorDTO.getDescripcion()%>"><%=colorDTO.getDescripcion()%></option>
-							<%
-								}
-							%>
 					</select></td>
 					<td><b>Cantidad</b></td>
 					<td><input type="text" name="cantidad"></td>
@@ -118,27 +97,47 @@
 		</form>
 
 	</div>
-	
-	
+
 	<script type="text/javascript">
-	function obtenerClienteSeleccionado(){
-		var x= document.getElementById("selectCliente").selectedIndex;
-	    var y = document.getElementById("selectCliente").options;
-	}
+		function obtenerClienteSeleccionado() {
+			var x = document.getElementById("selectCliente").selectedIndex;
+			var y = document.getElementById("selectCliente").options;
+		}
 	</script>
-	
-	
+
+
 	<script type="text/javascript">
-	function seleccionado(){
-		var selectCtrl = document.getElementById("suc");
-		var selectedItem = selectCtrl.options[selectCtrl.selectedIndex];
-	}
-	
+		function loadCombo() {
+			var xmlhttp = new XMLHttpRequest();
+
+			xmlhttp.onreadystatechange = function() {
+				if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+					if (xmlhttp.status == 200) {
+						document.getElementById("prenda").innerHTML = xmlhttp.responseText;
+					} else if (xmlhttp.status == 400) {
+						alert('There was an error 400');
+					} else {
+						alert('something else other than 200 was returned');
+					}
+				}
+			};
+			xmlhttp.open("GET", "ComboItem", true);
+			xmlhttp.send();
+		}
 	</script>
-	
+
+
+	<script type="text/javascript">
+		function seleccionado() {
+			var selectCtrl = document.getElementById("suc");
+			var selectedItem = selectCtrl.options[selectCtrl.selectedIndex];
+		}
+	</script>
+
 	<script type="text/javascript">
 		function agregarItemPedido() {
 			var table = document.getElementById("itemPedido");
+			table.readOnly = true;
 			var cln = table.cloneNode(true);
 
 			var inputs = cln.getElementsByTagName('input')
