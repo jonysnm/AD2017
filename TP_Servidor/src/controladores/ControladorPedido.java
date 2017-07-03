@@ -446,7 +446,7 @@ public class ControladorPedido {
 			return PedidoDAO.getInstancia().obtenerPedidosCompletoParaFacturar();
 		}
 
-	}
+	
 	public List<PedidosPendientesProcesarDTO> obtenerPedidosPendientesdeProcesar() {
 		Pedido pedidoNegocio = new Pedido();
 		return pedidoNegocio.obtenerPedidosPendientesdeProcesar();//.obtenerPedidosPendientesdeAprobacion(idSucursal);
