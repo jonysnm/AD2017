@@ -231,8 +231,8 @@ public Pedido(){}
 		peddto.setFechaEntregaEstimada(this.getFechaprobableDespacho());
 		
 		
-		//TODO: peddto.setContieneDiscontinuosyHaystock(this.TengoDiscontinuossinStock()); Harcodeado para testing
-		peddto.setContieneDiscontinuosyHaystock(false);		
+		peddto.setContieneDiscontinuosyHaystock(this.TengoDiscontinuossinStock()); 
+		//peddto.setContieneDiscontinuosyHaystock(false);		
 		//TODO:peddto.setSaldoCtaCte(this.getCliente().getCtacte().getSaldo());Harcodeado para testing
 		peddto.setSaldoCtaCte(this.getCliente().getCtacte().getSaldo());
 		return peddto;
