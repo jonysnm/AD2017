@@ -6,6 +6,7 @@ import java.util.*;
 
 import dto.EmpleadoDTO;
 import dto.SucursalDTO;
+import dto.UsuarioDTO;
 
 public interface IAdmSucursalesControlador extends Remote{
 
@@ -33,7 +34,11 @@ public interface IAdmSucursalesControlador extends Remote{
 
 	public void bajaSucursal(SucursalDTO e)throws RemoteException;
 	
-	public List<EmpleadoDTO> getallEmpleadosbySucursal(Integer id)  throws RemoteException;	
+	public List<EmpleadoDTO> getallEmpleadosbySucursal(Integer id)  throws RemoteException;
+
+	public int crearUsuario(UsuarioDTO usuarioDTO)  throws RemoteException;
+
+	public UsuarioDTO obtenerUsuario(UsuarioDTO usuarioDTO)throws RemoteException;
 
 
 }

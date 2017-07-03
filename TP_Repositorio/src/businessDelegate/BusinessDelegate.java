@@ -21,6 +21,7 @@ import dto.StockActualDTO;
 import dto.SucursalDTO;
 import dto.TalleDTO;
 import dto.UbicacionDTO;
+import dto.UsuarioDTO;
 import estados.EstadoAprobacionPedidoCliente;
 import estados.EstadoRemito;
 import interfazRemota.IAdmSucursalesControlador;
@@ -282,5 +283,13 @@ public class BusinessDelegate {
 	public List<PedidoDTO> obtenerPedidosCompletoParaFacturar() throws RemoteException{
 		return interfazRemotaPuntoVenta.obtenerPedidosCompletoParaFacturar();
 	}
+	
+	public int guardarUsuario(UsuarioDTO usuarioDTO) throws RemoteException{
+			return interfazRemotaSucursales.crearUsuario(usuarioDTO);
+	}
+	public UsuarioDTO obtenerUsuario(UsuarioDTO usuarioDTO) throws RemoteException{
+		return interfazRemotaSucursales.obtenerUsuario(usuarioDTO);
+}
+	
 	
 }

@@ -21,7 +21,7 @@ public class Test {
 		
 		new HibernateUtil();
 		
-	AgregarDatos.guardarInfo();		
+//	AgregarDatos.guardarInfo();		
 //		BusinessDelegate.getInstancia().grabarMovimiento(1);
 //ControladorPedido.getInstancia().IniciarProcesamientoPedidoAprobado(1);//Pedido ped = PedidoDAO.getInstancia().getPedidoAprobado(1);	
 //		Prenda ped = PedidoDAO.getInstancia().getPrenda(1);

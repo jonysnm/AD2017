@@ -165,9 +165,9 @@ public class ControladorWeb extends HttpServlet {
 			break;
 		case "Aceptacion_pedidos_por_Cliente"://3-obtengo los pedidos que fueron aprobados por el gerente de la sucursal para que el cliente de la aceptacion final
 			//TODO: falta armar logica login para obtener el cliente y traer los pedidos exclusivos del cliente
+			String idCliente = request.getParameter("cliente");
 			
-			
-			List<PedidosPendientesAprobacionDTO> lstPedidosPendientesAprobacionporCliente = BusinessDelegate.getInstancia().obtenerPedidosPendientesdeAprobacionPorCliente(1);
+			List<PedidosPendientesAprobacionDTO> lstPedidosPendientesAprobacionporCliente = BusinessDelegate.getInstancia().obtenerPedidosPendientesdeAprobacionPorCliente(Integer.valueOf(idCliente));
 			request.setAttribute("lstPedidosPendientesAprobacionporCliente", lstPedidosPendientesAprobacionporCliente);
 			
 			mensaje="";	

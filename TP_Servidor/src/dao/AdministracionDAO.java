@@ -1,9 +1,6 @@
 package dao;
 
-import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -15,26 +12,20 @@ import org.hibernate.classic.Session;
 import org.hibernate.hql.ast.QuerySyntaxException;
 
 import dto.EmpleadoDTO;
-import dto.PedidosPendientesAprobacionDTO;
 import dto.SucursalDTO;
 import dto.TalleDTO;
-import entities.ClienteEntity;
-import entities.ColorEntity;
+import dto.UsuarioDTO;
 import entities.EmpleadoEntity;
-import entities.ItemBultoEntity;
-import entities.ItemPedidoEntity;
 import entities.PedidoEntity;
 import entities.SucursalEntity;
 import entities.TalleEntity;
-import estados.EstadoAprobacionPedidoCliente;
+import entities.Usuario;
 import exceptions.PedidoException;
 import exceptions.SucursalException;
 import hbt.HibernateUtil;
 import negocio.Empleado;
-import negocio.ItemPedido;
 import negocio.Pedido;
 import negocio.Sucursal;
-import net.sourceforge.jtds.jdbc.DateTime;
 
 public class AdministracionDAO {
 	private static AdministracionDAO instancia;
@@ -486,6 +477,33 @@ public class AdministracionDAO {
 		
 		return listatdto;
 
+	}
+
+	public int crearUsuario(UsuarioDTO usuarioDTO) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Usuario usuario = new Usuario();
+		usuario.setEmail(usuarioDTO.getEmail());
+		usuario.setNombre(usuarioDTO.getNombre());
+		usuario.setIdEmpl(usuarioDTO.getIdEmpleado());
+		usuario.setCuit(usuarioDTO.getCuit());
+		usuario.setApellido(usuarioDTO.getApellido());
+		usuario.setUsername(usuarioDTO.getUsername());
+		usuario.setPass(usuarioDTO.getPass());
+		usuario.setFechaRegistracion(usuarioDTO.getFechaRegistracion());
+		int i= (int) session.save(usuario);
+		session.getTransaction().commit();
+		session.close();
+		return i;
+	}
+
+	public Usuario obtenerUsuario(UsuarioDTO usuarioDTO) {
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("From Usuario u where u.username =:username and u.pass =:pass");
+		query.setParameter("username", usuarioDTO.getUsername());
+		query.setParameter("pass", usuarioDTO.getPass());
+		return (Usuario) query.uniqueResult();
 	}
 
 }

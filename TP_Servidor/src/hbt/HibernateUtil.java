@@ -22,7 +22,6 @@ import entities.ItemMovimientoStockEntity;
 import entities.ItemOCMPEntity;
 import entities.ItemPedidoEntity;
 import entities.ItemPrendaEntity;
-import entities.ItemPrendaId;
 import entities.ItemPrendaStockEntity;
 import entities.ItemRemitoEntity;
 import entities.LineaProduccionEntity;
@@ -41,6 +40,7 @@ import entities.ReservasMPEntity;
 import entities.SucursalEntity;
 import entities.TalleEntity;
 import entities.UbicacionEntity;
+import entities.Usuario;
 
 public class HibernateUtil {
 	private static final SessionFactory sessionFactory;
@@ -85,7 +85,9 @@ public class HibernateUtil {
 			config.addAnnotatedClass(ItemBultoPrendaEntity.class);
 			config.addAnnotatedClass(ItemBultoMPEntity.class);
 			config.addAnnotatedClass(ReservasEntity.class);
-			config.addAnnotatedClass(ReservasMPEntity.class);			
+			config.addAnnotatedClass(ReservasMPEntity.class);		
+			config.addAnnotatedClass(Usuario.class);		
+			
 			sessionFactory=config.buildSessionFactory();
 		}catch(Throwable ex){
 			System.err.println("Initial SessionFactory creation failed." +ex);

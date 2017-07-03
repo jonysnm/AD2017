@@ -9,6 +9,7 @@ import controladores.ControladorSucursal;
 import dao.AdministracionDAO;
 import dto.EmpleadoDTO;
 import dto.SucursalDTO;
+import dto.UsuarioDTO;
 import interfazRemota.IAdmSucursalesControlador;
 import negocio.Sucursal;
 
@@ -115,6 +116,18 @@ public class Sucursales extends UnicastRemoteObject implements IAdmSucursalesCon
 
 	public List<EmpleadoDTO> getallEmpleadosbySucursal(Integer id) throws RemoteException {
 		return ControladorSucursal.getInstancia().getallEmpleadosbySucursal(id);
+	}
+
+	@Override
+	public int crearUsuario(UsuarioDTO usuarioDTO) throws RemoteException {
+		return  ControladorSucursal.getInstancia().crearUsuario(usuarioDTO);
+		
+	}
+
+	@Override
+	public UsuarioDTO obtenerUsuario(UsuarioDTO usuarioDTO) throws RemoteException {
+		return ControladorSucursal.getInstancia().obtenerUsuario(usuarioDTO);
+		 
 	}
 
 }

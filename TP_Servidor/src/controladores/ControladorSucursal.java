@@ -1,13 +1,13 @@
 package controladores;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import dao.AdministracionDAO;
 import dto.EmpleadoDTO;
 import dto.SucursalDTO;
-import exceptions.SucursalException;
+import dto.UsuarioDTO;
+import entities.Usuario;
 import negocio.Empleado;
 import negocio.Sucursal;
 
@@ -136,6 +136,27 @@ public class ControladorSucursal {
 
 	public List<EmpleadoDTO> getallEmpleadosbySucursal(Integer id) {
 		return AdministracionDAO.getInstancia().getallEmpleadosbySucursal(id);
+	}
+
+	public int crearUsuario(UsuarioDTO usuarioDTO) {
+		return AdministracionDAO.getInstancia().crearUsuario(usuarioDTO);
+		
+	}
+
+	public UsuarioDTO obtenerUsuario(UsuarioDTO usuarioDTO) {
+		Usuario usuario = AdministracionDAO.getInstancia().obtenerUsuario(usuarioDTO);
+		UsuarioDTO usuarioDTO2 = new UsuarioDTO();
+
+		usuarioDTO2.setApellido(usuario.getApellido());
+		usuarioDTO2.setEmail(usuario.getEmail());
+		usuarioDTO2.setFechaRegistracion(usuario.getFechaRegistracion());
+		usuarioDTO2.setId(usuario.getId());
+		usuarioDTO2.setCuit(usuario.getCuit());
+		usuarioDTO2.setIdEmpleado(usuario.getIdEmpl());
+		usuarioDTO2.setNombre(usuario.getNombre());
+		usuarioDTO2.setPass(usuario.getPass());
+		usuarioDTO2.setUsername(usuario.getUsername());
+		return usuarioDTO2;
 	}
 
 	
