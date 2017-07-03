@@ -27,6 +27,7 @@ public class ItemOCMPEntity implements Serializable {
 	@JoinColumn(name="idMateriaPrima")
 	private MateriaPrimaEntity materiaPrima;
 	private float cantidadSolicitada;
+	private float cantidadComprada;
 	private float costo;
 	
 	
@@ -106,6 +107,13 @@ public class ItemOCMPEntity implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	public float getCantidadComprada() {
+		return cantidadComprada;
+	}
+	public void setCantidadComprada(float cantidadComprada) {
+		this.cantidadComprada = cantidadComprada;
+	}
+	
 	
 	
 }

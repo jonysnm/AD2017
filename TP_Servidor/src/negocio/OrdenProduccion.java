@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import dao.AlmacenDAO;
+import dao.PedidoDAO;
 import entities.OrdenProduccionEntity;
 import estados.EstadoOrdenProduccion;
 
@@ -24,6 +25,7 @@ public class OrdenProduccion {
 	}
 	public OrdenProduccion(OrdenProduccionEntity ordenProduccionEntity) {
 		this.codigo=ordenProduccionEntity.getCodigo();
+
 	}
 	public int save(){
 		return AlmacenDAO.getInstancia().CrearOrdenProduccion(this);
@@ -133,4 +135,7 @@ public class OrdenProduccion {
 //	public void AsignarUbicacionDeposito(Object idLote) {
 //	
 //	}
+	public void update(){
+		AlmacenDAO.getInstancia().ModificarOrden(this);	
+	}
 }

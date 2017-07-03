@@ -3,6 +3,7 @@ package negocio;
 import java.util.Date;
 import java.util.List;
 
+import dao.AlmacenDAO;
 import dao.OCMPDAO;
 import entities.OCMPEntity;
 import entities.ProveedorEntity;
@@ -16,6 +17,8 @@ public class OCMP {
 	private Proveedor proveedor;
 	private Date fechaEntrega;
 	private EstadoOCMP estado;
+	
+
 
 	public int getId() {
 		return id;
@@ -131,13 +134,14 @@ public class OCMP {
 		oe.setEstado(this.getEstado());
 		oe.setFecha(this.getFecha());
 		oe.setFechaEntrega(this.getFechaEntrega());
-		oe.setProveedor(new ProveedorEntity().toEntiy());
-		
-	//completar
+		oe.setProveedor(new ProveedorEntity().toEntiy());	
 		return oe;
 	}
-	public void save() {
-		OCMPDAO.getInstancia().createOCMP(this);		
+	public int save() {
+		return OCMPDAO.getInstancia().createOCMP(this);		
+	}
+	public void update(){
+		AlmacenDAO.getInstancia().ModificarOrdenCompra(this);	
 	}
 	
 	

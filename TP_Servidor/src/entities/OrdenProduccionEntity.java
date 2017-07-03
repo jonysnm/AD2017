@@ -40,7 +40,7 @@ public class OrdenProduccionEntity implements Serializable {
 	private Date fecha;
 	@Enumerated(EnumType.STRING)
 	private EstadoOrdenProduccion estado;
-	@OneToMany(fetch=FetchType.LAZY)
+	@OneToMany(fetch=FetchType.EAGER)
 	@JoinColumn(name="idOrdenProduccion")
 	private List<OCMPEntity> ocmps;
 	private Date fechaEntrega;

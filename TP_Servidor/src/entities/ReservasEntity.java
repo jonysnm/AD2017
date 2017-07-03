@@ -67,15 +67,12 @@ public class ReservasEntity implements Serializable {
 	public void setItemBultoEntity(ItemBultoEntity itemBultoEntity) {
 		this.itemBultoEntity = itemBultoEntity;
 	}
-
 	public float getCantidad() {
 		return cantidad;
 	}
-
 	public void setCantidad(float cantidad) {
 		this.cantidad = cantidad;
 	}
-
 	public ItemPedidoEntity getItemPedidoEntity() {
 		return itemPedidoEntity;
 	}
@@ -83,20 +80,8 @@ public class ReservasEntity implements Serializable {
 	public void setItemPedidoEntity(ItemPedidoEntity itemPedidoEntity) {
 		this.itemPedidoEntity = itemPedidoEntity;
 	}
-
 	public void save() {
-	AlmacenDAO.getInstancia().NuevaReserva(this);
-		
+	AlmacenDAO.getInstancia().NuevaReserva(this);		
 	}
-
-//	public PedidoEntity getPedido() {
-//		return pedido;
-//	}
-//
-//	public void setPedido(PedidoEntity pedido) {
-//		this.pedido = pedido;
-//	}
-	
-
 
 }

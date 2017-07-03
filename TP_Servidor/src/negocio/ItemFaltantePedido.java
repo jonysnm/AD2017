@@ -6,10 +6,6 @@ public class ItemFaltantePedido {
 	private int id;
 	private Pedido pedido;
 	private float cantidadFaltante;
-	//private Prenda prenda;	
-	//private Talle talle;
-	//private Color color;
-	
 	private ItemPrenda itemPrenda;
 
 	public int getId() {
