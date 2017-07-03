@@ -367,6 +367,24 @@ public Pedido(){}
 				
 		return pedidosPendientesProcesarDTO;
 	}
+	public List<PedidosConFaltantesAProducirDTO> obtenerPedidosConFaltantes() {
+		List<Pedido> pedidos = AdministracionDAO.getInstancia().obtenerPedidosConFaltantes();//.obtenerPedidosPendientesdeAprobacion( idSucursal);
+		List<PedidosConFaltantesAProducirDTO> pedidosVista = new ArrayList<PedidosConFaltantesAProducirDTO>();
+		for (Pedido pedido : pedidos) {
+			pedidosVista.add(pedido.PedidosConFaltantesAProducirDTO());//ToPedidosPendientesAprobacionDTO());		
+			}
+		return pedidosVista;
+	}
+	private PedidosConFaltantesAProducirDTO PedidosConFaltantesAProducirDTO() {
+		PedidosConFaltantesAProducirDTO pedidosConFaltantesAProducirDTO = new PedidosConFaltantesAProducirDTO();
+		pedidosConFaltantesAProducirDTO.setId(this.getId());
+		pedidosConFaltantesAProducirDTO.setFechaCreacion(this.getFechaCreacion());
+		pedidosConFaltantesAProducirDTO.setFechaProbableDespacho(this.getFechaprobableDespacho());
+		pedidosConFaltantesAProducirDTO.setIdCliente(this.getCliente().getId());
+		pedidosConFaltantesAProducirDTO.setIdSucursal(this.getSucursal().getId());
+		pedidosConFaltantesAProducirDTO.setNombreCliente(this.getCliente().getNombre());
+		return pedidosConFaltantesAProducirDTO;
+	}
 			
 	//Fin Jonathan Methods
 

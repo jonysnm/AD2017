@@ -44,7 +44,9 @@ You are not logged in
      	<a href="altaBultoPrenda.jsp" target="_self">Alta Bulto Prenda</a> 
      	
      	<br>
-         <a href="ControladorWeb?action=obtener_pedidos_a_procesar" target="_self">Iniciar Procesamiento de Pedido</a>    
+         <a href="ControladorWeb?action=obtener_pedidos_a_procesar" target="_self">Iniciar Procesamiento de Pedido</a>
+         <br>
+         <a href="ControladorWeb?action=Obtener_Pedidos_Con_Faltantes" target="_self">Pedidos con faltantes</a>    
 
      	
 

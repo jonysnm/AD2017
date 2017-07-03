@@ -15,6 +15,7 @@ import dto.MateriaPrimaDTO;
 import dto.PedidoDTO;
 import dto.PedidoaDespacharDTO;
 import dto.PedidosCompletosPendientesDespacharDTO;
+import dto.PedidosConFaltantesAProducirDTO;
 import dto.PedidosPendientesAprobacionDTO;
 import dto.PedidosPendientesProcesarDTO;
 import dto.PrendaDTO;
@@ -128,6 +129,10 @@ public class BusinessDelegate {
 
 	//Methods Jonathan --> Pregutar antes de modificar
 		
+	public List<PedidosConFaltantesAProducirDTO> obtenerPedidosConFaltantes() throws RemoteException{
+		return interfazRemotaPuntoVenta.obtenerPedidosConFaltantes();	
+	}
+	
 	public List<PedidosPendientesAprobacionDTO> obtenerPedidosPendientesdeAprobacionPorCliente(int idCliente)throws RemoteException {
 		return interfazRemotaPuntoVenta.obtenerPedidosPendientesdeAprobacionPorCliente(idCliente);
 

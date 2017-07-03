@@ -525,4 +525,25 @@ public class AdministracionDAO {
 		return null;
 	}
 
+	public List<Pedido> obtenerPedidosConFaltantes() {
+		try {
+			Session session = sf.openSession();
+
+			@SuppressWarnings("unchecked")
+			List<PedidoEntity> lista = session.createQuery("from PedidoEntity where estado='EnEsperaFinalizacionOrdendeProduccion'").list();
+			session.close();			
+			
+			List<Pedido> pedidos = new ArrayList<Pedido>();
+			//OJO NO USAR EL CONSTRUCTOR DE NEW PEDIDO HACERLE LOS SETTERS A MANO
+			for (PedidoEntity pedidoEntity : lista) {
+				pedidos.add(new Pedido(pedidoEntity));
+			}			
+			return pedidos;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("ErrorDAO: AdministracionDAO: Listar Pedidos");
+		}
+		return null;
+	}
+
 }

@@ -13,6 +13,7 @@ import dto.FacturaDTO;
 import dto.ItemPrendaDTO;
 import dto.MateriaPrimaDTO;
 import dto.PedidoDTO;
+import dto.PedidosConFaltantesAProducirDTO;
 import dto.PedidosPendientesAprobacionDTO;
 import dto.PrendaDTO;
 import dto.StockActualDTO;
@@ -207,6 +208,10 @@ public class PuntoDeVenta extends UnicastRemoteObject implements IPuntoDeVentaCo
 	public void IniciarProcesamientoPedido(int idPedidoaProcesar) throws RemoteException {
 		ControladorPedido.getInstancia().IniciarProcesamientoPedidoAprobado(idPedidoaProcesar);	
 		
+	}
+	@Override
+	public List<PedidosConFaltantesAProducirDTO> obtenerPedidosConFaltantes() throws RemoteException {
+		return ControladorPedido.getInstancia().obtenerPedidosConFaltantes();
 	}
 
 

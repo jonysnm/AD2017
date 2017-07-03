@@ -17,6 +17,7 @@ import dto.ColorDTO;
 import dto.ItemPedidoDTO;
 import dto.ItemPrendaDTO;
 import dto.PedidoDTO;
+import dto.PedidosConFaltantesAProducirDTO;
 import dto.PedidosPendientesAprobacionDTO;
 import dto.PedidosPendientesProcesarDTO;
 import dto.PrendaDTO;
@@ -458,6 +459,11 @@ public class ControladorPedido {
 		Pedido pedidoNegocio = new Pedido();
 		return pedidoNegocio.obtenerPedidosPendientesdeProcesar();//.obtenerPedidosPendientesdeAprobacion(idSucursal);
 		
+	}
+
+	public List<PedidosConFaltantesAProducirDTO> obtenerPedidosConFaltantes() {
+		Pedido pedidoNegocio = new Pedido();
+		return pedidoNegocio.obtenerPedidosConFaltantes();
 	}
 
 }

@@ -23,6 +23,7 @@ import dto.MateriaPrimaDTO;
 import dto.PedidoDTO;
 import dto.PedidoaDespacharDTO;
 import dto.PedidosCompletosPendientesDespacharDTO;
+import dto.PedidosConFaltantesAProducirDTO;
 import dto.PedidosPendientesAprobacionDTO;
 import dto.PedidosPendientesProcesarDTO;
 import dto.StockActualDTO;
@@ -128,15 +129,43 @@ public class ControladorWeb extends HttpServlet {
 			e.printStackTrace();
 		}
 			break;	
+			
+			
+		case "Iniciar_Produccion":
+			int idPedidoaProducir = Integer.parseInt(request.getParameter("hdnIdPedidoaProducir"));			
+			String mensaje="";									
+			//BusinessDelegate.getInstancia().   (idPedidoaProcesar);
+			mensaje="Se iniciara la produccion del peido: "+ Integer.toString(idPedidoaProducir);			
+			request.setAttribute("Mensaje", mensaje);
+			jspPage = "/Confirmaciones.jsp";			
+			
+			break;
 		
-		
+		case "Obtener_Pedidos_Con_Faltantes":			
+			
+			List<PedidosConFaltantesAProducirDTO> lstPedidosConFaltantesAProducirDTO = BusinessDelegate.getInstancia().obtenerPedidosConFaltantes();
+			request.setAttribute("lstPedidosConFaltantesAProducirDTO", lstPedidosConFaltantesAProducirDTO);
+			
+			mensaje="";	
+			if(lstPedidosConFaltantesAProducirDTO.size()==0)
+			{
+				mensaje="No registra con faltantes a producir";
+				request.setAttribute("Mensaje",mensaje);
+				jspPage = "/Confirmaciones.jsp";
+			}
+			else
+			{
+				request.setAttribute("lstPedidosConFaltantesAProducirDTO",lstPedidosConFaltantesAProducirDTO);
+				jspPage = "/ProduccionFaltantes.jsp";
+			}
+			break;		
+			
 		case "aprobar_rechazar_pedidos": //1-obtengo los pedidos pendientes de aprobar por el gerente de la sucursal
 			
-			//TODO: falta armar logica login para obtener sucursal de la session
 			List<PedidosPendientesAprobacionDTO> lstPedidosPendientesAprobacionDTO = BusinessDelegate.getInstancia().obtenerPedidosPendientesdeAprobacion(1);
 			request.setAttribute("lstPedidosPendientesAprobacionDTO", lstPedidosPendientesAprobacionDTO);
 			
-			String mensaje="";	
+			 mensaje="";	
 			if(lstPedidosPendientesAprobacionDTO.size()==0)
 			{
 				mensaje="No registra pedidos pendientes de aprobacion";
