@@ -64,7 +64,7 @@ public class AgregarDatos {
 //	ip.add(ipp);
 //	p1.setItemPrendas(ip);
 //	PedidoDAO.getInstancia().AltaPrenda(p1);
-<<<<<<< HEAD
+
 ///*
 	
 	Ubicacion u=new Ubicacion();
@@ -101,7 +101,7 @@ public class AgregarDatos {
 		pp=AlmacenDAO.getInstancia().obtenerDisponiblePorPrenda(it);
 		System.out.printf("Cantidad:%f", pp);
 	}	
-		*/
+		
 	
 //	ControladorPedido.getInstancia().IniciarProcesamientoPedidoAprobado(1);
 	}
