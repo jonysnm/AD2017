@@ -61,16 +61,18 @@ public class PedidoDAO {
 			pe.setSucursal((SucursalEntity)session.get(SucursalEntity.class, pedido.getSucursal().getId()));
 			pe.setFechaCreacion(pedido.getFechaCreacion());
 			pe.setEstado(pedido.getEstado());
-			
 			List<ItemPedidoEntity> itemPedidoEntities = new ArrayList<ItemPedidoEntity>();
 			
 			for (ItemPedido i: pedido.getItems()) {
+				float importeTotalItemPedido = 0;
 				ItemPedidoEntity itemPedidoEntity = new ItemPedidoEntity();
 				itemPedidoEntity.setCantidad(i.getCantidad());
 				itemPedidoEntity.setImporte(i.getImporte());
 				
 				ItemPrenda iPrenda = i.getItemprenda();
 				ItemPrendaEntity ip =  (ItemPrendaEntity) session.get(ItemPrendaEntity.class, iPrenda.getIditemPrenda());
+				importeTotalItemPedido = importeTotalItemPedido + ip.getCostoProduccionActual() * itemPedidoEntity.getCantidad();
+				itemPedidoEntity.setImporte(importeTotalItemPedido);
 				itemPedidoEntity.setIprenda(ip);
 
 				itemPedidoEntities.add(itemPedidoEntity);			

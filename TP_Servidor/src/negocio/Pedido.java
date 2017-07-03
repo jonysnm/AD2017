@@ -238,7 +238,7 @@ public Pedido(){}
 		//TODO: peddto.setContieneDiscontinuosyHaystock(this.TengoDiscontinuossinStock()); Harcodeado para testing
 		peddto.setContieneDiscontinuosyHaystock(false);		
 		//TODO:peddto.setSaldoCtaCte(this.getCliente().getCtacte().getSaldo());Harcodeado para testing
-		peddto.setSaldoCtaCte(80000);
+		peddto.setSaldoCtaCte(this.getCliente().getCtacte().getSaldo());
 		return peddto;
 	}
 	

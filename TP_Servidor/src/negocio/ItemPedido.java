@@ -8,7 +8,7 @@ public class ItemPedido {
 	private Float cantidad;
 	private ItemPrenda itemprenda;
 	private Pedido pedido;
-	private int importe;
+	private float importe;
 
 	public ItemPedido(){}
 	
@@ -50,21 +50,10 @@ public class ItemPedido {
 
 
 
-	public int getImporte() {
-		return importe;
-	}
-
-
-
-	public void setImporte(int importe) {
-		this.importe = importe;
-	}
-
-
 
 	public ItemPedido(ItemPedidoEntity ipe){
 		this.IdItemPedido=ipe.getIdItemPedido();
-		this.importe=ipe.getImporte();
+		this.setImporte(ipe.getImporte());
 		this.itemprenda=new ItemPrenda(ipe.getIprenda());	
 		this.cantidad=ipe.getCantidad();
 	}	
@@ -122,6 +111,18 @@ public class ItemPedido {
 			itemPedidoReturn.setPedido(this.getPedido().toEntity());
 			
 			return itemPedidoReturn;
+		}
+
+
+
+		public float getImporte() {
+			return importe;
+		}
+
+
+
+		public void setImporte(float importe) {
+			this.importe = importe;
 		}
 
 

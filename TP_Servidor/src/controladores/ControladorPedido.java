@@ -140,6 +140,7 @@ public class ControladorPedido {
 
 			if (lstItemsFaltantesPedido.size() == 0) {
 				this.cambiarEstadoPedido(idPedido, EstadoAprobacionPedidoCliente.Completo);
+				
 			} else {
 				this.cambiarEstadoPedido(idPedido, EstadoAprobacionPedidoCliente.EnEsperaFinalizacionOrdendeProduccion);
 				DefiniryCrearTipoOrdenProduccion(lstItemsFaltantesPedido);

@@ -206,6 +206,7 @@ public class BusinessDelegate {
 		return interfazRemotaPuntoVenta.obtenerItemPrenda();
 	}
 
+	
 	public void bajaEmpleado(EmpleadoDTO e)throws RemoteException{
 		interfazRemotaSucursales.elminarEmpleado(e);
 	}
