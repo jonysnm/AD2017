@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -55,7 +56,9 @@ public class ProveedorDAO {
 	public Proveedor obtenerMejorProveedor(){
 		Session session = sf.openSession();
 		session.beginTransaction();
-		ProveedorEntity proveedorEntity = (ProveedorEntity) session.createQuery("From ProveedorEntity pe where min(pe.ranking)").uniqueResult();
+		Query query=session.createSQLQuery("select * from Proveedores pe where pe.ranking<=(select min(pe.ranking) from Proveedores pe").addEntity(ProveedorEntity.class);
+		ProveedorEntity proveedorEntity;
+		proveedorEntity=(ProveedorEntity) query.list();
 		Proveedor proveedor = new Proveedor();
 		proveedor.setCuit(proveedorEntity.getCuit());
 		proveedor.setDireccion(proveedorEntity.getDireccion());
@@ -63,7 +66,8 @@ public class ProveedorDAO {
 		proveedor.setRazonSocial(proveedorEntity.getRazonSocial());
 		proveedor.setTelefono(proveedorEntity.getTelefono());
 		return proveedor;
+		}
+		
 	}
 	
-	
-}
+
