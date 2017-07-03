@@ -115,7 +115,8 @@ public class ControladorPedido {
 				// y en base a eso vaya insertando en la tabla de
 				// Reservas que bultos tiene reservado que cantidad y para que
 				// pedido en particular
-				
+				Almacen.getInstancia().ReservarItemsPrendas(lstItemBultoPrenda, itemPedido.getCantidad(),p,
+						itemPedido);
 				
 
 				if (cantidadFaltante > 0) // significa que hay faltante
@@ -130,9 +131,6 @@ public class ControladorPedido {
 					// itemFaltantePedido.setColor(itemPedido.getItemprenda().getColor());
 					// itemFaltantePedido.setTalle(itemPedido.getItemprenda().getTalle());
 					lstItemsFaltantesPedido.add(itemFaltantePedido);
-				}else{
-					Almacen.getInstancia().ReservarItemsPrendas(lstItemBultoPrenda, itemPedido.getCantidad(),p,
-							itemPedido);
 				}
 
 			}
@@ -153,9 +151,8 @@ public class ControladorPedido {
 	}
 
 	private void GuardarItemsFaltantePedido(List<ItemFaltantePedido> lstItemsFaltantesPedido) {
-		PedidoDAO pedidoDao = PedidoDAO.getInstancia();
 		for (ItemFaltantePedido itemFaltantePedido : lstItemsFaltantesPedido) {
-			pedidoDao.NuevoItemFaltantePedido(itemFaltantePedido);
+			PedidoDAO.getInstancia().NuevoItemFaltantePedido(itemFaltantePedido);
 		}
 	}
 
@@ -200,7 +197,6 @@ public class ControladorPedido {
 				if (!lstIDsPrendasYaGeneradas.contains(idPrenda)) {
 					lstIDsPrendasYaGeneradas.add(idPrenda);
 					CrearOrdenProduccionParcial(itemFaltantePedido);
-					
 					ItemFaltantePedido i1 = new ItemFaltantePedido();
 					ItemFaltantePedido i2 = new ItemFaltantePedido();
 					ItemFaltantePedido i3 = new ItemFaltantePedido();
@@ -238,6 +234,8 @@ public class ControladorPedido {
 			float cantidadFaltante = ((itt.getDespedicio() + itt.getCantidadutilizada())
 					* (itemFaltantePedido.getCantidadFaltante()))
 					- Almacen.getInstancia().CalcularDisponibleEnMP(lstItemBultoMP);
+			
+			Almacen.getInstancia().ReservarItemsMP(lstItemBultoMP,((itt.getDespedicio()+itt.getCantidadutilizada())*itemFaltantePedido.getCantidadFaltante()),or);
 
 			if (cantidadFaltante > 0) // significa que hay faltante de insumo
 			{
@@ -245,11 +243,10 @@ public class ControladorPedido {
 				itemFaltanteInsumo.setMateriaPrima(itt.getMateriaprima());
 				itemFaltanteInsumo.setCantidadFaltante(cantidadFaltante);
 				lstItemsFaltanteInsumo.add(itemFaltanteInsumo);
-			}
-
+			}else{
 			// reservoo para que no utilicen esa mp
-			Almacen.getInstancia().ReservarItemsMP(lstItemBultoMP, itemFaltantePedido.getCantidadFaltante(), or);
-
+			//Almacen.getInstancia().ReservarItemsMP(lstItemBultoMP,((itt.getDespedicio()+itt.getCantidadutilizada())*itemFaltantePedido.getCantidadFaltante()),or);
+			}
 		}
 		// camino feliz
 		if (!tieneFaltante) {

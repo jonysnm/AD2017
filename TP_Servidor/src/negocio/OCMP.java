@@ -5,6 +5,7 @@ import java.util.List;
 
 import dao.OCMPDAO;
 import entities.OCMPEntity;
+import entities.ProveedorEntity;
 import estados.EstadoOCMP;
 
 
@@ -15,6 +16,7 @@ public class OCMP {
 	private Proveedor proveedor;
 	private Date fechaEntrega;
 	private EstadoOCMP estado;
+
 	public int getId() {
 		return id;
 	}
@@ -51,6 +53,9 @@ public class OCMP {
 	public void setEstado(EstadoOCMP estado) {
 		this.estado = estado;
 	}
+	
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -126,6 +131,8 @@ public class OCMP {
 		oe.setEstado(this.getEstado());
 		oe.setFecha(this.getFecha());
 		oe.setFechaEntrega(this.getFechaEntrega());
+		oe.setProveedor(new ProveedorEntity().toEntiy());
+		
 	//completar
 		return oe;
 	}

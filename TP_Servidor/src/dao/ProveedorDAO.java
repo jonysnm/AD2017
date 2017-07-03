@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -8,9 +9,12 @@ import org.hibernate.SessionFactory;
 
 import dto.MateriaPrimaDTO;
 import dto.ProveedorDTO;
+import entities.ItemBultoPrendaEntity;
 import entities.MateriaPrimaEntity;
+import entities.PrendaEntity;
 import entities.ProveedorEntity;
 import hbt.HibernateUtil;
+import negocio.Prenda;
 import negocio.Proveedor;
 
 public class ProveedorDAO {
@@ -53,21 +57,26 @@ public class ProveedorDAO {
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Proveedor obtenerMejorProveedor(){
+		Proveedor proveedor = new Proveedor();
 		Session session = sf.openSession();
 		session.beginTransaction();
-		Query query=session.createSQLQuery("select * from Proveedores pe where pe.ranking<=(select min(pe.ranking) from Proveedores pe").addEntity(ProveedorEntity.class);
-		ProveedorEntity proveedorEntity;
-		proveedorEntity=(ProveedorEntity) query.list();
-		Proveedor proveedor = new Proveedor();
-		proveedor.setCuit(proveedorEntity.getCuit());
-		proveedor.setDireccion(proveedorEntity.getDireccion());
-		proveedor.setRanking(proveedorEntity.getRanking());
-		proveedor.setRazonSocial(proveedorEntity.getRazonSocial());
-		proveedor.setTelefono(proveedorEntity.getTelefono());
-		return proveedor;
+		String hql = "FROM ProveedorEntity P ";
+        List<ProveedorEntity> query = session.createQuery(hql).list();
+		for(ProveedorEntity proveedorEntity:query){
+			if(proveedorEntity.getRanking()==1){
+			proveedor.setCuit(proveedorEntity.getCuit());
+			proveedor.setDireccion(proveedorEntity.getDireccion());
+			proveedor.setRanking(proveedorEntity.getRanking());
+			proveedor.setRazonSocial(proveedorEntity.getRazonSocial());
+			proveedor.setTelefono(proveedorEntity.getTelefono());
+			}
 		}
-		
+		session.getTransaction().commit();
+		session.flush();
+		session.close();
+		return proveedor;
 	}
-	
+}
 

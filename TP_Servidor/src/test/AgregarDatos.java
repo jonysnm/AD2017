@@ -65,12 +65,14 @@ public class AgregarDatos {
 //	p1.setItemPrendas(ip);
 //	PedidoDAO.getInstancia().AltaPrenda(p1);
 ///*
+	
 	Ubicacion u=new Ubicacion();
 	ItemBultoPrenda ibpr=new ItemBultoPrenda();
 	ibpr.setCantidad(40);
 	ibpr.setCantidadReservada(10);
 	ibpr.setTipo("IBPRENDA");
 	ibpr.setItemPrenda(PedidoDAO.getInstancia().getItemPrenda(1));
+	ibpr.setCodigoUbicacion("A010320");
 	u.setBulto(ibpr);
 	AlmacenDAO.getInstancia().nuevaUbicacion(u);
 	
@@ -88,7 +90,7 @@ public class AgregarDatos {
 	materiaPrima.setCantidadPtoPedido(40);
 	materiaPrima.setNombre("Tela");
 	ibmp.setMateriaPrima(materiaPrima);
-	ibmp.setCodigoUbicacion("A010320");
+	ibmp.setCodigoUbicacion("H010320");
 	uMP.setBulto(ibmp);
 	AlmacenDAO.getInstancia().nuevaUbicacionMP(uMP);
 //	*/

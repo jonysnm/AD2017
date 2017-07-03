@@ -90,6 +90,7 @@ public class AlmacenDAO {
 				ibpre.setItemPrenda(ip);
 				ibpre.setCantidad(ib.getCantidad());
 				ibpre.setCantidadReservada(ib.getCantidadReservada());
+				ibpre.setCodigoUbicacion(ib.getCodigoUbicacion());
 				ub.setBulto(ibpre);
 				session.save(ub);
 				session.getTransaction().commit();

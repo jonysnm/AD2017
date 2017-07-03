@@ -25,6 +25,9 @@ public class ProveedorEntity implements Serializable{
 	private int ranking;
 	
 	
+	public ProveedorEntity() {
+		super();
+	}
 	public int getId() {
 		return id;
 	}
@@ -63,6 +66,15 @@ public class ProveedorEntity implements Serializable{
 	}
 	public void setRanking(int ranking) {
 		this.ranking = ranking;
+	}
+	public ProveedorEntity toEntiy() {
+		ProveedorEntity pr = new ProveedorEntity();
+		pr.setCuit(this.getCuit());
+		pr.setDireccion(this.getDireccion());
+		pr.setRanking(this.getRanking());
+		pr.setRazonSocial(this.getRazonSocial());
+		pr.setTelefono(this.getTelefono());
+		return pr;
 	}
 	
 	
